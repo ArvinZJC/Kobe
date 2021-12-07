@@ -17,8 +17,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "@headlessui/vue": "^1.4.2",
-    "@heroicons/vue": "^1.0.5",
+    "@syncfusion/ej2-vue-grids": "^19.3.57",
     "core-js": "^3.19.3",
     "vue": "^3.2.24"
   },
@@ -27,14 +26,11 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.2.24",
-    "autoprefixer": "^9.8.8",
     "babel-eslint": "^10.1.0",
     "electron": "^16.0.4",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^7.20.0",
-    "postcss": "^7.0.39",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue-cli-plugin-electron-builder": "~2.1.1"
   },
   "eslintConfig": {
