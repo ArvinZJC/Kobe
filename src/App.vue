@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20211207
+ * @Version: 1.0.0.20211209
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-07 23:03:02
+ * @LastEditTime: 2021-12-09 10:36:51
 -->
 
 <template>
@@ -25,25 +25,13 @@
 
 <script>
 import { GridComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-vue-grids";
-import "../node_modules/@syncfusion/ej2-base/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-calendars/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css";
-import "../node_modules/@syncfusion/ej2-vue-grids/styles/tailwind.css";
 
 export default {
-  name: "App",
-  // Declaring component and its directives
   components: {
     "ejs-grid": GridComponent,
     "e-columns": ColumnsDirective,
     "e-column": ColumnDirective,
   },
-  // Bound properties declarations
   data() {
     return {
       data: [
@@ -62,3 +50,15 @@ export default {
   },
 };
 </script>
+
+<style>
+@import "../node_modules/@syncfusion/ej2-base/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-vue-grids/styles/tailwind.css";
+</style> 
