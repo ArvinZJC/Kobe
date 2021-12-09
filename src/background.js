@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20211207
+ * @Version: 1.0.0.20211209
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-07 00:09:22
+ * @LastEditTime: 2021-12-09 02:05:38
  */
 
 "use strict";
@@ -25,9 +25,9 @@ async function createWindow() {
     height: 600,
     title: app.name,
     webPreferences: {
+      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       devTools: isDev,
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
     },
     width: 800,
   });
