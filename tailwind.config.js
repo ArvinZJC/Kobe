@@ -1,17 +1,17 @@
 /*
  * @Description: Tailwind CSS configuration
- * @Version: 1.0.0.20211208
+ * @Version: 1.0.1.20211211
  * @Author: Arvin Zhao
  * @Date: 2021-12-08 00:32:57
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-08 00:36:39
+ * @LastEditTime: 2021-12-11 18:33:38
  */
 
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   darkMode: "class",
-  purge: ["./public/**/*.html", "./src/**/*.{js,vue}"],
+  content: ["./public/**/*.html", "./src/**/*.{js,vue}"],
   theme: {
     extend: {
       fontFamily: {
