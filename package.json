@@ -1,7 +1,7 @@
 {
   "name": "kobe",
   "productName": "神户座",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha.1",
   "description": "神户座是一个用来帮助用户搜索股票成交价和成交量的应用程序，可看作是对分价表的组合加工。",
   "license": "GPL-3.0",
   "author": {
@@ -24,6 +24,7 @@
     "postuninstall": "electron-builder install-app-deps"
   },
   "dependencies": {
+    "@syncfusion/ej2-vue-dropdowns": "^19.3.56",
     "@syncfusion/ej2-vue-grids": "^19.3.57",
     "core-js": "^3.19.3",
     "vue": "^3.2.24"

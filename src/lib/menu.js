@@ -1,10 +1,10 @@
 /*
- * @Description: the menu component
- * @Version: 1.0.0.20211207
+ * @Description: the script customising the app menu
+ * @Version: 1.0.0.20211213
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-07 00:08:48
+ * @LastEditTime: 2021-12-13 17:59:48
  */
 
 import { app, Menu, shell } from "electron";

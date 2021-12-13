@@ -1,10 +1,10 @@
 /*
  * @Description: Vue configuration
- * @Version: 1.0.0.20211212
+ * @Version: 1.0.0.20211213
  * @Author: Arvin Zhao
  * @Date: 2021-12-09 00:57:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-12 23:54:58
+ * @LastEditTime: 2021-12-13 18:40:31
  */
 
 module.exports = {
@@ -30,6 +30,7 @@ module.exports = {
           runAfterFinish: false,
         },
       },
+      preload: "./src/preload.js",
     },
   },
 };
