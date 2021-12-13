@@ -2,10 +2,18 @@
   "name": "kobe",
   "productName": "神户座",
   "version": "1.0.0-alpha",
-  "description": "Kobe (神户座) is a Windows/macOS app that can search stocks' strike prices and volumes for users.",
-  "author": "Arvin Zhao",
+  "description": "神户座是一个用来帮助用户搜索股票成交价和成交量的应用程序，可看作是对分价表的组合加工。",
   "license": "GPL-3.0",
+  "author": {
+    "name": "ArvinZJC",
+    "email": "SteveJobz@isarvin.com"
+  },
+  "homepage": "https://isarvin.com",
+  "repository": {
+    "url": "https://github.com/ArvinZJC/Kobe"
+  },
   "private": true,
+  "main": "background.js",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -15,7 +23,6 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "main": "background.js",
   "dependencies": {
     "@syncfusion/ej2-vue-grids": "^19.3.57",
     "core-js": "^3.19.3",
