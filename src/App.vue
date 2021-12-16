@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-13 13:06:06
+ * @LastEditTime: 2021-12-13 22:58:46
 -->
 
 <template>
@@ -41,5 +41,6 @@ export default {
 @import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
 @import "../node_modules/@syncfusion/ej2-vue-grids/styles/tailwind.css";
 </style>
