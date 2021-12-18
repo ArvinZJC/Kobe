@@ -1,10 +1,12 @@
 """
+'''
 Description: a stock list raw data retriever
-Version: 1.0.0.20211216
+Version: 1.0.0.20211218
 Author: Arvin Zhao
 Date: 2021-12-16 19:54:01
 Last Editors: Arvin Zhao
-LastEditTime: 2021-12-16 20:30:14
+LastEditTime: 2021-12-18 09:31:12
+'''
 """
 
 import os
@@ -31,10 +33,10 @@ def retrieve() -> pd.DataFrame | None:
 
     ts_pro = ts.pro_api(token=token)  # Initialise Tushare Pro API with the token.
     return ts_pro.stock_basic(
-        exchange="", list_status="L", fields="ts_code, name"
+        fields="ts_code, name"
     )  # Use the specified API to get the specified data object.
 
 
 # For simple tests only.
 if __name__ == "__main__":
-    retrieve()
+    print(retrieve())

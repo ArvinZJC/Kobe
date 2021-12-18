@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20211213
+ * @Version: 1.0.0.20211218
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-13 22:58:46
+ * @LastEditTime: 2021-12-18 22:09:31
 -->
 
 <template>
@@ -32,15 +32,16 @@ export default {
 };
 </script>
 
+<!-- AutoComplete, Button, DateRangePicker, and Tooltip. -->
 <style>
 @import "../node_modules/@syncfusion/ej2-base/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-calendars/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-vue-buttons/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-vue-calendars/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-vue-grids/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-vue-popups/styles/tailwind.css";
 </style>

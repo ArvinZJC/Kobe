@@ -1,10 +1,12 @@
 """
+'''
 Description: a stock list data updater
-Version: 1.0.0.20211216
+Version: 1.0.0.20211218
 Author: Arvin Zhao
 Date: 2021-12-16 20:36:26
 Last Editors: Arvin Zhao
-LastEditTime: 2021-12-16 20:36:26
+LastEditTime: 2021-12-18 03:33:33
+'''
 """
 
 import json

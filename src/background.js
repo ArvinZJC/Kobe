@@ -1,16 +1,17 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20211217
+ * @Version: 1.0.0.20211218
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-17 23:38:23
+ * @LastEditTime: 2021-12-18 21:43:44
  */
 
 import { app, BrowserWindow, ipcMain, protocol, screen } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 
+import * as StockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
 import { updateAppMenu } from "./lib/menu.js";
 
@@ -101,18 +102,7 @@ if (isDev) {
 } // end if
 
 // Process the stock list data from the specific JSON file.
-var stockList = JSON.parse(
-  require("fs").readFileSync(
-    path.join(
-      path.dirname(__dirname),
-      "extensions",
-      "StockList",
-      "StockList.json"
-    )
-  )
-);
-
-Array.prototype.forEach.call(stockList, (element, index, array) => {
+Array.prototype.forEach.call(StockList["default"], (element, index, array) => {
   var symbolParts = element[global.common.STOCK_SYMBOL_KEY].split("."); // Split the original value of the stock symbol key (e.g., "601006.SZ" => {"601006", "SZ"}).
 
   array[index][global.common.STOCK_SYMBOL_KEY] =
@@ -124,6 +114,6 @@ ipcMain.on(global.common.IPC_SEND, (event, data) => {
   } // end if
 
   if (data === global.common.GET_STOCK_LIST) {
-    win.webContents.send(global.common.IPC_RECEIVE, stockList);
+    win.webContents.send(global.common.IPC_RECEIVE, StockList["default"]);
   } // end if
 });
