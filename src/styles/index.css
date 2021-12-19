@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-18 18:11:38
+ * @LastEditTime: 2021-12-18 22:31:34
  */
 
 @tailwind base;
@@ -28,14 +28,19 @@
     @apply bg-gray-50 dark:bg-gray-900 grow min-h-screen relative;
   }
 
+  /* Content text. */
+  .text-content {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
   /* Primary text. */
   .text-primary {
     @apply text-gray-900 dark:text-gray-50;
   }
 
-  /* Content text. */
-  .text-content {
-    @apply text-gray-500 dark:text-gray-400;
+  /* Secondary text. */
+  .text-secondary {
+    @apply text-gray-600 dark:text-gray-300;
   }
 
   /* Transition for the opacity property within 300ms. */
@@ -49,10 +54,17 @@
   content: "\e72f";
 }
 
+/* The customised grid style. */
 .e-grid {
   @apply mx-4 sm:mx-6 lg:mx-8;
 }
 
+/* The customised general icon style. */
 .e-icons {
   @apply text-xl;
+}
+
+/* The search icon. */
+.e-search {
+  content: "\e737";
 }

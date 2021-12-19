@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-18 18:11:38
+ * @LastEditTime: 2021-12-18 22:31:34
  */
 
 /*
@@ -610,18 +610,6 @@ body {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
-/* Primary text. */
-
-.text-primary {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.dark .text-primary {
-  --tw-text-opacity: 1;
-  color: rgb(249 250 251 / var(--tw-text-opacity));
-}
-
 /* Content text. */
 
 .text-content {
@@ -634,6 +622,30 @@ body {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+/* Primary text. */
+
+.text-primary {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.dark .text-primary {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
+}
+
+/* Secondary text. */
+
+.text-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.dark .text-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 /* Transition for the opacity property within 300ms. */
 
 /* The help icon. */
@@ -641,6 +653,8 @@ body {
 .e-circle-help {
   content: "\e72f";
 }
+
+/* The customised grid style. */
 
 .e-grid {
   margin-left: 1rem;
@@ -661,9 +675,17 @@ body {
   }
 }
 
+/* The customised general icon style. */
+
 .e-icons {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+/* The search icon. */
+
+.e-search {
+  content: "\e737";
 }
 
 @media (prefers-reduced-motion: no-preference) {

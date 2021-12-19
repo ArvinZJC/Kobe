@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-18 22:10:54
+ * @LastEditTime: 2021-12-18 22:31:44
 -->
 
 <template>
@@ -24,7 +24,7 @@
         :content="locale.STOCK_SYMBOL_TOOLTIP"
         class="flex items-center"
       >
-        <span class="e-circle-help e-icons"></span>
+        <span class="e-circle-help e-icons text-secondary"></span>
       </ejs-tooltip>
     </div>
     <!-- The date range picker. -->
@@ -39,12 +39,13 @@
         :content="locale.DATE_RANGE_TOOLTIP"
         class="flex items-center"
       >
-        <span class="e-circle-help e-icons"></span>
+        <span class="e-circle-help e-icons text-secondary"></span>
       </ejs-tooltip>
     </div>
     <ejs-button
       :content="locale.SEARCH"
-      class="w-full"
+      cssClass="e-block"
+      iconCss="e-icons e-search"
       isPrimary="true"
     ></ejs-button>
   </form>
