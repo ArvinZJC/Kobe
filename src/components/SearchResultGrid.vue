@@ -1,10 +1,10 @@
 <!--
- * @Description: the data grid component
- * @Version: 1.0.0.20211212
+ * @Description: the search result grid component
+ * @Version: 1.0.0.20211228
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-12 10:13:28
+ * @LastEditTime: 2021-12-28 12:51:13
 -->
 
 <template>
@@ -33,16 +33,16 @@
 
 <script>
 import {
-  GridComponent,
-  ColumnsDirective,
   ColumnDirective,
+  ColumnsDirective,
+  GridComponent,
 } from "@syncfusion/ej2-vue-grids";
 
 export default {
   components: {
-    "ejs-grid": GridComponent,
-    "e-columns": ColumnsDirective,
     "e-column": ColumnDirective,
+    "e-columns": ColumnsDirective,
+    "ejs-grid": GridComponent,
   },
   data() {
     return {

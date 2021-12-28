@@ -1,10 +1,10 @@
 <!--
- * @Description: the home view
+ * @Description: the search result view
  * @Version: 1.0.0.20211228
  * @Author: Arvin Zhao
- * @Date: 2021-12-11 18:56:32
+ * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-28 12:52:12
+ * @LastEditTime: 2021-12-28 12:52:47
 -->
 
 <template>
@@ -37,6 +37,7 @@ export default {
   mounted() {
     this.logo = LogoDark;
     this.logo = Logo; // TODO: dark mode
+    console.log(this.$route.query);
   },
 };
 </script>

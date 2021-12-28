@@ -1,0 +1,15 @@
+{
+  "zh-Hans": {
+    "daterangepicker": {
+      "applyText": "确认",
+      "cancelText": "取消",
+      "days": "天",
+      "endLabel": "结束日期",
+      "selectedDays": "选定天数",
+      "startLabel": "开始日期"
+    },
+    "dropdowns": {
+      "noRecordsTemplate": "未能匹配上市股票的代码"
+    }
+  }
+}

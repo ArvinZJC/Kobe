@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20211218
+ * @Version: 1.0.0.20211223
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-18 22:31:34
+ * @LastEditTime: 2021-12-23 00:03:14
  */
 
 @tailwind base;
@@ -13,7 +13,7 @@
 
 @layer base {
   body {
-    @apply bg-white dark:bg-black;
+    @apply bg-gray-50 dark:bg-gray-900;
   }
 }
 
@@ -25,7 +25,7 @@
 
   /* Container for a view. */
   .container-view {
-    @apply bg-gray-50 dark:bg-gray-900 grow min-h-screen relative;
+    @apply grow min-h-screen relative;
   }
 
   /* Content text. */
