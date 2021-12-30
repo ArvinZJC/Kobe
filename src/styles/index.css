@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20211223
+ * @Version: 1.0.0.20211229
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-23 00:03:14
+ * @LastEditTime: 2021-12-29 00:18:54
  */
 
 @tailwind base;
@@ -21,6 +21,16 @@
   /* Container for a general block. */
   .container-block {
     @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Container for a navbar. */
+  .container-navbar {
+    @apply bg-white dark:bg-black fixed w-full z-40;
+  }
+
+  /* Container for the root. */
+  .container-root {
+    @apply antialiased flex flex-col font-sans;
   }
 
   /* Container for a view. */
@@ -50,8 +60,8 @@
 }
 
 /* The help icon. */
-.e-circle-help {
-  content: "\e72f";
+.e-circle-help:before {
+  content: "\e797";
 }
 
 /* The customised grid style. */
@@ -65,6 +75,6 @@
 }
 
 /* The search icon. */
-.e-search {
+.e-search:before {
   content: "\e737";
 }

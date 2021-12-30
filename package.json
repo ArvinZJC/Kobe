@@ -20,13 +20,14 @@
   "dependencies": {
     "@syncfusion/ej2-vue-buttons": "^19.4.38",
     "@syncfusion/ej2-vue-calendars": "^19.4.38",
-    "@syncfusion/ej2-vue-dropdowns": "^19.3.56",
-    "@syncfusion/ej2-vue-grids": "^19.3.57",
+    "@syncfusion/ej2-vue-dropdowns": "^19.4.40",
+    "@syncfusion/ej2-vue-grids": "^19.4.40",
     "@syncfusion/ej2-vue-popups": "^19.4.38",
     "cldr-data": "^36.0.0",
-    "core-js": "^3.20.0",
+    "core-js": "^3.20.1",
     "smoothscroll-polyfill": "^0.4.4",
     "vue": "^3.2.26",
+    "vue-class-component": "^8.0.0-rc.1",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
@@ -39,7 +40,7 @@
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^7.20.0",
-    "tailwindcss": "^3.0.7",
+    "tailwindcss": "^3.0.8",
     "vue-cli-plugin-electron-builder": "^2.1.1"
   },
   "eslintConfig": {

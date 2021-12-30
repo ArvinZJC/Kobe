@@ -1,42 +1,28 @@
 <!--
  * @Description: the home view
- * @Version: 1.0.0.20211228
+ * @Version: 1.0.0.20211229
  * @Author: Arvin Zhao
  * @Date: 2021-12-11 18:56:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-28 12:52:12
+ * @LastEditTime: 2021-12-29 00:29:35
 -->
 
 <template>
-  <div
-    class="container-block flex h-screen items-center justify-center py-4 sm:py-6 lg:py-8"
-  >
-    <div class="max-w-md space-y-8 w-full">
-      <img
-        :src="logo"
-        alt="App logo"
-        class="h-24 sm:h-32 lg:h-40 mx-auto w-auto"
-      />
+  <main class="container-view">
+    <div
+      class="container-block flex h-screen items-center justify-center py-4 sm:py-6 lg:py-8"
+    >
       <SearchForm />
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
-import Logo from "../assets/logo.png";
-import LogoDark from "../assets/logo_dark.png";
 import SearchForm from "../components/SearchForm.vue";
 
 export default {
   components: {
     SearchForm,
-  },
-  data() {
-    return { logo: null };
-  },
-  mounted() {
-    this.logo = LogoDark;
-    this.logo = Logo; // TODO: dark mode
   },
 };
 </script>

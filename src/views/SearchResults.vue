@@ -4,40 +4,31 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-28 12:52:47
+ * @LastEditTime: 2021-12-28 22:48:20
 -->
 
 <template>
-  <div
-    class="container-block flex h-screen items-center justify-center py-4 sm:py-6 lg:py-8"
-  >
-    <div class="max-w-md space-y-8 w-full">
-      <img
-        :src="logo"
-        alt="App logo"
-        class="h-24 sm:h-32 lg:h-40 mx-auto w-auto"
-      />
-      <SearchForm />
+  <main class="container-view">
+    <!-- The search bar. -->
+    <div
+      class="container-navbar motion-safe:transition-300 bg-opacity-0 dark:bg-opacity-0"
+      id="search-bar"
+    >
+      <div class="container-block">
+        <div class="flex h-16 justify-between">
+          <SearchForm />
+        </div>
+      </div>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
-import Logo from "../assets/logo.png";
-import LogoDark from "../assets/logo_dark.png";
 import SearchForm from "../components/SearchForm.vue";
 
 export default {
   components: {
     SearchForm,
-  },
-  data() {
-    return { logo: null };
-  },
-  mounted() {
-    this.logo = LogoDark;
-    this.logo = Logo; // TODO: dark mode
-    console.log(this.$route.query);
   },
 };
 </script>

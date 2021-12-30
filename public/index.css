@@ -1,14 +1,14 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20211223
+ * @Version: 1.0.0.20211229
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-23 00:03:14
+ * @LastEditTime: 2021-12-29 00:18:54
  */
 
 /*
- ! tailwindcss v3.0.7 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.8 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -86,7 +86,7 @@ hr {
 Add the correct text decoration in Chrome, Edge, and Safari.
 */
 
-abbr[title] {
+abbr:where([title]) {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
 }
@@ -443,13 +443,32 @@ body {
 }
 
 *, ::before, ::after {
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.mr-4 {
+  margin-right: 1rem;
 }
 
 .flex {
@@ -460,24 +479,49 @@ body {
   display: grid;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
 .h-screen {
   height: 100vh;
 }
 
-.h-24 {
-  height: 6rem;
+.h-16 {
+  height: 4rem;
 }
 
 .w-full {
   width: 100%;
 }
 
-.w-auto {
-  width: auto;
-}
-
 .max-w-md {
   max-width: 28rem;
+}
+
+.transform {
+  transform: var(--tw-transform);
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .flex-row {
@@ -496,6 +540,12 @@ body {
   justify-content: space-between;
 }
 
+.space-y-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
+}
+
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -508,14 +558,16 @@ body {
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.space-y-8 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(2rem * var(--tw-space-y-reverse));
-}
-
 .border {
   border-width: 1px;
+}
+
+.bg-opacity-0 {
+  --tw-bg-opacity: 0;
+}
+
+.fill-current {
+  fill: currentColor;
 }
 
 .py-4 {
@@ -604,7 +656,38 @@ body {
   }
 }
 
+/* Container for a navbar. */
+
+.container-navbar {
+  position: fixed;
+  z-index: 40;
+  width: 100%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.dark .container-navbar {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+/* Container for the root. */
+
+.container-root {
+  display: flex;
+  flex-direction: column;
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Container for a view. */
+
+.container-view {
+  position: relative;
+  min-height: 100vh;
+  flex-grow: 1;
+}
 
 /* Content text. */
 
@@ -646,8 +729,8 @@ body {
 
 /* The help icon. */
 
-.e-circle-help {
-  content: "\e72f";
+.e-circle-help:before {
+  content: "\e797";
 }
 
 /* The customised grid style. */
@@ -680,7 +763,7 @@ body {
 
 /* The search icon. */
 
-.e-search {
+.e-search:before {
   content: "\e737";
 }
 
@@ -696,9 +779,17 @@ body {
   }
 }
 
+.dark .dark\:bg-opacity-0 {
+  --tw-bg-opacity: 0;
+}
+
 @media (min-width: 640px) {
   .sm\:h-32 {
     height: 8rem;
+  }
+
+  .sm\:h-16 {
+    height: 4rem;
   }
 
   .sm\:py-6 {
@@ -710,6 +801,10 @@ body {
 @media (min-width: 1024px) {
   .lg\:h-40 {
     height: 10rem;
+  }
+
+  .lg\:h-20 {
+    height: 5rem;
   }
 
   .lg\:py-8 {
