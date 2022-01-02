@@ -1,81 +1,112 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20211229
+ * @Version: 1.0.0.20220102
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-29 12:06:41
+ * @LastEditTime: 2022-01-02 16:41:17
 -->
 
 <template>
-  <div class="max-w-md space-y-8 w-full">
+  <div
+    :class="['w-full', hasBarLayout ? 'flex space-x-4' : 'max-w-md space-y-8']"
+  >
     <!-- The app logo. -->
-    <div class="text-primary flex items-center justify-center">
+    <div
+      :class="[
+        'text-primary flex items-center',
+        hasBarLayout ? '' : 'justify-center',
+      ]"
+    >
       <img
+        :class="[hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40']"
         alt="App icon"
-        class="h-24 sm:h-32 lg:h-40 mr-4"
         id="app-icon"
         src="../../build/icon.png"
       />
       <span class="sr-only">{{ appName }}</span>
       <component
+        :class="[
+          hasBarLayout
+            ? 'lg:block h-5 hidden ml-2'
+            : 'h-12 sm:h-16 lg:h-20 ml-4',
+        ]"
         :is="textLogo"
         aria-hidden="true"
-        class="h-12 sm:h-16 lg:h-20"
       />
     </div>
-    <form @submit.prevent="submitSearchForm" :id="searchFormId">
-      <div class="form-group space-y-6">
-        <!-- The stock symbol auto-complete component. -->
-        <div class="flex flex-row space-x-2">
-          <ejs-autocomplete
-            @blur="removeErrorBorder(stockSymbolAutoCompleteName)"
-            @change="removeErrorBorder(stockSymbolAutoCompleteName)"
-            :dataSource="stockList"
-            :fields="{ value: global.common.STOCK_SYMBOL_KEY }"
-            :itemTemplate="stockListItemTemplate"
-            :name="stockSymbolAutoCompleteName"
-            :placeholder="locale.stockSymbolPlaceholder"
-            :ref="stockSymbolAutoCompleteName"
-            autofill="true"
-            highlight="true"
-          />
-          <ejs-tooltip
-            :content="locale.stockSymbolTooltip"
-            class="flex items-center"
-          >
-            <span class="e-circle-help e-icons text-secondary"></span>
+    <form @submit.prevent="submitSearchForm" :id="searchFormId" class="w-full">
+      <div
+        :class="[
+          'form-group',
+          hasBarLayout ? 'flex h-full items-center space-x-4' : 'space-y-6',
+        ]"
+      >
+        <div
+          :class="[hasBarLayout ? 'gap-4 grid grid-cols-2 grow' : 'space-y-6']"
+        >
+          <ejs-tooltip :content="locale.stockSymbolTooltip">
+            <!-- The stock symbol auto-complete component. -->
+            <ejs-autocomplete
+              @blur="removeErrorBorder(stockSymbolAutoCompleteName)"
+              @change="removeErrorBorder(stockSymbolAutoCompleteName)"
+              @focus="removeErrorBorder(stockSymbolAutoCompleteName)"
+              :autofill="true"
+              :dataSource="stockList"
+              :fields="{ value: global.common.STOCK_SYMBOL_KEY }"
+              :highlight="true"
+              :itemTemplate="stockListItemTemplate"
+              :name="stockSymbolAutoCompleteName"
+              :placeholder="locale.stockSymbolPlaceholder"
+              :ref="stockSymbolAutoCompleteName"
+              :value="stockSymbolValue"
+            />
+          </ejs-tooltip>
+          <ejs-tooltip :content="locale.dateRangeTooltip">
+            <!-- The date range picker. -->
+            <ejs-daterangepicker
+              @blur="removeErrorBorder(dateRangePickerName)"
+              @focus="removeErrorBorder(dateRangePickerName)"
+              @open="removeErrorBorder(dateRangePickerName)"
+              @renderDayCell="disableWeekends"
+              :endDate="endDateValue"
+              :max="new Date()"
+              :min="new Date(global.common.MIN_DATE)"
+              :name="dateRangePickerName"
+              :placeholder="locale.dateRangePlaceholder"
+              :ref="dateRangePickerName"
+              :startDate="startDateValue"
+              :strictMode="true"
+              dayHeaderFormat="Narrow"
+            />
           </ejs-tooltip>
         </div>
-        <!-- The date range picker. -->
-        <div class="flex flex-row space-x-2">
-          <ejs-daterangepicker
-            @blur="removeErrorBorder(dateRangePickerName)"
-            @focus="removeErrorBorder(dateRangePickerName)"
-            @open="removeErrorBorder(dateRangePickerName)"
-            @renderDayCell="disableWeekends"
-            :max="new Date()"
-            :min="new Date(global.common.MIN_DATE)"
-            :name="dateRangePickerName"
-            :placeholder="locale.dateRangePlaceholder"
-            :ref="dateRangePickerName"
-            dayHeaderFormat="Narrow"
-            strictMode="true"
-          />
-          <ejs-tooltip
-            :content="locale.dateRangeTooltip"
-            class="flex items-center"
-          >
-            <span class="e-circle-help e-icons text-secondary"></span>
-          </ejs-tooltip>
+        <div v-if="hasBarLayout" :class="[hasBarLayout ? 'grow-0' : '']">
+          <div class="block lg:hidden">
+            <ejs-button
+              iconCss="e-icons e-search"
+              isPrimary="true"
+              type="submit"
+            />
+          </div>
+          <div class="lg:block hidden">
+            <ejs-button
+              :content="locale.search"
+              iconCss="e-icons e-search"
+              isPrimary="true"
+              type="submit"
+            />
+          </div>
         </div>
-        <ejs-button
-          :content="locale.search"
-          cssClass="e-block"
-          iconCss="e-icons e-search"
-          isPrimary="true"
-          type="submit"
-        />
+        <div v-else>
+          <ejs-button
+            :content="locale.search"
+            cssClass="e-block"
+            iconCss="e-icons e-search"
+            isPrimary="true"
+            type="submit"
+          />
+        </div>
       </div>
     </form>
   </div>
@@ -199,13 +230,22 @@ export default {
       } // end if
     }, // end function submitSearchForm
   },
+  props: {
+    endDate: String,
+    isBarLayout: Boolean,
+    startDate: String,
+    stockSymbol: String,
+  },
   data() {
     return {
       appName: "",
       dateRangePickerName: "dateRangePickerDateRange",
+      endDateValue: new Date(this.endDate),
       global,
+      hasBarLayout: this.isBarLayout,
       locale: zhCN.default,
       searchFormId: "form-search",
+      startDateValue: new Date(this.startDate),
       stockList: [],
       stockListItemTemplate: () => {
         return {
@@ -213,6 +253,7 @@ export default {
         };
       },
       stockSymbolAutoCompleteName: "autoCompleteStockSymbol",
+      stockSymbolValue: this.stockSymbol,
     };
   },
   mounted() {

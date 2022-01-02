@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20211229
+ * @Version: 1.0.0.20220102
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-29 00:18:54
+ * @LastEditTime: 2022-01-02 16:16:11
  */
 
 @tailwind base;
@@ -20,12 +20,12 @@
 @layer utilities {
   /* Container for a general block. */
   .container-block {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+    @apply px-4 sm:px-6 lg:px-8;
   }
 
   /* Container for a navbar. */
   .container-navbar {
-    @apply bg-white dark:bg-black fixed w-full z-40;
+    @apply bg-gray-50 dark:bg-gray-900 fixed w-full z-40;
   }
 
   /* Container for the root. */

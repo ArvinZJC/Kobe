@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20211228
+ * @Version: 1.0.0.20220102
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-28 22:48:20
+ * @LastEditTime: 2022-01-02 16:39:09
 -->
 
 <template>
@@ -16,7 +16,12 @@
     >
       <div class="container-block">
         <div class="flex h-16 justify-between">
-          <SearchForm />
+          <SearchForm
+            :endDate="this.$route.query.endDate"
+            :isBarLayout="true"
+            :startDate="this.$route.query.startDate"
+            :stockSymbol="this.$route.query.stockSymbol"
+          />
         </div>
       </div>
     </div>
