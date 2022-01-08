@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220107
+ * @Version: 1.0.0.20220109
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-07 12:39:05
+ * @LastEditTime: 2022-01-09 03:13:04
 -->
 
 <template>
@@ -91,6 +91,7 @@
         <div v-if="hasBarLayout" :class="[hasBarLayout ? 'grow-0' : '']">
           <div class="block lg:hidden">
             <ejs-button
+              :title="locale.search"
               iconCss="e-icons e-search"
               isPrimary="true"
               type="submit"

@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220105
+ * @Version: 1.0.0.20220108
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-05 04:54:50
+ * @LastEditTime: 2022-01-08 21:28:44
 -->
 
 <template>
@@ -23,6 +23,14 @@
 
 <script>
 import { L10n, loadCldr, setCulture } from "@syncfusion/ej2-base";
+import {
+  ColumnMenu,
+  Filter,
+  Freeze,
+  Resize,
+  Sort,
+  Toolbar,
+} from "@syncfusion/ej2-vue-grids";
 import * as caGregorian from "cldr-data/main/zh-Hans/ca-gregorian.json";
 import * as numbers from "cldr-data/main/zh-Hans/numbers.json";
 import * as timeZoneNames from "cldr-data/main/zh-Hans/timeZoneNames.json";
@@ -46,7 +54,9 @@ loadCldr(
 L10n.load(syncfusionZhCN);
 setCulture(global.common.SYNCFUSION_CULTURE);
 
-export default {};
+export default {
+  provide: { grid: [ColumnMenu, Filter, Freeze, Resize, Sort, Toolbar] },
+};
 </script>
 
 <!-- AutoComplete, Button, DateRangePicker, and Tooltip. -->
@@ -60,5 +70,6 @@ export default {};
 @import "../node_modules/@syncfusion/ej2-vue-calendars/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-vue-grids/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-vue-navigations/styles/tailwind.css";
 @import "../node_modules/@syncfusion/ej2-vue-popups/styles/tailwind.css";
 </style>

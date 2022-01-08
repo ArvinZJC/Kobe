@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220108
+ * @Version: 1.0.0.20220109
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-08 09:39:45
+ * @LastEditTime: 2022-01-09 03:16:42
 -->
 
 <template>
@@ -31,6 +31,7 @@
       <button
         v-if="!isScrollToTopDismissed"
         @click="scrollToTop"
+        :title="locale.scrollToTopButtonTitle"
         class="btn-action btn-round bottom-20 shadow-xl"
         id="scroll-to-top"
         type="button"
@@ -60,6 +61,7 @@
 <script>
 import SearchForm from "../components/SearchForm.vue";
 import SearchResultGrid from "../components/SearchResultGrid.vue";
+import * as zhCN from "../locales/zh-CN.json";
 
 export default {
   components: {
@@ -109,6 +111,7 @@ export default {
   data() {
     return {
       isScrollToTopDismissed: true,
+      locale: zhCN.default,
       searchBar: null,
       searchBarId: "search-bar",
     };
