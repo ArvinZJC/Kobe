@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-08 06:15:14
+ * @LastEditTime: 2022-01-08 09:39:45
 -->
 
 <template>
@@ -28,13 +28,15 @@
       leave-from-class="float-up"
       leave-to-class="float-down-1"
     >
-      <ejs-button
+      <button
         v-if="!isScrollToTopDismissed"
-        cssClass="btn-action bottom-20 e-round"
-        iconCss="e-arrow-up e-icons"
-        isPrimary="true"
+        @click="scrollToTop"
+        class="btn-action btn-round bottom-20 shadow-xl"
+        id="scroll-to-top"
         type="button"
-      />
+      >
+        <span class="e-arrow-up e-btn-icon e-icons text-lg" />
+      </button>
     </transition>
     <!-- The search bar. -->
     <div
@@ -56,14 +58,11 @@
 </template>
 
 <script>
-import { ButtonComponent } from "@syncfusion/ej2-vue-buttons";
-
 import SearchForm from "../components/SearchForm.vue";
 import SearchResultGrid from "../components/SearchResultGrid.vue";
 
 export default {
   components: {
-    "ejs-button": ButtonComponent,
     SearchForm,
     SearchResultGrid,
   },
@@ -99,6 +98,13 @@ export default {
         this.isScrollToTopDismissed = temp;
       } // end if
     }, // end function handleScroll
+
+    /**
+     * Scroll to the top.
+     */
+    scrollToTop() {
+      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+    }, // end function scrollToTop
   },
   data() {
     return {
