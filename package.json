@@ -22,6 +22,7 @@
     "@syncfusion/ej2-vue-calendars": "^19.4.38",
     "@syncfusion/ej2-vue-dropdowns": "^19.4.41",
     "@syncfusion/ej2-vue-grids": "^19.4.41",
+    "@syncfusion/ej2-vue-navigations": "^19.4.41",
     "@syncfusion/ej2-vue-popups": "^19.4.41",
     "cldr-data": "^36.0.0",
     "core-js": "^3.20.2",
