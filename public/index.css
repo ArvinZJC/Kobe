@@ -1,14 +1,14 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220102
+ * @Version: 1.0.0.20220108
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-02 16:16:11
+ * @LastEditTime: 2022-01-08 06:26:25
  */
 
 /*
- ! tailwindcss v3.0.8 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.12 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -25,7 +25,7 @@
   /* 2 */
   border-style: solid;
   /* 2 */
-  border-color: currentColor;
+  border-color: #e5e7eb;
   /* 2 */
 }
 
@@ -434,12 +434,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 body {
   --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .dark body {
   --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 *, ::before, ::after {
@@ -450,9 +450,109 @@ body {
   --tw-skew-y: 0;
   --tw-scale-x: 1;
   --tw-scale-y: 1;
-  --tw-transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity));
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+}
+
+/* Floating action button. */
+
+.btn-action {
+  position: fixed;
+  right: 1rem;
+  z-index: 30;
+}
+
+@media (min-width: 640px) {
+  .btn-action {
+    right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-action {
+    right: 2rem;
+  }
+}
+
+/* Container for a bottom bar. */
+
+.container-bbar {
+  position: fixed;
+  bottom: 0px;
+  z-index: 40;
+  width: 100%;
+}
+
+/* Container for a general block. */
+
+.container-block {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-block {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-block {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Container for the root. */
+
+.container-root {
+  display: flex;
+  flex-direction: column;
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container for a view. */
+
+.container-view {
+  position: relative;
+  min-height: 100vh;
+  flex-grow: 1;
 }
 
 .sr-only {
@@ -465,6 +565,10 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.bottom-20 {
+  bottom: 5rem;
 }
 
 .ml-2 {
@@ -536,7 +640,7 @@ body {
 }
 
 .transform {
-  transform: var(--tw-transform);
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .grid-cols-2 {
@@ -602,6 +706,21 @@ body {
   opacity: 1;
 }
 
+.shadow {
+  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .transition {
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -618,58 +737,53 @@ body {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* Container for a general block. */
+/* Backdrop blur filter. */
 
-.container-block {
-  padding-left: 1rem;
-  padding-right: 1rem;
+.bg-blur {
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.9;
 }
 
-@media (min-width: 640px) {
-  .container-block {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+.dark .bg-blur {
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.9;
 }
 
-@media (min-width: 1024px) {
-  .container-block {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+.bg-blur {
+  /* A workaround if the browser does not support the particular feature. */
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.3;
+  --tw-backdrop-blur: blur(8px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-/* Container for a navbar. */
-
-.container-navbar {
-  position: fixed;
-  z-index: 40;
-  width: 100%;
-  --tw-bg-opacity: 1;
-  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+.dark .bg-blur {
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.3;
 }
 
-.dark .container-navbar {
-  --tw-bg-opacity: 1;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+/* Endpoint of the float-down animation with Transform 1. */
+
+.float-down-1 {
+  --tw-translate-y: 0.25rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  opacity: 0;
 }
 
-/* Container for the root. */
+/* Endpoint of the float-up animation. */
 
-.container-root {
-  display: flex;
-  flex-direction: column;
-  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.float-up {
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  opacity: 1;
 }
 
-/* Container for a view. */
+/* Box shadow with the primary effect on the top rather than the bottom like the original ".shadow-xl". */
 
-.container-view {
-  position: relative;
-  min-height: 100vh;
-  flex-grow: 1;
+.shadow-xl-reverse {
+  box-shadow: 0 -20px 25px -5px rgb(0 0 0 / 0.1),
+      0 -8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 /* Content text. */
@@ -698,40 +812,26 @@ body {
 
 /* Secondary text. */
 
+/* Transition for most properties within 300ms. */
+
 /* Transition for the opacity property within 300ms. */
+
+/* The arrow-up icon. */
+
+.e-arrow-up:before {
+  content: "\e7c2";
+}
+
+/* The customised round button style. */
+
+.e-btn.e-round .e-btn-icon {
+  font-size: 18px !important;
+}
 
 /* The help icon. */
 
 .e-circle-help:before {
   content: "\e797";
-}
-
-/* The customised grid style. */
-
-.e-grid {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-@media (min-width: 640px) {
-  .e-grid {
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .e-grid {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
-}
-
-/* The customised general icon style. */
-
-.e-icons {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 /* The search icon. */
@@ -741,6 +841,18 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .motion-safe\:transition-300 {
+    transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  .motion-safe\:transition-300 {
+    transition-duration: 300ms;
+  }
+
   .motion-safe\:transition-opacity-300 {
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

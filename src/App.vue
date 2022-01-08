@@ -1,25 +1,24 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20211223
+ * @Version: 1.0.0.20220105
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-23 21:28:59
+ * @LastEditTime: 2022-01-05 04:54:50
 -->
 
 <template>
-  <router-view v-slot="{ Component }">
-    <transition
-      enter-active-class="motion-safe:transition-opacity-300 ease-out"
-      enter-from-class="opacity-0"
-      enter-to-class="opacity-100"
-      leave-active-class="motion-safe:transition-opacity-300 ease-in"
-      leave-from-class="opacity-100"
-      leave-to-class="opacity-0"
-    >
-      <component :is="Component" :key="$route.name" />
-    </transition>
-  </router-view>
+  <!-- Write in this way rather than the way in [the docs](https://next.router.vuejs.org/guide/advanced/transitions.html) to prevent strange performance after navigating to another view. -->
+  <transition
+    enter-active-class="motion-safe:transition-opacity-300 ease-out"
+    enter-from-class="opacity-0"
+    enter-to-class="opacity-100"
+    leave-active-class="motion-safe:transition-opacity-300 ease-in"
+    leave-from-class="opacity-100"
+    leave-to-class="opacity-0"
+  >
+    <router-view />
+  </transition>
 </template>
 
 <script>

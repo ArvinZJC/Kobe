@@ -1,6 +1,6 @@
 {
   "dateRangePlaceholder": "日期范围",
-  "dateRangeTooltip": "点击日历图标来选择搜索的日期范围；编辑日期避开周末TODO",
+  "dateRangeTooltip": "日期范围可通过点击日历图标来选择，支持的最长日期跨度为4周",
   "search": "搜索",
   "stockSymbolPlaceholder": "股票代码",
   "stockSymbolTooltip": "股票代码应以上市交易所代码开头（支持BJ、SH和SZ，大小写不限）接6位数字"

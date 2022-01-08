@@ -1,10 +1,10 @@
 /*
  * @Description: the app initialiser
- * @Version: 1.0.1.20211227
+ * @Version: 1.0.3.20220105
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-28 12:53:52
+ * @LastEditTime: 2022-01-05 03:56:02
  */
 
 import { createApp } from "vue";
@@ -17,8 +17,6 @@ import smoothscroll from "smoothscroll-polyfill";
 
 import App from "./App.vue";
 import global from "./lib/global.js";
-import Home from "./views/Home.vue";
-import SearchResults from "./views/SearchResults.vue";
 
 smoothscroll.polyfill();
 createApp(App)
@@ -28,10 +26,14 @@ createApp(App)
         ? createWebHashHistory()
         : createWebHistory(),
       routes: [
-        { path: "/", component: Home, name: global.common.HOME_VIEW },
+        {
+          path: "/",
+          component: () => import("./views/Home.vue"),
+          name: global.common.HOME_VIEW,
+        },
         {
           path: `/${global.common.SEARCH_RESULTS_VIEW}`,
-          component: SearchResults,
+          component: () => import("./views/SearchResults.vue"),
           name: global.common.SEARCH_RESULTS_VIEW,
         },
       ],

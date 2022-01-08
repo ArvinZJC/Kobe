@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220102
+ * @Version: 1.0.0.20220108
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-02 16:16:11
+ * @LastEditTime: 2022-01-08 06:26:25
  */
 
 @tailwind base;
@@ -13,19 +13,24 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 dark:bg-gray-900;
+    @apply bg-white dark:bg-black;
   }
 }
 
-@layer utilities {
+@layer components {
+  /* Floating action button. */
+  .btn-action {
+    @apply fixed right-4 sm:right-6 lg:right-8 z-30;
+  }
+
+  /* Container for a bottom bar. */
+  .container-bbar {
+    @apply bottom-0 fixed w-full z-40;
+  }
+
   /* Container for a general block. */
   .container-block {
     @apply px-4 sm:px-6 lg:px-8;
-  }
-
-  /* Container for a navbar. */
-  .container-navbar {
-    @apply bg-gray-50 dark:bg-gray-900 fixed w-full z-40;
   }
 
   /* Container for the root. */
@@ -36,6 +41,35 @@
   /* Container for a view. */
   .container-view {
     @apply grow min-h-screen relative;
+  }
+}
+
+@layer utilities {
+  /* Backdrop blur filter. */
+  .bg-blur {
+    @apply bg-opacity-90 dark:bg-opacity-90 bg-white dark:bg-black; /* A workaround if the browser does not support the particular feature. */
+  }
+
+  @supports ((backdrop-filter: none) or (-webkit-backdrop-filter: none)) {
+    .bg-blur {
+      @apply backdrop-blur bg-opacity-30 dark:bg-opacity-30 bg-white dark:bg-black;
+    }
+  }
+
+  /* Endpoint of the float-down animation with Transform 1. */
+  .float-down-1 {
+    @apply opacity-0 translate-y-1;
+  }
+
+  /* Endpoint of the float-up animation. */
+  .float-up {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Box shadow with the primary effect on the top rather than the bottom like the original ".shadow-xl". */
+  .shadow-xl-reverse {
+    box-shadow: 0 -20px 25px -5px rgb(0 0 0 / 0.1),
+      0 -8px 10px -6px rgb(0 0 0 / 0.1);
   }
 
   /* Content text. */
@@ -53,25 +87,30 @@
     @apply text-gray-600 dark:text-gray-300;
   }
 
+  /* Transition for most properties within 300ms. */
+  .transition-300 {
+    @apply duration-300 transition;
+  }
+
   /* Transition for the opacity property within 300ms. */
   .transition-opacity-300 {
     @apply duration-300 transition-opacity;
   }
 }
 
+/* The arrow-up icon. */
+.e-arrow-up:before {
+  content: "\e7c2";
+}
+
+/* The customised round button style. */
+.e-btn.e-round .e-btn-icon {
+  font-size: 18px !important;
+}
+
 /* The help icon. */
 .e-circle-help:before {
   content: "\e797";
-}
-
-/* The customised grid style. */
-.e-grid {
-  @apply mx-4 sm:mx-6 lg:mx-8;
-}
-
-/* The customised general icon style. */
-.e-icons {
-  @apply text-xl;
 }
 
 /* The search icon. */

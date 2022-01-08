@@ -1,18 +1,45 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220102
+ * @Version: 1.0.0.20220108
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-02 16:39:09
+ * @LastEditTime: 2022-01-08 06:15:14
 -->
 
 <template>
   <main class="container-view">
+    <!-- The search result area. -->
+    <div class="container-block py-4">
+      <SearchResultGrid
+        :endDate="this.$route.query.endDate"
+        :startDate="this.$route.query.startDate"
+        :stockSymbol="this.$route.query.stockSymbol"
+      />
+    </div>
+    <!-- Added for the search bar area. -->
+    <div class="h-16 w-full" />
+    <!-- The button for scrolling to the top. -->
+    <transition
+      enter-active-class="motion-safe:transition-300 ease-out"
+      enter-from-class="float-down-1"
+      enter-to-class="float-up"
+      leave-active-class="motion-safe:transition-300 ease-in"
+      leave-from-class="float-up"
+      leave-to-class="float-down-1"
+    >
+      <ejs-button
+        v-if="!isScrollToTopDismissed"
+        cssClass="btn-action bottom-20 e-round"
+        iconCss="e-arrow-up e-icons"
+        isPrimary="true"
+        type="button"
+      />
+    </transition>
     <!-- The search bar. -->
     <div
-      class="container-navbar motion-safe:transition-300 bg-opacity-0 dark:bg-opacity-0"
-      id="search-bar"
+      :id="searchBarId"
+      class="bg-blur container-bbar shadow-xl-reverse motion-safe:transition-300"
     >
       <div class="container-block">
         <div class="flex h-16 justify-between">
@@ -29,11 +56,61 @@
 </template>
 
 <script>
+import { ButtonComponent } from "@syncfusion/ej2-vue-buttons";
+
 import SearchForm from "../components/SearchForm.vue";
+import SearchResultGrid from "../components/SearchResultGrid.vue";
 
 export default {
   components: {
+    "ejs-button": ButtonComponent,
     SearchForm,
+    SearchResultGrid,
+  },
+  methods: {
+    /**
+     * Handle scrolling behaviour.
+     */
+    handleScroll() {
+      // Apply the backdrop blur filter and box shadow to the search bar if the view is scrolled vertically for a specified distance.
+      if (
+        this.searchBar != null &&
+        window.innerHeight + window.scrollY <
+          document.body.offsetHeight - this.searchBar.offsetHeight / 4
+      ) {
+        this.searchBar.classList.add("bg-blur", "shadow-xl-reverse");
+        this.searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
+      } else {
+        this.searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
+        this.searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
+      } // end if...else
+
+      var temp; // A temp record of the expected dismissing status of the button for scrolling to the top.
+
+      // Show the button for scrolling to the top if the view is scrolled vertically for a specified distance.
+      if (window.scrollY < screen.height / 3) {
+        temp = true;
+      } else {
+        temp = false;
+      } // end if...else
+
+      // Assign the value only if it is different to avoid potential animation loss.
+      if (this.isScrollToTopDismissed !== temp) {
+        this.isScrollToTopDismissed = temp;
+      } // end if
+    }, // end function handleScroll
+  },
+  data() {
+    return {
+      isScrollToTopDismissed: true,
+      searchBar: null,
+      searchBarId: "search-bar",
+    };
+  },
+  mounted() {
+    this.searchBar = document.getElementById(this.searchBarId);
+    window.addEventListener("scroll", this.handleScroll);
+    // TODO: remove the blur effect if the view is not scrollable after loading the search results; scroll to the top
   },
 };
 </script>

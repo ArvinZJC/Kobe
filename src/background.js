@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20211223
+ * @Version: 1.0.0.20220106
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2021-12-23 17:17:41
+ * @LastEditTime: 2022-01-06 04:46:04
  */
 
 import { app, BrowserWindow, ipcMain, protocol, screen } from "electron";
@@ -14,6 +14,7 @@ import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import * as stockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
 import { updateAppMenu } from "./lib/menu.js";
+import { getSearchResultData } from "./lib/processor.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
 const path = require("path");
@@ -108,12 +109,22 @@ Array.prototype.forEach.call(stockList.default, (element, index, array) => {
   array[index][global.common.STOCK_SYMBOL_KEY] =
     symbolParts[1] + symbolParts[0];
 });
-ipcMain.on(global.common.IPC_SEND, (event, data) => {
+ipcMain.on(global.common.IPC_SEND, async (event, data) => {
   if (data === global.common.GET_APP_NAME) {
     win.webContents.send(global.common.IPC_RECEIVE, app.name);
   } // end if
 
   if (data === global.common.GET_STOCK_LIST) {
     win.webContents.send(global.common.IPC_RECEIVE, stockList.default);
+  } // end if
+
+  if (data[global.common.TAG_KEY] === global.common.GET_SEARCH_RESULT_DATA) {
+    const searchResultData = await getSearchResultData(
+      data[global.common.END_DATE_KEY],
+      data[global.common.START_DATE_KEY],
+      data[global.common.STOCK_SYMBOL_KEY]
+    );
+
+    win.webContents.send(global.common.IPC_RECEIVE, searchResultData);
   } // end if
 });

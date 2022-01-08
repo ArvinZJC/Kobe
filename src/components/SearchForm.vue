@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220102
+ * @Version: 1.0.0.20220107
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-02 16:41:17
+ * @LastEditTime: 2022-01-07 12:39:05
 -->
 
 <template>
@@ -45,7 +45,10 @@
         <div
           :class="[hasBarLayout ? 'gap-4 grid grid-cols-2 grow' : 'space-y-6']"
         >
-          <ejs-tooltip :content="locale.stockSymbolTooltip">
+          <ejs-tooltip
+            :content="locale.stockSymbolTooltip"
+            :ref="stockSymbolTooltipName"
+          >
             <!-- The stock symbol auto-complete component. -->
             <ejs-autocomplete
               @blur="removeErrorBorder(stockSymbolAutoCompleteName)"
@@ -62,7 +65,10 @@
               :value="stockSymbolValue"
             />
           </ejs-tooltip>
-          <ejs-tooltip :content="locale.dateRangeTooltip">
+          <ejs-tooltip
+            :content="locale.dateRangeTooltip"
+            :ref="dateRangeTooltipName"
+          >
             <!-- The date range picker. -->
             <ejs-daterangepicker
               @blur="removeErrorBorder(dateRangePickerName)"
@@ -78,6 +84,7 @@
               :startDate="startDateValue"
               :strictMode="true"
               dayHeaderFormat="Narrow"
+              maxDays="28"
             />
           </ejs-tooltip>
         </div>
@@ -207,6 +214,10 @@ export default {
           return;
         } // end if
 
+        // Ensure the tooltip popups are closed before navigating to the search result view.
+        this.$refs[this.dateRangeTooltipName].close();
+        this.$refs[this.stockSymbolTooltipName].close();
+
         const dateRange =
           this.$refs[this.dateRangePickerName].ej2Instances.value;
 
@@ -240,6 +251,7 @@ export default {
     return {
       appName: "",
       dateRangePickerName: "dateRangePickerDateRange",
+      dateRangeTooltipName: "tooltipDateRange",
       endDateValue: new Date(this.endDate),
       global,
       hasBarLayout: this.isBarLayout,
@@ -253,6 +265,7 @@ export default {
         };
       },
       stockSymbolAutoCompleteName: "autoCompleteStockSymbol",
+      stockSymbolTooltipName: "tooltipStockSymbol",
       stockSymbolValue: this.stockSymbol,
     };
   },
