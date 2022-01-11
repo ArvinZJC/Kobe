@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220109
+ * @Version: 1.0.0.20220112
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-09 03:16:42
+ * @LastEditTime: 2022-01-12 04:15:16
 -->
 
 <template>
@@ -41,8 +41,8 @@
     </transition>
     <!-- The search bar. -->
     <div
-      :id="searchBarId"
-      class="bg-blur container-bbar shadow-xl-reverse motion-safe:transition-300"
+      :id="global.common.SEARCH_BAR_ID"
+      class="container-bbar motion-safe:transition-300"
     >
       <div class="container-block">
         <div class="flex h-16 justify-between">
@@ -61,6 +61,7 @@
 <script>
 import SearchForm from "../components/SearchForm.vue";
 import SearchResultGrid from "../components/SearchResultGrid.vue";
+import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
 
 export default {
@@ -110,16 +111,41 @@ export default {
   },
   data() {
     return {
+      appName: "",
+      global,
       isScrollToTopDismissed: true,
       locale: zhCN.default,
       searchBar: null,
-      searchBarId: "search-bar",
     };
   },
   mounted() {
-    this.searchBar = document.getElementById(this.searchBarId);
+    this.searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
+    window[global.common.IPC_RENDERER_API_KEY].receive(
+      global.common.IPC_RECEIVE,
+      (data) => {
+        if (typeof data === "string") {
+          this.appName = data;
+        } // end if
+      }
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_APP_NAME
+    );
     window.addEventListener("scroll", this.handleScroll);
-    // TODO: remove the blur effect if the view is not scrollable after loading the search results; scroll to the top
+    setTimeout(() => {
+      const dateRange =
+        this.$route.query.startDate +
+        (this.$route.query.startDate === this.$route.query.endDate
+          ? ""
+          : ` - ${this.$route.query.endDate}`);
+
+      document.title = `${
+        this.$route.query.stockName === ""
+          ? this.$route.query.stockSymbol
+          : this.$route.query.stockName
+      }（${dateRange}）- ${this.appName}`;
+    }, 100);
   },
 };
 </script>

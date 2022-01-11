@@ -1,9 +1,15 @@
 {
+  "autoFitAllColumnsName": "自动调整所有列宽",
+  "autoFitAllColumnsTooltip": "根据各列的内容，自动调整各列的宽度",
   "dateRangePlaceholder": "日期范围",
   "dateRangeTooltip": "日期范围可通过点击日历图标来选择，支持的最长日期跨度为4周",
   "dayVolumeStackedColumnHeader": "每日成交量（股？）",
+  "editMenu": "编辑",
+  "fileMenu": "文件",
   "friday": "五",
+  "help": "帮助",
   "monday": "一",
+  "releaseNotes": "发布说明",
   "scrollToTopButtonTitle": "回到顶部",
   "search": "搜索",
   "stockSymbolPlaceholder": "股票代码",
@@ -12,5 +18,7 @@
   "totalVolumeColumnHeader": "总成交量（股？）",
   "thursday": "四",
   "tuesday": "二",
-  "wednesday": "三"
+  "viewMenu": "显示",
+  "wednesday": "三",
+  "windowMenu": "窗口"
 }

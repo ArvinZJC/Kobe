@@ -4,11 +4,11 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-09 05:17:58
+ * @LastEditTime: 2022-01-09 10:21:23
  */
 
 /*
- ! tailwindcss v3.0.12 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.13 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -696,6 +696,10 @@ body::selection {
   display: grid;
 }
 
+.contents {
+  display: contents;
+}
+
 .hidden {
   display: none;
 }
@@ -746,6 +750,10 @@ body::selection {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.resize {
+  resize: both;
 }
 
 .grid-cols-2 {
@@ -867,16 +875,32 @@ body::selection {
 
 .bg-blur {
   /* A workaround if the browser does not support the particular feature. */
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.3;
-  --tw-backdrop-blur: blur(8px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.dark .bg-blur {
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.3;
+@supports (((-webkit-backdrop-filter: none) or (backdrop-filter: none)) or (-webkit-backdrop-filter: none)) {
+  .bg-blur {
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  }
+
+  .bg-blur {
+    --tw-bg-opacity: 0.3;
+  }
+
+  .bg-blur {
+    --tw-backdrop-blur: blur(8px);
+    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+            backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  }
+
+  .dark .bg-blur {
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  }
+
+  .dark .bg-blur {
+    --tw-bg-opacity: 0.3;
+  }
 }
 
 /* Endpoint of the float-down animation with Transform 1. */
@@ -936,6 +960,12 @@ body::selection {
 
 .e-arrow-up:before {
   content: "\e7c2";
+}
+
+/* The auto-fit content icon. */
+
+.e-auto-fit-content:before {
+  content: "\e71a";
 }
 
 /* The customised round button style. */

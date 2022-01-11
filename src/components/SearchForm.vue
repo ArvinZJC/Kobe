@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220109
+ * @Version: 1.0.0.20220111
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-09 03:13:04
+ * @LastEditTime: 2022-01-11 14:13:57
 -->
 
 <template>
@@ -221,6 +221,16 @@ export default {
 
         const dateRange =
           this.$refs[this.dateRangePickerName].ej2Instances.value;
+        const stockSymbol =
+          this.$refs[this.stockSymbolAutoCompleteName].ej2Instances.value;
+        var stockName = "";
+
+        for (const stock of this.stockList) {
+          if (stock[global.common.STOCK_SYMBOL_KEY] === stockSymbol) {
+            stockName = stock[global.common.STOCK_NAME_KEY];
+            break;
+          } // end if
+        } // end for
 
         this.$router.push({
           name: global.common.SEARCH_RESULTS_VIEW,
@@ -235,8 +245,8 @@ export default {
               dateRange[0].getMonth() + 1,
               dateRange[0].getDate(),
             ].join("-"),
-            stockSymbol:
-              this.$refs[this.stockSymbolAutoCompleteName].ej2Instances.value,
+            stockName,
+            stockSymbol,
           },
         });
       } // end if
@@ -247,6 +257,17 @@ export default {
     isBarLayout: Boolean,
     startDate: String,
     stockSymbol: String,
+  },
+  created() {
+    // A workaround to force vue-router to perform navigation in the search result view.
+    this.$watch(
+      () => this.$route.query,
+      () => {
+        if (this.isBarLayout) {
+          window.location.reload();
+        } // end if
+      }
+    );
   },
   data() {
     return {
@@ -276,9 +297,18 @@ export default {
       (data) => {
         if (typeof data === "string") {
           this.appName = data;
-        } else {
+        } // end if
+
+        if (
+          Array.isArray(data) &&
+          typeof data[0] == "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data[0],
+            global.common.STOCK_SYMBOL_KEY
+          )
+        ) {
           this.stockList = data;
-        } // end if...else
+        } // end if
       }
     );
     window[global.common.IPC_RENDERER_API_KEY].send(

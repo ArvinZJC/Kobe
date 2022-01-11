@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220109
+ * @Version: 1.0.0.20220111
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-09 04:55:27
+ * @LastEditTime: 2022-01-11 14:18:04
  */
 
 import fetch from "electron-fetch";
@@ -35,10 +35,10 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
       const tdArray = DomUtils.getElementsByTagName("td", tr.children);
       var volume;
 
-      Array.prototype.forEach.call(tdArray, (td, index) => {
-        if (index === 0) {
+      Array.prototype.forEach.call(tdArray, (td, tdIndex) => {
+        if (tdIndex === 0) {
           strikePrice = DomUtils.innerText(td.children);
-        } else if (index === 1) {
+        } else if (tdIndex === 1) {
           volume = DomUtils.innerText(td.children);
         } else {
           return; // Ignore the columns "占比" (Index 2) and “占比图” (Index 3).
@@ -71,7 +71,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
     date <= new Date(endDate);
 
   ) {
-    var day = date.getDay();
+    const day = date.getDay();
 
     if (day !== 0 && day !== 6) {
       dateArray.push(new Date(date)); // It is necessary to avoid pushing date directly due to variable pointers.
@@ -83,12 +83,12 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
 
   index = 0;
 
-  for (const date of dateArray) {
+  for (const currentDate of dateArray) {
     try {
       const dateStr = [
-        date.getFullYear(),
-        date.getMonth() + 1,
-        date.getDate(),
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+        currentDate.getDate(),
       ].join("-");
       const response = await fetch(
         `http://market.finance.sina.com.cn/pricehis.php?symbol=${stockSymbol.toLowerCase()}&startdate=${dateStr}&enddate=${dateStr}`
@@ -106,10 +106,10 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
         const tdArray = DomUtils.getElementsByTagName("td", tr.children);
         var volume;
 
-        Array.prototype.forEach.call(tdArray, (td, index) => {
-          if (index === 0) {
+        Array.prototype.forEach.call(tdArray, (td, tdIndex) => {
+          if (tdIndex === 0) {
             strikePrice = DomUtils.innerText(td.children);
-          } else if (index === 1) {
+          } else if (tdIndex === 1) {
             volume = DomUtils.innerText(td.children);
           } else {
             return; // Ignore the columns "占比" (Index 2) and “占比图” (Index 3).
@@ -126,7 +126,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
     if (++index % 10 === 0) {
       await new Promise((resolve) => setTimeout(resolve, 10000));
     } // end if
-  } // end for
+  }
 
   index = 0;
 
@@ -135,8 +135,8 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
     rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
     rowData[global.common.TOTAL_VOLUME_KEY] = totalVolumes[strikePrice];
 
-    for (const date in dayVolumes) {
-      rowData[date] = dayVolumes[date][strikePrice];
+    for (const dateStr in dayVolumes) {
+      rowData[dateStr] = dayVolumes[dateStr][strikePrice];
     } // end for
 
     searchResultData[index++] = rowData;

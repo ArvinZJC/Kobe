@@ -10,6 +10,36 @@
     },
     "dropdowns": {
       "noRecordsTemplate": "未能匹配上市股票的代码"
+    },
+    "grid": {
+      "autoFit": "自动调整当前列宽",
+      "autoFitAll": "自动调整所有列宽",
+      "CancelButton": "取消",
+      "ChooseColumns": "选择列",
+      "ClearButton": "清除",
+      "Columnchooser": "选择列",
+      "EmptyRecord": "没有可显示的数据",
+      "EnterValue": "数值",
+      "Equal": "等于",
+      "Excelexport": "导出成 Excel",
+      "FilterButton": "筛选",
+      "FilterMenu": "筛选",
+      "GreaterThan": "大于",
+      "GreaterThanOrEqual": "大于等于",
+      "LessThan": "小于",
+      "LessThanOrEqual": "小于等于",
+      "NotEqual": "不等于",
+      "OKButton": "确认",
+      "Pdfexport": "导出成 PDF",
+      "Print": "打印",
+      "Search": "搜索",
+      "SelectAll": "全选",
+      "SortAscending": "升序",
+      "SortDescending": "降序"
+    },
+    "numerictextbox": {
+      "decrementTitle": "减少",
+      "incrementTitle": "增加"
     }
   }
 }

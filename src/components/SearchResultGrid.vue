@@ -1,15 +1,17 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220109
+ * @Version: 1.0.0.20220112
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-09 04:48:24
+ * @LastEditTime: 2022-01-12 04:28:00
 -->
 
 <template>
   <ejs-grid
+    :allowExcelExport="true"
     :allowFiltering="true"
+    :allowPdfExport="true"
     :allowResizing="true"
     :allowSorting="true"
     :dataBound="adjustGrid"
@@ -23,6 +25,7 @@
     :showColumnChooser="true"
     :showColumnMenu="true"
     :toolbar="searchResultGridToolbar"
+    :toolbarClick="handleToolbarClick"
     clipMode="EllipsisWithTooltip"
     gridLines="Both"
   />
@@ -32,6 +35,7 @@
 import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
 import global from "../lib/global.js";
+import * as syncfusion from "../locales/syncfusion.json";
 import * as zhCN from "../locales/zh-CN.json";
 
 export default {
@@ -41,8 +45,22 @@ export default {
      * Adjust the grid when the data source is populated.
      */
     adjustGrid() {
-      this.$refs[this.searchResultGridName].autoFitColumns([]); // Auto-fit all columns.
-    }, // end method adjustGrid
+      this.$refs[this.searchResultGridName].autoFitColumns([]);
+
+      const movableContentAreas =
+        document.getElementsByClassName("e-movablecontent");
+
+      // Hide the scrollbar if the content is not overflown horizontally.
+      if (
+        movableContentAreas != null &&
+        movableContentAreas.length > 0 &&
+        movableContentAreas[0].clientWidth >= movableContentAreas[0].scrollWidth
+      ) {
+        this.$refs[this.searchResultGridName].hideScroll();
+      } // end if
+
+      this.styleSearchBarBg();
+    }, // end function adjustGrid
 
     /**
      * Build the grid.
@@ -53,10 +71,10 @@ export default {
         date <= new Date(this.endDate);
 
       ) {
-        var day = date.getDay();
+        const day = date.getDay();
 
         if (day !== 0 && day !== 6) {
-          var dateStr = [
+          const dateStr = [
             date.getFullYear(),
             date.getMonth() + 1,
             date.getDate(),
@@ -102,7 +120,7 @@ export default {
         date.setHours(0);
       } // end for
 
-      var columns = [
+      const columns = [
         {
           field: global.common.STRIKE_PRICE_KEY,
           format: "N2",
@@ -123,14 +141,64 @@ export default {
         {
           columns: dayVolumeColumns,
           headerText: zhCN.default.dayVolumeStackedColumnHeader,
-          textAlign: global.common.SF_ALIGN_CENTER,
+          textAlign: global.common.SF_ALIGN_CENTRE,
         },
       ];
 
-      for (var column of columns) {
-        this.$refs[this.searchResultGridName].ej2Instances.columns.push(column);
-      } // end for
-    }, // end method buildGrid
+      Array.prototype.forEach.call(columns, (element) => {
+        this.$refs[this.searchResultGridName].ej2Instances.columns.push(
+          element
+        );
+      });
+    }, // end function buildGrid
+
+    /**
+     * Handle the click on the toolbar item.
+     */
+    handleToolbarClick(args) {
+      switch (args.item.text) {
+        case zhCN.default.autoFitAllColumnsName:
+          this.$refs[this.searchResultGridName].autoFitColumns([]);
+          break;
+
+        case syncfusion.default["zh-Hans"].grid.Excelexport:
+          this.$refs[this.searchResultGridName].excelExport({
+            enableFilter: true,
+            fileName: `${this.filename}.xlsx`,
+          });
+          break;
+
+        case syncfusion.default["zh-Hans"].grid.Pdfexport:
+          this.$refs[this.searchResultGridName].pdfExport();
+          break;
+
+        default:
+          return;
+      } // end switch-case
+    }, // end function handleToolbarClick
+
+    /**
+     * Apply the search bar's blur effect if applicable.
+     */
+    styleSearchBarBg() {
+      var searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
+
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_CONTENT_SIZE
+      );
+
+      if (searchBar != null && this.screenHeight != null) {
+        // Remove the search bar's blur effect if the view is not scrollable.
+        if (document.body.offsetHeight > this.screenHeight) {
+          searchBar.classList.add("bg-blur", "shadow-xl-reverse");
+          searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
+        } else {
+          searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
+          searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
+        } // end if...else
+      } // end if
+    }, // end function styleSearchBarBg
   },
   props: {
     endDate: String,
@@ -139,16 +207,38 @@ export default {
   },
   data() {
     return {
+      filename: "Unknown",
+      screenHeight: null,
       searchResultData: null,
       searchResultGridFilterSettings: { type: "Menu" },
       searchResultGridName: "gridSearchResults",
       searchResultGridSelectionSettings: { mode: "Both", type: "Multiple" },
-      searchResultGridToolbar: ["ColumnChooser"],
+      searchResultGridToolbar: [
+        global.common.COLUMN_CHOOSER_KEY,
+        global.common.EXCEL_EXPORT_KEY,
+        global.common.PDF_EXPORT_KEY,
+        global.common.PRINT_KEY,
+        {
+          prefixIcon: "e-auto-fit-content",
+          text: zhCN.default.autoFitAllColumnsName,
+          tooltipText: zhCN.default.autoFitAllColumnsTooltip,
+        },
+      ],
     };
   },
   mounted() {
+    const dateRange =
+      this.$route.query.startDate +
+      (this.$route.query.startDate === this.$route.query.endDate
+        ? ""
+        : ` - ${this.$route.query.endDate}`);
     var searchData = {};
 
+    this.filename = `${
+      this.$route.query.stockName === ""
+        ? this.$route.query.stockSymbol
+        : this.$route.query.stockName
+    }（${dateRange}）`;
     searchData[global.common.END_DATE_KEY] = this.endDate;
     searchData[global.common.START_DATE_KEY] = this.startDate;
     searchData[global.common.STOCK_SYMBOL_KEY] = this.stockSymbol;
@@ -156,8 +246,10 @@ export default {
     window[global.common.IPC_RENDERER_API_KEY].receive(
       global.common.IPC_RECEIVE,
       (data) => {
+        const isArray = Array.isArray(data);
+
         if (
-          Array.isArray(data) &&
+          isArray &&
           typeof data[0] === "object" &&
           Object.prototype.hasOwnProperty.call(
             data[0],
@@ -166,12 +258,17 @@ export default {
         ) {
           this.searchResultData = data;
         } // end if
+
+        if (isArray && data.length === 2 && typeof data[0] === "number") {
+          this.screenHeight = data[1];
+        } //end if
       }
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
       searchData
     );
+    window.addEventListener("resize", this.styleSearchBarBg);
   },
 };
 </script>

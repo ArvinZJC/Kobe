@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220108
+ * @Version: 1.0.0.20220112
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-08 21:28:44
+ * @LastEditTime: 2022-01-12 03:36:25
 -->
 
 <template>
@@ -24,9 +24,13 @@
 <script>
 import { L10n, loadCldr, setCulture } from "@syncfusion/ej2-base";
 import {
+  ColumnChooser,
   ColumnMenu,
+  ExcelExport,
   Filter,
   Freeze,
+  PdfExport,
+  Print,
   Resize,
   Sort,
   Toolbar,
@@ -55,7 +59,20 @@ L10n.load(syncfusionZhCN);
 setCulture(global.common.SYNCFUSION_CULTURE);
 
 export default {
-  provide: { grid: [ColumnMenu, Filter, Freeze, Resize, Sort, Toolbar] },
+  provide: {
+    grid: [
+      ColumnChooser,
+      ColumnMenu,
+      ExcelExport,
+      Filter,
+      Freeze,
+      PdfExport,
+      Print,
+      Resize,
+      Sort,
+      Toolbar,
+    ],
+  },
 };
 </script>
 
