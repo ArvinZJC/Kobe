@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220111
+ * @Version: 1.0.0.20220113
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-11 14:13:57
+ * @LastEditTime: 2022-01-13 00:13:10
 -->
 
 <template>
@@ -18,13 +18,14 @@
         hasBarLayout ? '' : 'justify-center',
       ]"
     >
-      <img
-        :class="[hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40']"
-        alt="App icon"
-        id="app-icon"
-        src="../../build/icon.png"
-      />
-      <span class="sr-only">{{ appName }}</span>
+      <div :class="[hasBarLayout ? 'w-7' : 'w-24 sm:w-32 lg:w-48']">
+        <img
+          :class="[hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40']"
+          alt="App icon"
+          id="app-icon"
+          src="../../build/icon.png"
+        />
+      </div>
       <component
         :class="[
           hasBarLayout
@@ -271,7 +272,6 @@ export default {
   },
   data() {
     return {
-      appName: "",
       dateRangePickerName: "dateRangePickerDateRange",
       dateRangeTooltipName: "tooltipDateRange",
       endDateValue: new Date(this.endDate),
@@ -295,10 +295,6 @@ export default {
     window[global.common.IPC_RENDERER_API_KEY].receive(
       global.common.IPC_RECEIVE,
       (data) => {
-        if (typeof data === "string") {
-          this.appName = data;
-        } // end if
-
         if (
           Array.isArray(data) &&
           typeof data[0] == "object" &&
