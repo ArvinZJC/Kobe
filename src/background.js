@@ -1,19 +1,26 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220112
+ * @Version: 1.0.0.20220113
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-12 04:00:08
+ * @LastEditTime: 2022-01-13 04:27:09
  */
 
-import { app, BrowserWindow, ipcMain, protocol, screen } from "electron";
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  nativeTheme,
+  protocol,
+  screen,
+} from "electron";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 import * as stockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
-import { updateAppMenu } from "./lib/menu.js";
+import { setAppMenu, setContextMenu } from "./lib/menu.js";
 import { getSearchResultData } from "./lib/processor.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
@@ -40,6 +47,7 @@ async function addTabbedWindow(height, width) {
  */
 async function createWindow(height, width) {
   var win = new BrowserWindow({
+    backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
     center: true,
     height,
     minHeight: global.common.WIN_HEIGHT_MIN,
@@ -57,8 +65,9 @@ async function createWindow(height, width) {
     vibrancy: "window",
   });
 
-  updateAppMenu(isDev);
+  setAppMenu(isDev);
   win.setMenuBarVisibility(false); // Hide the menu bar on Windows but keep the browser dev tools in dev mode.
+  setContextMenu(isDev, win);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in dev mode.

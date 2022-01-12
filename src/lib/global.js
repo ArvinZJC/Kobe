@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220111
+ * @Version: 1.0.0.20220113
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-11 04:02:43
+ * @LastEditTime: 2022-01-13 04:14:34
  */
 
 global.common = {
@@ -14,6 +14,7 @@ global.common = {
   DEV: "development",
   END_DATE_KEY: "endDate",
   EXCEL_EXPORT_KEY: "ExcelExport",
+  FILE_HEADER_FONT_SIZE: 14,
   GET_APP_NAME: "getAppName",
   GET_CONTENT_SIZE: "getContentSize",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
@@ -33,6 +34,9 @@ global.common = {
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
   SF_NUM_COLUMN: "number",
+  SF_STYLES: "syncfusionStyles",
+  SF_TAILWIND: "tailwind",
+  SF_TAILWIND_DARK: "tailwind-dark",
   START_DATE_KEY: "startDate",
   STOCK_NAME_KEY: "name",
   STOCK_SYMBOL_KEY: "ts_code",
@@ -42,6 +46,7 @@ global.common = {
   TABBING_ID: "KobeTabView",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",
+  UNKNOWN: "Unknown",
   WIN_HEIGHT_MIN: 600,
   WIN_WIDTH_MIN: 800,
   WINDOWS: "win32",

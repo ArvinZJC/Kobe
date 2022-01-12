@@ -1,21 +1,22 @@
 /*
- * @Description: the script customising the app menu
- * @Version: 1.0.0.20220110
+ * @Description: the script customising the app and context menu
+ * @Version: 1.0.0.20220112
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-10 18:52:33
+ * @LastEditTime: 2022-01-12 23:42:35
  */
 
 import { app, Menu, shell } from "electron";
+import contextMenu from "electron-context-menu";
 
 import * as zhCN from "../locales/zh-CN.json";
 
 /**
- * Update the app menu.
+ * Set the app menu.
  * @param {boolean} isDev a flag indicating if the app is in dev mode.
  */
-export function updateAppMenu(isDev) {
+export function setAppMenu(isDev) {
   var submenu_view = [
     { role: "reload" },
     { role: "forceReload" },
@@ -56,4 +57,41 @@ export function updateAppMenu(isDev) {
   ]);
 
   Menu.setApplicationMenu(menu);
-} // end function updateAppMenu
+} // end function setAppMenu
+
+/**
+ * Set the context menu.
+ * @param {boolean} isDev a flag indicating if the app is in dev mode.
+ * @param {BrowserWindow} win
+ */
+export function setContextMenu(isDev, win) {
+  console.log(isDev);
+  contextMenu({
+    append: (defaultActions, parameters) => [
+      {
+        click: () => {
+          shell.openExternal(
+            `https://www.baidu.com/s?wd=${encodeURIComponent(
+              parameters.selectionText
+            )}`
+          );
+        },
+        label: `${zhCN.default.searchWithBaidu}“{selection}”`,
+        visible: parameters.selectionText.trim().length > 0,
+      },
+    ], // TODO: Baidu or Google as per user preferences.
+    labels: {
+      copy: zhCN.default.copy,
+      copyLink: zhCN.default.copyLink,
+      cut: zhCN.default.cut,
+      inspect: zhCN.default.inspect,
+      learnSpelling: zhCN.default.learnSpelling,
+      lookUpSelection: `${zhCN.default.lookUp}“{selection}”`,
+      paste: zhCN.default.paste,
+      searchWithGoogle: `${zhCN.default.searchWithGoogle}“{selection}”`,
+    },
+    showCopyImage: false,
+    showSearchWithGoogle: false, // TODO: Baidu or Google as per user preferences.
+    window: win,
+  });
+}
