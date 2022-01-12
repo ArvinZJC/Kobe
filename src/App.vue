@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220112
+ * @Version: 1.0.0.20220113
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-12 03:36:25
+ * @LastEditTime: 2022-01-13 04:31:12
 -->
 
 <template>
@@ -42,6 +42,7 @@ import * as numberingSystems from "cldr-data/supplemental/numberingSystems.json"
 import * as weekData from "cldr-data/supplemental/weekData.json";
 
 import global from "./lib/global.js";
+import { applyTheme } from "./lib/theme.js";
 import * as syncfusionLocale from "./locales/syncfusion.json";
 
 var syncfusionZhCN = {};
@@ -73,20 +74,11 @@ export default {
       Toolbar,
     ],
   },
+  mounted() {
+    const darkThemeMql = window.matchMedia("(prefers-color-scheme: dark)"); // A MediaQueryList object containing the results of detecting the system theme.
+
+    applyTheme(window.matchMedia("(prefers-color-scheme: dark)"));
+    darkThemeMql.onchange = applyTheme; // Listen to the change of the system theme.
+  },
 };
 </script>
-
-<!-- AutoComplete, Button, DateRangePicker, and Tooltip. -->
-<style>
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-lists/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-buttons/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-calendars/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-dropdowns/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-grids/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-navigations/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-vue-popups/styles/tailwind.css";
-</style>

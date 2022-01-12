@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220108
+ * @Version: 1.0.0.20220113
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-09 10:21:23
+ * @LastEditTime: 2022-01-13 04:31:36
  */
 
 /*
@@ -433,8 +433,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 body {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: transparent;
 }
 
 body *::-moz-selection {
@@ -463,11 +462,6 @@ body::selection {
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.dark body {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .dark body *::-moz-selection {
@@ -660,16 +654,8 @@ body::selection {
   flex-grow: 1;
 }
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+.visible {
+  visibility: visible;
 }
 
 .bottom-20 {
@@ -734,6 +720,14 @@ body::selection {
 
 .w-full {
   width: 100%;
+}
+
+.w-7 {
+  width: 1.75rem;
+}
+
+.w-24 {
+  width: 6rem;
 }
 
 .max-w-md {
@@ -1023,6 +1017,10 @@ body::selection {
     height: 4rem;
   }
 
+  .sm\:w-32 {
+    width: 8rem;
+  }
+
   .sm\:py-6 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -1044,6 +1042,10 @@ body::selection {
 
   .lg\:h-20 {
     height: 5rem;
+  }
+
+  .lg\:w-48 {
+    width: 12rem;
   }
 
   .lg\:py-8 {
