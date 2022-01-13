@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 04:27:09
+ * @LastEditTime: 2022-01-13 16:29:41
  */
 
 import {
@@ -66,8 +66,8 @@ async function createWindow(height, width) {
   });
 
   setAppMenu(isDev);
-  win.setMenuBarVisibility(false); // Hide the menu bar on Windows but keep the browser dev tools in dev mode.
-  setContextMenu(isDev, win);
+  win.setMenuBarVisibility(false); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
+  setContextMenu(win);
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in dev mode.

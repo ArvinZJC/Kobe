@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 04:14:34
+ * @LastEditTime: 2022-01-13 13:25:06
  */
 
 global.common = {
@@ -30,6 +30,7 @@ global.common = {
   PRINT_KEY: "Print",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_RESULTS_VIEW: "searchResults",
+  SEPARATOR: "separator",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
