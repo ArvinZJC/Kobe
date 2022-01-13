@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220113
+ * @Version: 1.0.0.20220114
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 04:31:12
+ * @LastEditTime: 2022-01-14 00:47:57
 -->
 
 <template>
@@ -29,7 +29,6 @@ import {
   ExcelExport,
   Filter,
   Freeze,
-  PdfExport,
   Print,
   Resize,
   Sort,
@@ -67,7 +66,6 @@ export default {
       ExcelExport,
       Filter,
       Freeze,
-      PdfExport,
       Print,
       Resize,
       Sort,

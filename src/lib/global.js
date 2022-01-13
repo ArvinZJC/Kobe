@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 13:25:06
+ * @LastEditTime: 2022-01-14 00:50:16
  */
 
 global.common = {
@@ -26,7 +26,6 @@ global.common = {
   MACOS: "darwin",
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
-  PDF_EXPORT_KEY: "PdfExport",
   PRINT_KEY: "Print",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_RESULTS_VIEW: "searchResults",

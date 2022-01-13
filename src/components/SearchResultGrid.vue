@@ -4,14 +4,13 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-12 22:23:47
+ * @LastEditTime: 2022-01-14 00:50:05
 -->
 
 <template>
   <ejs-grid
     :allowExcelExport="true"
     :allowFiltering="true"
-    :allowPdfExport="true"
     :allowResizing="true"
     :allowSorting="true"
     :dataBound="adjustGrid"
@@ -20,7 +19,6 @@
     :filterSettings="searchResultGridFilterSettings"
     :frozenColumns="2"
     :load="buildGrid"
-    :pdfHeaderQueryCellInfo="adjustPdfExport"
     :ref="searchResultGridName"
     :selectionSettings="searchResultGridSelectionSettings"
     :showColumnChooser="true"
@@ -62,14 +60,6 @@ export default {
 
       this.styleSearchBarBg();
     }, // end function adjustGrid
-
-    /**
-     * Adjust PDF export properties.
-     * @param {object} args event arguments.
-     */
-    adjustPdfExport(args) {
-      args.cell.row.pdfGrid.repeatHeader = true;
-    }, // end function adjustPdfExport
 
     /**
      * Build the grid.
@@ -166,6 +156,7 @@ export default {
      * @param {object} args event arguments.
      */
     handleToolbarClick(args) {
+      // TODO: if print does not need this, change to if...else
       switch (args.item.text) {
         case zhCN.default.autoFitAllColumnsName:
           this.$refs[this.searchResultGridName].autoFitColumns([]);
@@ -197,38 +188,6 @@ export default {
                 },
               ],
             },
-          });
-          break;
-
-        case syncfusion.default["zh-Hans"].grid.Pdfexport:
-          this.$refs[this.searchResultGridName].pdfExport({
-            fileName: `${this.filename}.pdf`,
-            footer: {
-              contents: [
-                {
-                  format: "{$current}", // TODO: optional?
-                  pageNumberType: "Number",
-                  position: { x: 0, y: 0 },
-                  style: { hAlign: global.common.SF_ALIGN_CENTRE },
-                  type: "PageNumber",
-                },
-              ],
-              fromBottom: 0,
-              height: 60,
-            },
-            header: {
-              contents: [
-                {
-                  position: { x: 0, y: 0 },
-                  style: { hAlign: global.common.SF_ALIGN_CENTRE },
-                  type: "Text",
-                  value: this.fileHeader,
-                },
-              ],
-              fromTop: 0,
-              height: 60,
-            },
-            pageOrientation: "Landscape",
           });
           break;
 
@@ -277,7 +236,6 @@ export default {
       searchResultGridToolbar: [
         global.common.COLUMN_CHOOSER_KEY,
         global.common.EXCEL_EXPORT_KEY,
-        global.common.PDF_EXPORT_KEY,
         global.common.PRINT_KEY,
         {
           prefixIcon: "e-auto-fit-content",
