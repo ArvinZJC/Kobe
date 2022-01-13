@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220113
+ * @Version: 1.0.0.20220114
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 00:50:16
+ * @LastEditTime: 2022-01-14 00:58:36
  */
 
 global.common = {

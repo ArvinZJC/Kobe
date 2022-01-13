@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220113
+ * @Version: 1.0.0.20220114
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 16:29:41
+ * @LastEditTime: 2022-01-14 01:14:46
  */
 
 import {
@@ -57,6 +57,7 @@ async function createWindow(height, width) {
     webPreferences: {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       devTools: isDev,
+      enableBlinkFeatures: "CSSColorSchemeUARendering", // See https://stackoverflow.com/a/65313951 for reference.
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
       preload: path.join(__dirname, "preload.js"),
       scrollBounce: true,
