@@ -4,34 +4,53 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 00:58:57
+ * @LastEditTime: 2022-01-14 03:38:44
 -->
 
 <template>
-  <ejs-grid
-    :allowExcelExport="true"
-    :allowFiltering="true"
-    :allowResizing="true"
-    :allowSorting="true"
-    :dataBound="adjustGrid"
-    :dataSource="searchResultData"
-    :enableStickyHeader="true"
-    :filterSettings="searchResultGridFilterSettings"
-    :frozenColumns="2"
-    :load="buildGrid"
-    :ref="searchResultGridName"
-    :selectionSettings="searchResultGridSelectionSettings"
-    :showColumnChooser="true"
-    :showColumnMenu="true"
-    :toolbar="searchResultGridToolbar"
-    :toolbarClick="handleToolbarClick"
-    clipMode="EllipsisWithTooltip"
-    gridLines="Both"
-  />
+  <div
+    :class="[
+      shouldShowGrid
+        ? 'hidden'
+        : 'flex flex-col h-full items-center justify-center',
+    ]"
+  >
+    <div class="flex items-center">
+      <component
+        :is="loadingIcon"
+        aria-hidden="true"
+        class="animate-spin h-5 mr-2 text-black dark:text-white"
+      />
+      <span class="text-primary">{{ searchResultMessage }}</span>
+    </div>
+  </div>
+  <div :hidden="!shouldShowGrid">
+    <ejs-grid
+      :allowExcelExport="true"
+      :allowFiltering="true"
+      :allowResizing="true"
+      :allowSorting="true"
+      :dataBound="adjustGrid"
+      :dataSource="searchResultData"
+      :enableStickyHeader="true"
+      :filterSettings="searchResultGridFilterSettings"
+      :frozenColumns="2"
+      :load="buildGrid"
+      :ref="searchResultGridName"
+      :selectionSettings="searchResultGridSelectionSettings"
+      :showColumnChooser="true"
+      :showColumnMenu="true"
+      :toolbar="searchResultGridToolbar"
+      :toolbarClick="handleToolbarClick"
+      clipMode="EllipsisWithTooltip"
+      gridLines="Both"
+    />
+  </div>
 </template>
 
 <script>
 import { GridComponent } from "@syncfusion/ej2-vue-grids";
+import { defineComponent, h } from "vue";
 
 import global from "../lib/global.js";
 import * as syncfusion from "../locales/syncfusion.json";
@@ -44,21 +63,42 @@ export default {
      * Adjust the grid when the data source is populated.
      */
     adjustGrid() {
-      this.$refs[this.searchResultGridName].autoFitColumns([]);
+      var searchResultArea = document.getElementById(
+        global.common.SEARCH_RESULT_AREA_ID
+      );
 
-      const movableContentAreas =
-        document.getElementsByClassName("e-movablecontent");
-
-      // Hide the scrollbar if the content is not overflown horizontally.
-      if (
-        movableContentAreas != null &&
-        movableContentAreas.length > 0 &&
-        movableContentAreas[0].clientWidth >= movableContentAreas[0].scrollWidth
-      ) {
-        this.$refs[this.searchResultGridName].hideScroll();
+      if (searchResultArea == null) {
+        return;
       } // end if
 
-      this.styleSearchBarBg();
+      if (this.searchResultData == null) {
+        searchResultArea.classList.add("h-screen");
+        searchResultArea.classList.remove("min-h-screen");
+        this.shouldShowGrid = false;
+      } else {
+        this.$refs[this.searchResultGridName].autoFitColumns([]);
+
+        const movableContentAreas =
+          document.getElementsByClassName("e-movablecontent");
+
+        // Hide the scroll bar if the content is not overflown horizontally.
+        if (
+          movableContentAreas != null &&
+          movableContentAreas.length > 0 &&
+          movableContentAreas[0].clientWidth >=
+            movableContentAreas[0].scrollWidth
+        ) {
+          this.$refs[this.searchResultGridName].hideScroll();
+        } // end if
+
+        searchResultArea.classList.add("min-h-screen");
+        searchResultArea.classList.remove("h-screen");
+        this.shouldShowGrid = true;
+      } // end if...else
+
+      setTimeout(() => {
+        this.styleSearchBarBg();
+      }, 50);
     }, // end function adjustGrid
 
     /**
@@ -243,6 +283,9 @@ export default {
           tooltipText: zhCN.default.autoFitAllColumnsTooltip,
         },
       ],
+      searchResultMessage: zhCN.default.searching,
+      searchResultMessageExplanation: "", // TODO:
+      shouldShowGrid: false,
     };
   },
   mounted() {
@@ -293,6 +336,26 @@ export default {
       searchData
     );
     window.addEventListener("resize", this.styleSearchBarBg);
+  },
+  setup() {
+    const loadingIcon = defineComponent({
+      render: () =>
+        h("svg", { viewBox: "0 0 24 24" }, [
+          h("circle", {
+            class: "opacity-50 stroke-current",
+            cx: 12,
+            cy: 12,
+            r: 10,
+            "stroke-width": 4,
+          }),
+          h("path", {
+            class: "fill-current opacity-50",
+            d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z",
+          }),
+        ]),
+    });
+
+    return { loadingIcon };
   },
 };
 </script>

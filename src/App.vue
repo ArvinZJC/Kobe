@@ -46,8 +46,8 @@ import * as syncfusionLocale from "./locales/syncfusion.json";
 
 var syncfusionZhCN = {};
 
-syncfusionZhCN[global.common.SYNCFUSION_CULTURE] =
-  syncfusionLocale.default[global.common.SYNCFUSION_CULTURE];
+syncfusionZhCN[global.common.SF_CULTURE] =
+  syncfusionLocale.default[global.common.SF_CULTURE];
 loadCldr(
   caGregorian.default,
   numbers.default,
@@ -56,7 +56,7 @@ loadCldr(
   weekData.default
 );
 L10n.load(syncfusionZhCN);
-setCulture(global.common.SYNCFUSION_CULTURE);
+setCulture(global.common.SF_CULTURE);
 
 export default {
   provide: {

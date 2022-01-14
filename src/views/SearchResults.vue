@@ -1,24 +1,25 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220112
+ * @Version: 1.0.0.20220114
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-12 04:15:16
+ * @LastEditTime: 2022-01-14 03:11:22
 -->
 
 <template>
   <main class="container-view">
     <!-- The search result area. -->
-    <div class="container-block py-4">
+    <div
+      :id="global.common.SEARCH_RESULT_AREA_ID"
+      class="container-block h-screen pb-20 pt-4"
+    >
       <SearchResultGrid
         :endDate="this.$route.query.endDate"
         :startDate="this.$route.query.startDate"
         :stockSymbol="this.$route.query.stockSymbol"
       />
     </div>
-    <!-- Added for the search bar area. -->
-    <div class="h-16 w-full" />
     <!-- The button for scrolling to the top. -->
     <transition
       enter-active-class="motion-safe:transition-300 ease-out"

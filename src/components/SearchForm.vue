@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220113
+ * @Version: 1.0.0.20220114
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 00:13:10
+ * @LastEditTime: 2022-01-14 02:13:31
 -->
 
 <template>
@@ -187,7 +187,7 @@ export default {
         if (hasNoError) {
           setTimeout(() => {
             elementObj.element.parentElement.classList.remove(
-              global.common.SYNCFUSION_ERROR_CLASS
+              global.common.SF_ERROR_CLASS
             );
           }); // Set the timeout to avoid competing with the Syncfusion form validator who adds the error class.
         } // end if
@@ -209,7 +209,7 @@ export default {
         if (
           dateRangePickerDateRangeParentElement != null &&
           dateRangePickerDateRangeParentElement.classList.contains(
-            global.common.SYNCFUSION_ERROR_CLASS
+            global.common.SF_ERROR_CLASS
           )
         ) {
           args.preventDefault();
@@ -234,7 +234,7 @@ export default {
         } // end for
 
         this.$router.push({
-          name: global.common.SEARCH_RESULTS_VIEW,
+          name: global.common.SEARCH_RESULT_VIEW,
           query: {
             endDate: [
               dateRange[1].getFullYear(),
@@ -327,9 +327,7 @@ export default {
     this.formValidatorSearch = new FormValidator(`#${this.searchFormId}`, {
       customPlacement: function (formElement) {
         if (formElement.parentElement != null) {
-          formElement.parentElement.classList.add(
-            global.common.SYNCFUSION_ERROR_CLASS
-          );
+          formElement.parentElement.classList.add(global.common.SF_ERROR_CLASS);
         } // end if
       },
       rules,
@@ -372,6 +370,7 @@ export default {
           ),
         ]),
     });
+
     return { textLogo };
   },
 };
