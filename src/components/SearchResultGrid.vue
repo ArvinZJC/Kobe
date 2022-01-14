@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 03:38:44
+ * @LastEditTime: 2022-01-14 08:26:24
 -->
 
 <template>
@@ -19,7 +19,7 @@
       <component
         :is="loadingIcon"
         aria-hidden="true"
-        class="animate-spin h-5 mr-2 text-black dark:text-white"
+        class="animate-spin fill-[none] h-5 mr-2 text-black dark:text-white"
       />
       <span class="text-primary">{{ searchResultMessage }}</span>
     </div>
@@ -342,11 +342,10 @@ export default {
       render: () =>
         h("svg", { viewBox: "0 0 24 24" }, [
           h("circle", {
-            class: "opacity-50 stroke-current",
+            class: "opacity-50 stroke-[4] stroke-current",
             cx: 12,
             cy: 12,
             r: 10,
-            "stroke-width": 4,
           }),
           h("path", {
             class: "fill-current opacity-50",

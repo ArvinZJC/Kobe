@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 02:13:31
+ * @LastEditTime: 2022-01-14 08:41:29
 -->
 
 <template>
@@ -23,7 +23,7 @@
           :class="[hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40']"
           alt="App icon"
           id="app-icon"
-          src="../../build/icon.png"
+          src="../assets/AppIcon.png"
         />
       </div>
       <component

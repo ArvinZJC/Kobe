@@ -730,6 +730,26 @@ body::selection {
   height: 1px;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
+.h-\[7\.5\] {
+  height: 7.5;
+}
+
+.h-\[1\.875rem\] {
+  height: 1.875rem;
+}
+
 .min-h-screen {
   min-height: 100vh;
 }
@@ -744,6 +764,26 @@ body::selection {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-8 {
+  width: 2rem;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-\[7\.5\] {
+  width: 7.5;
+}
+
+.w-\[1\.875rem\] {
+  width: 1.875rem;
 }
 
 .max-w-md {
@@ -829,6 +869,15 @@ body::selection {
   border-width: 1px;
 }
 
+.bg-transparent {
+  background-color: transparent;
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
 }
@@ -837,8 +886,21 @@ body::selection {
   fill: currentColor;
 }
 
+.fill-\[none\] {
+  fill: none;
+}
+
 .stroke-current {
   stroke: currentColor;
+}
+
+.stroke-\[4\] {
+  stroke-width: 4;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .py-4 {
