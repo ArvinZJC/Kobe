@@ -4,18 +4,15 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 02:25:44
+ * @LastEditTime: 2022-01-15 05:00:54
  */
 
 global.common = {
   APP_SCHEME: "app",
-  AUTO_FIT_ALL_KEY: "AutoFitAll",
-  COLUMN_CHOOSER_KEY: "ColumnChooser",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DEV: "development",
   END_DATE_KEY: "endDate",
-  EXCEL_EXPORT_KEY: "ExcelExport",
   FILE_HEADER_FONT_SIZE: 14,
   GET_APP_NAME: "getAppName",
   GET_CONTENT_SIZE: "getContentSize",
@@ -29,7 +26,6 @@ global.common = {
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
   POPUP_BOTTOM: "50px",
-  PRINT_KEY: "Print",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",

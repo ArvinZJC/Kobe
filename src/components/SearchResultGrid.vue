@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 02:28:57
+ * @LastEditTime: 2022-01-15 06:11:38
 -->
 
 <template>
@@ -28,6 +28,7 @@
   <!-- The grid needs "invisible" rather than "hidden" to ensure a correct column header format. -->
   <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
     <ejs-grid
+      @created="searchGridImmediately"
       @dataBound="adjustGrid"
       @load="buildGrid"
       :allowExcelExport="true"
@@ -39,6 +40,7 @@
       :filterSettings="{ type: 'Menu' }"
       :frozenColumns="2"
       :ref="global.common.SEARCH_RESULT_GRID_NAME"
+      :searchSettings="{ operator: 'equal' }"
       :selectionSettings="{ mode: 'Both', type: 'Multiple' }"
       :showColumnChooser="true"
       :showColumnMenu="true"
@@ -198,45 +200,68 @@ export default {
      * @param {object} args event arguments.
      */
     handleToolbarClick(args) {
-      // TODO: if print does not need this, change to if...else
-      switch (args.item.text) {
-        case zhCN.default.autoFitAllColumnsName:
-          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
-          break;
-
-        case syncfusion.default["zh-Hans"].grid.Excelexport:
-          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].excelExport({
-            enableFilter: true,
-            fileName: `${this.filename}.xlsx`,
-            header: {
-              headerRows: 1,
-              rows: [
-                {
-                  cells: [
-                    {
-                      colSpan:
-                        this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
-                          .ej2Instances.columns.length,
-                      index: 1,
-                      value: this.fileHeader,
-                      style: {
-                        bold: true,
-                        fontSize: global.common.FILE_HEADER_FONT_SIZE,
-                        hAlign: global.common.SF_ALIGN_CENTRE,
-                      },
+      if (args.item.text === syncfusion.default["zh-Hans"].grid.Excelexport) {
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].excelExport({
+          enableFilter: true,
+          fileName: `${this.filename}.xlsx`,
+          header: {
+            headerRows: 1,
+            rows: [
+              {
+                cells: [
+                  {
+                    colSpan:
+                      this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
+                        .ej2Instances.columns.length,
+                    index: 1,
+                    value: this.fileHeader,
+                    style: {
+                      bold: true,
+                      fontSize: global.common.FILE_HEADER_FONT_SIZE,
+                      hAlign: global.common.SF_ALIGN_CENTRE,
                     },
-                  ],
-                  index: 1,
-                },
-              ],
-            },
-          });
-          break;
+                  },
+                ],
+                index: 1,
+              },
+            ],
+          },
+        });
+      } // end if
 
-        default:
-          return;
-      } // end switch-case
+      if (args.item.text === zhCN.default.autoFitAllColumnsName) {
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
+      } // end if
     }, // end function handleToolbarClick
+
+    /**
+     * Search the grid.
+     * @param {Event | KeyboardEvent} event the object of the event invoking searching.
+     */
+    searchGrid(event) {
+      this.$refs[global.common.SEARCH_RESULT_GRID_NAME].search(
+        event.target.value
+      );
+    }, // end functon searchGrid
+
+    /**
+     * Search the grid immediately for any input change in the search bar.
+     */
+    searchGridImmediately() {
+      const gridSearchBar = document.getElementById(
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].ej2Instances.element
+          .id + "_searchbar"
+      );
+
+      if (gridSearchBar != null) {
+        gridSearchBar.addEventListener("input", (event) => {
+          this.searchGrid(event);
+        });
+        gridSearchBar.addEventListener("keyup", (event) => {
+          this.searchGrid(event);
+        });
+      } // end if
+    }, // end function searchGridImmediately
 
     /**
      * Apply the search bar's blur effect if applicable.
@@ -274,9 +299,9 @@ export default {
       screenHeight: null,
       searchResultData: null,
       searchResultGridToolbar: [
-        global.common.COLUMN_CHOOSER_KEY,
-        global.common.EXCEL_EXPORT_KEY,
-        global.common.PRINT_KEY,
+        "ColumnChooser",
+        "ExcelExport",
+        "Search",
         {
           prefixIcon: "e-auto-fit-content",
           text: zhCN.default.autoFitAllColumnsName,

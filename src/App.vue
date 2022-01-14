@@ -1,24 +1,25 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220114
+ * @Version: 1.0.0.20220115
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 00:47:57
+ * @LastEditTime: 2022-01-15 05:18:17
 -->
 
 <template>
-  <!-- Write in this way rather than the way in [the docs](https://next.router.vuejs.org/guide/advanced/transitions.html) to prevent strange performance after navigating to another view. -->
-  <transition
-    enter-active-class="motion-safe:transition-opacity-300 ease-out"
-    enter-from-class="opacity-0"
-    enter-to-class="opacity-100"
-    leave-active-class="motion-safe:transition-opacity-300 ease-in"
-    leave-from-class="opacity-100"
-    leave-to-class="opacity-0"
-  >
-    <router-view />
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition
+      enter-active-class="motion-safe:transition-opacity-300 ease-out"
+      enter-from-class="opacity-0"
+      enter-to-class="opacity-100"
+      leave-active-class="motion-safe:transition-opacity-300 ease-in"
+      leave-from-class="opacity-100"
+      leave-to-class="opacity-0"
+    >
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script>
@@ -29,8 +30,8 @@ import {
   ExcelExport,
   Filter,
   Freeze,
-  Print,
   Resize,
+  Search,
   Sort,
   Toolbar,
 } from "@syncfusion/ej2-vue-grids";
@@ -66,8 +67,8 @@ export default {
       ExcelExport,
       Filter,
       Freeze,
-      Print,
       Resize,
+      Search,
       Sort,
       Toolbar,
     ],

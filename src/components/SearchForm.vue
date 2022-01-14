@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 04:43:16
+ * @LastEditTime: 2022-01-15 05:34:57
 -->
 
 <template>
@@ -187,7 +187,6 @@ export default {
      * Patch the auto-complete component's popup if necessary to avoid strange appearance.
      */
     patchAutoCompletePopup() {
-      console.log(1); // TODO:
       if (this.hasBarLayout) {
         setTimeout(() => {
           const autoCompletePopupArray = document.getElementsByClassName(
@@ -324,9 +323,7 @@ export default {
     this.$watch(
       () => this.$route.query,
       () => {
-        if (this.isBarLayout) {
-          window.location.reload();
-        } // end if
+        window.location.reload(); // Reload the window even if the search form is not in the search bar layout to avoid strange performance after navigating from the home view to the search result view.
       }
     );
   },
