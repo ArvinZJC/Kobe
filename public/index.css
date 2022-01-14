@@ -658,6 +658,10 @@ body::selection {
   visibility: visible;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .bottom-20 {
   bottom: 5rem;
 }
@@ -748,6 +752,10 @@ body::selection {
 
 .h-\[1\.875rem\] {
   height: 1.875rem;
+}
+
+.h-0 {
+  height: 0px;
 }
 
 .min-h-screen {
@@ -863,6 +871,10 @@ body::selection {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }
 
 .border {

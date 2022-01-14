@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 08:26:24
+ * @LastEditTime: 2022-01-14 15:14:21
 -->
 
 <template>
@@ -24,7 +24,7 @@
       <span class="text-primary">{{ searchResultMessage }}</span>
     </div>
   </div>
-  <div :hidden="!shouldShowGrid">
+  <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
     <ejs-grid
       :allowExcelExport="true"
       :allowFiltering="true"
