@@ -1,14 +1,14 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220113
+ * @Version: 1.0.0.20220115
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-13 04:31:36
+ * @LastEditTime: 2022-01-15 01:38:43
  */
 
 /*
- ! tailwindcss v3.0.13 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.14 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -674,10 +674,6 @@ body::selection {
   margin-left: 1rem;
 }
 
-.mb-16 {
-  margin-bottom: 4rem;
-}
-
 .mr-2 {
   margin-right: 0.5rem;
 }
@@ -722,40 +718,16 @@ body::selection {
   height: 100%;
 }
 
+.h-0 {
+  height: 0px;
+}
+
 .h-screen {
   height: 100vh;
 }
 
 .h-16 {
   height: 4rem;
-}
-
-.h-px {
-  height: 1px;
-}
-
-.h-8 {
-  height: 2rem;
-}
-
-.h-10 {
-  height: 2.5rem;
-}
-
-.h-9 {
-  height: 2.25rem;
-}
-
-.h-\[7\.5\] {
-  height: 7.5;
-}
-
-.h-\[1\.875rem\] {
-  height: 1.875rem;
-}
-
-.h-0 {
-  height: 0px;
 }
 
 .min-h-screen {
@@ -772,26 +744,6 @@ body::selection {
 
 .w-24 {
   width: 6rem;
-}
-
-.w-8 {
-  width: 2rem;
-}
-
-.w-10 {
-  width: 2.5rem;
-}
-
-.w-9 {
-  width: 2.25rem;
-}
-
-.w-\[7\.5\] {
-  width: 7.5;
-}
-
-.w-\[1\.875rem\] {
-  width: 1.875rem;
 }
 
 .max-w-md {
@@ -881,15 +833,6 @@ body::selection {
   border-width: 1px;
 }
 
-.bg-transparent {
-  background-color: transparent;
-}
-
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
 }
@@ -910,18 +853,9 @@ body::selection {
   stroke-width: 4;
 }
 
-.object-cover {
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
-}
-
-.pb-16 {
-  padding-bottom: 4rem;
 }
 
 .pb-20 {
@@ -937,11 +871,6 @@ body::selection {
   line-height: 1.75rem;
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
@@ -953,10 +882,6 @@ body::selection {
 
 .opacity-100 {
   opacity: 1;
-}
-
-.opacity-25 {
-  opacity: 0.25;
 }
 
 .opacity-50 {
@@ -1117,6 +1042,15 @@ body::selection {
 
 .e-circle-help:before {
   content: "\e797";
+}
+
+/* Force the popup height and position to be fixed. */
+
+.e-popup-fixed {
+  position: fixed !important;
+  max-height: -webkit-fit-content !important;
+  max-height: -moz-fit-content !important;
+  max-height: fit-content !important;
 }
 
 /* The search icon. */

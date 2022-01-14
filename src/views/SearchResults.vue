@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 03:11:22
+ * @LastEditTime: 2022-01-14 23:16:13
 -->
 
 <template>
@@ -75,7 +75,7 @@ export default {
      * Handle scrolling behaviour.
      */
     handleScroll() {
-      // Apply the backdrop blur filter and box shadow to the search bar if the view is scrolled vertically for a specified distance.
+      // Adjust the backdrop blur filter and box shadow to the search bar if the view is scrolled vertically for a specified distance.
       if (
         this.searchBar != null &&
         window.innerHeight + window.scrollY <

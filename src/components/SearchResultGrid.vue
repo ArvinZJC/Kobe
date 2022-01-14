@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220114
+ * @Version: 1.0.0.20220115
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 15:14:21
+ * @LastEditTime: 2022-01-15 02:28:57
 -->
 
 <template>
@@ -24,20 +24,22 @@
       <span class="text-primary">{{ searchResultMessage }}</span>
     </div>
   </div>
+  <input :id="global.common.TRICK_INPUT_ID" class="hidden" />
+  <!-- The grid needs "invisible" rather than "hidden" to ensure a correct column header format. -->
   <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
     <ejs-grid
+      @dataBound="adjustGrid"
+      @load="buildGrid"
       :allowExcelExport="true"
       :allowFiltering="true"
       :allowResizing="true"
       :allowSorting="true"
-      :dataBound="adjustGrid"
       :dataSource="searchResultData"
       :enableStickyHeader="true"
-      :filterSettings="searchResultGridFilterSettings"
+      :filterSettings="{ type: 'Menu' }"
       :frozenColumns="2"
-      :load="buildGrid"
-      :ref="searchResultGridName"
-      :selectionSettings="searchResultGridSelectionSettings"
+      :ref="global.common.SEARCH_RESULT_GRID_NAME"
+      :selectionSettings="{ mode: 'Both', type: 'Multiple' }"
       :showColumnChooser="true"
       :showColumnMenu="true"
       :toolbar="searchResultGridToolbar"
@@ -76,7 +78,7 @@ export default {
         searchResultArea.classList.remove("min-h-screen");
         this.shouldShowGrid = false;
       } else {
-        this.$refs[this.searchResultGridName].autoFitColumns([]);
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
 
         const movableContentAreas =
           document.getElementsByClassName("e-movablecontent");
@@ -88,7 +90,7 @@ export default {
           movableContentAreas[0].clientWidth >=
             movableContentAreas[0].scrollWidth
         ) {
-          this.$refs[this.searchResultGridName].hideScroll();
+          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].hideScroll();
         } // end if
 
         searchResultArea.classList.add("min-h-screen");
@@ -182,12 +184,12 @@ export default {
           headerText: zhCN.default.dayVolumeStackedColumnHeader,
           textAlign: global.common.SF_ALIGN_CENTRE,
         },
-      ];
+      ]; // TODO: unit, etc depend on preferences
 
       Array.prototype.forEach.call(columns, (element) => {
-        this.$refs[this.searchResultGridName].ej2Instances.columns.push(
-          element
-        );
+        this.$refs[
+          global.common.SEARCH_RESULT_GRID_NAME
+        ].ej2Instances.columns.push(element);
       });
     }, // end function buildGrid
 
@@ -199,11 +201,11 @@ export default {
       // TODO: if print does not need this, change to if...else
       switch (args.item.text) {
         case zhCN.default.autoFitAllColumnsName:
-          this.$refs[this.searchResultGridName].autoFitColumns([]);
+          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
           break;
 
         case syncfusion.default["zh-Hans"].grid.Excelexport:
-          this.$refs[this.searchResultGridName].excelExport({
+          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].excelExport({
             enableFilter: true,
             fileName: `${this.filename}.xlsx`,
             header: {
@@ -213,8 +215,8 @@ export default {
                   cells: [
                     {
                       colSpan:
-                        this.$refs[this.searchResultGridName].ej2Instances
-                          .columns.length,
+                        this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
+                          .ej2Instances.columns.length,
                       index: 1,
                       value: this.fileHeader,
                       style: {
@@ -268,11 +270,9 @@ export default {
     return {
       fileHeader: global.common.UNKNOWN,
       filename: global.common.UNKNOWN,
+      global,
       screenHeight: null,
       searchResultData: null,
-      searchResultGridFilterSettings: { type: "Menu" },
-      searchResultGridName: "gridSearchResults",
-      searchResultGridSelectionSettings: { mode: "Both", type: "Multiple" },
       searchResultGridToolbar: [
         global.common.COLUMN_CHOOSER_KEY,
         global.common.EXCEL_EXPORT_KEY,
@@ -336,6 +336,14 @@ export default {
       searchData
     );
     window.addEventListener("resize", this.styleSearchBarBg);
+    window.addEventListener("scroll", () => {
+      const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);
+
+      // The trick input is used to close any grid popup to avoid strange appearance when scrolling.
+      if (trickInput != null) {
+        trickInput.click();
+      } // end if
+    });
   },
   setup() {
     const loadingIcon = defineComponent({

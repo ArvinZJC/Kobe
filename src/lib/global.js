@@ -1,16 +1,18 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220114
+ * @Version: 1.0.0.20220115
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 03:24:10
+ * @LastEditTime: 2022-01-15 02:25:44
  */
 
 global.common = {
   APP_SCHEME: "app",
   AUTO_FIT_ALL_KEY: "AutoFitAll",
   COLUMN_CHOOSER_KEY: "ColumnChooser",
+  DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
+  DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DEV: "development",
   END_DATE_KEY: "endDate",
   EXCEL_EXPORT_KEY: "ExcelExport",
@@ -26,9 +28,12 @@ global.common = {
   MACOS: "darwin",
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
+  POPUP_BOTTOM: "50px",
   PRINT_KEY: "Print",
   SEARCH_BAR_ID: "search-bar",
+  SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",
+  SEARCH_RESULT_GRID_NAME: "gridSearchResults",
   SEARCH_RESULT_VIEW: "searchResults",
   SEPARATOR: "separator",
   SF_ALIGN_CENTRE: "Center",
@@ -42,11 +47,14 @@ global.common = {
   SF_TAILWIND_DARK: "tailwind-dark",
   START_DATE_KEY: "startDate",
   STOCK_NAME_KEY: "name",
+  STOCK_SYMBOL_AUTO_COMPLETE_NAME: "autoCompleteStockSymbol",
   STOCK_SYMBOL_KEY: "ts_code",
+  STOCK_SYMBOL_TOOLTIP_NAME: "tooltipStockSymbol",
   STRIKE_PRICE_KEY: "strikePrice",
   TABBING_ID: "KobeTabView",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",
+  TRICK_INPUT_ID: "trick-input",
   UNKNOWN: "Unknown",
   WIN_HEIGHT_MIN: 600,
   WIN_WIDTH_MIN: 800,

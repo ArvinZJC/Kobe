@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220114
+ * @Version: 1.0.0.20220115
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 08:41:29
+ * @LastEditTime: 2022-01-15 04:43:16
 -->
 
 <template>
@@ -36,7 +36,11 @@
         aria-hidden="true"
       />
     </div>
-    <form @submit.prevent="submitSearchForm" :id="searchFormId" class="w-full">
+    <form
+      @submit.prevent="submitSearchForm"
+      :id="global.common.SEARCH_FORM_ID"
+      class="w-full"
+    >
       <div
         :class="[
           'form-group',
@@ -48,40 +52,47 @@
         >
           <ejs-tooltip
             :content="locale.stockSymbolTooltip"
-            :ref="stockSymbolTooltipName"
+            :ref="global.common.STOCK_SYMBOL_TOOLTIP_NAME"
           >
             <!-- The stock symbol auto-complete component. -->
             <ejs-autocomplete
-              @blur="removeErrorBorder(stockSymbolAutoCompleteName)"
-              @change="removeErrorBorder(stockSymbolAutoCompleteName)"
-              @focus="removeErrorBorder(stockSymbolAutoCompleteName)"
+              @blur="
+                removeErrorBorder(global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME)
+              "
+              @change="
+                removeErrorBorder(global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME)
+              "
+              @focus="
+                removeErrorBorder(global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME)
+              "
+              @open="patchAutoCompletePopup"
               :autofill="true"
               :dataSource="stockList"
               :fields="{ value: global.common.STOCK_SYMBOL_KEY }"
               :highlight="true"
               :itemTemplate="stockListItemTemplate"
-              :name="stockSymbolAutoCompleteName"
+              :name="global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME"
               :placeholder="locale.stockSymbolPlaceholder"
-              :ref="stockSymbolAutoCompleteName"
+              :ref="global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME"
               :value="stockSymbolValue"
             />
           </ejs-tooltip>
           <ejs-tooltip
             :content="locale.dateRangeTooltip"
-            :ref="dateRangeTooltipName"
+            :ref="global.common.DATE_RANGE_PICKER_TOOLTIP_NAME"
           >
             <!-- The date range picker. -->
             <ejs-daterangepicker
-              @blur="removeErrorBorder(dateRangePickerName)"
-              @focus="removeErrorBorder(dateRangePickerName)"
-              @open="removeErrorBorder(dateRangePickerName)"
+              @blur="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
+              @focus="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
+              @open="handleDateRangePickerOpen"
               @renderDayCell="disableWeekends"
               :endDate="endDateValue"
               :max="new Date()"
               :min="new Date(global.common.MIN_DATE)"
-              :name="dateRangePickerName"
+              :name="global.common.DATE_RANGE_PICKER_NAME"
               :placeholder="locale.dateRangePlaceholder"
-              :ref="dateRangePickerName"
+              :ref="global.common.DATE_RANGE_PICKER_NAME"
               :startDate="startDateValue"
               :strictMode="true"
               dayHeaderFormat="Narrow"
@@ -132,6 +143,8 @@ import { createApp, defineComponent, h } from "vue";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
 
+const dateRangePickerPopupClassFilter =
+  "e-daterangepicker e-popup e-popup-open";
 const stockListItemT = createApp().component("stockListItemTemplate", {
   template: `
   <div class="flex justify-between">
@@ -163,11 +176,57 @@ export default {
     }, // end function disableWeekends
 
     /**
+     * Handle the event when the date range picker is opened.
+     */
+    handleDateRangePickerOpen() {
+      this.patchDateRangePickerPopup();
+      this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
+    }, // end function handleDateRangePickerOpen
+
+    /**
+     * Patch the auto-complete component's popup if necessary to avoid strange appearance.
+     */
+    patchAutoCompletePopup() {
+      console.log(1); // TODO:
+      if (this.hasBarLayout) {
+        setTimeout(() => {
+          const autoCompletePopupArray = document.getElementsByClassName(
+            "e-ddl e-popup e-popup-open"
+          );
+
+          Array.prototype.forEach.call(autoCompletePopupArray, (element) => {
+            element.classList.add("e-popup-fixed");
+            element.style.bottom = global.common.POPUP_BOTTOM;
+            element.style.top = null;
+          });
+        }, 50);
+      } // end if
+    }, // end function patchAutoCompletePopup
+
+    /**
+     * Patch the date range picker's popup if necessary to avoid stange appearance.
+     */
+    patchDateRangePickerPopup() {
+      if (this.hasBarLayout) {
+        setTimeout(() => {
+          const dateRangePickerPopupArray = document.getElementsByClassName(
+            dateRangePickerPopupClassFilter
+          );
+
+          Array.prototype.forEach.call(dateRangePickerPopupArray, (element) => {
+            element.style.bottom = global.common.POPUP_BOTTOM;
+            element.style.top = null;
+          });
+        }, 50);
+      } // end if
+    }, // end function patchDateRangePickerPopup
+
+    /**
      * Remove the form Syncfusion element's error border if applicable.
      * @param ref the element reference.
      */
     removeErrorBorder(ref) {
-      var elementObj = this.$refs[ref].ej2Instances;
+      const elementObj = this.$refs[ref].ej2Instances;
 
       if (elementObj.element.parentElement != null) {
         var hasNoError = false;
@@ -177,7 +236,7 @@ export default {
         } else {
           // The stock symbol auto-complete component is not expected to have an error border if the input satisfies the format.
           if (
-            ref === this.stockSymbolAutoCompleteName &&
+            ref === global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME &&
             elementObj.value.match(stockSymbolRegex) != null
           ) {
             hasNoError = true;
@@ -201,8 +260,8 @@ export default {
     submitSearchForm(args) {
       // Execute if the form values satisfy the predefined Syncfusion form validator.
       if (this.formValidatorSearch.validate()) {
-        var dateRangePickerDateRangeParentElement =
-          this.$refs[this.dateRangePickerName].ej2Instances.element
+        const dateRangePickerDateRangeParentElement =
+          this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.element
             .parentElement;
 
         // Revoke the event if the date range picker has the error border.
@@ -217,13 +276,14 @@ export default {
         } // end if
 
         // Ensure the tooltip popups are closed before navigating to the search result view.
-        this.$refs[this.dateRangeTooltipName].close();
-        this.$refs[this.stockSymbolTooltipName].close();
+        this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].close();
+        this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].close();
 
         const dateRange =
-          this.$refs[this.dateRangePickerName].ej2Instances.value;
+          this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.value;
         const stockSymbol =
-          this.$refs[this.stockSymbolAutoCompleteName].ej2Instances.value;
+          this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
+            .value;
         var stockName = "";
 
         for (const stock of this.stockList) {
@@ -272,13 +332,10 @@ export default {
   },
   data() {
     return {
-      dateRangePickerName: "dateRangePickerDateRange",
-      dateRangeTooltipName: "tooltipDateRange",
       endDateValue: new Date(this.endDate),
       global,
       hasBarLayout: this.isBarLayout,
       locale: zhCN.default,
-      searchFormId: "form-search",
       startDateValue: new Date(this.startDate),
       stockList: [],
       stockListItemTemplate: () => {
@@ -286,8 +343,6 @@ export default {
           template: stockListItemT,
         };
       },
-      stockSymbolAutoCompleteName: "autoCompleteStockSymbol",
-      stockSymbolTooltipName: "tooltipStockSymbol",
       stockSymbolValue: this.stockSymbol,
     };
   },
@@ -315,23 +370,56 @@ export default {
       global.common.IPC_SEND,
       global.common.GET_STOCK_LIST
     );
+    window.addEventListener("resize", () => {
+      const dateRangePickerPopupArray = document.getElementsByClassName(
+        dateRangePickerPopupClassFilter
+      );
+
+      Array.prototype.forEach.call(dateRangePickerPopupArray, () => {
+        this.$refs[global.common.DATE_RANGE_PICKER_NAME].hide();
+        this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
+      });
+      this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].hidePopup();
+    });
+    window.addEventListener("scroll", () => {
+      this.patchAutoCompletePopup();
+      this.patchDateRangePickerPopup();
+    });
+
+    // Avoid the strange appearance of the auto-complete component's popup when the popup already shows.
+    if (this.hasBarLayout) {
+      const autoCompleteInputArray = document.getElementsByClassName(
+        "e-autocomplete e-input"
+      );
+
+      Array.prototype.forEach.call(autoCompleteInputArray, (element) => {
+        element.addEventListener("input", this.patchAutoCompletePopup);
+        element.addEventListener("keyup", this.patchAutoCompletePopup);
+        element.addEventListener("paste", this.patchAutoCompletePopup);
+      });
+    } // end if
 
     var rules = {}; // The rules for the Syncfusion form validator.
 
-    rules[this.dateRangePickerName] = {
+    rules[global.common.DATE_RANGE_PICKER_NAME] = {
       required: true,
     };
-    rules[this.stockSymbolAutoCompleteName] = {
+    rules[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME] = {
       regex: stockSymbolRegex,
     };
-    this.formValidatorSearch = new FormValidator(`#${this.searchFormId}`, {
-      customPlacement: function (formElement) {
-        if (formElement.parentElement != null) {
-          formElement.parentElement.classList.add(global.common.SF_ERROR_CLASS);
-        } // end if
-      },
-      rules,
-    });
+    this.formValidatorSearch = new FormValidator(
+      `#${global.common.SEARCH_FORM_ID}`,
+      {
+        customPlacement: function (formElement) {
+          if (formElement.parentElement != null) {
+            formElement.parentElement.classList.add(
+              global.common.SF_ERROR_CLASS
+            );
+          } // end if
+        },
+        rules,
+      }
+    );
   },
   setup() {
     const textLogo = defineComponent({

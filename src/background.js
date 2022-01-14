@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220114
+ * @Version: 1.0.0.20220115
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 05:43:21
+ * @LastEditTime: 2022-01-15 00:13:37
  */
 
 import {
@@ -28,11 +28,11 @@ const path = require("path");
 
 /**
  * Create a tabbed window.
- * @param {number} height : an integer indicating the window height
- * @param {number} width : an integer indicating the window width
+ * @param {number} height : an integer indicating the expected window height.
+ * @param {number} width : an integer indicating the expected window width.
  */
 async function addTabbedWindow(height, width) {
-  var win = BrowserWindow.getFocusedWindow();
+  const win = BrowserWindow.getFocusedWindow();
   const tabbedWin = await createWindow(height, width);
 
   if (process.platform === global.common.MACOS) {
@@ -42,14 +42,17 @@ async function addTabbedWindow(height, width) {
 
 /**
  * Create a window for contents.
- * @param {number} height : an integer indicating the window height
- * @param {number} width : an integer indicating the window width
+ * @param {number} height : an integer indicating the expected window height.
+ * @param {number} width : an integer indicating the expected window width.
  */
 async function createWindow(height, width) {
-  var win = new BrowserWindow({
+  const win = new BrowserWindow({
     backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
     center: true,
-    height,
+    height:
+      height >= global.common.WIN_HEIGHT_MIN
+        ? height
+        : global.common.WIN_HEIGHT_MIN,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
     tabbingIdentifier: global.common.TABBING_ID,
@@ -62,7 +65,10 @@ async function createWindow(height, width) {
       preload: path.join(__dirname, "preload.js"),
       scrollBounce: true,
     },
-    width,
+    width:
+      width >= global.common.WIN_WIDTH_MIN
+        ? width
+        : global.common.WIN_WIDTH_MIN,
     vibrancy: "window",
   });
 
@@ -97,7 +103,7 @@ app.whenReady().then(async () => {
 
   // Process the stock list data from the specific JSON file.
   Array.prototype.forEach.call(stockList.default, (element, index, array) => {
-    var symbolParts = element[global.common.STOCK_SYMBOL_KEY].split("."); // Split the original value of the stock symbol key (e.g., "601006.SZ" => {"601006", "SZ"}).
+    const symbolParts = element[global.common.STOCK_SYMBOL_KEY].split("."); // Split the original value of the stock symbol key (e.g., "601006.SZ" => {"601006", "SZ"}).
 
     array[index][global.common.STOCK_SYMBOL_KEY] =
       symbolParts[1] + symbolParts[0];
@@ -105,7 +111,7 @@ app.whenReady().then(async () => {
 
   // Listen and react to the event of the IPC channel.
   ipcMain.on(global.common.IPC_SEND, async (event, data) => {
-    var win = BrowserWindow.getFocusedWindow();
+    const win = BrowserWindow.getFocusedWindow();
 
     if (data === global.common.GET_APP_NAME) {
       win.webContents.send(global.common.IPC_RECEIVE, app.name);
