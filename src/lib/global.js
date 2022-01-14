@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 00:58:36
+ * @LastEditTime: 2022-01-14 03:24:10
  */
 
 global.common = {
@@ -28,11 +28,14 @@ global.common = {
   MIN_DATE: "1990-12-03",
   PRINT_KEY: "Print",
   SEARCH_BAR_ID: "search-bar",
-  SEARCH_RESULTS_VIEW: "searchResults",
+  SEARCH_RESULT_AREA_ID: "search-result-area",
+  SEARCH_RESULT_VIEW: "searchResults",
   SEPARATOR: "separator",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
+  SF_CULTURE: "zh-Hans",
+  SF_ERROR_CLASS: "e-error",
   SF_NUM_COLUMN: "number",
   SF_STYLES: "syncfusionStyles",
   SF_TAILWIND: "tailwind",
@@ -41,8 +44,6 @@ global.common = {
   STOCK_NAME_KEY: "name",
   STOCK_SYMBOL_KEY: "ts_code",
   STRIKE_PRICE_KEY: "strikePrice",
-  SYNCFUSION_CULTURE: "zh-Hans",
-  SYNCFUSION_ERROR_CLASS: "e-error",
   TABBING_ID: "KobeTabView",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",

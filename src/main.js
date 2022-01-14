@@ -1,10 +1,10 @@
 /*
  * @Description: the app initialiser
- * @Version: 1.0.3.20220105
+ * @Version: 1.0.3.20220114
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-05 03:56:02
+ * @LastEditTime: 2022-01-14 03:09:38
  */
 
 import { createApp } from "vue";
@@ -32,9 +32,9 @@ createApp(App)
           name: global.common.HOME_VIEW,
         },
         {
-          path: `/${global.common.SEARCH_RESULTS_VIEW}`,
+          path: `/${global.common.SEARCH_RESULT_VIEW}`,
           component: () => import("./views/SearchResults.vue"),
-          name: global.common.SEARCH_RESULTS_VIEW,
+          name: global.common.SEARCH_RESULT_VIEW,
         },
       ],
     })

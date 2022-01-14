@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 00:07:30
+ * @LastEditTime: 2022-01-14 05:31:13
  */
 
 import { app, Menu, shell } from "electron";
@@ -15,6 +15,7 @@ import * as zhCN from "../locales/zh-CN.json";
 
 /**
  * Set the app menu.
+ * Reference: https://github.com/electron/electron/blob/main/lib/browser/api/menu-item-roles.ts
  * @param {boolean} isDev a flag indicating if the app is in dev mode.
  */
 export function setAppMenu(isDev) {
@@ -172,23 +173,134 @@ export function setAppMenu(isDev) {
 
 /**
  * Set the context menu.
+ * Reference: https://github.com/sindresorhus/electron-context-menu/blob/main/index.js
+ * @param {boolean} isDev a flag indicating if the app is in dev mode.
  * @param {BrowserWindow} win the window owning the context menu.
  */
-export function setContextMenu(win) {
+export function setContextMenu(isDev, win) {
+  const showSearchWithBaidu = true; // TODO: Baidu or Google as per user preferences.
   contextMenu({
-    append: (defaultActions, parameters) => [
-      {
-        click: () => {
-          shell.openExternal(
+    menu: (actions, params, currentWin, dictionarySuggestions) => [
+      dictionarySuggestions.length > 0 && actions.separator(),
+      ...dictionarySuggestions,
+      actions.separator(),
+      actions.learnSpelling(),
+      actions.separator(),
+      actions.lookUpSelection(),
+      actions.separator(),
+      showSearchWithBaidu && {
+        click: async () => {
+          await shell.openExternal(
             `https://www.baidu.com/s?wd=${encodeURIComponent(
-              parameters.selectionText
+              params.selectionText
             )}`
           );
         },
         label: `${zhCN.default.searchWithBaidu}“{selection}”`,
-        visible: parameters.selectionText.trim().length > 0,
+        visible: params.selectionText.trim().length > 0,
       },
-    ], // TODO: Baidu or Google as per user preferences.
+      !showSearchWithBaidu && actions.searchWithGoogle(),
+      actions.separator(),
+      {
+        accelerator: "CommandOrControl+Z",
+        click: () => {
+          currentWin.webContents.undo();
+        },
+        enabled: params.editFlags.canUndo,
+        visible: params.isEditable,
+        label: zhCN.default.undo,
+      },
+      {
+        accelerator:
+          process.platform === global.common.MACOS
+            ? "Shift+CommandOrControl+Z"
+            : "Control+Y",
+        click: () => {
+          currentWin.webContents.redo();
+        },
+        enabled: params.editFlags.canRedo,
+        visible: params.isEditable,
+        label: zhCN.default.redo,
+      },
+      actions.separator(),
+      actions.copyLink(),
+      actions.separator(),
+      {
+        accelerator: "CommandOrControl+X",
+        click: () => {
+          currentWin.webContents.cut();
+        },
+        enabled: params.editFlags.canCut,
+        registerAccelerator: false,
+        visible: params.isEditable,
+        label: zhCN.default.cut,
+      },
+      {
+        accelerator: "CommandOrControl+C",
+        click: () => {
+          currentWin.webContents.copy();
+        },
+        enabled: params.editFlags.canCopy,
+        registerAccelerator: false,
+        visible: params.isEditable || params.selectionText.length > 0,
+        label: zhCN.default.copy,
+      },
+      {
+        accelerator: "CommandOrControl+V",
+        click: () => {
+          currentWin.webContents.paste();
+        },
+        enabled: params.editFlags.canPaste,
+        registerAccelerator: false,
+        visible: params.isEditable,
+        label: zhCN.default.paste,
+      },
+      process.platform === global.common.MACOS && {
+        accelerator: "Cmd+Option+Shift+V",
+        click: () => {
+          currentWin.webContents.pasteAndMatchStyle();
+        },
+        enabled: params.editFlags.canPaste,
+        registerAccelerator: false,
+        visible: params.isEditable,
+        label: zhCN.default.pasteAndMatchStyle,
+      },
+      {
+        click: () => {
+          currentWin.webContents.delete();
+        },
+        enabled: params.editFlags.canDelete,
+        visible: params.isEditable,
+        label: zhCN.default.delete,
+      },
+      {
+        accelerator: "CommandOrControl+A",
+        click: () => {
+          currentWin.webContents.selectAll();
+        },
+        enabled: params.editFlags.canSelectAll,
+        visible: params.isEditable || params.selectionText.length > 0,
+        label: zhCN.default.selectAll,
+      },
+      actions.separator(),
+      {
+        accelerator: "CmdOrCtrl+R",
+        click: () => {
+          currentWin.reload();
+        },
+        label: zhCN.default.reload,
+      },
+      {
+        accelerator: "Shift+CmdOrCtrl+R",
+        click: () => {
+          currentWin.webContents.reloadIgnoringCache();
+        },
+        label: zhCN.default.forceReload,
+      },
+      actions.separator(),
+      isDev && actions.inspect(),
+      actions.separator(),
+    ],
     labels: {
       copy: zhCN.default.copy,
       copyLink: zhCN.default.copyLink,
@@ -198,8 +310,6 @@ export function setContextMenu(win) {
       paste: zhCN.default.paste,
       searchWithGoogle: `${zhCN.default.searchWithGoogle}“{selection}”`,
     },
-    showCopyImage: false,
-    showSearchWithGoogle: false, // TODO: Baidu or Google as per user preferences.
     window: win,
   });
 }
