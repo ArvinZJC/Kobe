@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 05:34:57
+ * @LastEditTime: 2022-01-15 06:16:14
 -->
 
 <template>
@@ -392,7 +392,6 @@ export default {
       Array.prototype.forEach.call(autoCompleteInputArray, (element) => {
         element.addEventListener("input", this.patchAutoCompletePopup);
         element.addEventListener("keyup", this.patchAutoCompletePopup);
-        element.addEventListener("paste", this.patchAutoCompletePopup);
       });
     } // end if
 
