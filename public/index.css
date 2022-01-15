@@ -8,7 +8,7 @@
  */
 
 /*
- ! tailwindcss v3.0.14 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.15 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -777,23 +777,6 @@ body::selection {
 .animate-spin {
   -webkit-animation: spin 1s linear infinite;
           animation: spin 1s linear infinite;
-}
-
-@-webkit-keyframes pulse {
-  50% {
-    opacity: .5;
-  }
-}
-
-@keyframes pulse {
-  50% {
-    opacity: .5;
-  }
-}
-
-.animate-pulse {
-  -webkit-animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .resize {
