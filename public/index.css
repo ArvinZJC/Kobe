@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 05:36:40
+ * @LastEditTime: 2022-01-15 15:10:28
  */
 
 /*
@@ -674,8 +674,8 @@ body::selection {
   margin-left: 1rem;
 }
 
-.mr-2 {
-  margin-right: 0.5rem;
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .block {
@@ -718,6 +718,10 @@ body::selection {
   height: 100%;
 }
 
+.h-6 {
+  height: 1.5rem;
+}
+
 .h-0 {
   height: 0px;
 }
@@ -748,6 +752,10 @@ body::selection {
 
 .max-w-md {
   max-width: 28rem;
+}
+
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .grow {
@@ -866,9 +874,31 @@ body::selection {
   padding-top: 1rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.leading-6 {
+  line-height: 1.5rem;
 }
 
 .text-black {
@@ -1014,6 +1044,18 @@ body::selection {
   color: rgb(249 250 251 / var(--tw-text-opacity));
 }
 
+/* Red primary text. */
+
+.text-primary-red {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.dark .text-primary-red {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity));
+}
+
 /* Secondary text. */
 
 /* Transition for most properties within 300ms. */
@@ -1038,9 +1080,9 @@ body::selection {
   font-size: 18px !important;
 }
 
-/* The help icon. */
+/* The info icon. */
 
-.e-circle-help:before {
+.e-circle-info:before {
   content: "\e797";
 }
 

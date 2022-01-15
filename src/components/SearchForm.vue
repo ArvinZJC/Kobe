@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 11:09:09
+ * @LastEditTime: 2022-01-15 20:27:59
 -->
 
 <template>
@@ -37,7 +37,7 @@
       />
     </div>
     <form
-      @submit.prevent="submitSearchForm"
+      @submit.prevent="handleSubmit"
       :id="global.common.SEARCH_FORM_ID"
       class="w-full"
     >
@@ -104,7 +104,7 @@
           <div class="block lg:hidden">
             <ejs-button
               :title="locale.search"
-              iconCss="e-icons e-search"
+              iconCss="e-search e-icons"
               isPrimary="true"
               type="submit"
             />
@@ -112,7 +112,7 @@
           <div class="lg:block hidden">
             <ejs-button
               :content="locale.search"
-              iconCss="e-icons e-search"
+              iconCss="e-search e-icons"
               isPrimary="true"
               type="submit"
             />
@@ -122,7 +122,7 @@
           <ejs-button
             :content="locale.search"
             cssClass="e-block"
-            iconCss="e-icons e-search"
+            iconCss="e-search e-icons"
             isPrimary="true"
             type="submit"
           />
@@ -182,6 +182,51 @@ export default {
       this.patchDateRangePickerPopup();
       this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
     }, // end function handleDateRangePickerOpen
+
+    /**
+     * Handle the form submission.
+     * @param args the event arguments.
+     */
+    handleSubmit(args) {
+      // Execute if the form values satisfy the predefined Syncfusion form validator.
+      if (this.formValidatorSearch.validate()) {
+        const dateRangePickerDateRangeParentElement =
+          this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.element
+            .parentElement;
+
+        // Revoke the event if the date range picker has the error border.
+        if (
+          dateRangePickerDateRangeParentElement != null &&
+          dateRangePickerDateRangeParentElement.classList.contains(
+            global.common.SF_ERROR_CLASS
+          )
+        ) {
+          args.preventDefault();
+          return;
+        } // end if
+
+        const dateRange =
+          this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.value;
+        const endDate = [
+          dateRange[1].getFullYear(),
+          dateRange[1].getMonth() + 1,
+          dateRange[1].getDate(),
+        ].join("-");
+        const startDate = [
+          dateRange[0].getFullYear(),
+          dateRange[0].getMonth() + 1,
+          dateRange[0].getDate(),
+        ].join("-");
+        const stockSymbol =
+          this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
+            .value;
+
+        // Ensure the tooltip popups are closed before navigating to the search result view.
+        this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].close();
+        this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].close();
+        this.submitSearchForm(endDate, startDate, stockSymbol);
+      } // end if
+    }, // end function handleSubmit
 
     /**
      * Patch the auto-complete component's popup if necessary to avoid strange appearance.
@@ -253,79 +298,43 @@ export default {
     }, // end function removeErrorBorder
 
     /**
-     * Submit the search form if applicable.
-     * @param args the event arguments.
+     * Submit the search form.
+     * @param {string} endDate the end date of the date range.
+     * @param {string} startDate the start date of the date range.
+     * @param {string} stockSymbol the stock symbol.
      */
-    submitSearchForm(args) {
-      // Execute if the form values satisfy the predefined Syncfusion form validator.
-      if (this.formValidatorSearch.validate()) {
-        const dateRangePickerDateRangeParentElement =
-          this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.element
-            .parentElement;
+    submitSearchForm(endDate, startDate, stockSymbol) {
+      // Reload the page to resubmit the form if the query has no changes and the search status area is not hidden.
+      if (
+        endDate === this.endDate &&
+        startDate === this.startDate &&
+        stockSymbol.toLowerCase() === this.stockSymbol.toLowerCase()
+      ) {
+        const searchStatusArea = document.getElementById(
+          global.common.SEARCH_STATUS_AREA_ID
+        );
 
-        // Revoke the event if the date range picker has the error border.
         if (
-          dateRangePickerDateRangeParentElement != null &&
-          dateRangePickerDateRangeParentElement.classList.contains(
-            global.common.SF_ERROR_CLASS
-          )
+          searchStatusArea != null &&
+          !searchStatusArea.classList.contains("hidden")
         ) {
-          args.preventDefault();
-          return;
+          window.location.reload();
         } // end if
+      } else {
+        var stockName = "";
 
-        // Ensure the tooltip popups are closed before navigating to the search result view.
-        this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].close();
-        this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].close();
-
-        const dateRange =
-          this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.value;
-        const endDate = [
-          dateRange[1].getFullYear(),
-          dateRange[1].getMonth() + 1,
-          dateRange[1].getDate(),
-        ].join("-");
-        const startDate = [
-          dateRange[0].getFullYear(),
-          dateRange[0].getMonth() + 1,
-          dateRange[0].getDate(),
-        ].join("-");
-        const stockSymbol =
-          this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
-            .value;
-
-        // Reload the page to resubmit the form if the query has no changes and the search status area is not hidden.
-        if (
-          endDate === this.endDate &&
-          startDate === this.startDate &&
-          stockSymbol.toLowerCase() === this.stockSymbol.toLowerCase()
-        ) {
-          const searchStatusArea = document.getElementById(
-            global.common.SEARCH_STATUS_AREA_ID
-          );
-
-          if (
-            searchStatusArea != null &&
-            !searchStatusArea.classList.contains("hidden")
-          ) {
-            window.location.reload();
+        for (const stock of this.stockList) {
+          if (stock[global.common.STOCK_SYMBOL_KEY] === stockSymbol) {
+            stockName = stock[global.common.STOCK_NAME_KEY];
+            break;
           } // end if
-        } else {
-          var stockName = "";
+        } // end for
 
-          for (const stock of this.stockList) {
-            if (stock[global.common.STOCK_SYMBOL_KEY] === stockSymbol) {
-              stockName = stock[global.common.STOCK_NAME_KEY];
-              break;
-            } // end if
-          } // end for
-
-          this.$router.push({
-            name: global.common.SEARCH_RESULT_VIEW,
-            query: { endDate, startDate, stockName, stockSymbol },
-          });
-        } // end if...else
-      } // end if
+        this.$router.push({
+          name: global.common.SEARCH_RESULT_VIEW,
+          query: { endDate, startDate, stockName, stockSymbol },
+        });
+      } // end if...else
     }, // end function submitSearchForm
   },
   props: {

@@ -1,5 +1,6 @@
 {
   "about": "关于",
+  "accessDenied": "从数据接口端查询数据被拒绝。这可能是由于查询频率过高，从而使 IP 暂时被封。解封需要您等待 5 - 60 分钟（由数据接口端决定），您也可尝试使用不同的网络。",
   "actualSize": "实际大小",
   "appHomePage": "软件主页",
   "autoFitAllColumnsName": "自动调整所有列宽",
@@ -38,7 +39,9 @@
   "responseNotOk": "从数据接口端查询数据时出错。若您确认网络配置无误，请联系开发者检查数据接口端。",
   "scrollToTopButtonTitle": "回到顶部",
   "search": "搜索",
+  "searchError": "出错了...",
   "searching": "搜索中...",
+  "searchingHint": "为提高搜索引擎的稳定性，从数据接口端查询数据可能耗时较长，请您耐心等待。",
   "searchWithBaidu": "用百度搜索",
   "searchWithGoogle": "用谷歌搜索",
   "selectAll": "全选",

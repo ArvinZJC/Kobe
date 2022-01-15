@@ -4,10 +4,11 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 08:45:18
+ * @LastEditTime: 2022-01-15 20:23:12
  */
 
 global.common = {
+  API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
   APP_SCHEME: "app",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",

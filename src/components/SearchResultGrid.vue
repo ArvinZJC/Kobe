@@ -4,25 +4,37 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 11:54:43
+ * @LastEditTime: 2022-01-15 21:11:09
 -->
 
 <template>
   <div
     :class="[
-      shouldShowGrid
-        ? 'hidden'
-        : 'flex flex-col h-full items-center justify-center',
+      shouldShowGrid ? 'hidden' : 'flex h-full items-center justify-center',
     ]"
     :id="global.common.SEARCH_STATUS_AREA_ID"
   >
-    <div class="flex items-center">
-      <component
-        :is="loadingIcon"
-        aria-hidden="true"
-        class="animate-spin fill-[none] h-5 mr-2 text-black dark:text-white"
-      />
-      <span class="text-primary">{{ searchResultMessage }}</span>
+    <div class="flex flex-col justify-center max-w-sm text-center">
+      <div class="flex items-center justify-center">
+        <span
+          v-if="hasSearchError"
+          class="text-primary-red e-circle-info e-icons text-2xl"
+        />
+        <component
+          v-else
+          :is="loadingIcon"
+          aria-hidden="true"
+          class="text-primary animate-spin fill-[none] h-6"
+        />
+        <span
+          :class="[
+            'font-medium leading-6 ml-2 text-lg',
+            hasSearchError ? 'text-primary-red' : 'text-primary',
+          ]"
+          >{{ searchStatusTitle }}</span
+        >
+      </div>
+      <p class="text-conent mt-2 text-sm">{{ searchStatusMessage }}</p>
     </div>
   </div>
   <input :id="global.common.TRICK_INPUT_ID" class="hidden" />
@@ -79,18 +91,21 @@ export default {
       if (this.searchResultData == null) {
         searchResultArea.classList.add("h-screen");
         searchResultArea.classList.remove("min-h-screen");
+        this.hasSearchError = false;
+        this.searchStatusMessage = zhCN.default.searchingHint;
+        this.searchStatusTitle = zhCN.default.searching;
         this.shouldShowGrid = false;
       } else if (
         this.searchResultData.length === 1 &&
         this.searchResultData[0][global.common.STRIKE_PRICE_KEY] ===
           global.common.PROCESSOR_ERROR_KEY
       ) {
-        this.searchResultMessage =
+        this.hasSearchError = true;
+        this.searchStatusMessage =
           this.searchResultData[0][global.common.TOTAL_VOLUME_KEY];
+        this.searchStatusTitle = zhCN.default.searchError;
         this.shouldShowGrid = false;
       } else {
-        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
-
         const movableContentAreas =
           document.getElementsByClassName("e-movablecontent");
 
@@ -104,6 +119,7 @@ export default {
           this.$refs[global.common.SEARCH_RESULT_GRID_NAME].hideScroll();
         } // end if
 
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
         searchResultArea.classList.add("min-h-screen");
         searchResultArea.classList.remove("h-screen");
         this.shouldShowGrid = true;
@@ -305,6 +321,7 @@ export default {
       fileHeader: global.common.UNKNOWN,
       filename: global.common.UNKNOWN,
       global,
+      hasSearchError: false,
       screenHeight: null,
       searchResultData: null,
       searchResultGridToolbar: [
@@ -317,8 +334,8 @@ export default {
           tooltipText: zhCN.default.autoFitAllColumnsTooltip,
         },
       ],
-      searchResultMessage: zhCN.default.searching,
-      searchResultMessageExplanation: "", // TODO:
+      searchStatusMessage: zhCN.default.searchingHint,
+      searchStatusTitle: zhCN.default.searching,
       shouldShowGrid: false,
     };
   },
@@ -351,11 +368,12 @@ export default {
 
         if (
           isArray &&
-          typeof data[0] === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data[0],
-            global.common.STRIKE_PRICE_KEY
-          )
+          (data.length === 0 ||
+            (typeof data[0] === "object" &&
+              Object.prototype.hasOwnProperty.call(
+                data[0],
+                global.common.STRIKE_PRICE_KEY
+              )))
         ) {
           this.searchResultData = data;
         } // end if
