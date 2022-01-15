@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 08:42:17
+ * @LastEditTime: 2022-01-15 10:39:56
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -23,25 +23,30 @@ import * as zhCN from "../locales/zh-CN.json";
  * @returns an array of search result data for the specified grid to show.
  */
 function arrangeSearchResults(dayVolumes, endDate, startDate, totalVolumes) {
-  var index = 0;
-  var rowData;
   var searchResultData = [];
 
-  for (const strikePrice in totalVolumes) {
-    rowData = {};
-    rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
-    rowData[global.common.TOTAL_VOLUME_KEY] = totalVolumes[strikePrice];
+  if (totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null) {
+    var index = 0;
 
-    if (endDate === startDate) {
-      rowData[startDate] = totalVolumes[strikePrice];
-    } else {
-      for (const dateStr in dayVolumes) {
-        rowData[dateStr] = dayVolumes[dateStr][strikePrice];
-      } // end for
-    } // end if...else
+    for (const strikePrice in totalVolumes) {
+      var rowData = {};
 
-    searchResultData[index++] = rowData;
-  } // end for
+      rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
+      rowData[global.common.TOTAL_VOLUME_KEY] = totalVolumes[strikePrice];
+
+      if (endDate === startDate) {
+        rowData[startDate] = totalVolumes[strikePrice];
+      } else {
+        for (const dateStr in dayVolumes) {
+          rowData[dateStr] = dayVolumes[dateStr][strikePrice];
+        } // end for
+      } // end if...else
+
+      searchResultData[index++] = rowData;
+    } // end for
+  } else {
+    searchResultData[0] = totalVolumes[global.common.PROCESSOR_ERROR_KEY];
+  } // end if...else
 
   return searchResultData;
 } // end function arrangeSearchResults
@@ -121,12 +126,12 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
     if (
       e instanceof FetchError &&
       e.type === "system" &&
-      e.code === "ECONNREFUSED"
+      e.code === "ERR_INTERNET_DISCONNECTED"
     ) {
       volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.poorNet;
     } else {
       volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.processError;
-    }
+    } // end if...else
   } // end try...catch
 
   return volumes;
@@ -141,10 +146,13 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
  */
 export async function getSearchResultData(endDate, startDate, stockSymbol) {
   var dayVolumes = {};
-  const totalVolumes = await fetchFromApi(endDate, startDate, stockSymbol);
+  var totalVolumes = await fetchFromApi(endDate, startDate, stockSymbol);
 
   // No need to retrive the day volumes if the start date is also the end date.
-  if (endDate !== startDate) {
+  if (
+    totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null &&
+    endDate !== startDate
+  ) {
     const dateArray = createDateArray(endDate, startDate);
     var count = 0;
 
@@ -156,6 +164,11 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
       ].join("-");
 
       dayVolumes[dateStr] = await fetchFromApi(dateStr, dateStr, stockSymbol);
+
+      if (dayVolumes[dateStr][global.common.PROCESSOR_ERROR_KEY] != null) {
+        totalVolumes = dayVolumes[dateStr];
+        break;
+      } // end if
 
       // Sleep for 5 seconds for each 5 requests to mitigate blocking frequent website crawling.
       if (++count % 5 === 0 && dateArray.length > 5) {
