@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 06:16:14
+ * @LastEditTime: 2022-01-15 08:56:00
 -->
 
 <template>
@@ -280,35 +280,51 @@ export default {
 
         const dateRange =
           this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.value;
+        const endDate = [
+          dateRange[1].getFullYear(),
+          dateRange[1].getMonth() + 1,
+          dateRange[1].getDate(),
+        ].join("-");
+        const startDate = [
+          dateRange[0].getFullYear(),
+          dateRange[0].getMonth() + 1,
+          dateRange[0].getDate(),
+        ].join("-");
         const stockSymbol =
           this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
             .value;
-        var stockName = "";
 
-        for (const stock of this.stockList) {
-          if (stock[global.common.STOCK_SYMBOL_KEY] === stockSymbol) {
-            stockName = stock[global.common.STOCK_NAME_KEY];
-            break;
+        // Reload the page to resubmit the form if the query has no changes and the search status area is not hidden.
+        if (
+          endDate === this.endDate &&
+          startDate === this.startDate &&
+          stockSymbol.toLowerCase() === this.stockSymbol.toLowerCase()
+        ) {
+          const searchStatusArea = document.getElementById(
+            global.common.SEARCH_STATUS_AREA_ID
+          );
+
+          if (
+            searchStatusArea != null &&
+            !searchStatusArea.classList.contains("hidden")
+          ) {
+            window.location.reload();
           } // end if
-        } // end for
+        } else {
+          var stockName = "";
 
-        this.$router.push({
-          name: global.common.SEARCH_RESULT_VIEW,
-          query: {
-            endDate: [
-              dateRange[1].getFullYear(),
-              dateRange[1].getMonth() + 1,
-              dateRange[1].getDate(),
-            ].join("-"),
-            startDate: [
-              dateRange[0].getFullYear(),
-              dateRange[0].getMonth() + 1,
-              dateRange[0].getDate(),
-            ].join("-"),
-            stockName,
-            stockSymbol,
-          },
-        });
+          for (const stock of this.stockList) {
+            if (stock[global.common.STOCK_SYMBOL_KEY] === stockSymbol) {
+              stockName = stock[global.common.STOCK_NAME_KEY];
+              break;
+            } // end if
+          } // end for
+
+          this.$router.push({
+            name: global.common.SEARCH_RESULT_VIEW,
+            query: { endDate, startDate, stockName, stockSymbol },
+          });
+        } // end if...else
       } // end if
     }, // end function submitSearchForm
   },

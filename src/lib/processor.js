@@ -4,14 +4,15 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 00:16:24
+ * @LastEditTime: 2022-01-15 08:42:17
  */
 
-import fetch from "electron-fetch";
+import fetch, { FetchError } from "electron-fetch";
 import { DomUtils, parseDocument } from "htmlparser2";
 import iconv from "iconv-lite";
 
 import global from "./global.js";
+import * as zhCN from "../locales/zh-CN.json";
 
 /**
  * Arrange the search results.
@@ -75,7 +76,7 @@ function createDateArray(endDate, startDate) {
  * @param {string} endDate the end date of the date range.
  * @param {string} startDate the start date of the date range.
  * @param {string} stockSymbol the stock symbol.
- * @returns an object using strike prices as keys and the corresponding volumes as values.
+ * @returns an object using strike prices as keys and the corresponding volumes as values, or containing an error message.
  */
 async function fetchFromApi(endDate, startDate, stockSymbol) {
   var volumes = {};
@@ -84,31 +85,48 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
     const response = await fetch(
       `http://market.finance.sina.com.cn/pricehis.php?symbol=${stockSymbol.toLowerCase()}&startdate=${startDate}&enddate=${endDate}`
     );
-    const buffer = await response.arrayBuffer();
-    const dom = parseDocument(
-      iconv.decode(Buffer.from(buffer), "gb2312").toString() // Decode using GB2312 rather than UTF-8 to avoid garbled characters due to the original character set used by the above API.
-    );
-    const tbody = DomUtils.getElementsByTagName("tbody", dom.children)[0];
-    const trArray = DomUtils.getElementsByTagName("tr", tbody.children);
 
-    Array.prototype.forEach.call(trArray, (tr) => {
-      var strikePrice;
-      const tdArray = DomUtils.getElementsByTagName("td", tr.children);
-      var volume;
+    if (response.ok) {
+      const buffer = await response.arrayBuffer();
+      const dom = parseDocument(
+        iconv.decode(Buffer.from(buffer), "gb2312").toString() // Decode using GB2312 rather than UTF-8 to avoid garbled characters due to the original character set used by the above API.
+      );
+      const tbody = DomUtils.getElementsByTagName("tbody", dom.children)[0];
+      const trArray = DomUtils.getElementsByTagName("tr", tbody.children);
 
-      Array.prototype.forEach.call(tdArray, (td, tdIndex) => {
-        if (tdIndex === 0) {
-          strikePrice = DomUtils.innerText(td.children);
-        } else if (tdIndex === 1) {
-          volume = DomUtils.innerText(td.children);
-        } else {
-          return; // Ignore the columns "占比" (Index 2) and “占比图” (Index 3).
-        } // end nested if...else
+      Array.prototype.forEach.call(trArray, (tr) => {
+        var strikePrice;
+        const tdArray = DomUtils.getElementsByTagName("td", tr.children);
+        var volume;
+
+        Array.prototype.forEach.call(tdArray, (td, tdIndex) => {
+          if (tdIndex === 0) {
+            strikePrice = DomUtils.innerText(td.children);
+          } else if (tdIndex === 1) {
+            volume = DomUtils.innerText(td.children);
+          } else {
+            return; // Ignore the columns "占比" (Index 2) and “占比图” (Index 3).
+          } // end nested if...else
+        });
+        volumes[strikePrice] = volume;
       });
-      volumes[strikePrice] = volume;
-    });
+    } else {
+      console.log(`${response.status} ${response.statusText}`);
+      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
+    } // end if...else
   } catch (e) {
-    console.log(e); // TODO:
+    console.log(e);
+
+    // Reference: https://github.com/arantes555/electron-fetch/blob/master/ERROR-HANDLING.md
+    if (
+      e instanceof FetchError &&
+      e.type === "system" &&
+      e.code === "ECONNREFUSED"
+    ) {
+      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.poorNet;
+    } else {
+      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.processError;
+    }
   } // end try...catch
 
   return volumes;

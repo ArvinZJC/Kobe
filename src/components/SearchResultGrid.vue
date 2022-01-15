@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 06:11:38
+ * @LastEditTime: 2022-01-15 08:45:30
 -->
 
 <template>
@@ -14,6 +14,7 @@
         ? 'hidden'
         : 'flex flex-col h-full items-center justify-center',
     ]"
+    :id="global.common.SEARCH_STATUS_AREA_ID"
   >
     <div class="flex items-center">
       <component

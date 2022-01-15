@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 05:00:54
+ * @LastEditTime: 2022-01-15 08:45:18
  */
 
 global.common = {
@@ -26,11 +26,13 @@ global.common = {
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
   POPUP_BOTTOM: "50px",
+  PROCESSOR_ERROR_KEY: "ProcessorError",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",
   SEARCH_RESULT_GRID_NAME: "gridSearchResults",
   SEARCH_RESULT_VIEW: "searchResults",
+  SEARCH_STATUS_AREA_ID: "search-status-area",
   SEPARATOR: "separator",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
