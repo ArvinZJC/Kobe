@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 10:40:01
+ * @LastEditTime: 2022-01-15 11:54:43
 -->
 
 <template>
@@ -82,10 +82,11 @@ export default {
         this.shouldShowGrid = false;
       } else if (
         this.searchResultData.length === 1 &&
-        this.searchResultData[0][global.common.PROCESSOR_ERROR_KEY] != null
+        this.searchResultData[0][global.common.STRIKE_PRICE_KEY] ===
+          global.common.PROCESSOR_ERROR_KEY
       ) {
         this.searchResultMessage =
-          this.searchResultData[0][global.common.PROCESSOR_ERROR_KEY];
+          this.searchResultData[0][global.common.TOTAL_VOLUME_KEY];
         this.shouldShowGrid = false;
       } else {
         this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);

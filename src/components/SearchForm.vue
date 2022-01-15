@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 08:56:00
+ * @LastEditTime: 2022-01-15 11:09:09
 -->
 
 <template>
@@ -339,7 +339,9 @@ export default {
     this.$watch(
       () => this.$route.query,
       () => {
-        window.location.reload(); // Reload the window even if the search form is not in the search bar layout to avoid strange performance after navigating from the home view to the search result view.
+        if (this.hasBarLayout) {
+          window.location.reload();
+        } // end if
       }
     );
   },

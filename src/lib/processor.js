@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 10:39:56
+ * @LastEditTime: 2022-01-15 11:50:11
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -23,17 +23,16 @@ import * as zhCN from "../locales/zh-CN.json";
  * @returns an array of search result data for the specified grid to show.
  */
 function arrangeSearchResults(dayVolumes, endDate, startDate, totalVolumes) {
+  var index = 0;
   var searchResultData = [];
 
-  if (totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null) {
-    var index = 0;
+  for (const strikePrice in totalVolumes) {
+    var rowData = {};
 
-    for (const strikePrice in totalVolumes) {
-      var rowData = {};
+    rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
+    rowData[global.common.TOTAL_VOLUME_KEY] = totalVolumes[strikePrice];
 
-      rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
-      rowData[global.common.TOTAL_VOLUME_KEY] = totalVolumes[strikePrice];
-
+    if (totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null) {
       if (endDate === startDate) {
         rowData[startDate] = totalVolumes[strikePrice];
       } else {
@@ -41,12 +40,10 @@ function arrangeSearchResults(dayVolumes, endDate, startDate, totalVolumes) {
           rowData[dateStr] = dayVolumes[dateStr][strikePrice];
         } // end for
       } // end if...else
+    }
 
-      searchResultData[index++] = rowData;
-    } // end for
-  } else {
-    searchResultData[0] = totalVolumes[global.common.PROCESSOR_ERROR_KEY];
-  } // end if...else
+    searchResultData[index++] = rowData;
+  } // end for
 
   return searchResultData;
 } // end function arrangeSearchResults
@@ -116,19 +113,21 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
         volumes[strikePrice] = volume;
       });
     } else {
-      console.log(`${response.status} ${response.statusText}`);
+      console.warn(`${response.status} ${response.statusText}`);
       volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
     } // end if...else
   } catch (e) {
-    console.log(e);
+    console.error(e);
 
     // Reference: https://github.com/arantes555/electron-fetch/blob/master/ERROR-HANDLING.md
-    if (
-      e instanceof FetchError &&
-      e.type === "system" &&
-      e.code === "ERR_INTERNET_DISCONNECTED"
-    ) {
-      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.poorNet;
+    if (e instanceof FetchError && e.type === "system") {
+      if (e.code === "ERR_CONNECTION_RESET") {
+        volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
+      } // end if
+
+      if (e.code === "ERR_INTERNET_DISCONNECTED") {
+        volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.poorNet;
+      } // end if
     } else {
       volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.processError;
     } // end if...else
@@ -148,7 +147,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
   var dayVolumes = {};
   var totalVolumes = await fetchFromApi(endDate, startDate, stockSymbol);
 
-  // No need to retrive the day volumes if the start date is also the end date.
+  // Retrive the day volumes only if there is no error message at present and the start date does not equal the end date.
   if (
     totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null &&
     endDate !== startDate

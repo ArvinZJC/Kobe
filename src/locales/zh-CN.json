@@ -35,7 +35,7 @@
   "redo": "重做",
   "reload": "重新载入",
   "releaseNotes": "发布说明",
-  "responseNotOk": "数据接口端停止或限制了服务。若您确认网络配置无误，请联系开发者检查数据接口端。",
+  "responseNotOk": "从数据接口端查询数据时出错。若您确认网络配置无误，请联系开发者检查数据接口端。",
   "scrollToTopButtonTitle": "回到顶部",
   "search": "搜索",
   "searching": "搜索中...",
