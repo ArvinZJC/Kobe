@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 13:11:02
+ * @LastEditTime: 2022-01-16 15:21:12
  */
 
 import { app, BrowserWindow, ipcMain, protocol } from "electron";
@@ -84,10 +84,10 @@ app.whenReady().then(async () => {
   });
 });
 
-// Emitted when all windows are closed.
+// Emitted when all windows have been closed.
 app.on("window-all-closed", () => {
   if (process.platform !== global.common.MACOS) {
-    app.quit(); // Quit when all windows are closed, except on macOS where the user quits the app explicitly with command + Q.
+    app.quit(); // Quit the app, except on macOS where the user quits the app explicitly with command + Q.
   } // end if
 });
 

@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 13:25:43
+ * @LastEditTime: 2022-01-16 15:36:36
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -21,10 +21,11 @@ const path = require("path");
  * Create a tabbed app window.
  */
 export async function addTabbedAppWin() {
-  const tabbedAppWin = await createWin(global.common.APP_WIN_ID, app.name);
-
   if (process.platform === global.common.MACOS) {
-    BrowserWindow.getFocusedWindow().addTabbedWindow(tabbedAppWin);
+    const win = BrowserWindow.getFocusedWindow(); // It is necessary to put this line before creating a window to add the tabbed app window properly.
+    const tabbedAppWin = await createWin(global.common.APP_WIN_ID, app.name);
+
+    win.addTabbedWindow(tabbedAppWin);
   } // end if
 } // end function addTabbedAppWin
 
