@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 11:24:33
+ * @LastEditTime: 2022-01-16 13:11:02
  */
 
 import { app, BrowserWindow, ipcMain, protocol } from "electron";
@@ -13,7 +13,7 @@ import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import * as stockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
 import { getSearchResultData } from "./lib/processor.js";
-import { addTabbedAppWin, createAppWin } from "./lib/window.js";
+import { addTabbedAppWin, createWin } from "./lib/window.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
 
@@ -69,12 +69,12 @@ app.whenReady().then(async () => {
     } // end if
   });
 
-  await createAppWin();
+  await createWin(global.common.APP_WIN_ID, app.name);
 
   // Emitted when the app is activated.
   app.on("activate", async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      await createAppWin(); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
+      await createWin(global.common.APP_WIN_ID, app.name); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
     } // end if
   });
 

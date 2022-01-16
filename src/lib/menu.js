@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 11:32:05
+ * @LastEditTime: 2022-01-16 13:11:14
  */
 
 import { app, Menu, shell } from "electron";
@@ -12,7 +12,7 @@ import contextMenu from "electron-context-menu";
 
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
-import { createPreferenceWin } from "./window.js";
+import { showPreferenceWin } from "./window.js";
 
 /**
  * Set the app menu.
@@ -32,7 +32,7 @@ export function setAppMenu(isDev) {
               {
                 accelerator: "CommandOrControl+,",
                 click: async () => {
-                  await createPreferenceWin();
+                  await showPreferenceWin();
                 },
                 label: zhCN.default.preferences,
               },

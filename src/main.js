@@ -1,10 +1,10 @@
 /*
  * @Description: the app initialiser
- * @Version: 1.0.3.20220114
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 03:09:38
+ * @LastEditTime: 2022-01-16 13:02:51
  */
 
 import { createApp } from "vue";
@@ -30,6 +30,11 @@ createApp(App)
           path: "/",
           component: () => import("./views/Home.vue"),
           name: global.common.HOME_VIEW,
+        },
+        {
+          path: `/${global.common.PREFERENCE_VIEW}`,
+          component: () => import("./views/Preferences.vue"),
+          name: global.common.PREFERENCE_VIEW,
         },
         {
           path: `/${global.common.SEARCH_RESULT_VIEW}`,

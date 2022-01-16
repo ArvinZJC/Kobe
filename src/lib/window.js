@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 09:10:51
+ * @LastEditTime: 2022-01-16 13:14:20
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -21,7 +21,7 @@ const path = require("path");
  * Create a tabbed app window.
  */
 export async function addTabbedAppWin() {
-  const tabbedAppWin = await createAppWin();
+  const tabbedAppWin = await createWin(global.common.APP_WIN_ID, app.name);
 
   if (process.platform === global.common.MACOS) {
     BrowserWindow.getFocusedWindow().addTabbedWindow(tabbedAppWin);
@@ -29,53 +29,14 @@ export async function addTabbedAppWin() {
 } // end function addTabbedAppWin
 
 /**
- * Create an app window.
- */
-export async function createAppWin() {
-  const appWin = createWin(global.common.APP_WIN_ID, app.name);
-
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    await appWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in dev mode.
-  } else {
-    createProtocol(global.common.APP_SCHEME);
-    appWin.loadURL(`${global.common.APP_SCHEME}://./index.html`); // Load the index.html if not in dev mode.
-  } // end if...else
-} // end function createAppWin
-
-/**
- * Create a preference window.
- */
-export async function createPreferenceWin() {
-  const preferenceWin = createWin(
-    global.common.PREFERENCE_WIN_ID,
-    zhCN.default.preferences
-  );
-
-  // TODO
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    await preferenceWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in dev mode.
-  } else {
-    createProtocol(global.common.APP_SCHEME);
-    preferenceWin.loadURL(`${global.common.APP_SCHEME}://./index.html`); // Load the index.html if not in dev mode.
-  } // end if...else
-} // end function createPreferenceWin
-
-/**
- * Create a general window.
+ * Create a window.
  * @param {string} id the window ID.
  * @param {string} title the window title.
  */
-function createWin(id, title) {
-  const { height, width } = screen.getPrimaryDisplay().workAreaSize;
-  const winHeight = Math.round(height * 0.7);
-  const winWidth = Math.round(width * 0.7);
+export async function createWin(id, title) {
   var winOptions = {
     backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
     center: true,
-    height:
-      winHeight >= global.common.WIN_HEIGHT_MIN
-        ? winHeight
-        : global.common.WIN_HEIGHT_MIN,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
     title,
@@ -87,15 +48,23 @@ function createWin(id, title) {
       preload: path.join(__dirname, "preload.js"),
       scrollBounce: true,
     },
-    width:
-      winWidth >= global.common.WIN_WIDTH_MIN
-        ? winWidth
-        : global.common.WIN_WIDTH_MIN,
     vibrancy: "window",
   };
 
   if (id === global.common.APP_WIN_ID) {
+    const { height, width } = screen.getPrimaryDisplay().workAreaSize;
+    const winHeight = Math.round(height * 0.7);
+    const winWidth = Math.round(width * 0.7);
+
+    winOptions.height =
+      winHeight >= global.common.WIN_HEIGHT_MIN
+        ? winHeight
+        : global.common.WIN_HEIGHT_MIN;
     winOptions.tabbingIdentifier = global.common.APP_WIN_ID;
+    winOptions.width =
+      winWidth >= global.common.WIN_WIDTH_MIN
+        ? winWidth
+        : global.common.WIN_WIDTH_MIN;
   } // end if
 
   if (id === global.common.PREFERENCE_WIN_ID) {
@@ -105,9 +74,45 @@ function createWin(id, title) {
   } // end if...else
 
   const win = new BrowserWindow(winOptions);
+  const startPath =
+    id === global.common.PREFERENCE_WIN_ID
+      ? `/#/${global.common.PREFERENCE_VIEW}`
+      : "";
 
   setAppMenu(isDev);
   setContextMenu(isDev, win);
   win.setMenuBarVisibility(false); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
+
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    await win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}${startPath}`); // Load the url of the dev server if in the dev mode.
+  } else {
+    createProtocol(global.common.APP_SCHEME);
+    win.loadURL(`${global.common.APP_SCHEME}://./index.html${startPath}`); // Load the index.html if not in the dev mode.
+  } // end if...else
+
   return win;
 } // end function createWin
+
+/**
+ * Create a preference window if it does not exist. Otherwise, focus on the existing preference window.
+ */
+export async function showPreferenceWin() {
+  for (const win of BrowserWindow.getAllWindows()) {
+    if (win.title === zhCN.default.preferences) {
+      win.focus();
+      return;
+    } // end if
+  } // end for
+
+  const preferenceWin = createWin(
+    global.common.PREFERENCE_WIN_ID,
+    zhCN.default.preferences
+  );
+
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    await preferenceWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in the dev mode.
+  } else {
+    createProtocol(global.common.APP_SCHEME);
+    preferenceWin.loadURL(`${global.common.APP_SCHEME}://./index.html`); // Load the index.html if not in the dev mode.
+  } // end if...else
+} // end function showPreferenceWin

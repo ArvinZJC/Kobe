@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 08:56:46
+ * @LastEditTime: 2022-01-16 13:01:42
  */
 
 global.common = {
@@ -29,6 +29,7 @@ global.common = {
   MIN_DATE: "1990-12-03",
   POPUP_BOTTOM: "50px",
   PREFERENCE_WIN_ID: "kobe-preferences",
+  PREFERENCE_VIEW: "preferences",
   PROCESSOR_ERROR_KEY: "ProcessorError",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_FORM_ID: "search-form",
