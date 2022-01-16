@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 21:11:09
+ * @LastEditTime: 2022-01-16 11:44:53
 -->
 
 <template>
@@ -109,7 +109,9 @@ export default {
         const movableContentAreas =
           document.getElementsByClassName("e-movablecontent");
 
-        // Hide the scroll bar if the content is not overflown horizontally.
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns to ensure that the grid's horizontal scroll bar can be added.
+
+        // Hide the horizontal scroll bar if the content is not overflown horizontally.
         if (
           movableContentAreas != null &&
           movableContentAreas.length > 0 &&
@@ -119,15 +121,13 @@ export default {
           this.$refs[global.common.SEARCH_RESULT_GRID_NAME].hideScroll();
         } // end if
 
-        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns again because of the horizontal scroll bar.
         searchResultArea.classList.add("min-h-screen");
         searchResultArea.classList.remove("h-screen");
         this.shouldShowGrid = true;
       } // end if...else
 
-      setTimeout(() => {
-        this.styleSearchBarBg();
-      }, 50);
+      setTimeout(() => this.styleSearchBarBg(), 50);
     }, // end function adjustGrid
 
     /**
@@ -213,11 +213,11 @@ export default {
         },
       ]; // TODO: unit, etc depend on preferences
 
-      Array.prototype.forEach.call(columns, (element) => {
+      Array.prototype.forEach.call(columns, (element) =>
         this.$refs[
           global.common.SEARCH_RESULT_GRID_NAME
-        ].ej2Instances.columns.push(element);
-      });
+        ].ej2Instances.columns.push(element)
+      );
     }, // end function buildGrid
 
     /**
@@ -279,12 +279,12 @@ export default {
       );
 
       if (gridSearchBar != null) {
-        gridSearchBar.addEventListener("input", (event) => {
-          this.searchGrid(event);
-        });
-        gridSearchBar.addEventListener("keyup", (event) => {
-          this.searchGrid(event);
-        });
+        gridSearchBar.addEventListener("input", (event) =>
+          this.searchGrid(event)
+        );
+        gridSearchBar.addEventListener("keyup", (event) =>
+          this.searchGrid(event)
+        );
       } // end if
     }, // end function searchGridImmediately
 
