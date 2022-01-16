@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 15:36:36
+ * @LastEditTime: 2022-01-16 17:10:40
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";

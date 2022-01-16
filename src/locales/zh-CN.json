@@ -2,6 +2,7 @@
   "about": "关于",
   "accessDenied": "从数据接口端查询数据被拒绝。这可能是由于查询频率过高，从而使 IP 暂时被封。解封需要您等待 5 - 60 分钟（由数据接口端决定），您也可尝试使用不同的网络。",
   "actualSize": "实际大小",
+  "appDescription": "神户座是一个用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量的应用程序，可看作是对分价表的组合加工。",
   "appHomePage": "软件主页",
   "autoFitAllColumnsName": "自动调整所有列宽",
   "autoFitAllColumnsTooltip": "根据各列的内容，自动调整各列的宽度",

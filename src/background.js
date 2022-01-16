@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 15:21:12
+ * @LastEditTime: 2022-01-16 17:11:52
  */
 
 import { app, BrowserWindow, ipcMain, protocol } from "electron";
@@ -14,6 +14,7 @@ import * as stockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
 import { getSearchResultData } from "./lib/processor.js";
 import { addTabbedAppWin, createWin } from "./lib/window.js";
+import * as zhCN from "./locales/zh-CN.json";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
 
@@ -90,6 +91,8 @@ app.on("window-all-closed", () => {
     app.quit(); // Quit the app, except on macOS where the user quits the app explicitly with command + Q.
   } // end if
 });
+
+app.setAboutPanelOptions({ credits: zhCN.default.appDescription });
 
 // Exit cleanly on any request from the parent process in the dev mode.
 if (isDev) {
