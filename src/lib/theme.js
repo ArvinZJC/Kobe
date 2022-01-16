@@ -1,10 +1,10 @@
 /*
  * @Description: the script applying the theme to the app
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2022-01-12 08:06:11
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 00:04:54
+ * @LastEditTime: 2022-01-16 11:30:52
  */
 
 import global from "./global.js";
@@ -29,19 +29,23 @@ export function applyTheme(mql) {
     (localStorage.getItem(THEME) === null && mql.matches) // TODO: localStorage?
   ) {
     document.documentElement.classList.add(DARK);
-    Array.prototype.forEach.call(syncfusionStyles, (element) => {
-      element.href = element.href.replace(
-        global.common.SF_TAILWIND,
-        global.common.SF_TAILWIND_DARK
-      );
-    });
+    Array.prototype.forEach.call(
+      syncfusionStyles,
+      (element) =>
+        (element.href = element.href.replace(
+          global.common.SF_TAILWIND,
+          global.common.SF_TAILWIND_DARK
+        ))
+    );
   } else {
     document.documentElement.classList.remove(DARK);
-    Array.prototype.forEach.call(syncfusionStyles, (element) => {
-      element.href = element.href.replace(
-        global.common.SF_TAILWIND_DARK,
-        global.common.SF_TAILWIND
-      );
-    });
+    Array.prototype.forEach.call(
+      syncfusionStyles,
+      (element) =>
+        (element.href = element.href.replace(
+          global.common.SF_TAILWIND_DARK,
+          global.common.SF_TAILWIND
+        ))
+    );
   } // end if...else
 } // end function applyTheme

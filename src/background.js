@@ -1,88 +1,21 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 00:13:37
+ * @LastEditTime: 2022-01-16 11:24:33
  */
 
-import {
-  app,
-  BrowserWindow,
-  ipcMain,
-  nativeTheme,
-  protocol,
-  screen,
-} from "electron";
+import { app, BrowserWindow, ipcMain, protocol } from "electron";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
-import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 import * as stockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
-import { setAppMenu, setContextMenu } from "./lib/menu.js";
 import { getSearchResultData } from "./lib/processor.js";
+import { addTabbedAppWin, createAppWin } from "./lib/window.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
-const path = require("path");
-
-/**
- * Create a tabbed window.
- * @param {number} height : an integer indicating the expected window height.
- * @param {number} width : an integer indicating the expected window width.
- */
-async function addTabbedWindow(height, width) {
-  const win = BrowserWindow.getFocusedWindow();
-  const tabbedWin = await createWindow(height, width);
-
-  if (process.platform === global.common.MACOS) {
-    win.addTabbedWindow(tabbedWin);
-  } // end if
-} // end function addTabbedWindow
-
-/**
- * Create a window for contents.
- * @param {number} height : an integer indicating the expected window height.
- * @param {number} width : an integer indicating the expected window width.
- */
-async function createWindow(height, width) {
-  const win = new BrowserWindow({
-    backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
-    center: true,
-    height:
-      height >= global.common.WIN_HEIGHT_MIN
-        ? height
-        : global.common.WIN_HEIGHT_MIN,
-    minHeight: global.common.WIN_HEIGHT_MIN,
-    minWidth: global.common.WIN_WIDTH_MIN,
-    tabbingIdentifier: global.common.TABBING_ID,
-    title: app.name,
-    webPreferences: {
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      devTools: isDev,
-      enableBlinkFeatures: "CSSColorSchemeUARendering", // See https://stackoverflow.com/a/65313951 for reference.
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
-      preload: path.join(__dirname, "preload.js"),
-      scrollBounce: true,
-    },
-    width:
-      width >= global.common.WIN_WIDTH_MIN
-        ? width
-        : global.common.WIN_WIDTH_MIN,
-    vibrancy: "window",
-  });
-
-  setAppMenu(isDev);
-  setContextMenu(isDev, win);
-  win.setMenuBarVisibility(false); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
-
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in dev mode.
-  } else {
-    createProtocol(global.common.APP_SCHEME);
-    win.loadURL(`${global.common.APP_SCHEME}://./index.html`); // Load the index.html if not in dev mode.
-  } // end if...else
-} // end function createWindow
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -136,22 +69,18 @@ app.whenReady().then(async () => {
     } // end if
   });
 
-  const { height, width } = screen.getPrimaryDisplay().workAreaSize;
-  const windowHeight = Math.round(height * 0.7);
-  const windowWidth = Math.round(width * 0.7);
-
-  await createWindow(windowHeight, windowWidth);
+  await createAppWin();
 
   // Emitted when the app is activated.
   app.on("activate", async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      await createWindow(windowHeight, windowWidth); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
+      await createAppWin(); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
     } // end if
   });
 
   // Emitted when the user clicks the native macOS new tab button.
   app.on("new-window-for-tab", async () => {
-    await addTabbedWindow(windowHeight, windowWidth);
+    await addTabbedAppWin();
   });
 });
 
@@ -171,8 +100,6 @@ if (isDev) {
       } // end if
     });
   } else {
-    process.on("SIGTERM", () => {
-      app.quit();
-    });
+    process.on("SIGTERM", () => app.quit());
   } // end if...else
 } // end if

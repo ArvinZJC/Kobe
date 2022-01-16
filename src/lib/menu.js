@@ -1,22 +1,23 @@
 /*
- * @Description: the script customising the app and context menu
- * @Version: 1.0.0.20220114
+ * @Description: the app and context menu builder
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 05:31:13
+ * @LastEditTime: 2022-01-16 11:32:05
  */
 
 import { app, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 
-import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
+import global from "./global.js";
+import { createPreferenceWin } from "./window.js";
 
 /**
  * Set the app menu.
  * Reference: https://github.com/electron/electron/blob/main/lib/browser/api/menu-item-roles.ts
- * @param {boolean} isDev a flag indicating if the app is in dev mode.
+ * @param {boolean} isDev a flag indicating if the app is in the dev mode.
  */
 export function setAppMenu(isDev) {
   const menu = Menu.buildFromTemplate([
@@ -30,7 +31,9 @@ export function setAppMenu(isDev) {
               { type: global.common.SEPARATOR },
               {
                 accelerator: "CommandOrControl+,",
-                enabled: false,
+                click: async () => {
+                  await createPreferenceWin();
+                },
                 label: zhCN.default.preferences,
               },
               { type: global.common.SEPARATOR },
@@ -174,7 +177,7 @@ export function setAppMenu(isDev) {
 /**
  * Set the context menu.
  * Reference: https://github.com/sindresorhus/electron-context-menu/blob/main/index.js
- * @param {boolean} isDev a flag indicating if the app is in dev mode.
+ * @param {boolean} isDev a flag indicating if the app is in the dev mode.
  * @param {BrowserWindow} win the window owning the context menu.
  */
 export function setContextMenu(isDev, win) {
@@ -203,9 +206,7 @@ export function setContextMenu(isDev, win) {
       actions.separator(),
       {
         accelerator: "CommandOrControl+Z",
-        click: () => {
-          currentWin.webContents.undo();
-        },
+        click: () => currentWin.webContents.undo(),
         enabled: params.editFlags.canUndo,
         visible: params.isEditable,
         label: zhCN.default.undo,
@@ -215,9 +216,7 @@ export function setContextMenu(isDev, win) {
           process.platform === global.common.MACOS
             ? "Shift+CommandOrControl+Z"
             : "Control+Y",
-        click: () => {
-          currentWin.webContents.redo();
-        },
+        click: () => currentWin.webContents.redo(),
         enabled: params.editFlags.canRedo,
         visible: params.isEditable,
         label: zhCN.default.redo,
@@ -227,9 +226,7 @@ export function setContextMenu(isDev, win) {
       actions.separator(),
       {
         accelerator: "CommandOrControl+X",
-        click: () => {
-          currentWin.webContents.cut();
-        },
+        click: () => currentWin.webContents.cut(),
         enabled: params.editFlags.canCut,
         registerAccelerator: false,
         visible: params.isEditable,
@@ -237,9 +234,7 @@ export function setContextMenu(isDev, win) {
       },
       {
         accelerator: "CommandOrControl+C",
-        click: () => {
-          currentWin.webContents.copy();
-        },
+        click: () => currentWin.webContents.copy(),
         enabled: params.editFlags.canCopy,
         registerAccelerator: false,
         visible: params.isEditable || params.selectionText.length > 0,
@@ -247,9 +242,7 @@ export function setContextMenu(isDev, win) {
       },
       {
         accelerator: "CommandOrControl+V",
-        click: () => {
-          currentWin.webContents.paste();
-        },
+        click: () => currentWin.webContents.paste(),
         enabled: params.editFlags.canPaste,
         registerAccelerator: false,
         visible: params.isEditable,
@@ -257,27 +250,21 @@ export function setContextMenu(isDev, win) {
       },
       process.platform === global.common.MACOS && {
         accelerator: "Cmd+Option+Shift+V",
-        click: () => {
-          currentWin.webContents.pasteAndMatchStyle();
-        },
+        click: () => currentWin.webContents.pasteAndMatchStyle(),
         enabled: params.editFlags.canPaste,
         registerAccelerator: false,
         visible: params.isEditable,
         label: zhCN.default.pasteAndMatchStyle,
       },
       {
-        click: () => {
-          currentWin.webContents.delete();
-        },
+        click: () => currentWin.webContents.delete(),
         enabled: params.editFlags.canDelete,
         visible: params.isEditable,
         label: zhCN.default.delete,
       },
       {
         accelerator: "CommandOrControl+A",
-        click: () => {
-          currentWin.webContents.selectAll();
-        },
+        click: () => currentWin.webContents.selectAll(),
         enabled: params.editFlags.canSelectAll,
         visible: params.isEditable || params.selectionText.length > 0,
         label: zhCN.default.selectAll,
@@ -285,16 +272,12 @@ export function setContextMenu(isDev, win) {
       actions.separator(),
       {
         accelerator: "CmdOrCtrl+R",
-        click: () => {
-          currentWin.reload();
-        },
+        click: () => currentWin.reload(),
         label: zhCN.default.reload,
       },
       {
         accelerator: "Shift+CmdOrCtrl+R",
-        click: () => {
-          currentWin.webContents.reloadIgnoringCache();
-        },
+        click: () => currentWin.webContents.reloadIgnoringCache(),
         label: zhCN.default.forceReload,
       },
       actions.separator(),

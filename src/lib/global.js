@@ -1,15 +1,16 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 20:23:12
+ * @LastEditTime: 2022-01-16 08:56:46
  */
 
 global.common = {
   API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
   APP_SCHEME: "app",
+  APP_WIN_ID: "kobe-app",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DEV: "development",
@@ -27,6 +28,7 @@ global.common = {
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
   POPUP_BOTTOM: "50px",
+  PREFERENCE_WIN_ID: "kobe-preferences",
   PROCESSOR_ERROR_KEY: "ProcessorError",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_FORM_ID: "search-form",
@@ -50,7 +52,6 @@ global.common = {
   STOCK_SYMBOL_KEY: "ts_code",
   STOCK_SYMBOL_TOOLTIP_NAME: "tooltipStockSymbol",
   STRIKE_PRICE_KEY: "strikePrice",
-  TABBING_ID: "KobeTabView",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",
   TRICK_INPUT_ID: "trick-input",
