@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 20:27:59
+ * @LastEditTime: 2022-01-16 11:27:00
 -->
 
 <template>
@@ -288,11 +288,11 @@ export default {
         } // end if...else
 
         if (hasNoError) {
-          setTimeout(() => {
+          setTimeout(() =>
             elementObj.element.parentElement.classList.remove(
               global.common.SF_ERROR_CLASS
-            );
-          }); // Set the timeout to avoid competing with the Syncfusion form validator who adds the error class.
+            )
+          ); // Set the timeout to avoid competing with the Syncfusion form validator who adds the error class.
         } // end if
       } // end if
     }, // end function removeErrorBorder
