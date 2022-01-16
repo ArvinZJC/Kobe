@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220116
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 21:06:58
+ * @LastEditTime: 2022-01-16 11:33:16
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -163,7 +163,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
     endDate !== startDate
   ) {
     const dateArray = createDateArray(endDate, startDate);
-    var count = 0;
+    var count = 1; // There has already been 1 fetch above from the API.
 
     for (const currentDate of dateArray) {
       const dateStr = [
@@ -179,10 +179,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
         break;
       } // end if
 
-      // Sleep for 5 seconds for each 5 requests to mitigate blocking frequent website crawling.
-      if (++count % 5 === 0 && dateArray.length > 5) {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-      } // end if
+      await reduceFetchFrequency(++count, dateArray.length + 1);
     } // end for
   } // end if
 
@@ -228,3 +225,22 @@ function parseDom(dom) {
 
   return volumes;
 } // end function parseDom
+
+/**
+ * Reduce the fetch frequency to mitigate blocking frequent website crawling.
+ * @param {number} count the current fetch count.
+ * @param {number} totalCount the total fetch count.
+ */
+async function reduceFetchFrequency(count, totalCount) {
+  const isDefaultMode = true; // TODO: 允许设置搜索引擎模式，考虑到多 Tab 页可能出现的过多并发请求，建议默认模式，除非确认日常搜索频率较低（频率怎么定义？）
+
+  if (totalCount > 1) {
+    if (count % 10 === 0) {
+      if (totalCount > 10) {
+        await new Promise((resolve) => setTimeout(resolve, 10000)); // Sleep for 10 seconds per 10 requests if there are more than 10 fetches.
+      } // end if
+    } else if (isDefaultMode && count !== totalCount) {
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // Sleep for 3 seconds per request if the search engine is in the default mode and it is not the last fetch.
+    } // end nested if...else
+  } // end if
+} // end function reduceFetchFrequency
