@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 13:14:20
+ * @LastEditTime: 2022-01-16 13:25:43
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -104,15 +104,5 @@ export async function showPreferenceWin() {
     } // end if
   } // end for
 
-  const preferenceWin = createWin(
-    global.common.PREFERENCE_WIN_ID,
-    zhCN.default.preferences
-  );
-
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    await preferenceWin.loadURL(process.env.WEBPACK_DEV_SERVER_URL); // Load the url of the dev server if in the dev mode.
-  } else {
-    createProtocol(global.common.APP_SCHEME);
-    preferenceWin.loadURL(`${global.common.APP_SCHEME}://./index.html`); // Load the index.html if not in the dev mode.
-  } // end if...else
+  await createWin(global.common.PREFERENCE_WIN_ID, zhCN.default.preferences);
 } // end function showPreferenceWin
