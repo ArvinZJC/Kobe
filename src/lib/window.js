@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 17:10:40
+ * @LastEditTime: 2022-01-16 23:54:51
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -20,10 +20,10 @@ const path = require("path");
 /**
  * Create a tabbed app window.
  */
-export async function addTabbedAppWin() {
+export function addTabbedAppWin() {
   if (process.platform === global.common.MACOS) {
     const win = BrowserWindow.getFocusedWindow(); // It is necessary to put this line before creating a window to add the tabbed app window properly.
-    const tabbedAppWin = await createWin(global.common.APP_WIN_ID, app.name);
+    const tabbedAppWin = createWin(global.common.APP_WIN_ID, app.name);
 
     win.addTabbedWindow(tabbedAppWin);
   } // end if
@@ -34,7 +34,7 @@ export async function addTabbedAppWin() {
  * @param {string} id the window ID.
  * @param {string} title the window title.
  */
-export async function createWin(id, title) {
+export function createWin(id, title) {
   var winOptions = {
     backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
     center: true,
@@ -85,7 +85,7 @@ export async function createWin(id, title) {
   win.setMenuBarVisibility(false); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    await win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}${startPath}`); // Load the url of the dev server if in the dev mode.
+    win.loadURL(path.join(process.env.WEBPACK_DEV_SERVER_URL, startPath)); // Load the url of the dev server if in the dev mode.
   } else {
     createProtocol(global.common.APP_SCHEME);
     win.loadURL(`${global.common.APP_SCHEME}://./index.html${startPath}`); // Load the index.html if not in the dev mode.
@@ -97,7 +97,7 @@ export async function createWin(id, title) {
 /**
  * Create a preference window if it does not exist. Otherwise, focus on the existing preference window.
  */
-export async function showPreferenceWin() {
+export function showPreferenceWin() {
   for (const win of BrowserWindow.getAllWindows()) {
     if (win.title === zhCN.default.preferences) {
       win.focus();
@@ -105,5 +105,5 @@ export async function showPreferenceWin() {
     } // end if
   } // end for
 
-  await createWin(global.common.PREFERENCE_WIN_ID, zhCN.default.preferences);
+  createWin(global.common.PREFERENCE_WIN_ID, zhCN.default.preferences);
 } // end function showPreferenceWin

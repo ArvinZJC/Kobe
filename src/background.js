@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 17:11:52
+ * @LastEditTime: 2022-01-16 23:53:14
  */
 
 import { app, BrowserWindow, ipcMain, protocol } from "electron";
@@ -70,18 +70,18 @@ app.whenReady().then(async () => {
     } // end if
   });
 
-  await createWin(global.common.APP_WIN_ID, app.name);
+  createWin(global.common.APP_WIN_ID, app.name);
 
   // Emitted when the app is activated.
-  app.on("activate", async () => {
+  app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      await createWin(global.common.APP_WIN_ID, app.name); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
+      createWin(global.common.APP_WIN_ID, app.name); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
     } // end if
   });
 
   // Emitted when the user clicks the native macOS new tab button.
-  app.on("new-window-for-tab", async () => {
-    await addTabbedAppWin();
+  app.on("new-window-for-tab", () => {
+    addTabbedAppWin();
   });
 });
 

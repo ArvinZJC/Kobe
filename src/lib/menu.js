@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 13:11:14
+ * @LastEditTime: 2022-01-16 23:52:32
  */
 
 import { app, Menu, shell } from "electron";
@@ -31,8 +31,8 @@ export function setAppMenu(isDev) {
               { type: global.common.SEPARATOR },
               {
                 accelerator: "CommandOrControl+,",
-                click: async () => {
-                  await showPreferenceWin();
+                click: () => {
+                  showPreferenceWin();
                 },
                 label: zhCN.default.preferences,
               },

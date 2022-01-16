@@ -690,10 +690,6 @@ body::selection {
   display: grid;
 }
 
-.contents {
-  display: contents;
-}
-
 .hidden {
   display: none;
 }
@@ -899,11 +895,6 @@ body::selection {
 
 .leading-6 {
   line-height: 1.5rem;
-}
-
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .opacity-0 {
@@ -1133,11 +1124,6 @@ body::selection {
 
 .dark .dark\:bg-opacity-0 {
   --tw-bg-opacity: 0;
-}
-
-.dark .dark\:text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 @media (min-width: 640px) {
