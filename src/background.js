@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220119
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 23:53:14
+ * @LastEditTime: 2022-01-19 12:06:34
  */
 
 import { app, BrowserWindow, ipcMain, protocol } from "electron";
@@ -70,12 +70,12 @@ app.whenReady().then(async () => {
     } // end if
   });
 
-  createWin(global.common.APP_WIN_ID, app.name);
+  createWin(global.common.APP_WIN_ID);
 
   // Emitted when the app is activated.
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWin(global.common.APP_WIN_ID, app.name); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
+      createWin(global.common.APP_WIN_ID); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
     } // end if
   });
 

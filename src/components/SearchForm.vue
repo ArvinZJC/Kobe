@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 11:27:00
+ * @LastEditTime: 2022-01-19 11:53:21
 -->
 
 <template>
@@ -12,11 +12,12 @@
     :class="['w-full', hasBarLayout ? 'flex space-x-4' : 'max-w-md space-y-8']"
   >
     <!-- The app logo. -->
-    <div
+    <a
       :class="[
         'text-primary flex items-center',
         hasBarLayout ? '' : 'justify-center',
       ]"
+      href="/"
     >
       <div :class="[hasBarLayout ? 'w-7' : 'w-24 sm:w-32 lg:w-48']">
         <img
@@ -35,7 +36,7 @@
         :is="textLogo"
         aria-hidden="true"
       />
-    </div>
+    </a>
     <form
       @submit.prevent="handleSubmit"
       :id="global.common.SEARCH_FORM_ID"

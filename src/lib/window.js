@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220119
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 23:54:51
+ * @LastEditTime: 2022-01-19 12:03:04
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -23,7 +23,7 @@ const path = require("path");
 export function addTabbedAppWin() {
   if (process.platform === global.common.MACOS) {
     const win = BrowserWindow.getFocusedWindow(); // It is necessary to put this line before creating a window to add the tabbed app window properly.
-    const tabbedAppWin = createWin(global.common.APP_WIN_ID, app.name);
+    const tabbedAppWin = createWin(global.common.APP_WIN_ID);
 
     win.addTabbedWindow(tabbedAppWin);
   } // end if
@@ -32,15 +32,14 @@ export function addTabbedAppWin() {
 /**
  * Create a window.
  * @param {string} id the window ID.
- * @param {string} title the window title.
  */
-export function createWin(id, title) {
+export function createWin(id) {
   var winOptions = {
     backgroundColor: nativeTheme.shouldUseDarkColors ? "#000" : "#FFF",
     center: true,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
-    title,
+    title: app.name,
     webPreferences: {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       devTools: isDev,
@@ -105,5 +104,5 @@ export function showPreferenceWin() {
     } // end if
   } // end for
 
-  createWin(global.common.PREFERENCE_WIN_ID, zhCN.default.preferences);
+  createWin(global.common.PREFERENCE_WIN_ID);
 } // end function showPreferenceWin
