@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220119
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-19 11:53:21
+ * @LastEditTime: 2022-01-19 12:31:54
 -->
 
 <template>
@@ -12,12 +12,12 @@
     :class="['w-full', hasBarLayout ? 'flex space-x-4' : 'max-w-md space-y-8']"
   >
     <!-- The app logo. -->
-    <a
+    <div
+      @click="goHome"
       :class="[
         'text-primary flex items-center',
-        hasBarLayout ? '' : 'justify-center',
+        hasBarLayout ? 'cursor-pointer' : 'justify-center',
       ]"
-      href="/"
     >
       <div :class="[hasBarLayout ? 'w-7' : 'w-24 sm:w-32 lg:w-48']">
         <img
@@ -36,7 +36,7 @@
         :is="textLogo"
         aria-hidden="true"
       />
-    </a>
+    </div>
     <form
       @submit.prevent="handleSubmit"
       :id="global.common.SEARCH_FORM_ID"
@@ -175,6 +175,13 @@ export default {
         args.isDisabled = true;
       } // end if
     }, // end function disableWeekends
+
+    /**
+     * Navigate to the home view.
+     */
+    goHome() {
+      this.$router.push({ name: global.common.HOME_VIEW });
+    }, // end function goHome
 
     /**
      * Handle the event when the date range picker is opened.
