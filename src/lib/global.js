@@ -1,13 +1,14 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220121
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 13:01:42
+ * @LastEditTime: 2022-01-21 10:51:35
  */
 
 global.common = {
+  ANIMATION_DURATION: 300,
   API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
   APP_SCHEME: "app",
   APP_WIN_ID: "kobe-app",
@@ -42,7 +43,9 @@ global.common = {
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
   SF_CULTURE: "zh-Hans",
+  SF_EASE: "ease",
   SF_ERROR_CLASS: "e-error",
+  SF_FADE_IN: "FadeIn",
   SF_NUM_COLUMN: "number",
   SF_STYLES: "syncfusionStyles",
   SF_TAILWIND: "tailwind",

@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220114
+ * @Version: 1.0.0.20220120
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-14 23:16:13
+ * @LastEditTime: 2022-01-20 13:46:23
 -->
 
 <template>
@@ -12,7 +12,7 @@
     <!-- The search result area. -->
     <div
       :id="global.common.SEARCH_RESULT_AREA_ID"
-      class="container-block h-screen pb-20 pt-4"
+      class="px-block h-screen pb-20 pt-4"
     >
       <SearchResultGrid
         :endDate="this.$route.query.endDate"
@@ -45,7 +45,7 @@
       :id="global.common.SEARCH_BAR_ID"
       class="container-bbar motion-safe:transition-300"
     >
-      <div class="container-block">
+      <div class="px-block">
         <div class="flex h-16 justify-between">
           <SearchForm
             :endDate="this.$route.query.endDate"

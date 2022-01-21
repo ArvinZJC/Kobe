@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220119
+ * @Version: 1.0.0.20220120
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-19 12:31:54
+ * @LastEditTime: 2022-01-20 14:35:06
 -->
 
 <template>
@@ -146,16 +146,6 @@ import * as zhCN from "../locales/zh-CN.json";
 
 const dateRangePickerPopupClassFilter =
   "e-daterangepicker e-popup e-popup-open";
-const stockListItemT = createApp().component("stockListItemTemplate", {
-  template: `
-  <div class="flex justify-between">
-    <span class="text-primary">{{ data[global.common.STOCK_SYMBOL_KEY] }}</span>
-    <span class="text-content">{{ data[global.common.STOCK_NAME_KEY] }}</span>
-  </div>`,
-  data() {
-    return { data: {}, global };
-  },
-});
 const stockSymbolRegex = /^\s*([Bb][Jj]|[Ss][HhZz])\d{6}\s*$/;
 
 export default {
@@ -372,7 +362,16 @@ export default {
       stockList: [],
       stockListItemTemplate: () => {
         return {
-          template: stockListItemT,
+          template: createApp().component("stockListItemTemplate", {
+            template: `
+              <div class="flex justify-between">
+                <span class="text-primary">{{ data[global.common.STOCK_SYMBOL_KEY] }}</span>
+                <span class="text-content">{{ data[global.common.STOCK_NAME_KEY] }}</span>
+              </div>`,
+            data() {
+              return { data: {}, global };
+            },
+          }),
         };
       },
       stockSymbolValue: this.stockSymbol,
