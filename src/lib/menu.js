@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220122
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 23:52:32
+ * @LastEditTime: 2022-01-22 19:01:03
  */
 
 import { app, Menu, shell } from "electron";
@@ -199,7 +199,7 @@ export function setContextMenu(isDev, win) {
             )}`
           );
         },
-        label: `${zhCN.default.searchWithBaidu}“{selection}”`,
+        label: `${zhCN.default.use}${zhCN.default.baidu}${zhCN.default.search}“{selection}”`,
         visible: params.selectionText.trim().length > 0,
       },
       !showSearchWithBaidu && actions.searchWithGoogle(),
@@ -291,7 +291,7 @@ export function setContextMenu(isDev, win) {
       learnSpelling: zhCN.default.learnSpelling,
       lookUpSelection: `${zhCN.default.lookUp}“{selection}”`,
       paste: zhCN.default.paste,
-      searchWithGoogle: `${zhCN.default.searchWithGoogle}“{selection}”`,
+      searchWithGoogle: `${zhCN.default.use}${zhCN.default.google}${zhCN.default.search}“{selection}”`,
     },
     window: win,
   });

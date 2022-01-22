@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-21 10:51:51
+ * @LastEditTime: 2022-01-21 11:20:51
 -->
 
 <template>
@@ -26,8 +26,11 @@
         headerPlacement="Left"
       >
         <e-tabitems>
-          <e-tabitem :content="content0" :header="headerGeneral" />
-          <e-tabitem :content="content1" :header="headerSearchEngine" />
+          <e-tabitem :content="contentGeneral" :header="headerGeneral" />
+          <e-tabitem
+            :content="contentSearchEngine"
+            :header="headerSearchEngine"
+          />
         </e-tabitems>
       </ejs-tab>
     </div>
@@ -40,7 +43,10 @@ import {
   TabItemsDirective,
   TabItemDirective,
 } from "@syncfusion/ej2-vue-navigations";
+import { createApp } from "vue";
 
+import General from "../components/Preferences/General.vue";
+import SearchEngine from "../components/Preferences/SearchEngine.vue";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -52,18 +58,14 @@ export default {
   },
   data() {
     return {
-      content0:
-        "ASP.NET is an open-source server-side web application framework designed for web development to produce " +
-        "dynamic web pages. It was developed by Microsoft to allow programmers to build dynamic web sites, web applications " +
-        "and web services. It was first released in January 2002 with version 1.0 of the .NET Framework, and is the successor " +
-        "to Microsoft's Active Server Pages (ASP) technology. ASP.NET is built on the Common Language Runtime (CLR), allowing " +
-        "programmers to write ASP.NET code using any supported .NET language. The ASP.NET SOAP extension framework allows " +
-        "ASP.NET components to process SOAP messages.",
-      content1:
-        "The ASP.NET MVC is a web application framework developed by Microsoft, which implements the " +
-        "model–view–controller (MVC) pattern. It is open-source software, apart from the ASP.NET Web Forms component which is " +
-        "proprietary. In the later versions of ASP.NET, ASP.NET MVC, ASP.NET Web API, and ASP.NET Web Pages (a platform using " +
-        "only Razor pages) will merge into a unified MVC 6.The project is called ASP.NET vNext.",
+      contentGeneral: () => {
+        return { template: createApp().component("contentGeneral", General) };
+      },
+      contentSearchEngine: () => {
+        return {
+          template: createApp().component("contentSearchEngine", SearchEngine),
+        };
+      },
       global,
       headerGeneral: {
         iconCss: "e-settings",

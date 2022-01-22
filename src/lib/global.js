@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220121
+ * @Version: 1.0.0.20220122
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-21 10:51:35
+ * @LastEditTime: 2022-01-22 19:03:48
  */
 
 global.common = {
@@ -12,6 +12,8 @@ global.common = {
   API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
   APP_SCHEME: "app",
   APP_WIN_ID: "kobe-app",
+  BAIDU_ID: "baidu",
+  DARK_MODE_ID: "dark-mode",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DEV: "development",
@@ -21,10 +23,12 @@ global.common = {
   GET_CONTENT_SIZE: "getContentSize",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
   GET_STOCK_LIST: "getStockList",
+  GOOGLE_ID: "google",
   HOME_VIEW: "home",
   IPC_RECEIVE: "fromMain",
   IPC_RENDERER_API_KEY: "ipcRenderer",
   IPC_SEND: "toMain",
+  LIGHT_MODE_ID: "light-mode",
   MACOS: "darwin",
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
@@ -56,6 +60,7 @@ global.common = {
   STOCK_SYMBOL_KEY: "ts_code",
   STOCK_SYMBOL_TOOLTIP_NAME: "tooltipStockSymbol",
   STRIKE_PRICE_KEY: "strikePrice",
+  SYSTEM_DEFAULT_MODE_ID: "system-default-mode",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",
   TRICK_INPUT_ID: "trick-input",

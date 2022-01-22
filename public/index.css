@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220120
+ * @Version: 1.0.0.20220122
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-20 17:35:07
+ * @LastEditTime: 2022-01-22 18:47:52
  */
 
 /*
@@ -645,6 +645,10 @@ body::selection {
   bottom: 5rem;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .ml-2 {
   margin-left: 0.5rem;
 }
@@ -774,12 +778,24 @@ body::selection {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
 }
 
 .justify-center {
@@ -810,6 +826,12 @@ body::selection {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
 .overflow-hidden {
@@ -867,8 +889,17 @@ body::selection {
   line-height: 1.25rem;
 }
 
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
 .font-medium {
   font-weight: 500;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .leading-6 {
@@ -1069,6 +1100,16 @@ body::selection {
 
 /* Secondary text. */
 
+.text-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.dark .text-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
 /* Transition for most properties within 300ms. */
 
 /* Transition for the opacity property within 300ms. */
@@ -1163,25 +1204,14 @@ body::selection {
   align-items: center;
 }
 
-/* The customised tab item area style. */
-
-.e-tab .e-tab-header .e-toolbar-items {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+.e-tab .e-tab-header.e-vertical::before {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
 
-@media (min-width: 640px) {
-  .e-tab .e-tab-header .e-toolbar-items {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .e-tab .e-tab-header .e-toolbar-items {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-  }
+.dark .e-tab .e-tab-header.e-vertical::before {
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
 /* The customised tab item container style. */

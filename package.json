@@ -24,6 +24,7 @@
     "@syncfusion/ej2-vue-grids": "^19.4.43",
     "@syncfusion/ej2-vue-navigations": "^19.4.41",
     "@syncfusion/ej2-vue-popups": "^19.4.41",
+    "@syncfusion/ej2-vue-splitbuttons": "^19.4.40",
     "cldr-data": "^36.0.0",
     "core-js": "^3.20.3",
     "electron-context-menu": "^3.1.1",
