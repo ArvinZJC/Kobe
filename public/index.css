@@ -745,6 +745,10 @@ body::selection {
   flex-grow: 0;
 }
 
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 @-webkit-keyframes spin {
   to {
     transform: rotate(360deg);
@@ -842,6 +846,22 @@ body::selection {
   --tw-bg-opacity: 0;
 }
 
+.fill-current {
+  fill: currentColor;
+}
+
+.fill-\[none\] {
+  fill: none;
+}
+
+.stroke-current {
+  stroke: currentColor;
+}
+
+.stroke-\[4\] {
+  stroke-width: 4;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -892,6 +912,14 @@ body::selection {
 
 .opacity-100 {
   opacity: 1;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.opacity-75 {
+  opacity: 0.75;
 }
 
 .shadow-xl {

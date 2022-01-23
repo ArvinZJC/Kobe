@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-23 18:02:19
+ * @LastEditTime: 2022-01-23 22:58:14
 -->
 
 <template>
@@ -20,12 +20,7 @@
           v-if="hasSearchError"
           class="text-primary-red e-circle-info e-icons text-2xl"
         />
-        <img
-          v-else
-          :src="LoadingIcon"
-          alt="Loading icon"
-          class="text-primary animate-spin h-6"
-        />
+        <LoadingIcon v-else aria-hidden="true" class="animate-spin h-6" />
         <span
           :class="[
             'font-medium leading-6 ml-2 text-lg',
@@ -68,13 +63,13 @@
 <script>
 import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
-import LoadingIcon from "../assets/LoadingIcon.svg";
+import LoadingIcon from "./SVG/LoadingIcon.vue";
 import global from "../lib/global.js";
 import * as syncfusion from "../locales/syncfusion.json";
 import * as zhCN from "../locales/zh-CN.json";
 
 export default {
-  components: { "ejs-grid": GridComponent },
+  components: { "ejs-grid": GridComponent, LoadingIcon },
   methods: {
     /**
      * Adjust the grid when the data source is populated.
@@ -396,9 +391,6 @@ export default {
         trickInput.click();
       } // end if
     });
-  },
-  setup() {
-    return { LoadingIcon };
   },
 };
 </script>

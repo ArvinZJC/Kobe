@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-23 17:33:02
+ * @LastEditTime: 2022-01-23 22:53:27
 -->
 
 <template>
@@ -27,14 +27,13 @@
           src="../assets/AppIcon.png"
         />
       </div>
-      <img
+      <AppTextLogo
         :class="[
           hasBarLayout
             ? 'lg:block h-5 hidden ml-2'
             : 'h-12 sm:h-16 lg:h-20 ml-4',
         ]"
-        :src="AppTextLogo"
-        alt="App text logo"
+        aria-hidden="true"
       />
     </div>
     <form
@@ -141,7 +140,7 @@ import { DateRangePickerComponent } from "@syncfusion/ej2-vue-calendars";
 import { TooltipComponent } from "@syncfusion/ej2-vue-popups";
 import { createApp } from "vue";
 
-import AppTextLogo from "../assets/AppTextLogo.svg";
+import AppTextLogo from "./SVG/AppTextLogo.vue";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -151,6 +150,7 @@ const stockSymbolRegex = /^\s*([Bb][Jj]|[Ss][HhZz])\d{6}\s*$/;
 
 export default {
   components: {
+    AppTextLogo,
     "ejs-autocomplete": AutoCompleteComponent,
     "ejs-button": ButtonComponent,
     "ejs-daterangepicker": DateRangePickerComponent,
@@ -451,9 +451,6 @@ export default {
         rules,
       }
     );
-  },
-  setup() {
-    return { AppTextLogo };
   },
 };
 </script>
