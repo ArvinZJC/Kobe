@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220123
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 11:44:53
+ * @LastEditTime: 2022-01-23 18:02:19
 -->
 
 <template>
@@ -20,11 +20,11 @@
           v-if="hasSearchError"
           class="text-primary-red e-circle-info e-icons text-2xl"
         />
-        <component
+        <img
           v-else
-          :is="loadingIcon"
-          aria-hidden="true"
-          class="text-primary animate-spin fill-[none] h-6"
+          :src="LoadingIcon"
+          alt="Loading icon"
+          class="text-primary animate-spin h-6"
         />
         <span
           :class="[
@@ -67,8 +67,8 @@
 
 <script>
 import { GridComponent } from "@syncfusion/ej2-vue-grids";
-import { defineComponent, h } from "vue";
 
+import LoadingIcon from "../assets/LoadingIcon.svg";
 import global from "../lib/global.js";
 import * as syncfusion from "../locales/syncfusion.json";
 import * as zhCN from "../locales/zh-CN.json";
@@ -398,23 +398,7 @@ export default {
     });
   },
   setup() {
-    const loadingIcon = defineComponent({
-      render: () =>
-        h("svg", { viewBox: "0 0 24 24" }, [
-          h("circle", {
-            class: "opacity-50 stroke-[4] stroke-current",
-            cx: 12,
-            cy: 12,
-            r: 10,
-          }),
-          h("path", {
-            class: "fill-current opacity-50",
-            d: "M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z",
-          }),
-        ]),
-    });
-
-    return { loadingIcon };
+    return { LoadingIcon };
   },
 };
 </script>
