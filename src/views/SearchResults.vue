@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220120
+ * @Version: 1.0.0.20220124
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-20 13:46:23
+ * @LastEditTime: 2022-01-24 14:31:50
 -->
 
 <template>
@@ -32,7 +32,7 @@
       <button
         v-if="!isScrollToTopDismissed"
         @click="scrollToTop"
-        :title="locale.scrollToTopButtonTitle"
+        :title="zhCN.default.scrollToTopButtonTitle"
         class="btn-action btn-round bottom-20 shadow-xl"
         id="scroll-to-top"
         type="button"
@@ -115,8 +115,8 @@ export default {
       appName: "",
       global,
       isScrollToTopDismissed: true,
-      locale: zhCN.default,
       searchBar: null,
+      zhCN,
     };
   },
   mounted() {

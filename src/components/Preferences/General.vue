@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.0.20220122
+ * @Version: 1.0.0.20220124
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-22 19:04:45
+ * @LastEditTime: 2022-01-24 13:52:43
 -->
 
 <template>
@@ -18,36 +18,13 @@
     </div>
     <div class="flex items-end justify-end">
       <div class="e-btn-group">
-        <!-- System default. -->
-        <input
-          :id="global.common.SYSTEM_DEFAULT_MODE_ID"
-          :name="zhCN.default.appearanceHeader"
-          :value="zhCN.default.systemDefault"
-          type="radio"
+        <ButtonGroupMember
+          v-for="appearanceOption in options.appearance"
+          :group="zhCN.default.appearanceHeader"
+          :id="appearanceOption.id"
+          :key="appearanceOption.id"
+          :value="appearanceOption.value"
         />
-        <label :for="global.common.SYSTEM_DEFAULT_MODE_ID" class="e-btn">{{
-          zhCN.default.systemDefault
-        }}</label>
-        <!-- Light. -->
-        <input
-          :id="global.common.LIGHT_MODE_ID"
-          :name="zhCN.default.appearanceHeader"
-          :value="zhCN.default.light"
-          type="radio"
-        />
-        <label :for="global.common.LIGHT_MODE_ID" class="e-btn">{{
-          zhCN.default.light
-        }}</label>
-        <!-- Dark. -->
-        <input
-          :id="global.common.DARK_MODE_ID"
-          :name="zhCN.default.appearanceHeader"
-          :value="zhCN.default.dark"
-          type="radio"
-        />
-        <label :for="global.common.DARK_MODE_ID" class="e-btn">{{
-          zhCN.default.dark
-        }}</label>
       </div>
     </div>
     <!-- External search. -->
@@ -59,38 +36,45 @@
     </div>
     <div class="flex items-end justify-end">
       <div class="e-btn-group">
-        <!-- Baidu. -->
-        <input
-          :id="global.common.BAIDU_ID"
-          :name="zhCN.default.externalSearchHeader"
-          :value="zhCN.default.baidu"
-          type="radio"
+        <ButtonGroupMember
+          v-for="externalSearchOption in options.externalSearch"
+          :group="zhCN.default.externalSearchHeader"
+          :id="externalSearchOption.id"
+          :key="externalSearchOption.id"
+          :value="externalSearchOption.value"
         />
-        <label :for="global.common.BAIDU_ID" class="e-btn">{{
-          zhCN.default.baidu
-        }}</label>
-        <!-- Google. -->
-        <input
-          :id="global.common.GOOGLE_ID"
-          :name="zhCN.default.externalSearchHeader"
-          :value="zhCN.default.google"
-          type="radio"
-        />
-        <label :for="global.common.GOOGLE_ID" class="e-btn">{{
-          zhCN.default.google
-        }}</label>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ButtonGroupMember from "./ButtonGroupMember.vue";
 import global from "../../lib/global.js";
 import * as zhCN from "../../locales/zh-CN.json";
 
 export default {
+  components: { ButtonGroupMember },
   data() {
     return { data: {}, global, zhCN };
+  },
+  setup() {
+    const options = {
+      appearance: [
+        {
+          id: global.common.SYSTEM_DEFAULT_MODE_ID,
+          value: zhCN.default.systemDefault,
+        }, // System default.
+        { id: global.common.LIGHT_MODE_ID, value: zhCN.default.light }, // Light.
+        { id: global.common.DARK_MODE_ID, value: zhCN.default.dark }, // Dark.
+      ],
+      externalSearch: [
+        { id: global.common.BAIDU_ID, value: zhCN.default.baidu }, // Baidu.
+        { id: global.common.GOOGLE_ID, value: zhCN.default.google }, // Google.
+      ],
+    };
+
+    return { options };
   },
 };
 </script>

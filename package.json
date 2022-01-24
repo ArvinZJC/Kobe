@@ -18,6 +18,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@heroicons/vue": "^1.0.5",
     "@syncfusion/ej2-vue-buttons": "^19.4.42",
     "@syncfusion/ej2-vue-calendars": "^19.4.42",
     "@syncfusion/ej2-vue-dropdowns": "^19.4.42",

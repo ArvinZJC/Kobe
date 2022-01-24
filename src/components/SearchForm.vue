@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220123
+ * @Version: 1.0.0.20220124
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-23 22:53:27
+ * @LastEditTime: 2022-01-24 15:44:40
 -->
 
 <template>
@@ -51,7 +51,7 @@
           :class="[hasBarLayout ? 'gap-4 grid grid-cols-2 grow' : 'space-y-6']"
         >
           <ejs-tooltip
-            :content="locale.stockSymbolTooltip"
+            :content="zhCN.default.stockSymbolTooltip"
             :ref="global.common.STOCK_SYMBOL_TOOLTIP_NAME"
           >
             <!-- The stock symbol auto-complete component. -->
@@ -72,13 +72,13 @@
               :highlight="true"
               :itemTemplate="stockListItemTemplate"
               :name="global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME"
-              :placeholder="locale.stockSymbolPlaceholder"
+              :placeholder="zhCN.default.stockSymbolPlaceholder"
               :ref="global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME"
-              :value="stockSymbolValue"
+              :value="stockSymbol"
             />
           </ejs-tooltip>
           <ejs-tooltip
-            :content="locale.dateRangeTooltip"
+            :content="zhCN.default.dateRangeTooltip"
             :ref="global.common.DATE_RANGE_PICKER_TOOLTIP_NAME"
           >
             <!-- The date range picker. -->
@@ -87,13 +87,13 @@
               @focus="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
               @open="handleDateRangePickerOpen"
               @renderDayCell="disableWeekends"
-              :endDate="endDateValue"
+              :endDate="new Date(endDate)"
               :max="new Date()"
               :min="new Date(global.common.MIN_DATE)"
               :name="global.common.DATE_RANGE_PICKER_NAME"
-              :placeholder="locale.dateRangePlaceholder"
+              :placeholder="zhCN.default.dateRangePlaceholder"
               :ref="global.common.DATE_RANGE_PICKER_NAME"
-              :startDate="startDateValue"
+              :startDate="new Date(startDate)"
               :strictMode="true"
               dayHeaderFormat="Narrow"
               maxDays="28"
@@ -103,7 +103,7 @@
         <div v-if="hasBarLayout" :class="[hasBarLayout ? 'grow-0' : '']">
           <div class="block lg:hidden">
             <ejs-button
-              :title="locale.search"
+              :title="zhCN.default.search"
               iconCss="e-search e-icons"
               isPrimary="true"
               type="submit"
@@ -111,7 +111,7 @@
           </div>
           <div class="lg:block hidden">
             <ejs-button
-              :content="locale.search"
+              :content="zhCN.default.search"
               iconCss="e-search e-icons"
               isPrimary="true"
               type="submit"
@@ -120,7 +120,7 @@
         </div>
         <div v-else>
           <ejs-button
-            :content="locale.search"
+            :content="zhCN.default.search"
             cssClass="e-block"
             iconCss="e-search e-icons"
             isPrimary="true"
@@ -355,11 +355,8 @@ export default {
   },
   data() {
     return {
-      endDateValue: new Date(this.endDate),
       global,
       hasBarLayout: this.isBarLayout,
-      locale: zhCN.default,
-      startDateValue: new Date(this.startDate),
       stockList: [],
       stockListItemTemplate: () => {
         return {
@@ -375,7 +372,7 @@ export default {
           }),
         };
       },
-      stockSymbolValue: this.stockSymbol,
+      zhCN,
     };
   },
   mounted() {
