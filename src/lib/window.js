@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-27 17:31:23
+ * @LastEditTime: 2022-01-27 18:02:52
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -39,7 +39,10 @@ export function createWin(id) {
     center: true,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
-    title: app.name,
+    title:
+      id === global.common.PREFERENCE_WIN_ID
+        ? zhCN.default.preferences
+        : app.name,
     webPreferences: {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       devTools: isDev,
@@ -84,7 +87,7 @@ export function createWin(id) {
   win.setMenuBarVisibility(true); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
-    win.loadURL(path.join(process.env.WEBPACK_DEV_SERVER_URL, startPath)); // Load the url of the dev server if in the dev mode.
+    win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}${startPath}`); // Load the url of the dev server if in the dev mode.
   } else {
     createProtocol(global.common.APP_SCHEME);
     win.loadURL(`${global.common.APP_SCHEME}://./index.html${startPath}`); // Load the index.html if not in the dev mode.
