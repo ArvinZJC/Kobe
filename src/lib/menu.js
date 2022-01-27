@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.0.0.20220122
+ * @Version: 1.0.0.20220127
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-22 19:01:03
+ * @LastEditTime: 2022-01-27 16:06:20
  */
 
 import { app, Menu, shell } from "electron";
@@ -57,17 +57,25 @@ export function setAppMenu(isDev) {
     {
       label: zhCN.default.fileMenu,
       role: "fileMenu",
-      submenu: [
+      submenu:
         process.platform === global.common.MACOS
-          ? { label: zhCN.default.closeWin, role: "close" }
-          : {
-              label:
-                process.platform === global.common.MACOS
-                  ? `${zhCN.default.quit} ${app.name}`
-                  : zhCN.default.quit,
-              role: "quit",
-            },
-      ],
+          ? [{ label: zhCN.default.closeWin, role: "close" }]
+          : [
+              {
+                accelerator: "CommandOrControl+,",
+                click: () => {
+                  showPreferenceWin();
+                },
+                label: zhCN.default.preferences,
+              },
+              {
+                label:
+                  process.platform === global.common.MACOS
+                    ? `${zhCN.default.quit} ${app.name}`
+                    : zhCN.default.quit,
+                role: "quit",
+              },
+            ],
     },
     {
       label: zhCN.default.editMenu,

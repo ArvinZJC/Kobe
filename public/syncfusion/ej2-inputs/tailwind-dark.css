@@ -7367,19 +7367,7 @@ body.e-colorpicker-overflow {
 .e-colorpicker-container .e-icon-btn.e-disabled {
   background-color: transparent;
   box-shadow: none;
-  color: #1f2937;
-}
-
-.e-colorpicker-wrapper .e-icon-btn:disabled:focus, .e-colorpicker-wrapper .e-icon-btn:disabled:hover, .e-colorpicker-wrapper .e-icon-btn:disabled:active, .e-colorpicker-wrapper .e-icon-btn.e-disabled:focus, .e-colorpicker-wrapper .e-icon-btn.e-disabled:hover, .e-colorpicker-wrapper .e-icon-btn.e-disabled:active,
-.e-colorpicker-container .e-icon-btn:disabled:focus,
-.e-colorpicker-container .e-icon-btn:disabled:hover,
-.e-colorpicker-container .e-icon-btn:disabled:active,
-.e-colorpicker-container .e-icon-btn.e-disabled:focus,
-.e-colorpicker-container .e-icon-btn.e-disabled:hover,
-.e-colorpicker-container .e-icon-btn.e-disabled:active {
-  background-color: transparent;
-  box-shadow: none;
-  color: #1f2937;
+  border-color: #374151;
 }
 
 .e-popup.e-tooltip-wrap.e-color-picker-tooltip {

@@ -3706,7 +3706,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid.e-default .e-gridheader th.e-firstcell,
-.e-grid.e-default .e-gridheader th.e-lastcell {
+.e-grid.e-default .e-gridheader th.e-laststackcell {
   border-left-style: solid;
   border-left-width: 1px;
 }
@@ -4852,7 +4852,8 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid.e-resize-lines.e-rtl tr.e-columnheader th:last-child.e-stackedheadercell .e-rhandler.e-rcursor,
-.e-grid.e-resize-lines.e-rtl tr.e-columnheader th.e-lastcell .e-rhandler.e-rcursor {
+.e-grid.e-resize-lines.e-rtl tr.e-columnheader th.e-lastcell .e-rhandler.e-rcursor,
+.e-grid.e-resize-lines.e-rtl tr.e-columnheader th.e-laststackcell .e-rhandler.e-rcursor {
   border-left: 0;
 }
 
@@ -5588,11 +5589,11 @@ li.e-separator.e-menu-item.e-excel-separator {
   background-color: #fff;
 }
 
-.e-grid .e-icons {
+.e-grid .e-icons:not(.e-btn-icon) {
   color: #6b7280;
 }
 
-.e-grid .e-unboundcelldiv .e-icons {
+.e-grid .e-unboundcelldiv .e-icons:not(.e-btn-icon) {
   color: #6b7280;
 }
 

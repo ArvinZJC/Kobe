@@ -3228,6 +3228,16 @@ ejs-listbox {
   height: calc(100% - 47px);
 }
 
+.e-listbox-wrapper.e-select-all .e-list-parent,
+.e-listbox-container.e-select-all .e-list-parent {
+  height: calc(100% - 38px);
+}
+
+.e-listbox-wrapper.e-filter-list.e-select-all .e-list-parent,
+.e-listbox-container.e-filter-list.e-select-all .e-list-parent {
+  height: calc(100% - 76px);
+}
+
 .e-listbox-wrapper .e-icons,
 .e-listbox-container .e-icons {
   color: #6b7280;

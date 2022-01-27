@@ -8260,7 +8260,7 @@ ejs-sidebar {
   -webkit-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  font-size: 14px;
+  font-size: 0;
   padding: 0;
   text-align: left;
   white-space: nowrap;
@@ -8325,6 +8325,7 @@ ejs-sidebar {
   position: relative;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  font-size: 14px;
   height: 38px;
   line-height: 38px;
   padding: 0 12px;
@@ -9650,7 +9651,7 @@ ejs-sidebar {
   -ms-flex-positive: 1;
       flex-grow: 1;
   -ms-flex-pack: end;
-      justify-content: end;
+      justify-content: flex-end;
 }
 
 .e-breadcrumb-popup.e-rtl.e-icon-right .e-breadcrumb-icon,

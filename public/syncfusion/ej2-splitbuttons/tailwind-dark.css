@@ -118,8 +118,8 @@
   cursor: pointer;
   display: -ms-flexbox;
   display: flex;
-  height: 30px;
-  line-height: 30px;
+  height: 28px;
+  line-height: 28px;
   padding: 0 12px;
 }
 
@@ -137,7 +137,7 @@
 .e-dropdown-popup ul .e-item .e-menu-icon {
   float: left;
   font-size: 18px;
-  line-height: 30px;
+  line-height: 28px;
   margin-right: 11px;
   vertical-align: middle;
   width: 1em;

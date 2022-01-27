@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220119
+ * @Version: 1.0.0.20220127
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-19 12:03:04
+ * @LastEditTime: 2022-01-27 17:31:23
  */
 
 import { app, BrowserWindow, nativeTheme, screen } from "electron";
@@ -81,7 +81,7 @@ export function createWin(id) {
 
   setAppMenu(isDev);
   setContextMenu(isDev, win);
-  win.setMenuBarVisibility(false); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
+  win.setMenuBarVisibility(true); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     win.loadURL(path.join(process.env.WEBPACK_DEV_SERVER_URL, startPath)); // Load the url of the dev server if in the dev mode.
