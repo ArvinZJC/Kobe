@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 18:23:44
+ * @LastEditTime: 2022-01-29 18:53:04
  */
 
 import { app, BrowserWindow, ipcMain, nativeTheme, screen } from "electron";
@@ -114,7 +114,11 @@ export function initialiseIpcMainListener() {
       symbolParts[1] + symbolParts[0];
   }); // Process the stock list data from the specific JSON file.
   ipcMain.on(global.common.IPC_SEND, async (event, data) => {
-    const win = BrowserWindow.getFocusedWindow();
+    var win = BrowserWindow.getFocusedWindow(); // Get the focused window here to better ensure that it is the window instance that emits the IPC main channel event.
+
+    if (win == null) {
+      win = BrowserWindow.getAllWindows()[0];
+    } // end if
 
     if (typeof data === "object") {
       switch (data[global.common.TAG_KEY]) {
