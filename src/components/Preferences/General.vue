@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 17:24:49
+ * @LastEditTime: 2022-01-29 20:32:02
 -->
 
 <template>
@@ -57,6 +57,10 @@ import * as zhCN from "../../locales/zh-CN.json";
 export default {
   components: { ButtonGroupMember },
   methods: {
+    /**
+     * Change the appearance mode.
+     * @param {DOMElement} element the appearance option element.
+     */
     changeAppearance(element) {
       var appearanceChange = {};
 
@@ -67,6 +71,7 @@ export default {
         appearanceChange
       );
     }, // end function changeAppearance
+
     /**
      * Check a radio button.
      * @param {string} id the radio button ID.

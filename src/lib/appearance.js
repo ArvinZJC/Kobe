@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-12 08:06:11
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 17:48:37
+ * @LastEditTime: 2022-01-29 20:53:21
  */
 
 import global from "./global.js";
@@ -21,6 +21,11 @@ export function applyAppearance(mql) {
         typeof data === "object" &&
         Object.prototype.hasOwnProperty.call(data, global.common.APPEARANCE_KEY)
       ) {
+        window[global.common.IPC_RENDERER_API_KEY].send(
+          global.common.IPC_SEND,
+          global.common.CORRECT_WIN_COLOUR
+        );
+
         const appearance = data[global.common.APPEARANCE_KEY];
         const syncfusionStyles = document.getElementsByClassName(
           global.common.SF_STYLES

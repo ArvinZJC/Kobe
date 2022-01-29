@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 17:45:08
+ * @LastEditTime: 2022-01-29 20:46:15
  */
 
 global.common = {
@@ -14,6 +14,7 @@ global.common = {
   APP_WIN_ID: "kobe-app",
   APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
+  CORRECT_WIN_COLOUR: "correctWinColour",
   DARK_MODE_ID: "dark",
   DARK_WIN_COLOUR: "#000",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",

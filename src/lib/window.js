@@ -4,10 +4,17 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 18:53:04
+ * @LastEditTime: 2022-01-29 21:12:31
  */
 
-import { app, BrowserWindow, ipcMain, nativeTheme, screen } from "electron";
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  nativeTheme,
+  screen,
+  webContents,
+} from "electron";
 import settings from "electron-settings";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
@@ -114,11 +121,7 @@ export function initialiseIpcMainListener() {
       symbolParts[1] + symbolParts[0];
   }); // Process the stock list data from the specific JSON file.
   ipcMain.on(global.common.IPC_SEND, async (event, data) => {
-    var win = BrowserWindow.getFocusedWindow(); // Get the focused window here to better ensure that it is the window instance that emits the IPC main channel event.
-
-    if (win == null) {
-      win = BrowserWindow.getAllWindows()[0];
-    } // end if
+    const winContents = webContents.fromId(event.sender.id);
 
     if (typeof data === "object") {
       switch (data[global.common.TAG_KEY]) {
@@ -129,7 +132,7 @@ export function initialiseIpcMainListener() {
             data[global.common.STOCK_SYMBOL_KEY]
           );
 
-          win.webContents.send(global.common.IPC_RECEIVE, searchResultData);
+          winContents.send(global.common.IPC_RECEIVE, searchResultData);
           break;
         }
         case global.common.SET_APPEARANCE: {
@@ -138,6 +141,15 @@ export function initialiseIpcMainListener() {
             data[global.common.APPEARANCE_KEY]
           );
           nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
+          break;
+        }
+        default: {
+          console.log("Unknown IPC channel event.");
+        }
+      } // end switch-case
+    } else {
+      switch (data) {
+        case global.common.CORRECT_WIN_COLOUR: {
           Array.prototype.forEach.call(
             BrowserWindow.getAllWindows(),
             (element) =>
@@ -149,14 +161,8 @@ export function initialiseIpcMainListener() {
           );
           break;
         }
-        default: {
-          console.log("Unknown IPC channel event.");
-        }
-      } // end switch-case
-    } else {
-      switch (data) {
         case global.common.GET_APP_NAME: {
-          win.webContents.send(global.common.IPC_RECEIVE, app.name);
+          winContents.send(global.common.IPC_RECEIVE, app.name);
           break;
         }
         case global.common.GET_APPEARANCE: {
@@ -165,11 +171,14 @@ export function initialiseIpcMainListener() {
           appearance[global.common.APPEARANCE_KEY] = await settings.get(
             global.common.APPEARANCE_KEY
           );
-          win.webContents.send(global.common.IPC_RECEIVE, appearance);
+          winContents.send(global.common.IPC_RECEIVE, appearance);
           break;
         }
         case global.common.GET_CONTENT_SIZE: {
-          win.webContents.send(global.common.IPC_RECEIVE, win.getContentSize());
+          winContents.send(
+            global.common.IPC_RECEIVE,
+            BrowserWindow.fromWebContents(winContents).getContentSize()
+          );
           break;
         }
         case global.common.GET_EXTERNAL_SEARCH: {
@@ -177,11 +186,11 @@ export function initialiseIpcMainListener() {
 
           externalSearch[global.common.EXTERNAL_SEARCH_KEY] =
             await settings.get(global.common.EXTERNAL_SEARCH_KEY);
-          win.webContents.send(global.common.IPC_RECEIVE, externalSearch);
+          winContents.send(global.common.IPC_RECEIVE, externalSearch);
           break;
         }
         case global.common.GET_STOCK_LIST: {
-          win.webContents.send(global.common.IPC_RECEIVE, stockList.default);
+          winContents.send(global.common.IPC_RECEIVE, stockList.default);
           break;
         }
         default: {
