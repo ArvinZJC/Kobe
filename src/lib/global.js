@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220122
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-22 19:03:48
+ * @LastEditTime: 2022-01-29 17:45:08
  */
 
 global.common = {
@@ -12,15 +12,20 @@ global.common = {
   API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
   APP_SCHEME: "app",
   APP_WIN_ID: "kobe-app",
+  APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
-  DARK_MODE_ID: "dark-mode",
+  DARK_MODE_ID: "dark",
+  DARK_WIN_COLOUR: "#000",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DEV: "development",
   END_DATE_KEY: "endDate",
+  EXTERNAL_SEARCH_KEY: "externalSearch",
   FILE_HEADER_FONT_SIZE: 14,
   GET_APP_NAME: "getAppName",
+  GET_APPEARANCE: "getAppearance",
   GET_CONTENT_SIZE: "getContentSize",
+  GET_EXTERNAL_SEARCH: "getExternalSearch",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
   GET_STOCK_LIST: "getStockList",
   GOOGLE_ID: "google",
@@ -28,7 +33,8 @@ global.common = {
   IPC_RECEIVE: "fromMain",
   IPC_RENDERER_API_KEY: "ipcRenderer",
   IPC_SEND: "toMain",
-  LIGHT_MODE_ID: "light-mode",
+  LIGHT_MODE_ID: "light",
+  LIGHT_WIN_COLOUR: "#FFF",
   MACOS: "darwin",
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE: "1990-12-03",
@@ -43,6 +49,7 @@ global.common = {
   SEARCH_RESULT_VIEW: "searchResults",
   SEARCH_STATUS_AREA_ID: "search-status-area",
   SEPARATOR: "separator",
+  SET_APPEARANCE: "setAppearance",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
@@ -54,13 +61,14 @@ global.common = {
   SF_STYLES: "syncfusionStyles",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
+  SMOOTH_SCROLL: "smooth",
   START_DATE_KEY: "startDate",
   STOCK_NAME_KEY: "name",
   STOCK_SYMBOL_AUTO_COMPLETE_NAME: "autoCompleteStockSymbol",
   STOCK_SYMBOL_KEY: "ts_code",
   STOCK_SYMBOL_TOOLTIP_NAME: "tooltipStockSymbol",
   STRIKE_PRICE_KEY: "strikePrice",
-  SYSTEM_DEFAULT_MODE_ID: "system-default-mode",
+  SYSTEM_DEFAULT_MODE_ID: "system",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",
   TRICK_INPUT_ID: "trick-input",

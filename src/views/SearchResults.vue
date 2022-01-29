@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220124
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-24 14:31:50
+ * @LastEditTime: 2022-01-29 18:12:33
 -->
 
 <template>
@@ -107,7 +107,7 @@ export default {
      * Scroll to the top.
      */
     scrollToTop() {
-      window.scroll({ top: 0, left: 0, behavior: "smooth" });
+      window.scroll({ top: 0, left: 0, behavior: global.common.SMOOTH_SCROLL });
     }, // end function scrollToTop
   },
   data() {

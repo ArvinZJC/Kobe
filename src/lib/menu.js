@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.0.0.20220127
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-27 16:06:20
+ * @LastEditTime: 2022-01-29 16:00:31
  */
 
 import { app, Menu, shell } from "electron";
@@ -31,9 +31,7 @@ export function setAppMenu(isDev) {
               { type: global.common.SEPARATOR },
               {
                 accelerator: "CommandOrControl+,",
-                click: () => {
-                  showPreferenceWin();
-                },
+                click: () => showPreferenceWin(),
                 label: zhCN.default.preferences,
               },
               { type: global.common.SEPARATOR },
@@ -63,9 +61,7 @@ export function setAppMenu(isDev) {
           : [
               {
                 accelerator: "CommandOrControl+,",
-                click: () => {
-                  showPreferenceWin();
-                },
+                click: () => showPreferenceWin(),
                 label: zhCN.default.preferences,
               },
               {

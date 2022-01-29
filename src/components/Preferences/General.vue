@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.0.20220124
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-24 13:52:43
+ * @LastEditTime: 2022-01-29 17:24:49
 -->
 
 <template>
@@ -20,6 +20,7 @@
       <div class="e-btn-group">
         <ButtonGroupMember
           v-for="appearanceOption in options.appearance"
+          @selectionChanged="changeAppearance"
           :group="zhCN.default.appearanceHeader"
           :id="appearanceOption.id"
           :key="appearanceOption.id"
@@ -55,26 +56,91 @@ import * as zhCN from "../../locales/zh-CN.json";
 
 export default {
   components: { ButtonGroupMember },
+  methods: {
+    changeAppearance(element) {
+      var appearanceChange = {};
+
+      appearanceChange[global.common.TAG_KEY] = global.common.SET_APPEARANCE;
+      appearanceChange[global.common.APPEARANCE_KEY] = element.id;
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        appearanceChange
+      );
+    }, // end function changeAppearance
+    /**
+     * Check a radio button.
+     * @param {string} id the radio button ID.
+     */
+    checkOption(id) {
+      const option = document.getElementById(id);
+
+      if (option != null) {
+        option.checked = true;
+      } // end if
+    }, // end function checkOption
+  },
   data() {
-    return { data: {}, global, zhCN };
+    return {
+      currentAppearance: null,
+      currentExternalSearch: null,
+      data: {},
+      global,
+      zhCN,
+    };
+  },
+  mounted() {
+    window[global.common.IPC_RENDERER_API_KEY].receive(
+      global.common.IPC_RECEIVE,
+      (data) => {
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.APPEARANCE_KEY
+          )
+        ) {
+          this.currentAppearance = data[global.common.APPEARANCE_KEY];
+          this.checkOption(this.currentAppearance);
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.EXTERNAL_SEARCH_KEY
+          )
+        ) {
+          this.currentExternalSearch = data[global.common.EXTERNAL_SEARCH_KEY];
+          this.checkOption(this.currentExternalSearch);
+        } // end if
+      }
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_APPEARANCE
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_EXTERNAL_SEARCH
+    );
   },
   setup() {
-    const options = {
-      appearance: [
-        {
-          id: global.common.SYSTEM_DEFAULT_MODE_ID,
-          value: zhCN.default.systemDefault,
-        }, // System default.
-        { id: global.common.LIGHT_MODE_ID, value: zhCN.default.light }, // Light.
-        { id: global.common.DARK_MODE_ID, value: zhCN.default.dark }, // Dark.
-      ],
-      externalSearch: [
-        { id: global.common.BAIDU_ID, value: zhCN.default.baidu }, // Baidu.
-        { id: global.common.GOOGLE_ID, value: zhCN.default.google }, // Google.
-      ],
+    return {
+      options: {
+        appearance: [
+          {
+            id: global.common.SYSTEM_DEFAULT_MODE_ID,
+            value: zhCN.default.systemDefault,
+          }, // System default.
+          { id: global.common.LIGHT_MODE_ID, value: zhCN.default.light }, // Light.
+          { id: global.common.DARK_MODE_ID, value: zhCN.default.dark }, // Dark.
+        ],
+        externalSearch: [
+          { id: global.common.BAIDU_ID, value: zhCN.default.baidu }, // Baidu.
+          { id: global.common.GOOGLE_ID, value: zhCN.default.google }, // Google.
+        ],
+      },
     };
-
-    return { options };
   },
 };
 </script>

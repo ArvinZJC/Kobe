@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220115
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-15 05:18:17
+ * @LastEditTime: 2022-01-29 18:12:46
 -->
 
 <template>
@@ -41,8 +41,8 @@ import * as timeZoneNames from "cldr-data/main/zh-Hans/timeZoneNames.json";
 import * as numberingSystems from "cldr-data/supplemental/numberingSystems.json";
 import * as weekData from "cldr-data/supplemental/weekData.json";
 
+import { applyAppearance } from "./lib/appearance.js";
 import global from "./lib/global.js";
-import { applyTheme } from "./lib/theme.js";
 import * as syncfusionLocale from "./locales/syncfusion.json";
 
 var syncfusionZhCN = {};
@@ -74,10 +74,10 @@ export default {
     ],
   },
   mounted() {
-    const darkThemeMql = window.matchMedia("(prefers-color-scheme: dark)"); // A MediaQueryList object containing the results of detecting the system theme.
+    const darkModeMql = window.matchMedia("(prefers-color-scheme: dark)"); // A MediaQueryList object containing the results of detecting the system appearance.
 
-    applyTheme(window.matchMedia("(prefers-color-scheme: dark)"));
-    darkThemeMql.onchange = applyTheme; // Listen to the change of the system theme.
+    applyAppearance(darkModeMql);
+    darkModeMql.addEventListener("change", applyAppearance); // Listen to the change of the system appearance.
   },
 };
 </script>

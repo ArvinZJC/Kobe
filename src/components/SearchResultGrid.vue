@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220123
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-23 22:58:14
+ * @LastEditTime: 2022-01-29 14:15:11
 -->
 
 <template>
@@ -145,28 +145,29 @@ export default {
           var dayStr = "";
 
           switch (day) {
-            case 1:
+            case 1: {
               dayStr = zhCN.default.monday;
               break;
-
-            case 2:
+            }
+            case 2: {
               dayStr = zhCN.default.tuesday;
               break;
-
-            case 3:
+            }
+            case 3: {
               dayStr = zhCN.default.wednesday;
               break;
-
-            case 4:
+            }
+            case 4: {
               dayStr = zhCN.default.thursday;
               break;
-
-            case 5:
+            }
+            case 5: {
               dayStr = zhCN.default.friday;
               break;
-
-            default:
+            }
+            default: {
               dayStr = "?";
+            }
           } // end switch-case
 
           dayVolumeColumns.push({

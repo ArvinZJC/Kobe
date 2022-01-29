@@ -1,19 +1,22 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220119
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-19 12:06:34
+ * @LastEditTime: 2022-01-29 18:13:47
  */
 
-import { app, BrowserWindow, ipcMain, protocol } from "electron";
+import { app, BrowserWindow, protocol } from "electron";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 
-import * as stockList from "../extensions/StockList/StockList.json";
 import global from "./lib/global.js";
-import { getSearchResultData } from "./lib/processor.js";
-import { addTabbedAppWin, createWin } from "./lib/window.js";
+import { initialisePreferences } from "./lib/preferences.js";
+import {
+  addTabbedAppWin,
+  createWin,
+  initialiseIpcMainListener,
+} from "./lib/window.js";
 import * as zhCN from "./locales/zh-CN.json";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
@@ -35,41 +38,8 @@ app.whenReady().then(async () => {
     } // end try...catch
   } // end if
 
-  // Process the stock list data from the specific JSON file.
-  Array.prototype.forEach.call(stockList.default, (element, index, array) => {
-    const symbolParts = element[global.common.STOCK_SYMBOL_KEY].split("."); // Split the original value of the stock symbol key (e.g., "601006.SZ" => {"601006", "SZ"}).
-
-    array[index][global.common.STOCK_SYMBOL_KEY] =
-      symbolParts[1] + symbolParts[0];
-  });
-
-  // Listen and react to the event of the IPC channel.
-  ipcMain.on(global.common.IPC_SEND, async (event, data) => {
-    const win = BrowserWindow.getFocusedWindow();
-
-    if (data === global.common.GET_APP_NAME) {
-      win.webContents.send(global.common.IPC_RECEIVE, app.name);
-    } // end if
-
-    if (data === global.common.GET_CONTENT_SIZE) {
-      win.webContents.send(global.common.IPC_RECEIVE, win.getContentSize());
-    } // end if
-
-    if (data === global.common.GET_STOCK_LIST) {
-      win.webContents.send(global.common.IPC_RECEIVE, stockList.default);
-    } // end if
-
-    if (data[global.common.TAG_KEY] === global.common.GET_SEARCH_RESULT_DATA) {
-      const searchResultData = await getSearchResultData(
-        data[global.common.END_DATE_KEY],
-        data[global.common.START_DATE_KEY],
-        data[global.common.STOCK_SYMBOL_KEY]
-      );
-
-      win.webContents.send(global.common.IPC_RECEIVE, searchResultData);
-    } // end if
-  });
-
+  await initialisePreferences();
+  initialiseIpcMainListener();
   createWin(global.common.APP_WIN_ID);
 
   // Emitted when the app is activated.

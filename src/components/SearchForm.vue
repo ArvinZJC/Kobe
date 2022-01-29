@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220124
+ * @Version: 1.0.0.20220129
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-24 15:44:40
+ * @LastEditTime: 2022-01-29 15:43:13
 -->
 
 <template>
@@ -390,10 +390,6 @@ export default {
           this.stockList = data;
         } // end if
       }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_APP_NAME
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
