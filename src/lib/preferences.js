@@ -1,23 +1,67 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220130
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 17:49:38
+ * @LastEditTime: 2022-01-30 18:25:57
  */
-
-import { nativeTheme } from "electron";
-import settings from "electron-settings";
 
 import global from "./global.js";
 
 /**
- * Initialise the app preferences.
+ * Change the preference in the renderer process.
+ * @param {string} id the preference option ID.
+ * @param {string} key the preference key.
+ * @param {string} tag the preference tag.
+ */
+export function changePreference(id, key, tag) {
+  var change = {};
+
+  change[global.common.TAG_KEY] = tag;
+  change[key] = id;
+  window[global.common.IPC_RENDERER_API_KEY].send(
+    global.common.IPC_SEND,
+    change
+  );
+} // end function changePreference
+
+/**
+ * Check the radio button reflecting the user preference in the renderer process.
+ * @param {string} id the radio button ID.
+ */
+export function checkOption(id) {
+  const option = document.getElementById(id);
+
+  if (option != null) {
+    option.checked = true;
+  } // end if
+} // end function checkOption
+
+/**
+ * Get the user preference in the main process.
+ * @param {string} key the preference key.
+ * @returns an object using the preference key as the key and the user preference as the value.
+ */
+export async function getPreference(key) {
+  const settings = require("electron-settings"); // It is necessary to import the module here because this script contains functions for both the main process and the renderer processes.
+
+  var preference = {};
+
+  preference[key] = await settings.get(key);
+  return preference;
+} // end function getPreference
+
+/**
+ * Initialise the app preferences in the main process.
  *
  * NOTE: It must be executed before creating a window.
  */
 export async function initialisePreferences() {
+  // It is necessary to import modules here because this script contains functions for both the main process and the renderer processes.
+  const { nativeTheme } = require("electron");
+  const settings = require("electron-settings");
+
   var preferences = await settings.get();
 
   // Initialise the appearance preference to default if the user preference does not exist or is illegal.
@@ -49,6 +93,19 @@ export async function initialisePreferences() {
     await settings.set(
       global.common.EXTERNAL_SEARCH_KEY,
       global.common.BAIDU_ID
+    );
+  } // end if
+
+  // Initialise the search engine mode preference to default if the user preference does not exist or is illegal.
+  if (
+    preferences[global.common.SEARCH_ENGINE_MODE_KEY] == null ||
+    ![global.common.STABLE_MODE_ID, global.common.FAST_MODE_ID].includes(
+      preferences[global.common.SEARCH_ENGINE_MODE_KEY]
+    )
+  ) {
+    await settings.set(
+      global.common.SEARCH_ENGINE_MODE_KEY,
+      global.common.STABLE_MODE_ID
     );
   } // end if
 } // end function initialisePreferences

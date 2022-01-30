@@ -1,14 +1,15 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220130
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 16:00:31
+ * @LastEditTime: 2022-01-30 14:28:08
  */
 
 import { app, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
+import settings from "electron-settings";
 
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
@@ -31,7 +32,9 @@ export function setAppMenu(isDev) {
               { type: global.common.SEPARATOR },
               {
                 accelerator: "CommandOrControl+,",
-                click: () => showPreferenceWin(),
+                click: async () => {
+                  await showPreferenceWin();
+                },
                 label: zhCN.default.preferences,
               },
               { type: global.common.SEPARATOR },
@@ -61,7 +64,9 @@ export function setAppMenu(isDev) {
           : [
               {
                 accelerator: "CommandOrControl+,",
-                click: () => showPreferenceWin(),
+                click: async () => {
+                  await showPreferenceWin();
+                },
                 label: zhCN.default.preferences,
               },
               {
@@ -180,12 +185,15 @@ export function setAppMenu(isDev) {
 
 /**
  * Set the context menu.
+ *
  * Reference: https://github.com/sindresorhus/electron-context-menu/blob/main/index.js
  * @param {boolean} isDev a flag indicating if the app is in the dev mode.
  * @param {BrowserWindow} win the window owning the context menu.
  */
-export function setContextMenu(isDev, win) {
-  const showSearchWithBaidu = true; // TODO: Baidu or Google as per user preferences.
+export async function setContextMenu(isDev, win) {
+  const externalSearch = await settings.get(global.common.EXTERNAL_SEARCH_KEY);
+  const showSearchWithBaidu = externalSearch === global.common.BAIDU_ID;
+
   contextMenu({
     menu: (actions, params, currentWin, dictionarySuggestions) => [
       dictionarySuggestions.length > 0 && actions.separator(),
@@ -299,4 +307,4 @@ export function setContextMenu(isDev, win) {
     },
     window: win,
   });
-}
+} // end function setContextMenu

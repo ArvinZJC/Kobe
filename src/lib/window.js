@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220130
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 21:12:31
+ * @LastEditTime: 2022-01-30 18:18:22
  */
 
 import {
@@ -22,6 +22,7 @@ import * as stockList from "../../extensions/StockList/StockList.json";
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
 import { setAppMenu, setContextMenu } from "./menu.js";
+import { getPreference } from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
@@ -30,10 +31,10 @@ const path = require("path");
 /**
  * Create a tabbed app window.
  */
-export function addTabbedAppWin() {
+export async function addTabbedAppWin() {
   if (process.platform === global.common.MACOS) {
     const win = BrowserWindow.getFocusedWindow(); // It is necessary to put this line before creating a window to add the tabbed app window properly.
-    const tabbedAppWin = createWin(global.common.APP_WIN_ID);
+    const tabbedAppWin = await createWin(global.common.APP_WIN_ID);
 
     win.addTabbedWindow(tabbedAppWin);
   } // end if
@@ -43,7 +44,7 @@ export function addTabbedAppWin() {
  * Create a window.
  * @param {string} id the window ID.
  */
-export function createWin(id) {
+export async function createWin(id) {
   var winOptions = {
     backgroundColor: nativeTheme.shouldUseDarkColors
       ? global.common.DARK_WIN_COLOUR
@@ -96,7 +97,7 @@ export function createWin(id) {
       : "";
 
   setAppMenu(isDev);
-  setContextMenu(isDev, win);
+  await setContextMenu(isDev, win);
   win.setMenuBarVisibility(true); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
@@ -143,6 +144,20 @@ export function initialiseIpcMainListener() {
           nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
           break;
         }
+        case global.common.SET_EXTERNAL_SEARCH: {
+          await settings.set(
+            global.common.EXTERNAL_SEARCH_KEY,
+            data[global.common.EXTERNAL_SEARCH_KEY]
+          );
+          break;
+        }
+        case global.common.SET_SEARCH_ENGINE_MODE: {
+          await settings.set(
+            global.common.SEARCH_ENGINE_MODE_KEY,
+            data[global.common.SEARCH_ENGINE_MODE_KEY]
+          );
+          break;
+        }
         default: {
           console.log("Unknown IPC channel event.");
         }
@@ -166,11 +181,8 @@ export function initialiseIpcMainListener() {
           break;
         }
         case global.common.GET_APPEARANCE: {
-          var appearance = {};
+          const appearance = await getPreference(global.common.APPEARANCE_KEY);
 
-          appearance[global.common.APPEARANCE_KEY] = await settings.get(
-            global.common.APPEARANCE_KEY
-          );
           winContents.send(global.common.IPC_RECEIVE, appearance);
           break;
         }
@@ -182,11 +194,19 @@ export function initialiseIpcMainListener() {
           break;
         }
         case global.common.GET_EXTERNAL_SEARCH: {
-          var externalSearch = {};
+          const externalSearch = await getPreference(
+            global.common.EXTERNAL_SEARCH_KEY
+          );
 
-          externalSearch[global.common.EXTERNAL_SEARCH_KEY] =
-            await settings.get(global.common.EXTERNAL_SEARCH_KEY);
           winContents.send(global.common.IPC_RECEIVE, externalSearch);
+          break;
+        }
+        case global.common.GET_SEARCH_ENGINE_MODE: {
+          const searchEngineMode = await getPreference(
+            global.common.SEARCH_ENGINE_MODE_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, searchEngineMode);
           break;
         }
         case global.common.GET_STOCK_LIST: {
@@ -204,7 +224,7 @@ export function initialiseIpcMainListener() {
 /**
  * Create a preference window if it does not exist. Otherwise, focus on the existing preference window.
  */
-export function showPreferenceWin() {
+export async function showPreferenceWin() {
   for (const win of BrowserWindow.getAllWindows()) {
     if (win.title === zhCN.default.preferences) {
       win.focus();
@@ -212,5 +232,5 @@ export function showPreferenceWin() {
     } // end if
   } // end for
 
-  createWin(global.common.PREFERENCE_WIN_ID);
+  await createWin(global.common.PREFERENCE_WIN_ID);
 } // end function showPreferenceWin

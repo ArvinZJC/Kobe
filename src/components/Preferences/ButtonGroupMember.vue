@@ -4,12 +4,12 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-24 12:26:24
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 16:41:32
+ * @LastEditTime: 2022-01-29 22:13:51
 -->
 
 <template>
   <input
-    @change="$emit('selectionChanged', $event.target)"
+    @change="$emit('selectionChanged', $event.target.id)"
     :id="id"
     :name="group"
     :value="value"

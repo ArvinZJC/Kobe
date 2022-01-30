@@ -1,13 +1,14 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220116
+ * @Version: 1.0.0.20220130
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-16 11:33:16
+ * @LastEditTime: 2022-01-30 18:00:56
  */
 
 import fetch, { FetchError } from "electron-fetch";
+import settings from "electron-settings";
 import { DomUtils, parseDocument } from "htmlparser2";
 import iconv from "iconv-lite";
 
@@ -164,6 +165,9 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
   ) {
     const dateArray = createDateArray(endDate, startDate);
     var count = 1; // There has already been 1 fetch above from the API.
+    const searchEngineMode = await settings.get(
+      global.common.SEARCH_ENGINE_MODE_KEY
+    );
 
     for (const currentDate of dateArray) {
       const dateStr = [
@@ -179,7 +183,11 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
         break;
       } // end if
 
-      await reduceFetchFrequency(++count, dateArray.length + 1);
+      await reduceFetchFrequency(
+        ++count,
+        searchEngineMode === global.common.STABLE_MODE_ID,
+        dateArray.length + 1
+      );
     } // end for
   } // end if
 
@@ -229,18 +237,17 @@ function parseDom(dom) {
 /**
  * Reduce the fetch frequency to mitigate blocking frequent website crawling.
  * @param {number} count the current fetch count.
+ * @param {boolean} isStableMode a flag indicating if the search engine is in the stable mode.
  * @param {number} totalCount the total fetch count.
  */
-async function reduceFetchFrequency(count, totalCount) {
-  const isDefaultMode = true; // TODO: 允许设置搜索引擎模式，考虑到多 Tab 页可能出现的过多并发请求，建议默认模式，除非确认日常搜索频率较低（频率怎么定义？）
-
+async function reduceFetchFrequency(count, isStableMode, totalCount) {
   if (totalCount > 1) {
     if (count % 10 === 0) {
       if (totalCount > 10) {
         await new Promise((resolve) => setTimeout(resolve, 10000)); // Sleep for 10 seconds per 10 requests if there are more than 10 fetches.
       } // end if
-    } else if (isDefaultMode && count !== totalCount) {
-      await new Promise((resolve) => setTimeout(resolve, 3000)); // Sleep for 3 seconds per request if the search engine is in the default mode and it is not the last fetch.
+    } else if (isStableMode && count !== totalCount) {
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // Sleep for 3 seconds per request if the search engine is in the stable mode and it is not the last fetch.
     } // end nested if...else
   } // end if
 } // end function reduceFetchFrequency

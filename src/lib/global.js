@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220130
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 20:46:15
+ * @LastEditTime: 2022-01-30 18:05:29
  */
 
 global.common = {
@@ -22,11 +22,13 @@ global.common = {
   DEV: "development",
   END_DATE_KEY: "endDate",
   EXTERNAL_SEARCH_KEY: "externalSearch",
+  FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
   GET_APP_NAME: "getAppName",
   GET_APPEARANCE: "getAppearance",
   GET_CONTENT_SIZE: "getContentSize",
   GET_EXTERNAL_SEARCH: "getExternalSearch",
+  GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
   GET_STOCK_LIST: "getStockList",
   GOOGLE_ID: "google",
@@ -44,6 +46,7 @@ global.common = {
   PREFERENCE_VIEW: "preferences",
   PROCESSOR_ERROR_KEY: "ProcessorError",
   SEARCH_BAR_ID: "search-bar",
+  SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
   SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",
   SEARCH_RESULT_GRID_NAME: "gridSearchResults",
@@ -51,6 +54,8 @@ global.common = {
   SEARCH_STATUS_AREA_ID: "search-status-area",
   SEPARATOR: "separator",
   SET_APPEARANCE: "setAppearance",
+  SET_EXTERNAL_SEARCH: "setExternalSearch",
+  SET_SEARCH_ENGINE_MODE: "setSearchEngineMode",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
@@ -63,6 +68,7 @@ global.common = {
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
   SMOOTH_SCROLL: "smooth",
+  STABLE_MODE_ID: "stable",
   START_DATE_KEY: "startDate",
   STOCK_NAME_KEY: "name",
   STOCK_SYMBOL_AUTO_COMPLETE_NAME: "autoCompleteStockSymbol",
