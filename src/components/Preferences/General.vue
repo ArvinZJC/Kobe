@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 18:26:55
+ * @LastEditTime: 2022-01-30 23:18:06
 -->
 
 <template>
@@ -14,7 +14,9 @@
       <h1 class="text-primary-header">
         {{ zhCN.default.appearanceHeader }}
       </h1>
-      <p class="text-secondary">{{ zhCN.default.appearanceExplanation }}</p>
+      <p class="text-secondary-explanation">
+        {{ zhCN.default.appearanceExplanation }}
+      </p>
     </div>
     <div class="align-br">
       <div class="e-btn-group">
@@ -22,6 +24,7 @@
           v-for="appearanceOption in options.appearance"
           @selectionChanged="changeAppearance"
           :group="zhCN.default.appearanceHeader"
+          :icon="appearanceOption.icon"
           :id="appearanceOption.id"
           :key="appearanceOption.id"
           :value="appearanceOption.value"
@@ -33,7 +36,9 @@
       <h1 class="text-primary-header">
         {{ zhCN.default.externalSearchHeader }}
       </h1>
-      <p class="text-secondary">{{ zhCN.default.externalSearchExplanation }}</p>
+      <p class="text-secondary-explanation">
+        {{ zhCN.default.externalSearchExplanation }}
+      </p>
     </div>
     <div class="align-br">
       <div class="e-btn-group">
@@ -41,6 +46,7 @@
           v-for="externalSearchOption in options.externalSearch"
           @selectionChanged="changeExternalSearch"
           :group="zhCN.default.externalSearchHeader"
+          :icon="externalSearchOption.icon"
           :id="externalSearchOption.id"
           :key="externalSearchOption.id"
           :value="externalSearchOption.value"
@@ -51,10 +57,14 @@
 </template>
 
 <script>
+import { DesktopComputerIcon, MoonIcon, SunIcon } from "@heroicons/vue/outline";
+
 import ButtonGroupMember from "./ButtonGroupMember.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
+import BaiduIcon from "../SVG/BaiduIcon.vue";
+import GoogleIcon from "../SVG/GoogleIcon.vue";
 
 export default {
   components: { ButtonGroupMember },
@@ -133,15 +143,32 @@ export default {
       options: {
         appearance: [
           {
+            icon: DesktopComputerIcon,
             id: global.common.SYSTEM_DEFAULT_MODE_ID,
             value: zhCN.default.systemDefault,
           }, // System default.
-          { id: global.common.LIGHT_MODE_ID, value: zhCN.default.light }, // Light.
-          { id: global.common.DARK_MODE_ID, value: zhCN.default.dark }, // Dark.
+          {
+            icon: MoonIcon,
+            id: global.common.LIGHT_MODE_ID,
+            value: zhCN.default.light,
+          }, // Light.
+          {
+            icon: SunIcon,
+            id: global.common.DARK_MODE_ID,
+            value: zhCN.default.dark,
+          }, // Dark.
         ],
         externalSearch: [
-          { id: global.common.BAIDU_ID, value: zhCN.default.baidu }, // Baidu.
-          { id: global.common.GOOGLE_ID, value: zhCN.default.google }, // Google.
+          {
+            icon: BaiduIcon,
+            id: global.common.BAIDU_ID,
+            value: zhCN.default.baidu,
+          }, // Baidu.
+          {
+            icon: GoogleIcon,
+            id: global.common.GOOGLE_ID,
+            value: zhCN.default.google,
+          }, // Google.
         ],
       },
     };

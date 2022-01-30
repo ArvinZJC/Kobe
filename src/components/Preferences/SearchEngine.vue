@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 18:26:13
+ * @LastEditTime: 2022-01-30 23:18:18
 -->
 
 <template>
@@ -14,7 +14,7 @@
       <h1 class="text-primary-header">
         {{ zhCN.default.searchEngineModeHeader }}
       </h1>
-      <p class="text-secondary">
+      <p class="text-secondary-explanation">
         {{ zhCN.default.searchEngineModeExplanation }}
       </p>
     </div>
@@ -24,6 +24,7 @@
           v-for="searchEngineModeOption in options.searchEngineMode"
           @selectionChanged="changeSearchEngineMode"
           :group="zhCN.default.searchEngineModeHeader"
+          :icon="searchEngineModeOption.icon"
           :id="searchEngineModeOption.id"
           :key="searchEngineModeOption.id"
           :value="searchEngineModeOption.value"
@@ -34,9 +35,12 @@
 </template>
 
 <script>
+import { LightningBoltIcon } from "@heroicons/vue/outline";
+
 import ButtonGroupMember from "./ButtonGroupMember.vue";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
+import TurtleIcon from "../SVG/TurtleIcon.vue";
 
 export default {
   components: { ButtonGroupMember },
@@ -82,8 +86,16 @@ export default {
     return {
       options: {
         searchEngineMode: [
-          { id: global.common.STABLE_MODE_ID, value: zhCN.default.stableMode }, // Stable mode.
-          { id: global.common.FAST_MODE_ID, value: zhCN.default.fastMode }, // Fast mode.
+          {
+            icon: TurtleIcon,
+            id: global.common.STABLE_MODE_ID,
+            value: zhCN.default.stableMode,
+          }, // Stable mode.
+          {
+            icon: LightningBoltIcon,
+            id: global.common.FAST_MODE_ID,
+            value: zhCN.default.fastMode,
+          }, // Fast mode.
         ],
       },
     };
