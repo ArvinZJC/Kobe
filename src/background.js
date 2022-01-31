@@ -1,14 +1,15 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220131
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 15:08:08
+ * @LastEditTime: 2022-01-31 17:04:00
  */
 
 import { app, BrowserWindow, protocol } from "electron";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
+import log from "electron-log";
 
 import global from "./lib/global.js";
 import { initialisePreferences } from "./lib/preferences.js";
@@ -34,7 +35,7 @@ app.whenReady().then(async () => {
     try {
       await installExtension(VUEJS3_DEVTOOLS); // Install Vue 3 Devtools.
     } catch (e) {
-      console.error("Failed to install Vue 3 Devtools:", e.toString());
+      log.error("Failed to install Vue 3 Devtools:", e.stack);
     } // end try...catch
   } // end if
 

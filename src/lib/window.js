@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220131
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 18:18:22
+ * @LastEditTime: 2022-01-31 17:18:09
  */
 
 import {
@@ -15,6 +15,7 @@ import {
   screen,
   webContents,
 } from "electron";
+import log from "electron-log";
 import settings from "electron-settings";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
@@ -159,7 +160,10 @@ export function initialiseIpcMainListener() {
           break;
         }
         default: {
-          console.log("Unknown IPC channel event.");
+          log.warn(
+            "Unknown IPC channel event in the data message:",
+            JSON.stringify(data)
+          );
         }
       } // end switch-case
     } else {
@@ -214,7 +218,10 @@ export function initialiseIpcMainListener() {
           break;
         }
         default: {
-          console.log("Unknown IPC channel event.");
+          log.warn(
+            "Unknown IPC channel event in the data message:",
+            JSON.stringify(data)
+          );
         }
       } // end switch-case
     } // end if...else
