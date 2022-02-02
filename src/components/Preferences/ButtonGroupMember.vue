@@ -1,10 +1,10 @@
 <!--
  * @Description: a member component of a button group enabling single selection
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2022-01-24 12:26:24
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 22:35:16
+ * @LastEditTime: 2022-02-01 19:45:54
 -->
 
 <template>
@@ -28,7 +28,7 @@ export default {
   emits: ["selectionChanged"],
   props: {
     group: String,
-    icon: Object,
+    icon: [Function, Object],
     id: String,
     value: String,
   },

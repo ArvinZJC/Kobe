@@ -1,49 +1,44 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 23:18:18
+ * @LastEditTime: 2022-02-01 22:52:15
 -->
 
 <template>
   <div class="container-preferences">
     <!-- Search engine mode. -->
-    <div class="container-preference">
-      <h1 class="text-primary-header">
-        {{ zhCN.default.searchEngineModeHeader }}
-      </h1>
-      <p class="text-secondary-explanation">
-        {{ zhCN.default.searchEngineModeExplanation }}
-      </p>
-    </div>
-    <div class="align-br">
-      <div class="e-btn-group">
-        <ButtonGroupMember
-          v-for="searchEngineModeOption in options.searchEngineMode"
-          @selectionChanged="changeSearchEngineMode"
-          :group="zhCN.default.searchEngineModeHeader"
-          :icon="searchEngineModeOption.icon"
-          :id="searchEngineModeOption.id"
-          :key="searchEngineModeOption.id"
-          :value="searchEngineModeOption.value"
-        />
-      </div>
-    </div>
+    <Preference
+      :explanation="zhCN.default.searchEngineModeExplanation"
+      :header="zhCN.default.searchEngineModeHeader"
+      :options="options.searchEngineMode"
+      :selectionChangedHandler="changeSearchEngineMode"
+      :type="global.common.BUTTON_GROUP"
+    />
+    <!-- Min date. -->
+    <Preference
+      :explanation="zhCN.default.minDateExplanation"
+      :header="zhCN.default.minDateHeader"
+      :options="options.minDate"
+      :type="global.common.DATE_PICKER"
+      :value="minDate"
+    />
   </div>
 </template>
 
 <script>
 import { LightningBoltIcon } from "@heroicons/vue/outline";
 
-import ButtonGroupMember from "./ButtonGroupMember.vue";
+import Preference from "./Preference.vue";
+import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
 import TurtleIcon from "../SVG/TurtleIcon.vue";
 
 export default {
-  components: { ButtonGroupMember },
+  components: { Preference },
   methods: {
     /**
      * Change the search engine mode.
@@ -58,7 +53,12 @@ export default {
     }, // end function changeSearchEngineMode
   },
   data() {
-    return { data: {}, zhCN };
+    return {
+      data: {},
+      global,
+      minDate: new Date(global.common.MIN_MIN_DATE),
+      zhCN,
+    };
   },
   mounted() {
     window[global.common.IPC_RENDERER_API_KEY].receive(
@@ -66,16 +66,25 @@ export default {
       (data) => {
         if (
           typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(data, global.common.MIN_DATE_KEY)
+        ) {
+          this.minDate = new Date(data[global.common.MIN_DATE_KEY]);
+        } // end if
+
+        if (
+          typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(
             data,
             global.common.SEARCH_ENGINE_MODE_KEY
           )
         ) {
-          this.currentSearchEngineMode =
-            data[global.common.SEARCH_ENGINE_MODE_KEY];
-          checkOption(this.currentSearchEngineMode);
+          checkOption(data[global.common.SEARCH_ENGINE_MODE_KEY]);
         } // end if
       }
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_MIN_DATE
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
@@ -85,6 +94,10 @@ export default {
   setup() {
     return {
       options: {
+        minDate: {
+          id: global.common.MIN_DATE_KEY,
+          value: global.common.SET_MIN_DATE,
+        },
         searchEngineMode: [
           {
             icon: TurtleIcon,

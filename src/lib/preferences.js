@@ -1,17 +1,17 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 18:25:57
+ * @LastEditTime: 2022-02-01 19:57:50
  */
 
 import global from "./global.js";
 
 /**
  * Change the preference in the renderer process.
- * @param {string} id the preference option ID.
+ * @param {Date | string} id the preference option ID.
  * @param {string} key the preference key.
  * @param {string} tag the preference tag.
  */
@@ -94,6 +94,20 @@ export async function initialisePreferences() {
       global.common.EXTERNAL_SEARCH_KEY,
       global.common.BAIDU_ID
     );
+  } // end if
+
+  // Initialise the min date preference to default if the user preference does not exist or is illegal.
+  const minDateValue = new Date(
+    preferences[global.common.MIN_DATE_KEY]
+  ).getTime();
+  const minMinDate = new Date(global.common.MIN_MIN_DATE);
+
+  if (
+    preferences[global.common.MIN_DATE_KEY] == null ||
+    minDateValue < minMinDate.getTime() ||
+    minDateValue > new Date().getTime()
+  ) {
+    await settings.set(global.common.MIN_DATE_KEY, minMinDate);
   } // end if
 
   // Initialise the search engine mode preference to default if the user preference does not exist or is illegal.

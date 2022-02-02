@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 15:43:13
+ * @LastEditTime: 2022-02-01 22:46:51
 -->
 
 <template>
@@ -78,7 +78,7 @@
             />
           </ejs-tooltip>
           <ejs-tooltip
-            :content="zhCN.default.dateRangeTooltip"
+            :content="`${zhCN.default.dateFormatTooltip}，${zhCN.default.dateRangeTooltip}`"
             :ref="global.common.DATE_RANGE_PICKER_TOOLTIP_NAME"
           >
             <!-- The date range picker. -->
@@ -89,7 +89,7 @@
               @renderDayCell="disableWeekends"
               :endDate="new Date(endDate)"
               :max="new Date()"
-              :min="new Date(global.common.MIN_DATE)"
+              :min="minDate"
               :name="global.common.DATE_RANGE_PICKER_NAME"
               :placeholder="zhCN.default.dateRangePlaceholder"
               :ref="global.common.DATE_RANGE_PICKER_NAME"
@@ -357,6 +357,7 @@ export default {
     return {
       global,
       hasBarLayout: this.isBarLayout,
+      minDate: new Date(global.common.MIN_MIN_DATE),
       stockList: [],
       stockListItemTemplate: () => {
         return {
@@ -380,6 +381,13 @@ export default {
       global.common.IPC_RECEIVE,
       (data) => {
         if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(data, global.common.MIN_DATE_KEY)
+        ) {
+          this.minDate = new Date(data[global.common.MIN_DATE_KEY]);
+        } // end if
+
+        if (
           Array.isArray(data) &&
           typeof data[0] == "object" &&
           Object.prototype.hasOwnProperty.call(
@@ -390,6 +398,10 @@ export default {
           this.stockList = data;
         } // end if
       }
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_MIN_DATE
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,

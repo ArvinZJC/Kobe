@@ -1,65 +1,37 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 23:18:06
+ * @LastEditTime: 2022-02-01 22:45:41
 -->
 
 <template>
   <div class="container-preferences">
     <!-- Appearance. -->
-    <div class="container-preference">
-      <h1 class="text-primary-header">
-        {{ zhCN.default.appearanceHeader }}
-      </h1>
-      <p class="text-secondary-explanation">
-        {{ zhCN.default.appearanceExplanation }}
-      </p>
-    </div>
-    <div class="align-br">
-      <div class="e-btn-group">
-        <ButtonGroupMember
-          v-for="appearanceOption in options.appearance"
-          @selectionChanged="changeAppearance"
-          :group="zhCN.default.appearanceHeader"
-          :icon="appearanceOption.icon"
-          :id="appearanceOption.id"
-          :key="appearanceOption.id"
-          :value="appearanceOption.value"
-        />
-      </div>
-    </div>
+    <Preference
+      :explanation="zhCN.default.appearanceExplanation"
+      :header="zhCN.default.appearanceHeader"
+      :options="options.appearance"
+      :selectionChangedHandler="changeAppearance"
+      :type="global.common.BUTTON_GROUP"
+    />
     <!-- External search. -->
-    <div class="container-preference">
-      <h1 class="text-primary-header">
-        {{ zhCN.default.externalSearchHeader }}
-      </h1>
-      <p class="text-secondary-explanation">
-        {{ zhCN.default.externalSearchExplanation }}
-      </p>
-    </div>
-    <div class="align-br">
-      <div class="e-btn-group">
-        <ButtonGroupMember
-          v-for="externalSearchOption in options.externalSearch"
-          @selectionChanged="changeExternalSearch"
-          :group="zhCN.default.externalSearchHeader"
-          :icon="externalSearchOption.icon"
-          :id="externalSearchOption.id"
-          :key="externalSearchOption.id"
-          :value="externalSearchOption.value"
-        />
-      </div>
-    </div>
+    <Preference
+      :explanation="zhCN.default.externalSearchExplanation"
+      :header="zhCN.default.externalSearchHeader"
+      :options="options.externalSearch"
+      :selectionChangedHandler="changeExternalSearch"
+      :type="global.common.BUTTON_GROUP"
+    />
   </div>
 </template>
 
 <script>
 import { DesktopComputerIcon, MoonIcon, SunIcon } from "@heroicons/vue/outline";
 
-import ButtonGroupMember from "./ButtonGroupMember.vue";
+import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
@@ -67,7 +39,7 @@ import BaiduIcon from "../SVG/BaiduIcon.vue";
 import GoogleIcon from "../SVG/GoogleIcon.vue";
 
 export default {
-  components: { ButtonGroupMember },
+  components: { Preference },
   methods: {
     /**
      * Change the appearance.
@@ -94,13 +66,7 @@ export default {
     }, // end function changeExternalSearch
   },
   data() {
-    return {
-      currentAppearance: null,
-      currentExternalSearch: null,
-      data: {},
-      global,
-      zhCN,
-    };
+    return { data: {}, global, zhCN };
   },
   mounted() {
     window[global.common.IPC_RENDERER_API_KEY].receive(
@@ -113,8 +79,7 @@ export default {
             global.common.APPEARANCE_KEY
           )
         ) {
-          this.currentAppearance = data[global.common.APPEARANCE_KEY];
-          checkOption(this.currentAppearance);
+          checkOption(data[global.common.APPEARANCE_KEY]);
         } // end if
 
         if (
@@ -124,8 +89,7 @@ export default {
             global.common.EXTERNAL_SEARCH_KEY
           )
         ) {
-          this.currentExternalSearch = data[global.common.EXTERNAL_SEARCH_KEY];
-          checkOption(this.currentExternalSearch);
+          checkOption(data[global.common.EXTERNAL_SEARCH_KEY]);
         } // end if
       }
     );

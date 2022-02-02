@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220131
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-31 17:18:09
+ * @LastEditTime: 2022-02-01 22:07:14
  */
 
 import {
@@ -152,6 +152,13 @@ export function initialiseIpcMainListener() {
           );
           break;
         }
+        case global.common.SET_MIN_DATE: {
+          await settings.set(
+            global.common.MIN_DATE_KEY,
+            data[global.common.MIN_DATE_KEY]
+          );
+          break;
+        }
         case global.common.SET_SEARCH_ENGINE_MODE: {
           await settings.set(
             global.common.SEARCH_ENGINE_MODE_KEY,
@@ -203,6 +210,12 @@ export function initialiseIpcMainListener() {
           );
 
           winContents.send(global.common.IPC_RECEIVE, externalSearch);
+          break;
+        }
+        case global.common.GET_MIN_DATE: {
+          const minDate = await getPreference(global.common.MIN_DATE_KEY);
+
+          winContents.send(global.common.IPC_RECEIVE, minDate);
           break;
         }
         case global.common.GET_SEARCH_ENGINE_MODE: {

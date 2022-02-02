@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.0.20220201
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 18:05:29
+ * @LastEditTime: 2022-02-01 19:54:02
  */
 
 global.common = {
@@ -14,9 +14,11 @@ global.common = {
   APP_WIN_ID: "kobe-app",
   APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
+  BUTTON_GROUP: "buttonGroup",
   CORRECT_WIN_COLOUR: "correctWinColour",
   DARK_MODE_ID: "dark",
   DARK_WIN_COLOUR: "#000",
+  DATE_PICKER: "datePicker",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DEV: "development",
@@ -28,6 +30,7 @@ global.common = {
   GET_APPEARANCE: "getAppearance",
   GET_CONTENT_SIZE: "getContentSize",
   GET_EXTERNAL_SEARCH: "getExternalSearch",
+  GET_MIN_DATE: "getMinDate",
   GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
   GET_STOCK_LIST: "getStockList",
@@ -40,7 +43,9 @@ global.common = {
   LIGHT_WIN_COLOUR: "#FFF",
   MACOS: "darwin",
   MIN_COLUMN_WIDTH: 50,
-  MIN_DATE: "1990-12-03",
+  MIN_DATE_KEY: "minDate",
+  MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
+  MIN_MIN_DATE: "1990-12-03",
   POPUP_BOTTOM: "50px",
   PREFERENCE_WIN_ID: "kobe-preferences",
   PREFERENCE_VIEW: "preferences",
@@ -55,6 +60,7 @@ global.common = {
   SEPARATOR: "separator",
   SET_APPEARANCE: "setAppearance",
   SET_EXTERNAL_SEARCH: "setExternalSearch",
+  SET_MIN_DATE: "setMinDate",
   SET_SEARCH_ENGINE_MODE: "setSearchEngineMode",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",

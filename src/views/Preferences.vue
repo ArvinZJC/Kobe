@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.0.20220121
+ * @Version: 1.0.0.20220131
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-21 11:20:51
+ * @LastEditTime: 2022-01-31 21:28:01
 -->
 
 <template>
@@ -31,6 +31,10 @@
             :content="contentSearchEngine"
             :header="headerSearchEngine"
           />
+          <e-tabitem
+            :content="contentResultDisplay"
+            :header="headerResultDisplay"
+          />
         </e-tabitems>
       </ejs-tab>
     </div>
@@ -46,6 +50,7 @@ import {
 import { createApp } from "vue";
 
 import General from "../components/Preferences/General.vue";
+import ResultDisplay from "../components/Preferences/ResultDisplay.vue";
 import SearchEngine from "../components/Preferences/SearchEngine.vue";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
@@ -61,6 +66,14 @@ export default {
       contentGeneral: () => {
         return { template: createApp().component("contentGeneral", General) };
       },
+      contentResultDisplay: () => {
+        return {
+          template: createApp().component(
+            "contentResultDisplay",
+            ResultDisplay
+          ),
+        };
+      },
       contentSearchEngine: () => {
         return {
           template: createApp().component("contentSearchEngine", SearchEngine),
@@ -70,6 +83,10 @@ export default {
       headerGeneral: {
         iconCss: "e-settings",
         text: zhCN.default.generalSection,
+      },
+      headerResultDisplay: {
+        iconCss: "e-table",
+        text: zhCN.default.resultDisplaySection,
       },
       headerSearchEngine: {
         iconCss: "e-eye",
