@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220204
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 14:15:11
+ * @LastEditTime: 2022-02-04 16:15:50
 -->
 
 <template>
@@ -43,19 +43,22 @@
       :allowFiltering="true"
       :allowResizing="true"
       :allowSorting="true"
+      :clipMode="global.common.SF_ELLIPSIS_WITH_TOOLTIP"
       :dataSource="searchResultData"
       :enableStickyHeader="true"
-      :filterSettings="{ type: 'Menu' }"
+      :filterSettings="{ type: global.common.SF_MENU }"
       :frozenColumns="2"
+      :gridLines="global.common.SF_BOTH"
       :ref="global.common.SEARCH_RESULT_GRID_NAME"
-      :searchSettings="{ operator: 'equal' }"
-      :selectionSettings="{ mode: 'Both', type: 'Multiple' }"
+      :searchSettings="{ operator: global.common.SF_EQUAL }"
+      :selectionSettings="{
+        mode: global.common.SF_BOTH,
+        type: global.common.SF_MULTIPLE,
+      }"
       :showColumnChooser="true"
       :showColumnMenu="true"
       :toolbar="searchResultGridToolbar"
       :toolbarClick="handleToolbarClick"
-      clipMode="EllipsisWithTooltip"
-      gridLines="Both"
     />
   </div>
 </template>
@@ -83,9 +86,12 @@ export default {
         return;
       } // end if
 
+      const heightScreenClass = "h-screen";
+      const minHeightScreenClass = "min-h-screen";
+
       if (this.searchResultData == null) {
-        searchResultArea.classList.add("h-screen");
-        searchResultArea.classList.remove("min-h-screen");
+        searchResultArea.classList.add(heightScreenClass);
+        searchResultArea.classList.remove(minHeightScreenClass);
         this.hasSearchError = false;
         this.searchStatusMessage = zhCN.default.searchingHint;
         this.searchStatusTitle = zhCN.default.searching;
@@ -101,8 +107,9 @@ export default {
         this.searchStatusTitle = zhCN.default.searchError;
         this.shouldShowGrid = false;
       } else {
-        const movableContentAreas =
-          document.getElementsByClassName("e-movablecontent");
+        const movableContentAreas = document.getElementsByClassName(
+          global.common.SF_MOVABLE_CONTENT_CLASS
+        );
 
         this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns to ensure that the grid's horizontal scroll bar can be added.
 
@@ -117,8 +124,8 @@ export default {
         } // end if
 
         this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns again because of the horizontal scroll bar.
-        searchResultArea.classList.add("min-h-screen");
-        searchResultArea.classList.remove("h-screen");
+        searchResultArea.classList.add(minHeightScreenClass);
+        searchResultArea.classList.remove(heightScreenClass);
         this.shouldShowGrid = true;
       } // end if...else
 
@@ -176,7 +183,7 @@ export default {
             headerTextAlign: global.common.SF_ALIGN_LEFT,
             minWidth: global.common.MIN_COLUMN_WIDTH,
             textAlign: global.common.SF_ALIGN_RIGHT,
-            type: global.common.SF_NUM_COLUMN,
+            type: global.common.SF_NUM,
           });
         } // end if
 
@@ -192,7 +199,7 @@ export default {
           headerTextAlign: global.common.SF_ALIGN_LEFT,
           minWidth: global.common.MIN_COLUMN_WIDTH,
           textAlign: global.common.SF_ALIGN_RIGHT,
-          type: global.common.SF_NUM_COLUMN,
+          type: global.common.SF_NUM,
         },
         {
           field: global.common.TOTAL_VOLUME_KEY,
@@ -200,7 +207,7 @@ export default {
           headerTextAlign: global.common.SF_ALIGN_LEFT,
           minWidth: global.common.MIN_COLUMN_WIDTH,
           textAlign: global.common.SF_ALIGN_RIGHT,
-          type: global.common.SF_NUM_COLUMN,
+          type: global.common.SF_NUM,
         },
         {
           columns: dayVolumeColumns,

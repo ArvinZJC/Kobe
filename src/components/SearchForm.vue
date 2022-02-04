@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220201
+ * @Version: 1.0.0.20220204
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-01 22:46:51
+ * @LastEditTime: 2022-02-04 20:31:24
 -->
 
 <template>
@@ -87,16 +87,16 @@
               @focus="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
               @open="handleDateRangePickerOpen"
               @renderDayCell="disableWeekends"
+              :dayHeaderFormat="global.common.SF_NARROW"
               :endDate="new Date(endDate)"
               :max="new Date()"
-              :min="minDate"
+              :maxDays="7 * maxDateRangeSpan"
+              :min="new Date(minDate)"
               :name="global.common.DATE_RANGE_PICKER_NAME"
               :placeholder="zhCN.default.dateRangePlaceholder"
               :ref="global.common.DATE_RANGE_PICKER_NAME"
               :startDate="new Date(startDate)"
               :strictMode="true"
-              dayHeaderFormat="Narrow"
-              maxDays="28"
             />
           </ejs-tooltip>
         </div>
@@ -133,10 +133,10 @@
 </template>
 
 <script>
-import { FormValidator } from "@syncfusion/ej2-inputs";
-import { AutoCompleteComponent } from "@syncfusion/ej2-vue-dropdowns";
 import { ButtonComponent } from "@syncfusion/ej2-vue-buttons";
 import { DateRangePickerComponent } from "@syncfusion/ej2-vue-calendars";
+import { AutoCompleteComponent } from "@syncfusion/ej2-vue-dropdowns";
+import { FormValidator } from "@syncfusion/ej2-vue-inputs";
 import { TooltipComponent } from "@syncfusion/ej2-vue-popups";
 import { createApp } from "vue";
 
@@ -357,7 +357,8 @@ export default {
     return {
       global,
       hasBarLayout: this.isBarLayout,
-      minDate: new Date(global.common.MIN_MIN_DATE),
+      maxDateRangeSpan: global.common.DEFAULT_MAX_DATE_RANGE_SPAN,
+      minDate: global.common.MIN_MIN_DATE,
       stockList: [],
       stockListItemTemplate: () => {
         return {
@@ -382,9 +383,19 @@ export default {
       (data) => {
         if (
           typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.MAX_DATE_RANGE_SPAN_KEY
+          )
+        ) {
+          this.maxDateRangeSpan = data[global.common.MAX_DATE_RANGE_SPAN_KEY];
+        } // end if
+
+        if (
+          typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(data, global.common.MIN_DATE_KEY)
         ) {
-          this.minDate = new Date(data[global.common.MIN_DATE_KEY]);
+          this.minDate = data[global.common.MIN_DATE_KEY];
         } // end if
 
         if (
@@ -398,6 +409,10 @@ export default {
           this.stockList = data;
         } // end if
       }
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_MAX_DATE_RANGE_SPAN
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,

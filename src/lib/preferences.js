@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-01 19:57:50
+ * @LastEditTime: 2022-02-04 19:28:12
  */
 
 import global from "./global.js";
@@ -93,6 +93,19 @@ export async function initialisePreferences() {
     await settings.set(
       global.common.EXTERNAL_SEARCH_KEY,
       global.common.BAIDU_ID
+    );
+  } // end if
+
+  // Initialise the max date range span preference to default if the user preference does not exist or is illegal.
+  if (
+    preferences[global.common.MAX_DATE_RANGE_SPAN_KEY] == null ||
+    !Array.from({ length: 8 }, (_, i) => i + 1).includes(
+      preferences[global.common.MAX_DATE_RANGE_SPAN_KEY]
+    )
+  ) {
+    await settings.set(
+      global.common.MAX_DATE_RANGE_SPAN_KEY,
+      global.common.DEFAULT_MAX_DATE_RANGE_SPAN
     );
   } // end if
 

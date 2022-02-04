@@ -23,6 +23,7 @@
     "@syncfusion/ej2-vue-calendars": "^19.4.48",
     "@syncfusion/ej2-vue-dropdowns": "^19.4.48",
     "@syncfusion/ej2-vue-grids": "^19.4.48",
+    "@syncfusion/ej2-vue-inputs": "^19.4.48",
     "@syncfusion/ej2-vue-navigations": "^19.4.48",
     "@syncfusion/ej2-vue-popups": "^19.4.48",
     "@syncfusion/ej2-vue-splitbuttons": "^19.4.48",

@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220201
+ * @Version: 1.0.0.20220204
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-01 19:54:02
+ * @LastEditTime: 2022-02-04 20:18:42
  */
 
 global.common = {
@@ -21,6 +21,7 @@ global.common = {
   DATE_PICKER: "datePicker",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
+  DEFAULT_MAX_DATE_RANGE_SPAN: 4,
   DEV: "development",
   END_DATE_KEY: "endDate",
   EXTERNAL_SEARCH_KEY: "externalSearch",
@@ -30,6 +31,7 @@ global.common = {
   GET_APPEARANCE: "getAppearance",
   GET_CONTENT_SIZE: "getContentSize",
   GET_EXTERNAL_SEARCH: "getExternalSearch",
+  GET_MAX_DATE_RANGE_SPAN: "getMaxDateRangeSpan",
   GET_MIN_DATE: "getMinDate",
   GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
@@ -42,6 +44,7 @@ global.common = {
   LIGHT_MODE_ID: "light",
   LIGHT_WIN_COLOUR: "#FFF",
   MACOS: "darwin",
+  MAX_DATE_RANGE_SPAN_KEY: "maxDateRangeSpan",
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE_KEY: "minDate",
   MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
@@ -60,19 +63,29 @@ global.common = {
   SEPARATOR: "separator",
   SET_APPEARANCE: "setAppearance",
   SET_EXTERNAL_SEARCH: "setExternalSearch",
+  SET_MAX_DATE_RANGE_SPAN: "setMaxDateRangeSpan",
   SET_MIN_DATE: "setMinDate",
   SET_SEARCH_ENGINE_MODE: "setSearchEngineMode",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
+  SF_BEFORE: "Before",
+  SF_BOTH: "Both",
   SF_CULTURE: "zh-Hans",
   SF_EASE: "ease",
+  SF_ELLIPSIS_WITH_TOOLTIP: "EllipsisWithTooltip",
+  SF_EQUAL: "equal",
   SF_ERROR_CLASS: "e-error",
   SF_FADE_IN: "FadeIn",
-  SF_NUM_COLUMN: "number",
+  SF_MENU: "Menu",
+  SF_MOVABLE_CONTENT_CLASS: "e-movablecontent",
+  SF_MULTIPLE: "Multiple",
+  SF_NARROW: "Narrow",
+  SF_NUM: "number",
   SF_STYLES: "syncfusionStyles",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
+  SLIDER: "slider",
   SMOOTH_SCROLL: "smooth",
   STABLE_MODE_ID: "stable",
   START_DATE_KEY: "startDate",

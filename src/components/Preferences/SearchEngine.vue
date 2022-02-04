@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.0.20220201
+ * @Version: 1.0.0.20220204
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-01 22:52:15
+ * @LastEditTime: 2022-02-04 20:29:58
 -->
 
 <template>
@@ -23,7 +23,15 @@
       :header="zhCN.default.minDateHeader"
       :options="options.minDate"
       :type="global.common.DATE_PICKER"
-      :value="minDate"
+      :value="new Date(minDate)"
+    />
+    <!-- Max date range span. -->
+    <Preference
+      :explanation="zhCN.default.maxDateRangeSpanExplanation"
+      :header="zhCN.default.maxDateRangeSpanHeader"
+      :options="options.maxDateRangeSpan"
+      :type="global.common.SLIDER"
+      :value="maxDateRangeSpan"
     />
   </div>
 </template>
@@ -56,7 +64,8 @@ export default {
     return {
       data: {},
       global,
-      minDate: new Date(global.common.MIN_MIN_DATE),
+      maxDateRangeSpan: null,
+      minDate: global.common.MIN_MIN_DATE,
       zhCN,
     };
   },
@@ -66,9 +75,19 @@ export default {
       (data) => {
         if (
           typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.MAX_DATE_RANGE_SPAN_KEY
+          )
+        ) {
+          this.maxDateRangeSpan = data[global.common.MAX_DATE_RANGE_SPAN_KEY];
+        } // end if
+
+        if (
+          typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(data, global.common.MIN_DATE_KEY)
         ) {
-          this.minDate = new Date(data[global.common.MIN_DATE_KEY]);
+          this.minDate = data[global.common.MIN_DATE_KEY];
         } // end if
 
         if (
@@ -84,6 +103,10 @@ export default {
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
+      global.common.GET_MAX_DATE_RANGE_SPAN
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
       global.common.GET_MIN_DATE
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
@@ -94,6 +117,14 @@ export default {
   setup() {
     return {
       options: {
+        maxDateRangeSpan: {
+          id: global.common.MAX_DATE_RANGE_SPAN_KEY,
+          largeStep: 1,
+          max: 8,
+          min: 1,
+          smallStep: 1,
+          value: global.common.SET_MAX_DATE_RANGE_SPAN,
+        },
         minDate: {
           id: global.common.MIN_DATE_KEY,
           value: global.common.SET_MIN_DATE,

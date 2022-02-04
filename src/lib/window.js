@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220201
+ * @Version: 1.0.0.20220204
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-01 22:07:14
+ * @LastEditTime: 2022-02-04 19:24:37
  */
 
 import {
@@ -66,7 +66,6 @@ export async function createWin(id) {
       preload: path.join(__dirname, "preload.js"),
       scrollBounce: true,
     },
-    vibrancy: "window",
   };
 
   if (id === global.common.APP_WIN_ID) {
@@ -152,6 +151,13 @@ export function initialiseIpcMainListener() {
           );
           break;
         }
+        case global.common.SET_MAX_DATE_RANGE_SPAN: {
+          await settings.set(
+            global.common.MAX_DATE_RANGE_SPAN_KEY,
+            data[global.common.MAX_DATE_RANGE_SPAN_KEY]
+          );
+          break;
+        }
         case global.common.SET_MIN_DATE: {
           await settings.set(
             global.common.MIN_DATE_KEY,
@@ -210,6 +216,14 @@ export function initialiseIpcMainListener() {
           );
 
           winContents.send(global.common.IPC_RECEIVE, externalSearch);
+          break;
+        }
+        case global.common.GET_MAX_DATE_RANGE_SPAN: {
+          const maxDateRangeSpan = await getPreference(
+            global.common.MAX_DATE_RANGE_SPAN_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, maxDateRangeSpan);
           break;
         }
         case global.common.GET_MIN_DATE: {

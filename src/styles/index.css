@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220202
+ * @Version: 1.0.0.20220204
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-02 21:51:06
+ * @LastEditTime: 2022-02-04 16:54:57
  */
 
 @tailwind base;
@@ -33,13 +33,18 @@
     @apply bottom-0 fixed w-full z-40;
   }
 
+  /* Container for the preference option area. */
+  .container-preference-options {
+    @apply col-span-2 flex items-end justify-end;
+  }
+
   /* Container for the preference header and explanation area. */
-  .container-preference {
-    @apply col-span-2 flex flex-col space-y-1;
+  .container-preference-text {
+    @apply col-span-3 flex flex-col pr-2 space-y-1;
   }
   /* Container for the preferences. */
   .container-preferences {
-    @apply px-block py-block gap-4 grid grid-cols-3;
+    @apply px-block py-block gap-4 grid grid-cols-5;
   }
 
   /* Container for the root. */
@@ -54,11 +59,6 @@
 }
 
 @layer utilities {
-  /* Align items to the bottom right. */
-  .align-br {
-    @apply flex items-end justify-end;
-  }
-
   /* Backdrop blur filter. */
   .bg-blur {
     @apply bg-opacity-90 dark:bg-opacity-90 bg-white dark:bg-black; /* A workaround if the browser does not support the particular feature. */
@@ -137,28 +137,9 @@
   }
 }
 
-/* The arrow-up icon. */
-.e-arrow-up:before {
-  content: "\e7c2";
-}
-/* The auto-fit content icon. */
-.e-auto-fit-content:before {
-  content: "\e71a";
-}
-
 /* The customised round button style. */
 .e-btn.e-round .e-btn-icon {
   font-size: 18px !important;
-}
-
-/* The info icon. */
-.e-circle-info:before {
-  content: "\e797";
-}
-
-/* The eye icon. */
-.e-eye {
-  content: "\e7d0";
 }
 
 /* The grid's customised frozen content style. */
@@ -169,16 +150,6 @@
 /* Force the popup height and position to be fixed. */
 .e-popup-fixed {
   @apply !fixed !max-h-fit;
-}
-
-/* The search icon. */
-.e-search:before {
-  content: "\e737";
-}
-
-/* The settings icon. */
-.e-settings:before {
-  content: "\e846";
 }
 
 /* The customised tab item style. */
