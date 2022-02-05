@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 13:00:52
+ * @LastEditTime: 2022-02-05 14:02:36
 -->
 
 <template>
@@ -105,7 +105,7 @@
           <div class="block lg:hidden">
             <ejs-button
               :title="zhCN.default.search"
-              iconCss="e-search e-icons"
+              iconCss="e-icons e-search"
               isPrimary="true"
               type="submit"
             />
@@ -113,7 +113,7 @@
           <div class="lg:block hidden">
             <ejs-button
               :content="zhCN.default.search"
-              iconCss="e-search e-icons"
+              iconCss="e-icons e-search"
               isPrimary="true"
               type="submit"
             />
@@ -123,7 +123,7 @@
           <ejs-button
             :content="zhCN.default.search"
             cssClass="e-block"
-            iconCss="e-search e-icons"
+            iconCss="e-icons e-search"
             isPrimary="true"
             type="submit"
           />

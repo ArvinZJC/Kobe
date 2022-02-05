@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 19:24:37
+ * @LastEditTime: 2022-02-05 17:38:16
  */
 
 import {
@@ -23,7 +23,7 @@ import * as stockList from "../../extensions/StockList/StockList.json";
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
 import { setAppMenu, setContextMenu } from "./menu.js";
-import { getPreference } from "./preferences.js";
+import { getPreference, resetPreferences } from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
@@ -242,6 +242,11 @@ export function initialiseIpcMainListener() {
         }
         case global.common.GET_STOCK_LIST: {
           winContents.send(global.common.IPC_RECEIVE, stockList.default);
+          break;
+        }
+        case global.common.RESET_PREFERENCES: {
+          await resetPreferences();
+          winContents.reload();
           break;
         }
         default: {

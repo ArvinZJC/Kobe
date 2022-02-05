@@ -1,15 +1,16 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.0.20220131
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-31 21:28:01
+ * @LastEditTime: 2022-02-05 18:19:32
 -->
 
 <template>
-  <main class="container-view">
+  <main :id="global.common.PREFERENCE_VIEW_ID" class="container-view">
     <div class="h-screen">
+      <!-- The preference tab component. -->
       <ejs-tab
         :animation="{
           previous: {
@@ -38,15 +39,47 @@
         </e-tabitems>
       </ejs-tab>
     </div>
+    <!-- The button component for resetting all preferences. -->
+    <ejs-button
+      @click="openResetPreferencesConfirmationDialogue"
+      :content="zhCN.default.reset"
+      :target="global.common.PREFERENCE_VIEW_ID"
+      :title="zhCN.default.resetPreferencesButtonTitle"
+      cssClass="btn-action-left !text-red-600 dark:!text-red-400 bottom-4"
+      iconCss="e-icons e-refresh"
+    />
+    <!-- The confirmation dialogue for resetting all preferences.-->
+    <ejs-dialog
+      @overlayClick="hideResetPreferencesConfirmationDialogue"
+      :buttons="[
+        {
+          click: resetPreferences,
+          buttonModel: { content: zhCN.default.confirm, isPrimary: true },
+        },
+        {
+          click: hideResetPreferencesConfirmationDialogue,
+          buttonModel: { content: zhCN.default.cancel },
+        },
+      ]"
+      :content="zhCN.default.resetPreferencesConfirmationDialogueContent"
+      :header="zhCN.default.resetPreferencesButtonTitle"
+      :isModal="true"
+      :ref="global.common.RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME"
+      :showCloseIcon="true"
+      :visible="false"
+      width="40%"
+    />
   </main>
 </template>
 
 <script>
+import { ButtonComponent } from "@syncfusion/ej2-vue-buttons";
 import {
   TabComponent,
   TabItemsDirective,
   TabItemDirective,
 } from "@syncfusion/ej2-vue-navigations";
+import { DialogComponent } from "@syncfusion/ej2-vue-popups";
 import { createApp } from "vue";
 
 import General from "../components/Preferences/General.vue";
@@ -59,7 +92,39 @@ export default {
   components: {
     "e-tabitem": TabItemDirective,
     "e-tabitems": TabItemsDirective,
+    "ejs-button": ButtonComponent,
+    "ejs-dialog": DialogComponent,
     "ejs-tab": TabComponent,
+  },
+  methods: {
+    /**
+     * Hide the confirmation dialogue for resetting all preferences.
+     */
+    hideResetPreferencesConfirmationDialogue() {
+      this.$refs[
+        global.common.RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME
+      ].hide();
+    }, // end function hideResetPreferencesConfirmationDialogue
+
+    /**
+     * Open the confirmation dialogue for resetting all preferences.
+     */
+    openResetPreferencesConfirmationDialogue() {
+      this.$refs[
+        global.common.RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME
+      ].show();
+    }, // end function openResetPreferencesConfirmationDialogue
+
+    /**
+     * Reset all preferences.
+     */
+    resetPreferences() {
+      this.hideResetPreferencesConfirmationDialogue();
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.RESET_PREFERENCES
+      );
+    }, // end function resetPreferences
   },
   data() {
     return {
@@ -92,6 +157,7 @@ export default {
         iconCss: "e-eye",
         text: zhCN.default.searchEngineSection,
       },
+      zhCN,
     };
   },
   mounted() {

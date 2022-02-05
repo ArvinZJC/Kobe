@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 12:04:02
+ * @LastEditTime: 2022-02-05 17:55:57
  */
 
 global.common = {
@@ -52,7 +52,11 @@ global.common = {
   MIN_MIN_DATE: "1990-12-03",
   PREFERENCE_WIN_ID: "kobe-preferences",
   PREFERENCE_VIEW: "preferences",
+  PREFERENCE_VIEW_ID: "preference-view",
   PROCESSOR_ERROR_KEY: "ProcessorError",
+  RESET_PREFERENCES: "resetPreferences",
+  RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
+    "dialogueResetPreferencesConfirmation",
   SEARCH_BAR_ID: "search-bar",
   SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
   SEARCH_FORM_ID: "search-form",

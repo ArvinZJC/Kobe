@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 12:25:43
+ * @LastEditTime: 2022-02-05 16:55:32
  */
 
 import global from "./global.js";
@@ -54,8 +54,6 @@ export async function getPreference(key) {
 
 /**
  * Initialise the app preferences in the main process.
- *
- * NOTE: It must be executed before creating a window.
  */
 export async function initialisePreferences() {
   // It is necessary to import modules here because this script contains functions for both the main process and the renderer processes.
@@ -138,3 +136,13 @@ export async function initialisePreferences() {
     );
   } // end if
 } // end function initialisePreferences
+
+/**
+ * Reset all preferences.
+ */
+export async function resetPreferences() {
+  const settings = require("electron-settings"); // It is necessary to import the module here because this script contains functions for both the main process and the renderer processes.
+
+  await settings.unset();
+  await initialisePreferences();
+} // end function resetPreferences

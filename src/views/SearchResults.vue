@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 18:12:33
+ * @LastEditTime: 2022-02-05 13:38:16
 -->
 
 <template>
@@ -33,7 +33,7 @@
         v-if="!isScrollToTopDismissed"
         @click="scrollToTop"
         :title="zhCN.default.scrollToTopButtonTitle"
-        class="btn-action btn-round bottom-20 shadow-xl"
+        class="btn-action-right btn-round bottom-20 shadow-xl"
         id="scroll-to-top"
         type="button"
       >

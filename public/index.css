@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 11:37:43
+ * @LastEditTime: 2022-02-05 13:37:53
  */
 
 /*
@@ -537,22 +537,42 @@ body::selection {
   --tw-backdrop-sepia:  ;
 }
 
-/* Floating action button. */
+/* Left floating action button. */
 
-.btn-action {
+.btn-action-left {
+  position: fixed;
+  left: 1rem;
+  z-index: 30;
+}
+
+@media (min-width: 640px) {
+  .btn-action-left {
+    left: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-action-left {
+    left: 2rem;
+  }
+}
+
+/* Right floating action button. */
+
+.btn-action-right {
   position: fixed;
   right: 1rem;
   z-index: 30;
 }
 
 @media (min-width: 640px) {
-  .btn-action {
+  .btn-action-right {
     right: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .btn-action {
+  .btn-action-right {
     right: 2rem;
   }
 }
@@ -709,6 +729,10 @@ body::selection {
 
 .invisible {
   visibility: hidden;
+}
+
+.bottom-4 {
+  bottom: 1rem;
 }
 
 .bottom-20 {
@@ -955,6 +979,16 @@ body::selection {
 
 .leading-6 {
   line-height: 1.5rem;
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.\!text-red-600 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(220 38 38 / var(--tw-text-opacity)) !important;
 }
 
 .opacity-0 {
@@ -1293,6 +1327,16 @@ body::selection {
 
 .dark .dark\:bg-opacity-0 {
   --tw-bg-opacity: 0;
+}
+
+.dark .dark\:text-red-400 {
+  --tw-text-opacity: 1;
+  color: rgb(248 113 113 / var(--tw-text-opacity));
+}
+
+.dark .dark\:\!text-red-400 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(248 113 113 / var(--tw-text-opacity)) !important;
 }
 
 @media (min-width: 640px) {
