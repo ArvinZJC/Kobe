@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 17:55:57
+ * @LastEditTime: 2022-02-05 19:59:24
  */
 
 global.common = {
@@ -14,6 +14,11 @@ global.common = {
   APP_WIN_ID: "kobe-app",
   APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
+  BOARD_LOT_1: 100,
+  BOARD_LOT_10: 1000,
+  BOARD_LOT_100: 10000,
+  BOARD_LOT_1000: 100000,
+  BOARD_LOT_10000: 1000000,
   BUTTON_GROUP: "buttonGroup",
   CORRECT_WIN_COLOUR: "correctWinColour",
   DARK_MODE_ID: "dark",
@@ -22,8 +27,10 @@ global.common = {
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
   DAY_TIME_START: " 00:00:00",
+  DAY_VOLUME_UNIT_KEY: "dayVolumeUnit",
   DEFAULT_MAX_DATE_RANGE_SPAN: 4,
   DEV: "development",
+  DROP_DOWN_LIST: "dropDownList",
   END_DATE_KEY: "endDate",
   EXTERNAL_SEARCH_KEY: "externalSearch",
   FAST_MODE_ID: "fast",
@@ -31,12 +38,15 @@ global.common = {
   GET_APP_NAME: "getAppName",
   GET_APPEARANCE: "getAppearance",
   GET_CONTENT_SIZE: "getContentSize",
+  GET_DAY_VOLUME_UNIT: "getDayVolumeUnit",
   GET_EXTERNAL_SEARCH: "getExternalSearch",
   GET_MAX_DATE_RANGE_SPAN: "getMaxDateRangeSpan",
   GET_MIN_DATE: "getMinDate",
   GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
   GET_STOCK_LIST: "getStockList",
+  GET_TOTAL_VOLUME_UNIT: "getTotalVolumeUnit",
+  GET_VOLUME_UNITS: "getVolumeUnits",
   GOOGLE_ID: "google",
   HOME_VIEW: "home",
   IPC_RECEIVE: "fromMain",
@@ -66,10 +76,12 @@ global.common = {
   SEARCH_STATUS_AREA_ID: "search-status-area",
   SEPARATOR: "separator",
   SET_APPEARANCE: "setAppearance",
+  SET_DAY_VOLUME_UNIT: "setDayVolumeUnit",
   SET_EXTERNAL_SEARCH: "setExternalSearch",
   SET_MAX_DATE_RANGE_SPAN: "setMaxDateRangeSpan",
   SET_MIN_DATE: "setMinDate",
   SET_SEARCH_ENGINE_MODE: "setSearchEngineMode",
+  SET_TOTAL_VOLUME_UNIT: "setTotalVolumeUnit",
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
@@ -92,6 +104,7 @@ global.common = {
   SF_STYLES: "syncfusionStyles",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
+  SHARE_1: 1,
   SLIDER: "slider",
   SMOOTH_SCROLL: "smooth",
   STABLE_MODE_ID: "stable",
@@ -104,6 +117,7 @@ global.common = {
   SYSTEM_DEFAULT_MODE_ID: "system",
   TAG_KEY: "tag",
   TOTAL_VOLUME_KEY: "totalVolume",
+  TOTAL_VOLUME_UNIT_KEY: "totalVolumeUnit",
   TRICK_INPUT_ID: "trick-input",
   UNKNOWN: "Unknown",
   WIN_HEIGHT_MIN: 600,

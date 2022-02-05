@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 12:38:49
+ * @LastEditTime: 2022-02-05 21:10:58
 -->
 
 <template>
@@ -68,6 +68,7 @@ import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
 import LoadingIcon from "./SVG/LoadingIcon.vue";
 import global from "../lib/global.js";
+import { toDateStr, toVolumeUnitText } from "../lib/utils";
 import * as syncfusion from "../locales/syncfusion.json";
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -145,11 +146,7 @@ export default {
         const day = date.getDay();
 
         if (day !== 0 && day !== 6) {
-          const dateStr = [
-            date.getFullYear(),
-            date.getMonth() + 1,
-            date.getDate(),
-          ].join("-");
+          const dateStr = toDateStr(date);
           var dayStr = "";
 
           switch (day) {
@@ -174,7 +171,7 @@ export default {
               break;
             }
             default: {
-              dayStr = "?";
+              dayStr = zhCN.default.unknown;
             }
           } // end switch-case
 
@@ -214,7 +211,7 @@ export default {
           headerText: zhCN.default.dayVolumeStackedColumnHeader,
           textAlign: global.common.SF_ALIGN_CENTRE,
         },
-      ]; // TODO: unit, etc depend on preferences
+      ]; // TODO: decimal points, etc depend on preferences
 
       Array.prototype.forEach.call(columns, (element) =>
         this.$refs[
@@ -261,6 +258,74 @@ export default {
         this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
       } // end if
     }, // end function handleToolbarClick
+
+    /**
+     * Use the IPC channel to exchange information.
+     */
+    invokeIpc() {
+      var searchData = {};
+
+      searchData[global.common.END_DATE_KEY] = this.endDate;
+      searchData[global.common.START_DATE_KEY] = this.startDate;
+      searchData[global.common.STOCK_SYMBOL_KEY] = this.stockSymbol;
+      searchData[global.common.TAG_KEY] = global.common.GET_SEARCH_RESULT_DATA;
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          const isArray = Array.isArray(data);
+
+          if (
+            isArray &&
+            typeof data[0] === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data[0],
+              global.common.DAY_VOLUME_UNIT_KEY
+            )
+          ) {
+            console.log(data);
+            this.$refs[
+              global.common.SEARCH_RESULT_GRID_NAME
+            ].ej2Instances.columns[1].headerText = `${
+              zhCN.default.totalVolumeColumnHeader
+            }（${toVolumeUnitText(
+              data[1][global.common.TOTAL_VOLUME_UNIT_KEY]
+            )}）`;
+            this.$refs[
+              global.common.SEARCH_RESULT_GRID_NAME
+            ].ej2Instances.columns[2].headerText = `${
+              zhCN.default.dayVolumeStackedColumnHeader
+            }（${toVolumeUnitText(
+              data[0][global.common.DAY_VOLUME_UNIT_KEY]
+            )}）`;
+            this.$refs[global.common.SEARCH_RESULT_GRID_NAME].refreshColumns();
+          } // end if
+
+          if (
+            isArray &&
+            (data.length === 0 ||
+              (typeof data[0] === "object" &&
+                Object.prototype.hasOwnProperty.call(
+                  data[0],
+                  global.common.STRIKE_PRICE_KEY
+                )))
+          ) {
+            this.searchResultData = data;
+          } // end if
+
+          if (isArray && data.length === 2 && typeof data[0] === "number") {
+            this.screenHeight = data[1];
+          } //end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_VOLUME_UNITS
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        searchData
+      );
+    }, // end function invokeIpc
 
     /**
      * Search the grid.
@@ -348,7 +413,6 @@ export default {
       (this.$route.query.startDate === this.$route.query.endDate
         ? ""
         : ` - ${this.$route.query.endDate}`);
-    var searchData = {};
 
     this.filename = `${
       this.$route.query.stockName === ""
@@ -360,36 +424,7 @@ export default {
         ? this.$route.query.stockName
         : this.$route.query.stockSymbol + " "
     }${this.filename}`;
-    searchData[global.common.END_DATE_KEY] = this.endDate;
-    searchData[global.common.START_DATE_KEY] = this.startDate;
-    searchData[global.common.STOCK_SYMBOL_KEY] = this.stockSymbol;
-    searchData[global.common.TAG_KEY] = global.common.GET_SEARCH_RESULT_DATA;
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        const isArray = Array.isArray(data);
-
-        if (
-          isArray &&
-          (data.length === 0 ||
-            (typeof data[0] === "object" &&
-              Object.prototype.hasOwnProperty.call(
-                data[0],
-                global.common.STRIKE_PRICE_KEY
-              )))
-        ) {
-          this.searchResultData = data;
-        } // end if
-
-        if (isArray && data.length === 2 && typeof data[0] === "number") {
-          this.screenHeight = data[1];
-        } //end if
-      }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      searchData
-    );
+    this.invokeIpc();
     window.addEventListener("resize", this.styleSearchBarBg);
     window.addEventListener("scroll", () => {
       const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);

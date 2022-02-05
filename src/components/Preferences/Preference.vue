@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 13:06:36
+ * @LastEditTime: 2022-02-05 20:53:49
 -->
 
 <template>
@@ -25,6 +25,31 @@
         :value="option.value"
       />
     </div>
+    <!-- Drop down list preference options. -->
+    <ejs-dropdownlist
+      v-if="type === global.common.DROP_DOWN_LIST"
+      @change="changeItemValue"
+      :dataSource="options.data"
+      :fields="{ text: 'text', value: 'value' }"
+      :ref="options.id"
+      :value="value"
+    />
+    <!-- Slider preference options. -->
+    <ejs-slider
+      v-if="type === global.common.SLIDER"
+      @changed="changeItemValue"
+      @created="setInitialSliderValue"
+      :max="options.max"
+      :min="options.min"
+      :ref="options.id"
+      :ticks="{
+        largeStep: options.largeStep,
+        placement: global.common.SF_BEFORE,
+        showSmallTicks: true,
+        smallStep: options.smallStep,
+      }"
+      :value="value"
+    />
     <!-- Date picker preference options. -->
     <ejs-tooltip
       v-if="type === global.common.DATE_PICKER"
@@ -46,32 +71,18 @@
         :value="value"
       />
     </ejs-tooltip>
-    <!-- Slider preference options. -->
-    <ejs-slider
-      v-if="type === global.common.SLIDER"
-      @changed="changeSliderValue"
-      @created="setInitialSliderValue"
-      :max="options.max"
-      :min="options.min"
-      :ref="options.id"
-      :ticks="{
-        largeStep: options.largeStep,
-        placement: global.common.SF_BEFORE,
-        showSmallTicks: true,
-        smallStep: options.smallStep,
-      }"
-      :value="value"
-    />
   </div>
 </template>
 
 <script>
 import { DatePickerComponent } from "@syncfusion/ej2-vue-calendars";
+import { DropDownListComponent } from "@syncfusion/ej2-vue-dropdowns";
 import { SliderComponent } from "@syncfusion/ej2-vue-inputs";
 import { TooltipComponent } from "@syncfusion/ej2-vue-popups";
 
 import ButtonGroupMember from "./ButtonGroupMember.vue";
 import global from "../../lib/global.js";
+import { toDateStr } from "../../lib/utils";
 import { changePreference } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
 
@@ -79,6 +90,7 @@ export default {
   components: {
     ButtonGroupMember,
     "ejs-datepicker": DatePickerComponent,
+    "ejs-dropdownlist": DropDownListComponent,
     "ejs-slider": SliderComponent,
     "ejs-tooltip": TooltipComponent,
   },
@@ -88,26 +100,22 @@ export default {
      */
     changeDate() {
       changePreference(
-        [
-          this.$refs[this.options.id].ej2Instances.value.getFullYear(),
-          this.$refs[this.options.id].ej2Instances.value.getMonth() + 1,
-          this.$refs[this.options.id].ej2Instances.value.getDate(),
-        ].join("-"),
+        toDateStr(this.$refs[this.options.id].ej2Instances.value),
         this.options.id,
         this.options.value
       );
     }, // end function changeDate
 
     /**
-     * Change the slider value.
+     * Change the selected item value.
      */
-    changeSliderValue() {
+    changeItemValue() {
       changePreference(
         this.$refs[this.options.id].ej2Instances.value,
         this.options.id,
         this.options.value
       );
-    }, // end function changeSliderValue
+    }, // end function changeItemValue
 
     /**
      * Disable the weekends in the date range picker.

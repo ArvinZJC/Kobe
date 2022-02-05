@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 17:38:16
+ * @LastEditTime: 2022-02-05 20:14:58
  */
 
 import {
@@ -144,6 +144,13 @@ export function initialiseIpcMainListener() {
           nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
           break;
         }
+        case global.common.SET_DAY_VOLUME_UNIT: {
+          await settings.set(
+            global.common.DAY_VOLUME_UNIT_KEY,
+            data[global.common.DAY_VOLUME_UNIT_KEY]
+          );
+          break;
+        }
         case global.common.SET_EXTERNAL_SEARCH: {
           await settings.set(
             global.common.EXTERNAL_SEARCH_KEY,
@@ -169,6 +176,13 @@ export function initialiseIpcMainListener() {
           await settings.set(
             global.common.SEARCH_ENGINE_MODE_KEY,
             data[global.common.SEARCH_ENGINE_MODE_KEY]
+          );
+          break;
+        }
+        case global.common.SET_TOTAL_VOLUME_UNIT: {
+          await settings.set(
+            global.common.TOTAL_VOLUME_UNIT_KEY,
+            data[global.common.TOTAL_VOLUME_UNIT_KEY]
           );
           break;
         }
@@ -210,6 +224,14 @@ export function initialiseIpcMainListener() {
           );
           break;
         }
+        case global.common.GET_DAY_VOLUME_UNIT: {
+          const dayVolumeUnit = await getPreference(
+            global.common.DAY_VOLUME_UNIT_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
+          break;
+        }
         case global.common.GET_EXTERNAL_SEARCH: {
           const externalSearch = await getPreference(
             global.common.EXTERNAL_SEARCH_KEY
@@ -242,6 +264,26 @@ export function initialiseIpcMainListener() {
         }
         case global.common.GET_STOCK_LIST: {
           winContents.send(global.common.IPC_RECEIVE, stockList.default);
+          break;
+        }
+        case global.common.GET_TOTAL_VOLUME_UNIT: {
+          const totalVolumeUnit = await getPreference(
+            global.common.TOTAL_VOLUME_UNIT_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, totalVolumeUnit);
+          break;
+        }
+        case global.common.GET_VOLUME_UNITS: {
+          var volumeUnits = [];
+
+          volumeUnits[0] = await getPreference(
+            global.common.DAY_VOLUME_UNIT_KEY
+          );
+          volumeUnits[1] = await getPreference(
+            global.common.TOTAL_VOLUME_UNIT_KEY
+          );
+          winContents.send(global.common.IPC_RECEIVE, volumeUnits);
           break;
         }
         case global.common.RESET_PREFERENCES: {

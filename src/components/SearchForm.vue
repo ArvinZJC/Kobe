@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 14:02:36
+ * @LastEditTime: 2022-02-05 20:52:06
 -->
 
 <template>
@@ -143,6 +143,7 @@ import { createApp } from "vue";
 
 import AppTextLogo from "./SVG/AppTextLogo.vue";
 import global from "../lib/global.js";
+import { toDateStr } from "../lib/utils";
 import * as zhCN from "../locales/zh-CN.json";
 
 const popUpBottom = "50px";
@@ -206,16 +207,8 @@ export default {
 
         const dateRange =
           this.$refs[global.common.DATE_RANGE_PICKER_NAME].ej2Instances.value;
-        const endDate = [
-          dateRange[1].getFullYear(),
-          dateRange[1].getMonth() + 1,
-          dateRange[1].getDate(),
-        ].join("-");
-        const startDate = [
-          dateRange[0].getFullYear(),
-          dateRange[0].getMonth() + 1,
-          dateRange[0].getDate(),
-        ].join("-");
+        const endDate = toDateStr(dateRange[1]);
+        const startDate = toDateStr(dateRange[0]);
         const stockSymbol =
           this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
             .value;

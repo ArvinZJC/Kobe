@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 16:55:32
+ * @LastEditTime: 2022-02-05 19:49:29
  */
 
 import global from "./global.js";
@@ -64,7 +64,6 @@ export async function initialisePreferences() {
 
   // Initialise the appearance preference to default if the user preference does not exist or is illegal.
   if (
-    preferences[global.common.APPEARANCE_KEY] == null ||
     ![
       global.common.SYSTEM_DEFAULT_MODE_ID,
       global.common.LIGHT_MODE_ID,
@@ -80,10 +79,27 @@ export async function initialisePreferences() {
   } // end if
 
   nativeTheme.themeSource = preferences[global.common.APPEARANCE_KEY];
+  const volumeUnitValues = [
+    global.common.BOARD_LOT_1,
+    global.common.BOARD_LOT_10,
+    global.common.BOARD_LOT_100,
+    global.common.BOARD_LOT_1000,
+    global.common.BOARD_LOT_10000,
+    global.common.SHARE_1,
+  ];
+
+  // Initialise the day volume unit preference to default if the user preference does not exist or is illegal.
+  if (
+    !volumeUnitValues.includes(preferences[global.common.DAY_VOLUME_UNIT_KEY])
+  ) {
+    await settings.set(
+      global.common.DAY_VOLUME_UNIT_KEY,
+      global.common.BOARD_LOT_1
+    );
+  } // end if
 
   // Initialise the external search preference to default if the user preference does not exist or is illegal.
   if (
-    preferences[global.common.EXTERNAL_SEARCH_KEY] == null ||
     ![global.common.BAIDU_ID, global.common.GOOGLE_ID].includes(
       preferences[global.common.EXTERNAL_SEARCH_KEY]
     )
@@ -96,7 +112,6 @@ export async function initialisePreferences() {
 
   // Initialise the max date range span preference to default if the user preference does not exist or is illegal.
   if (
-    preferences[global.common.MAX_DATE_RANGE_SPAN_KEY] == null ||
     !Array.from({ length: 8 }, (_, i) => i + 1).includes(
       preferences[global.common.MAX_DATE_RANGE_SPAN_KEY]
     )
@@ -125,7 +140,6 @@ export async function initialisePreferences() {
 
   // Initialise the search engine mode preference to default if the user preference does not exist or is illegal.
   if (
-    preferences[global.common.SEARCH_ENGINE_MODE_KEY] == null ||
     ![global.common.STABLE_MODE_ID, global.common.FAST_MODE_ID].includes(
       preferences[global.common.SEARCH_ENGINE_MODE_KEY]
     )
@@ -133,6 +147,16 @@ export async function initialisePreferences() {
     await settings.set(
       global.common.SEARCH_ENGINE_MODE_KEY,
       global.common.STABLE_MODE_ID
+    );
+  } // end if
+
+  // Initialise the total volume unit preference to default if the user preference does not exist or is illegal.
+  if (
+    !volumeUnitValues.includes(preferences[global.common.TOTAL_VOLUME_UNIT_KEY])
+  ) {
+    await settings.set(
+      global.common.TOTAL_VOLUME_UNIT_KEY,
+      global.common.BOARD_LOT_100
     );
   } // end if
 } // end function initialisePreferences

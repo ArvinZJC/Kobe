@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 18:19:32
+ * @LastEditTime: 2022-02-05 19:06:38
 -->
 
 <template>
@@ -62,7 +62,7 @@
         },
       ]"
       :content="zhCN.default.resetPreferencesConfirmationDialogueContent"
-      :header="zhCN.default.resetPreferencesButtonTitle"
+      :header="zhCN.default.resetPreferencesConfirmationDialogueHeader"
       :isModal="true"
       :ref="global.common.RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME"
       :showCloseIcon="true"

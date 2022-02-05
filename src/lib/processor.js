@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 12:06:31
+ * @LastEditTime: 2022-02-05 20:54:24
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -14,6 +14,7 @@ import { DomUtils, parseDocument } from "htmlparser2";
 import iconv from "iconv-lite";
 
 import global from "./global.js";
+import { toDateStr } from "./utils.js";
 import * as zhCN from "../locales/zh-CN.json";
 
 /**
@@ -171,11 +172,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
     );
 
     for (const currentDate of dateArray) {
-      const dateStr = [
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-        currentDate.getDate(),
-      ].join("-");
+      const dateStr = toDateStr(currentDate);
 
       dayVolumes[dateStr] = await fetchFromApi(dateStr, dateStr, stockSymbol);
 
