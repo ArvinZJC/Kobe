@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 20:29:58
+ * @LastEditTime: 2022-02-05 12:22:54
 -->
 
 <template>
@@ -23,7 +23,7 @@
       :header="zhCN.default.minDateHeader"
       :options="options.minDate"
       :type="global.common.DATE_PICKER"
-      :value="new Date(minDate)"
+      :value="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
     />
     <!-- Max date range span. -->
     <Preference

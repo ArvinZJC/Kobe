@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 20:31:24
+ * @LastEditTime: 2022-02-05 13:00:52
 -->
 
 <template>
@@ -65,7 +65,7 @@
               @focus="
                 removeErrorBorder(global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME)
               "
-              @open="patchAutoCompletePopup"
+              @open="patchAutoCompletePopUp"
               :autofill="true"
               :dataSource="stockList"
               :fields="{ value: global.common.STOCK_SYMBOL_KEY }"
@@ -88,15 +88,16 @@
               @open="handleDateRangePickerOpen"
               @renderDayCell="disableWeekends"
               :dayHeaderFormat="global.common.SF_NARROW"
-              :endDate="new Date(endDate)"
+              :endDate="new Date(`${endDate}${global.common.DAY_TIME_START}`)"
               :max="new Date()"
               :maxDays="7 * maxDateRangeSpan"
-              :min="new Date(minDate)"
+              :min="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
               :name="global.common.DATE_RANGE_PICKER_NAME"
               :placeholder="zhCN.default.dateRangePlaceholder"
               :ref="global.common.DATE_RANGE_PICKER_NAME"
-              :startDate="new Date(startDate)"
-              :strictMode="true"
+              :startDate="
+                new Date(`${startDate}${global.common.DAY_TIME_START}`)
+              "
             />
           </ejs-tooltip>
         </div>
@@ -144,8 +145,7 @@ import AppTextLogo from "./SVG/AppTextLogo.vue";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const dateRangePickerPopupClassFilter =
-  "e-daterangepicker e-popup e-popup-open";
+const popUpBottom = "50px";
 const stockSymbolRegex = /^\s*([Bb][Jj]|[Ss][HhZz])\d{6}\s*$/;
 
 export default {
@@ -178,7 +178,7 @@ export default {
      * Handle the event when the date range picker is opened.
      */
     handleDateRangePickerOpen() {
-      this.patchDateRangePickerPopup();
+      this.patchDateRangePickerPopUp();
       this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
     }, // end function handleDateRangePickerOpen
 
@@ -220,7 +220,7 @@ export default {
           this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
             .value;
 
-        // Ensure the tooltip popups are closed before navigating to the search result view.
+        // Ensure the tooltip pop-ups are closed before navigating to the search result view.
         this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].close();
         this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].close();
         this.submitSearchForm(endDate, startDate, stockSymbol);
@@ -228,41 +228,41 @@ export default {
     }, // end function handleSubmit
 
     /**
-     * Patch the auto-complete component's popup if necessary to avoid strange appearance.
+     * Patch the auto-complete component's pop-up if necessary to avoid strange appearance.
      */
-    patchAutoCompletePopup() {
+    patchAutoCompletePopUp() {
       if (this.hasBarLayout) {
         setTimeout(() => {
-          const autoCompletePopupArray = document.getElementsByClassName(
-            "e-ddl e-popup e-popup-open"
+          const autoCompletePopUpArray = document.getElementsByClassName(
+            global.common.SF_AUTO_COMPLETE_POP_UP_CLASSES
           );
 
-          Array.prototype.forEach.call(autoCompletePopupArray, (element) => {
+          Array.prototype.forEach.call(autoCompletePopUpArray, (element) => {
             element.classList.add("e-popup-fixed");
-            element.style.bottom = global.common.POPUP_BOTTOM;
+            element.style.bottom = popUpBottom;
             element.style.top = null;
           });
         }, 50);
       } // end if
-    }, // end function patchAutoCompletePopup
+    }, // end function patchAutoCompletePopUp
 
     /**
-     * Patch the date range picker's popup if necessary to avoid stange appearance.
+     * Patch the date range picker's pop-up if necessary to avoid stange appearance.
      */
-    patchDateRangePickerPopup() {
+    patchDateRangePickerPopUp() {
       if (this.hasBarLayout) {
         setTimeout(() => {
-          const dateRangePickerPopupArray = document.getElementsByClassName(
-            dateRangePickerPopupClassFilter
+          const dateRangePickerPopUpArray = document.getElementsByClassName(
+            global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
           );
 
-          Array.prototype.forEach.call(dateRangePickerPopupArray, (element) => {
-            element.style.bottom = global.common.POPUP_BOTTOM;
+          Array.prototype.forEach.call(dateRangePickerPopUpArray, (element) => {
+            element.style.bottom = popUpBottom;
             element.style.top = null;
           });
         }, 50);
       } // end if
-    }, // end function patchDateRangePickerPopup
+    }, // end function patchDateRangePickerPopUp
 
     /**
      * Remove the form Syncfusion element's error border if applicable.
@@ -273,18 +273,18 @@ export default {
 
       if (elementObj.element.parentElement != null) {
         var hasNoError = false;
-        // The element is not expected to have an error border if it has no input.
-        if (elementObj.value == null) {
+
+        // The element is not expected to have an error border if it has no input. Additionally, the stock symbol auto-complete component has no error if the input satisfies the format.
+        if (
+          (ref === global.common.DATE_RANGE_PICKER_NAME &&
+            elementObj.value == null &&
+            elementObj.element.value.trim() === "") ||
+          (ref === global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME &&
+            (elementObj.value == null ||
+              elementObj.value.match(stockSymbolRegex) != null))
+        ) {
           hasNoError = true;
-        } else {
-          // The stock symbol auto-complete component is not expected to have an error border if the input satisfies the format.
-          if (
-            ref === global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME &&
-            elementObj.value.match(stockSymbolRegex) != null
-          ) {
-            hasNoError = true;
-          } // end if
-        } // end if...else
+        } // end if
 
         if (hasNoError) {
           setTimeout(() =>
@@ -423,30 +423,30 @@ export default {
       global.common.GET_STOCK_LIST
     );
     window.addEventListener("resize", () => {
-      const dateRangePickerPopupArray = document.getElementsByClassName(
-        dateRangePickerPopupClassFilter
+      const dateRangePickerPopUpArray = document.getElementsByClassName(
+        global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
       );
 
-      Array.prototype.forEach.call(dateRangePickerPopupArray, () => {
+      Array.prototype.forEach.call(dateRangePickerPopUpArray, () => {
         this.$refs[global.common.DATE_RANGE_PICKER_NAME].hide();
         this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
       });
       this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].hidePopup();
     });
     window.addEventListener("scroll", () => {
-      this.patchAutoCompletePopup();
-      this.patchDateRangePickerPopup();
+      this.patchAutoCompletePopUp();
+      this.patchDateRangePickerPopUp();
     });
 
-    // Avoid the strange appearance of the auto-complete component's popup when the popup already shows.
+    // Avoid the strange appearance of the auto-complete component's pop-up when the pop-up already shows.
     if (this.hasBarLayout) {
       const autoCompleteInputArray = document.getElementsByClassName(
-        "e-autocomplete e-input"
+        global.common.SF_AUTO_COMPLETE_INPUT_CLASSES
       );
 
       Array.prototype.forEach.call(autoCompleteInputArray, (element) => {
-        element.addEventListener("input", this.patchAutoCompletePopup);
-        element.addEventListener("keyup", this.patchAutoCompletePopup);
+        element.addEventListener("input", this.patchAutoCompletePopUp);
+        element.addEventListener("keyup", this.patchAutoCompletePopUp);
       });
     } // end if
 

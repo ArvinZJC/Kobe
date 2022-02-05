@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 20:18:42
+ * @LastEditTime: 2022-02-05 12:04:02
  */
 
 global.common = {
@@ -21,6 +21,7 @@ global.common = {
   DATE_PICKER: "datePicker",
   DATE_RANGE_PICKER_NAME: "dateRangePickerDateRange",
   DATE_RANGE_PICKER_TOOLTIP_NAME: "tooltipDateRange",
+  DAY_TIME_START: " 00:00:00",
   DEFAULT_MAX_DATE_RANGE_SPAN: 4,
   DEV: "development",
   END_DATE_KEY: "endDate",
@@ -49,7 +50,6 @@ global.common = {
   MIN_DATE_KEY: "minDate",
   MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
   MIN_MIN_DATE: "1990-12-03",
-  POPUP_BOTTOM: "50px",
   PREFERENCE_WIN_ID: "kobe-preferences",
   PREFERENCE_VIEW: "preferences",
   PROCESSOR_ERROR_KEY: "ProcessorError",
@@ -69,9 +69,12 @@ global.common = {
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
+  SF_AUTO_COMPLETE_INPUT_CLASSES: "e-autocomplete e-input",
+  SF_AUTO_COMPLETE_POP_UP_CLASSES: "e-ddl e-popup e-popup-open",
   SF_BEFORE: "Before",
   SF_BOTH: "Both",
   SF_CULTURE: "zh-Hans",
+  SF_DATE_RANGE_PICKER_POP_UP_CLASSES: "e-daterangepicker e-popup e-popup-open",
   SF_EASE: "ease",
   SF_ELLIPSIS_WITH_TOOLTIP: "EllipsisWithTooltip",
   SF_EQUAL: "equal",

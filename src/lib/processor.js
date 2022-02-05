@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220131
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-31 17:07:07
+ * @LastEditTime: 2022-02-05 12:06:31
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -51,8 +51,9 @@ function arrangeSearchResults(dayVolumes, endDate, startDate, totalVolumes) {
  */
 function createDateArray(endDate, startDate) {
   for (
-    var dateArray = [], date = new Date(startDate);
-    date <= new Date(endDate);
+    var dateArray = [],
+      date = new Date(`${startDate}${global.common.DAY_TIME_START}`);
+    date <= new Date(`${endDate}${global.common.DAY_TIME_START}`);
 
   ) {
     const day = date.getDay();
@@ -62,7 +63,6 @@ function createDateArray(endDate, startDate) {
     } // end if
 
     date.setDate(date.getDate() + 1);
-    date.setHours(0);
   } // end for
 
   return dateArray;

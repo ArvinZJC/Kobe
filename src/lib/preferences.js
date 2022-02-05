@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.0.20220201
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 19:28:12
+ * @LastEditTime: 2022-02-05 12:25:43
  */
 
 import global from "./global.js";
@@ -111,16 +111,18 @@ export async function initialisePreferences() {
 
   // Initialise the min date preference to default if the user preference does not exist or is illegal.
   const minDateValue = new Date(
-    preferences[global.common.MIN_DATE_KEY]
+    `${preferences[global.common.MIN_DATE_KEY]}${global.common.DAY_TIME_START}`
   ).getTime();
-  const minMinDate = new Date(global.common.MIN_MIN_DATE);
 
   if (
     preferences[global.common.MIN_DATE_KEY] == null ||
-    minDateValue < minMinDate.getTime() ||
+    minDateValue <
+      new Date(
+        `${global.common.MIN_MIN_DATE}${global.common.DAY_TIME_START}`
+      ).getTime() ||
     minDateValue > new Date().getTime()
   ) {
-    await settings.set(global.common.MIN_DATE_KEY, minMinDate);
+    await settings.set(global.common.MIN_DATE_KEY, global.common.MIN_MIN_DATE);
   } // end if
 
   // Initialise the search engine mode preference to default if the user preference does not exist or is illegal.

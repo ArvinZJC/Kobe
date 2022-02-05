@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 16:15:50
+ * @LastEditTime: 2022-02-05 12:38:49
 -->
 
 <template>
@@ -137,8 +137,9 @@ export default {
      */
     buildGrid() {
       for (
-        var dayVolumeColumns = [], date = new Date(this.startDate);
-        date <= new Date(this.endDate);
+        var dayVolumeColumns = [],
+          date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
+        date <= new Date(`${this.endDate}${global.common.DAY_TIME_START}`);
 
       ) {
         const day = date.getDay();
@@ -188,7 +189,6 @@ export default {
         } // end if
 
         date.setDate(date.getDate() + 1);
-        date.setHours(0);
       } // end for
 
       const columns = [
@@ -394,7 +394,7 @@ export default {
     window.addEventListener("scroll", () => {
       const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);
 
-      // The trick input is used to close any grid popup to avoid strange appearance when scrolling.
+      // The trick input is used to close any grid pop-up to avoid strange appearance when scrolling.
       if (trickInput != null) {
         trickInput.click();
       } // end if

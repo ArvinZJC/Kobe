@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference component
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 20:24:41
+ * @LastEditTime: 2022-02-05 13:06:36
 -->
 
 <template>
@@ -32,13 +32,17 @@
     >
       <ejs-datepicker
         @change="changeDate"
+        @renderDayCell="disableWeekends"
         :allowEdit="false"
         :dayHeaderFormat="global.common.SF_NARROW"
         :max="new Date()"
-        :min="new Date(global.common.MIN_MIN_DATE)"
+        :min="
+          new Date(
+            `${global.common.MIN_MIN_DATE}${global.common.DAY_TIME_START}`
+          )
+        "
         :ref="options.id"
         :showClearButton="false"
-        :strictMode="true"
         :value="value"
       />
     </ejs-tooltip>
@@ -84,7 +88,11 @@ export default {
      */
     changeDate() {
       changePreference(
-        new Date(this.$refs[this.options.id].ej2Instances.value),
+        [
+          this.$refs[this.options.id].ej2Instances.value.getFullYear(),
+          this.$refs[this.options.id].ej2Instances.value.getMonth() + 1,
+          this.$refs[this.options.id].ej2Instances.value.getDate(),
+        ].join("-"),
         this.options.id,
         this.options.value
       );
@@ -100,6 +108,16 @@ export default {
         this.options.value
       );
     }, // end function changeSliderValue
+
+    /**
+     * Disable the weekends in the date range picker.
+     * @param args the event arguments of rendering day cells.
+     */
+    disableWeekends(args) {
+      if (args.date.getDay() === 0 || args.date.getDay() === 6) {
+        args.isDisabled = true;
+      } // end if
+    }, // end function disableWeekends
 
     /**
      * Set the initial slider value.

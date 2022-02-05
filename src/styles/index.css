@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220204
+ * @Version: 1.0.0.20220205
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-04 16:54:57
+ * @LastEditTime: 2022-02-05 11:37:43
  */
 
 @tailwind base;
@@ -147,7 +147,7 @@
   @apply !border-r-0;
 }
 
-/* Force the popup height and position to be fixed. */
+/* Force the pop-up height and position to be fixed. */
 .e-popup-fixed {
   @apply !fixed !max-h-fit;
 }
