@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 13:06:13
+ * @LastEditTime: 2022-02-06 13:44:31
 -->
 
 <template>
@@ -272,7 +272,6 @@ export default {
       window[global.common.IPC_RENDERER_API_KEY].receive(
         global.common.IPC_RECEIVE,
         (data) => {
-          console.log(data);
           const isArray = Array.isArray(data);
 
           if (

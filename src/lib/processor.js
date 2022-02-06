@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 13:05:18
+ * @LastEditTime: 2022-02-06 13:50:50
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -151,7 +151,9 @@ function generateRowData(
 
   rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
   rowData[global.common.TOTAL_VOLUME_KEY] =
-    totalVolumes[strikePrice] / totalVolumeUnit;
+    typeof totalVolumes[strikePrice] === "number"
+      ? totalVolumes[strikePrice] / totalVolumeUnit
+      : totalVolumes[strikePrice];
 
   if (totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null) {
     if (endDate === startDate) {
