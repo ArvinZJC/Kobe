@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 21:10:58
+ * @LastEditTime: 2022-02-06 13:06:13
 -->
 
 <template>
@@ -272,6 +272,7 @@ export default {
       window[global.common.IPC_RENDERER_API_KEY].receive(
         global.common.IPC_RECEIVE,
         (data) => {
+          console.log(data);
           const isArray = Array.isArray(data);
 
           if (
@@ -282,7 +283,6 @@ export default {
               global.common.DAY_VOLUME_UNIT_KEY
             )
           ) {
-            console.log(data);
             this.$refs[
               global.common.SEARCH_RESULT_GRID_NAME
             ].ej2Instances.columns[1].headerText = `${

@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 19:06:38
+ * @LastEditTime: 2022-02-06 11:30:50
 -->
 
 <template>
@@ -62,12 +62,12 @@
         },
       ]"
       :content="zhCN.default.resetPreferencesConfirmationDialogueContent"
-      :header="zhCN.default.resetPreferencesConfirmationDialogueHeader"
+      :header="`<div class='flex items-center space-x-2'><span class='!text-orange-700 e-circle-info e-icons'></span><span>${zhCN.default.resetPreferencesConfirmationDialogueHeader}</span></div>`"
       :isModal="true"
       :ref="global.common.RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME"
       :showCloseIcon="true"
       :visible="false"
-      width="40%"
+      width="50%"
     />
   </main>
 </template>

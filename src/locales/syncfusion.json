@@ -11,6 +11,9 @@
       "selectedDays": "选定天数",
       "startLabel": "开始日期"
     },
+    "dialog": {
+      "close": "关闭"
+    },
     "dropdowns": {
       "noRecordsTemplate": "未能匹配上市股票的代码"
     },

@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 20:54:24
+ * @LastEditTime: 2022-02-06 13:05:18
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -25,18 +25,30 @@ import * as zhCN from "../locales/zh-CN.json";
  * @param {object} totalVolumes strike prices and total volumes for the date range.
  * @returns an array of search result data for the specified grid to show.
  */
-function arrangeSearchResults(dayVolumes, endDate, startDate, totalVolumes) {
+async function arrangeSearchResults(
+  dayVolumes,
+  endDate,
+  startDate,
+  totalVolumes
+) {
   var index = 0;
   var searchResultData = [];
 
   if (Object.keys(totalVolumes).length !== 0) {
+    const dayVolumeUnit = await settings.get(global.common.DAY_VOLUME_UNIT_KEY);
+    const totalVolumeUnit = await settings.get(
+      global.common.TOTAL_VOLUME_UNIT_KEY
+    );
+
     for (const strikePrice in totalVolumes) {
       searchResultData[index++] = generateRowData(
         dayVolumes,
+        dayVolumeUnit,
         endDate,
         startDate,
         strikePrice,
-        totalVolumes
+        totalVolumes,
+        totalVolumeUnit
       );
     } // end for
   } // end if...else
@@ -74,7 +86,7 @@ function createDateArray(endDate, startDate) {
  * @param {string} endDate the end date of the date range.
  * @param {string} startDate the start date of the date range.
  * @param {string} stockSymbol the stock symbol.
- * @returns an object using strike prices as keys and the corresponding volumes as values, or containing an error message.
+ * @returns an object using strike prices (string) as keys and the corresponding volumes (number) as values, or containing an error message.
  */
 async function fetchFromApi(endDate, startDate, stockSymbol) {
   var volumes = {};
@@ -118,30 +130,35 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
 /**
  * Generate the row data for the final search results.
  * @param {object} dayVolumes strike prices and volumes for each day in the date range.
+ * @param {number} dayVolumeUnit the day volume unit value.
  * @param {string} endDate the end date of the date range.
  * @param {string} startDate the start date of the date range.
  * @param {string} strikePrice the strike price.
  * @param {object} totalVolumes strike prices and total volumes for the date range.
+ * @param {number} totalVolumeUnit the total volume unit value.
  * @returns the row data.
  */
 function generateRowData(
   dayVolumes,
+  dayVolumeUnit,
   endDate,
   startDate,
   strikePrice,
-  totalVolumes
+  totalVolumes,
+  totalVolumeUnit
 ) {
   var rowData = {};
 
   rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
-  rowData[global.common.TOTAL_VOLUME_KEY] = totalVolumes[strikePrice];
+  rowData[global.common.TOTAL_VOLUME_KEY] =
+    totalVolumes[strikePrice] / totalVolumeUnit;
 
   if (totalVolumes[global.common.PROCESSOR_ERROR_KEY] == null) {
     if (endDate === startDate) {
-      rowData[startDate] = totalVolumes[strikePrice];
+      rowData[startDate] = totalVolumes[strikePrice] / dayVolumeUnit;
     } else {
       for (const dateStr in dayVolumes) {
-        rowData[dateStr] = dayVolumes[dateStr][strikePrice];
+        rowData[dateStr] = dayVolumes[dateStr][strikePrice] / dayVolumeUnit;
       } // end for
     } // end if...else
   } // end if
@@ -195,7 +212,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
 /**
  * Parse the document.
  * @param {Document} dom the document extracted.
- * @returns an object using strike prices as keys and the corresponding volumes as values.
+ * @returns an object using strike prices (string) as keys and the corresponding volumes (number) as values.
  */
 function parseDom(dom) {
   const tbody = DomUtils.getElementsByTagName("tbody", dom.children)[0];
@@ -225,7 +242,7 @@ function parseDom(dom) {
           return; // Ignore the columns "占比" (Index 2) and “占比图” (Index 3).
         } // end nested if...else
       });
-      volumes[strikePrice] = volume;
+      volumes[strikePrice] = Number(volume);
     });
   } // end if...else
 
