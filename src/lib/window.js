@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.0.20220207
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 18:29:46
+ * @LastEditTime: 2022-02-07 17:49:40
  */
 
 import {
@@ -98,7 +98,7 @@ export async function createWin(id) {
 
   setAppMenu(isDev);
   await setContextMenu(isDev, win);
-  win.setMenuBarVisibility(true); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
+  win.setMenuBarVisibility(id !== global.common.PREFERENCE_WIN_ID); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}${startPath}`); // Load the url of the dev server if in the dev mode.
