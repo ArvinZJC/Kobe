@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference component
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.0.20220207
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 18:34:53
+ * @LastEditTime: 2022-02-07 17:46:23
 -->
 
 <template>
@@ -19,7 +19,7 @@
       <ButtonGroupMember
         v-for="option in options"
         @selectionChanged="selectionChangedHandler"
-        :group="header"
+        :group="title"
         :icon="option.icon"
         :id="option.id"
         :key="option.id"
