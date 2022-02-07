@@ -1,10 +1,10 @@
 /*
  * @Description: Vue configuration
- * @Version: 1.0.0.20220207
+ * @Version: 1.0.2.20220207
  * @Author: Arvin Zhao
  * @Date: 2021-12-09 00:57:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 14:46:57
+ * @LastEditTime: 2022-02-07 22:17:38
  */
 
 module.exports = {
@@ -27,21 +27,13 @@ module.exports = {
         },
         nsis: {
           allowToChangeInstallationDirectory: true,
-          artifactName: "${productName} ${version} 安装程序.${ext}",
+          artifactName: "${productName}-${version}-${arch}.${ext}",
           createDesktopShortcut: "always",
           installerLanguages: "zh_CN",
           language: "2052",
           oneClick: false,
           perMachine: true,
           runAfterFinish: false,
-        },
-        win: {
-          target: [
-            {
-              arch: ["arm64", "ia32", "x64"],
-              target: "nsis",
-            },
-          ],
         },
       },
       preload: "./src/preload.js",

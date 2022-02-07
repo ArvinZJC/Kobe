@@ -120,9 +120,34 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
              }
            },
            {
-             "name": "electron: production",
+             // You should not add this part on Windows because you cannot build macOS desktop apps on Windows.
+             "name": "electron: production for macOS",
              "request": "launch",
-             "runtimeArgs": ["run", "electron:build", "--", "-mw"], // NOTE: you can use "--mw" on macOS but only "-w" on Windows because you cannot build macOS desktop apps on Windows.
+             "runtimeArgs": ["run", "electron:build", "--", "-m"],
+             "runtimeExecutable": "npm",
+             "skipFiles": ["<node_internals>/**"],
+             "type": "node"
+           },
+           {
+             "name": "electron: production for Win ARM64",
+             "request": "launch",
+             "runtimeArgs": ["run", "electron:build", "--", "-w", "--arm64"],
+             "runtimeExecutable": "npm",
+             "skipFiles": ["<node_internals>/**"],
+             "type": "node"
+           },
+           {
+             "name": "electron: production for Win x64",
+             "request": "launch",
+             "runtimeArgs": ["run", "electron:build", "--", "-w", "--x64"],
+             "runtimeExecutable": "npm",
+             "skipFiles": ["<node_internals>/**"],
+             "type": "node"
+           },
+           {
+             "name": "electron: production for Win x86",
+             "request": "launch",
+             "runtimeArgs": ["run", "electron:build", "--", "-w", "--ia32"],
              "runtimeExecutable": "npm",
              "skipFiles": ["<node_internals>/**"],
              "type": "node"
