@@ -1,11 +1,11 @@
 """
 '''
 Description: a stock list data updater
-Version: 1.0.0.20211218
+Version: 1.0.0.20220207
 Author: Arvin Zhao
 Date: 2021-12-16 20:36:26
 Last Editors: Arvin Zhao
-LastEditTime: 2021-12-18 03:33:33
+LastEditTime: 2022-02-07 19:30:01
 '''
 """
 
@@ -25,7 +25,7 @@ def update():
 
         if os.path.exists(data_filename):
             data_new = json.loads(data.to_json(orient="records"))
-            data_old = json.load(open(data_filename, encoding="mbcs"))
+            data_old = json.load(open(data_filename))
             is_same = sorted(data_new, key=lambda x: x["ts_code"]) == sorted(
                 data_old, key=lambda x: x["ts_code"]
             )
