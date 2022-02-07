@@ -2,15 +2,19 @@
 
 [简体中文](./README-zhCN.md) | **English**
 
-TODO: This folder contains a Jupyter Notebook file with Python code to retrieve and store a list of symbols and corresponding names of SH/SZ stocks in a JSON file which is a part of the resources of the app. The JSON file is processed to provide the autocomplete functionality of the text box control for inputing the symbol of an SH/SZ stock.
+Stock List is a Python script extension. This extension can retrieve and store a list of stocks' symbols and corresponding names in a JSON data file. The supported stock exchanges are Beijing Stock Exchange, Shanghai Stock Exchange, and Shenzhen Stock Exchange. The JSON file is essential and processed to provide the autocomplete functionality of Kobe's auto-complete component to input the stock symbol.
 
-## ATTENTION
+## ❗ ATTENTION
 
-1. The IPYNB file can be opened and edited in Visual Studio Code (if supported). By 16 December 2021, everything looks good with the code editor (Version: 1.63.2). In addition, I would like to thank [TuShare Pro](https://tushare.pro/) for its valuabale data. The primary packages used in the development are listed in the following table.
+> May I have your attention pls? 🔥
 
-   |     Name      | Version |
-   | :-----------: | :-----: |
-   |    python     | 3.10.1  |
-   |    pandas     |  1.3.4  |
+1. By 7 February 2022, everything looks good with Visual Studio Code (Version: 1.64.0) + Python 3.10.2. Additionaly, I would like to thankfully acknowledge [TuShare Pro](https://tushare.pro/) for its valuabale data.
+2. The primary packages of the project are listed in the following table. For more information, please refer to [`requirements.txt`](./requirements.txt).
+
+   | Name          | Version |
+   | :------------ | :-----: |
+   | pandas        |  1.4.0  |
    | python-dotenv | 0.19.2  |
-   |    tushare    | 1.2.77  |
+   | tushare       | 1.2.83  |
+
+3. If all configurations are set properly, the script `updater.py` can be executed successfully to generate/update the JSON data file as per the search results.
