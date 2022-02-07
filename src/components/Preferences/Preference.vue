@@ -1,16 +1,17 @@
 <!--
  * @Description: the preference component
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 20:53:49
+ * @LastEditTime: 2022-02-06 18:34:53
 -->
 
 <template>
   <div class="container-preference-text">
-    <h1 class="text-primary-header">{{ header }}</h1>
-    <p class="text-secondary-explanation">{{ explanation }}</p>
+    <h1 class="text-title">{{ title }}</h1>
+    <h2 class="text-subtitle">{{ subtitle }}</h2>
+    <p class="text-content text-sm">{{ explanation }}</p>
   </div>
   <div class="container-preference-options">
     <!-- Button group preference options. -->
@@ -44,11 +45,18 @@
       :ref="options.id"
       :ticks="{
         largeStep: options.largeStep,
-        placement: global.common.SF_BEFORE,
+        placement: global.common.SF_AFTER,
         showSmallTicks: true,
         smallStep: options.smallStep,
       }"
       :value="value"
+    />
+    <!-- Switch preference options. -->
+    <ejs-switch
+      v-if="type === global.common.SWITCH"
+      @change="changeItemValue"
+      :checked="value"
+      :ref="options.id"
     />
     <!-- Date picker preference options. -->
     <ejs-tooltip
@@ -75,6 +83,7 @@
 </template>
 
 <script>
+import { SwitchComponent } from "@syncfusion/ej2-vue-buttons";
 import { DatePickerComponent } from "@syncfusion/ej2-vue-calendars";
 import { DropDownListComponent } from "@syncfusion/ej2-vue-dropdowns";
 import { SliderComponent } from "@syncfusion/ej2-vue-inputs";
@@ -92,6 +101,7 @@ export default {
     "ejs-datepicker": DatePickerComponent,
     "ejs-dropdownlist": DropDownListComponent,
     "ejs-slider": SliderComponent,
+    "ejs-switch": SwitchComponent,
     "ejs-tooltip": TooltipComponent,
   },
   methods: {
@@ -111,7 +121,9 @@ export default {
      */
     changeItemValue() {
       changePreference(
-        this.$refs[this.options.id].ej2Instances.value,
+        this.type === global.common.SWITCH
+          ? this.$refs[this.options.id].ej2Instances.checked
+          : this.$refs[this.options.id].ej2Instances.value,
         this.options.id,
         this.options.value
       );
@@ -130,7 +142,7 @@ export default {
     /**
      * Set the initial slider value.
      *
-     * NOTE: the initial slider value is set here to avoid the wrong slider position while initialising the value in the template.
+     * NOTE: the initial slider value should be null, and it is set to the slider here to avoid the wrong slider position while initialising the value in the template.
      */
     setInitialSliderValue() {
       this.$refs[this.options.id].ej2Instances.value = this.value;
@@ -138,9 +150,10 @@ export default {
   },
   props: {
     explanation: String,
-    header: String,
     options: Object,
     selectionChangedHandler: Function,
+    subtitle: String,
+    title: String,
     type: String,
     value: [Date, Number],
   },

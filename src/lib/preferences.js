@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 19:49:29
+ * @LastEditTime: 2022-02-06 18:27:38
  */
 
 import global from "./global.js";
@@ -79,6 +79,20 @@ export async function initialisePreferences() {
   } // end if
 
   nativeTheme.themeSource = preferences[global.common.APPEARANCE_KEY];
+  const decimalPoints = [...Array(global.common.MAX_DECIMAL_POINTS + 1).keys()];
+
+  // Initialise the number of the day volume decimal points to default if the user preference does not exist or is illegal.
+  if (
+    !decimalPoints.includes(
+      preferences[global.common.DAY_VOLUME_DECIMAL_POINTS_KEY]
+    )
+  ) {
+    await settings.set(
+      global.common.DAY_VOLUME_DECIMAL_POINTS_KEY,
+      global.common.DEFAULT_DAY_VOLUME_DECIMAL_POINTS
+    );
+  } // end if
+
   const volumeUnitValues = [
     global.common.BOARD_LOT_1,
     global.common.BOARD_LOT_10,
@@ -110,11 +124,22 @@ export async function initialisePreferences() {
     );
   } // end if
 
+  // Initialise whether to include the hidden columns while exporting to Excel to default if the user preference does not exist or is illegal.
+  if (
+    typeof preferences[global.common.INCLUDE_HIDDEN_COLUMNS_KEY] === "boolean"
+  ) {
+    await settings.set(
+      global.common.INCLUDE_HIDDEN_COLUMNS_KEY,
+      global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS
+    );
+  } // end if
+
   // Initialise the max date range span preference to default if the user preference does not exist or is illegal.
   if (
-    !Array.from({ length: 8 }, (_, i) => i + 1).includes(
-      preferences[global.common.MAX_DATE_RANGE_SPAN_KEY]
-    )
+    !Array.from(
+      { length: global.common.MAX_MAX_DATE_RANGE_SPAN },
+      (_, i) => i + 1
+    ).includes(preferences[global.common.MAX_DATE_RANGE_SPAN_KEY])
   ) {
     await settings.set(
       global.common.MAX_DATE_RANGE_SPAN_KEY,
@@ -147,6 +172,18 @@ export async function initialisePreferences() {
     await settings.set(
       global.common.SEARCH_ENGINE_MODE_KEY,
       global.common.STABLE_MODE_ID
+    );
+  } // end if
+
+  // Initialise the number of the total volume decimal points to default if the user preference does not exist or is illegal.
+  if (
+    !decimalPoints.includes(
+      preferences[global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY]
+    )
+  ) {
+    await settings.set(
+      global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY,
+      global.common.DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS
     );
   } // end if
 

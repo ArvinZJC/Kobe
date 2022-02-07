@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 20:14:58
+ * @LastEditTime: 2022-02-06 18:29:46
  */
 
 import {
@@ -144,6 +144,13 @@ export function initialiseIpcMainListener() {
           nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
           break;
         }
+        case global.common.SET_DAY_VOLUME_DECIMAL_POINTS: {
+          await settings.set(
+            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY,
+            data[global.common.DAY_VOLUME_DECIMAL_POINTS_KEY]
+          );
+          break;
+        }
         case global.common.SET_DAY_VOLUME_UNIT: {
           await settings.set(
             global.common.DAY_VOLUME_UNIT_KEY,
@@ -155,6 +162,13 @@ export function initialiseIpcMainListener() {
           await settings.set(
             global.common.EXTERNAL_SEARCH_KEY,
             data[global.common.EXTERNAL_SEARCH_KEY]
+          );
+          break;
+        }
+        case global.common.SET_INCLUDE_HIDDEN_COLUMNS: {
+          await settings.set(
+            global.common.INCLUDE_HIDDEN_COLUMNS_KEY,
+            data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY]
           );
           break;
         }
@@ -176,6 +190,13 @@ export function initialiseIpcMainListener() {
           await settings.set(
             global.common.SEARCH_ENGINE_MODE_KEY,
             data[global.common.SEARCH_ENGINE_MODE_KEY]
+          );
+          break;
+        }
+        case global.common.SET_TOTAL_VOLUME_DECIMAL_POINTS: {
+          await settings.set(
+            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY,
+            data[global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY]
           );
           break;
         }
@@ -224,6 +245,14 @@ export function initialiseIpcMainListener() {
           );
           break;
         }
+        case global.common.GET_DAY_VOLUME_DECIMAL_POINTS: {
+          const dayVolumeDecimalPoints = await getPreference(
+            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, dayVolumeDecimalPoints);
+          break;
+        }
         case global.common.GET_DAY_VOLUME_UNIT: {
           const dayVolumeUnit = await getPreference(
             global.common.DAY_VOLUME_UNIT_KEY
@@ -238,6 +267,14 @@ export function initialiseIpcMainListener() {
           );
 
           winContents.send(global.common.IPC_RECEIVE, externalSearch);
+          break;
+        }
+        case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
+          const includeHiddenColumns = await getPreference(
+            global.common.INCLUDE_HIDDEN_COLUMNS_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, includeHiddenColumns);
           break;
         }
         case global.common.GET_MAX_DATE_RANGE_SPAN: {
@@ -266,6 +303,14 @@ export function initialiseIpcMainListener() {
           winContents.send(global.common.IPC_RECEIVE, stockList.default);
           break;
         }
+        case global.common.GET_TOTAL_VOLUME_DECIMAL_POINTS: {
+          const totalVolumeDecimalPoints = await getPreference(
+            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
+          );
+
+          winContents.send(global.common.IPC_RECEIVE, totalVolumeDecimalPoints);
+          break;
+        }
         case global.common.GET_TOTAL_VOLUME_UNIT: {
           const totalVolumeUnit = await getPreference(
             global.common.TOTAL_VOLUME_UNIT_KEY
@@ -274,16 +319,22 @@ export function initialiseIpcMainListener() {
           winContents.send(global.common.IPC_RECEIVE, totalVolumeUnit);
           break;
         }
-        case global.common.GET_VOLUME_UNITS: {
-          var volumeUnits = [];
+        case global.common.GET_VOLUME_FORMAT: {
+          var volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
 
-          volumeUnits[0] = await getPreference(
+          volumeFormat[0] = await getPreference(
+            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
+          );
+          volumeFormat[1] = await getPreference(
             global.common.DAY_VOLUME_UNIT_KEY
           );
-          volumeUnits[1] = await getPreference(
+          volumeFormat[2] = await getPreference(
+            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
+          );
+          volumeFormat[3] = await getPreference(
             global.common.TOTAL_VOLUME_UNIT_KEY
           );
-          winContents.send(global.common.IPC_RECEIVE, volumeUnits);
+          winContents.send(global.common.IPC_RECEIVE, volumeFormat);
           break;
         }
         case global.common.RESET_PREFERENCES: {

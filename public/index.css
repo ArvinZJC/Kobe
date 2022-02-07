@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 13:37:53
+ * @LastEditTime: 2022-02-06 18:41:21
  */
 
 /*
@@ -666,8 +666,10 @@ body::selection {
 
 .container-preferences {
   display: grid;
+  max-height: 100vh;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1rem;
+  overflow: auto;
   padding-left: 1rem !important;
   padding-right: 1rem !important;
 }
@@ -987,11 +989,6 @@ body::selection {
   line-height: 1.5rem;
 }
 
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
 .\!text-red-600 {
   --tw-text-opacity: 1 !important;
   color: rgb(220 38 38 / var(--tw-text-opacity)) !important;
@@ -1186,21 +1183,6 @@ body::selection {
   color: rgb(249 250 251 / var(--tw-text-opacity));
 }
 
-/* Primary header text. */
-
-.text-primary-header {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
-.dark .text-primary-header {
-  --tw-text-opacity: 1;
-  color: rgb(249 250 251 / var(--tw-text-opacity));
-}
-
 /* Red primary text. */
 
 .text-primary-red {
@@ -1215,18 +1197,34 @@ body::selection {
 
 /* Secondary text. */
 
-/* Secondary explanation text. */
+/* Subtitle text. */
 
-.text-secondary-explanation {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+.text-subtitle {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
   --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 
-.dark .text-secondary-explanation {
+.dark .text-subtitle {
   --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
+/* Title text. */
+
+.text-title {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.dark .text-title {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
 }
 
 /* Transition for most properties within 300ms. */
@@ -1340,19 +1338,9 @@ body::selection {
   --tw-bg-opacity: 0;
 }
 
-.dark .dark\:text-red-400 {
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
 .dark .dark\:\!text-red-400 {
   --tw-text-opacity: 1 !important;
   color: rgb(248 113 113 / var(--tw-text-opacity)) !important;
-}
-
-.dark .dark\:\!text-orange-700 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(194 65 12 / var(--tw-text-opacity)) !important;
 }
 
 @media (min-width: 640px) {

@@ -2,7 +2,7 @@
   "name": "kobe",
   "version": "1.0.0-alpha.1",
   "private": true,
-  "description": "神户座是一个用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量的应用程序，可看作是对分价表的组合加工。",
+  "description": "神户座是一个用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量的桌面应用程序，可看作是对分价表的组合加工。",
   "author": {
     "name": "ArvinZJC",
     "email": "SteveJobz@isarvin.com"

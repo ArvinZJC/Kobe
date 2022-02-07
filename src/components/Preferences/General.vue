@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.0.20220201
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-01 22:45:41
+ * @LastEditTime: 2022-02-06 13:59:54
 -->
 
 <template>
@@ -12,17 +12,17 @@
     <!-- Appearance. -->
     <Preference
       :explanation="zhCN.default.appearanceExplanation"
-      :header="zhCN.default.appearanceHeader"
       :options="options.appearance"
       :selectionChangedHandler="changeAppearance"
+      :title="zhCN.default.appearanceTitle"
       :type="global.common.BUTTON_GROUP"
     />
     <!-- External search. -->
     <Preference
       :explanation="zhCN.default.externalSearchExplanation"
-      :header="zhCN.default.externalSearchHeader"
       :options="options.externalSearch"
       :selectionChangedHandler="changeExternalSearch"
+      :title="zhCN.default.externalSearchTitle"
       :type="global.common.BUTTON_GROUP"
     />
   </div>

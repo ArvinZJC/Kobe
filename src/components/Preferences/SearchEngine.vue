@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220206
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 12:22:54
+ * @LastEditTime: 2022-02-06 14:29:49
 -->
 
 <template>
@@ -12,24 +12,24 @@
     <!-- Search engine mode. -->
     <Preference
       :explanation="zhCN.default.searchEngineModeExplanation"
-      :header="zhCN.default.searchEngineModeHeader"
       :options="options.searchEngineMode"
       :selectionChangedHandler="changeSearchEngineMode"
+      :title="zhCN.default.searchEngineModeTitle"
       :type="global.common.BUTTON_GROUP"
     />
     <!-- Min date. -->
     <Preference
       :explanation="zhCN.default.minDateExplanation"
-      :header="zhCN.default.minDateHeader"
       :options="options.minDate"
+      :title="zhCN.default.minDateTitle"
       :type="global.common.DATE_PICKER"
       :value="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
     />
     <!-- Max date range span. -->
     <Preference
       :explanation="zhCN.default.maxDateRangeSpanExplanation"
-      :header="zhCN.default.maxDateRangeSpanHeader"
       :options="options.maxDateRangeSpan"
+      :title="zhCN.default.maxDateRangeSpanTitle"
       :type="global.common.SLIDER"
       :value="maxDateRangeSpan"
     />
@@ -120,8 +120,8 @@ export default {
         maxDateRangeSpan: {
           id: global.common.MAX_DATE_RANGE_SPAN_KEY,
           largeStep: 1,
-          max: 8,
-          min: 1,
+          max: global.common.MAX_MAX_DATE_RANGE_SPAN,
+          min: global.common.MIN_MAX_DATE_RANGE_SPAN,
           smallStep: 1,
           value: global.common.SET_MAX_DATE_RANGE_SPAN,
         },

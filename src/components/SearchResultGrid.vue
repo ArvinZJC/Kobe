@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 13:44:31
+ * @LastEditTime: 2022-02-06 19:18:02
 -->
 
 <template>
@@ -130,7 +130,7 @@ export default {
         this.shouldShowGrid = true;
       } // end if...else
 
-      setTimeout(() => this.styleSearchBarBg(), 50);
+      this.styleSearchBarBg();
     }, // end function adjustGrid
 
     /**
@@ -177,6 +177,7 @@ export default {
 
           dayVolumeColumns.push({
             field: dateStr,
+            format: `N${global.common.DEFAULT_DAY_VOLUME_DECIMAL_POINTS}`,
             headerText: `${dateStr}（${dayStr}）`,
             headerTextAlign: global.common.SF_ALIGN_LEFT,
             minWidth: global.common.MIN_COLUMN_WIDTH,
@@ -200,6 +201,7 @@ export default {
         },
         {
           field: global.common.TOTAL_VOLUME_KEY,
+          format: `N${global.common.DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS}`,
           headerText: zhCN.default.totalVolumeColumnHeader,
           headerTextAlign: global.common.SF_ALIGN_LEFT,
           minWidth: global.common.MIN_COLUMN_WIDTH,
@@ -211,7 +213,7 @@ export default {
           headerText: zhCN.default.dayVolumeStackedColumnHeader,
           textAlign: global.common.SF_ALIGN_CENTRE,
         },
-      ]; // TODO: decimal points, etc depend on preferences
+      ];
 
       Array.prototype.forEach.call(columns, (element) =>
         this.$refs[
@@ -251,6 +253,7 @@ export default {
               },
             ],
           },
+          includeHiddenColumn: this.includeHiddenColumns,
         });
       } // end if
 
@@ -272,6 +275,17 @@ export default {
       window[global.common.IPC_RENDERER_API_KEY].receive(
         global.common.IPC_RECEIVE,
         (data) => {
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.INCLUDE_HIDDEN_COLUMNS_KEY
+            )
+          ) {
+            this.includeHiddenColumns =
+              data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY];
+          } // end if
+
           const isArray = Array.isArray(data);
 
           if (
@@ -279,24 +293,44 @@ export default {
             typeof data[0] === "object" &&
             Object.prototype.hasOwnProperty.call(
               data[0],
-              global.common.DAY_VOLUME_UNIT_KEY
+              global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
             )
           ) {
+            this.$refs[
+              global.common.SEARCH_RESULT_GRID_NAME
+            ].ej2Instances.columns[1].format = `N${
+              data[2][global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY]
+            }`;
             this.$refs[
               global.common.SEARCH_RESULT_GRID_NAME
             ].ej2Instances.columns[1].headerText = `${
               zhCN.default.totalVolumeColumnHeader
             }（${toVolumeUnitText(
-              data[1][global.common.TOTAL_VOLUME_UNIT_KEY]
+              data[3][global.common.TOTAL_VOLUME_UNIT_KEY]
             )}）`;
+            Array.prototype.forEach.call(
+              this.$refs[global.common.SEARCH_RESULT_GRID_NAME].ej2Instances
+                .columns[2].columns,
+              (element) => {
+                element.format = `N${
+                  data[0][global.common.DAY_VOLUME_DECIMAL_POINTS_KEY]
+                }`;
+              }
+            );
             this.$refs[
               global.common.SEARCH_RESULT_GRID_NAME
             ].ej2Instances.columns[2].headerText = `${
               zhCN.default.dayVolumeStackedColumnHeader
             }（${toVolumeUnitText(
-              data[0][global.common.DAY_VOLUME_UNIT_KEY]
+              data[1][global.common.DAY_VOLUME_UNIT_KEY]
             )}）`;
-            this.$refs[global.common.SEARCH_RESULT_GRID_NAME].refreshColumns();
+            setTimeout(
+              () =>
+                this.$refs[
+                  global.common.SEARCH_RESULT_GRID_NAME
+                ].refreshColumns(),
+              50
+            ); // Set delay to refresh columns to ensure that the relevant user preferences can be applied properly.
           } // end if
 
           if (
@@ -310,15 +344,15 @@ export default {
           ) {
             this.searchResultData = data;
           } // end if
-
-          if (isArray && data.length === 2 && typeof data[0] === "number") {
-            this.screenHeight = data[1];
-          } //end if
         }
       );
       window[global.common.IPC_RENDERER_API_KEY].send(
         global.common.IPC_SEND,
-        global.common.GET_VOLUME_UNITS
+        global.common.GET_INCLUDE_HIDDEN_COLUMNS
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_VOLUME_FORMAT
       );
       window[global.common.IPC_RENDERER_API_KEY].send(
         global.common.IPC_SEND,
@@ -361,21 +395,33 @@ export default {
     styleSearchBarBg() {
       var searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
 
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          if (
+            Array.isArray(data) &&
+            data.length === 2 &&
+            typeof data[0] === "number"
+          ) {
+            const screenHeight = data[1];
+
+            if (searchBar != null && screenHeight != null) {
+              // Remove the search bar's blur effect if the view is not scrollable.
+              if (document.body.offsetHeight > screenHeight) {
+                searchBar.classList.add("bg-blur", "shadow-xl-reverse");
+                searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
+              } else {
+                searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
+                searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
+              } // end if...else
+            } // end if
+          } //end if
+        }
+      );
       window[global.common.IPC_RENDERER_API_KEY].send(
         global.common.IPC_SEND,
         global.common.GET_CONTENT_SIZE
       );
-
-      if (searchBar != null && this.screenHeight != null) {
-        // Remove the search bar's blur effect if the view is not scrollable.
-        if (document.body.offsetHeight > this.screenHeight) {
-          searchBar.classList.add("bg-blur", "shadow-xl-reverse");
-          searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
-        } else {
-          searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
-          searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
-        } // end if...else
-      } // end if
     }, // end function styleSearchBarBg
   },
   props: {
@@ -389,7 +435,7 @@ export default {
       filename: global.common.UNKNOWN,
       global,
       hasSearchError: false,
-      screenHeight: null,
+      includeHiddenColumns: global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS,
       searchResultData: null,
       searchResultGridToolbar: [
         "ColumnChooser",
