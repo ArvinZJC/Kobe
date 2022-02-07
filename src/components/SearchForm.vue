@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.0.20220207
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 20:52:06
+ * @LastEditTime: 2022-02-07 20:41:13
 -->
 
 <template>
@@ -454,7 +454,7 @@ export default {
     this.formValidatorSearch = new FormValidator(
       `#${global.common.SEARCH_FORM_ID}`,
       {
-        customPlacement: function (formElement) {
+        customPlacement(formElement) {
           if (formElement.parentElement != null) {
             formElement.parentElement.classList.add(
               global.common.SF_ERROR_CLASS

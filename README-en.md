@@ -4,6 +4,7 @@
 
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ArvinZJC/Kobe?include_prereleases)](../../releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/ArvinZJC/Kobe/total)](../../releases)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a280d86eb52342a0a141e3421f902428)](https://www.codacy.com/gh/ArvinZJC/Kobe/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ArvinZJC/Kobe&utm_campaign=Badge_Grade)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
 [简体中文](./README-zhCN.md) | **English**

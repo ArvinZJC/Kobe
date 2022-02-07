@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.0.20220207
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 13:50:50
+ * @LastEditTime: 2022-02-07 20:48:27
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -41,15 +41,17 @@ async function arrangeSearchResults(
     );
 
     for (const strikePrice in totalVolumes) {
-      searchResultData[index++] = generateRowData(
-        dayVolumes,
-        dayVolumeUnit,
-        endDate,
-        startDate,
-        strikePrice,
-        totalVolumes,
-        totalVolumeUnit
-      );
+      if (Object.prototype.hasOwnProperty.call(totalVolumes, strikePrice)) {
+        searchResultData[index++] = generateRowData(
+          dayVolumes,
+          dayVolumeUnit,
+          endDate,
+          startDate,
+          strikePrice,
+          totalVolumes,
+          totalVolumeUnit
+        );
+      } // end if
     } // end for
   } // end if...else
 
@@ -160,7 +162,9 @@ function generateRowData(
       rowData[startDate] = totalVolumes[strikePrice] / dayVolumeUnit;
     } else {
       for (const dateStr in dayVolumes) {
-        rowData[dateStr] = dayVolumes[dateStr][strikePrice] / dayVolumeUnit;
+        if (Object.prototype.hasOwnProperty.call(dayVolumes, dateStr)) {
+          rowData[dateStr] = dayVolumes[dateStr][strikePrice] / dayVolumeUnit;
+        } // end if
       } // end for
     } // end if...else
   } // end if
