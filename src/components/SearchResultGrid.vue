@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.0.20220207
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 19:18:02
+ * @LastEditTime: 2022-02-07 17:16:42
 -->
 
 <template>
@@ -130,7 +130,7 @@ export default {
         this.shouldShowGrid = true;
       } // end if...else
 
-      this.styleSearchBarBg();
+      setTimeout(() => this.styleSearchBarBg(), 50);
     }, // end function adjustGrid
 
     /**
