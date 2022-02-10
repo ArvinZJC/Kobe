@@ -4937,7 +4937,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid-min-height .e-rowcell {
-  line-height: 0;
+  line-height: normal;
   padding-bottom: 0;
   padding-top: 0;
 }
@@ -5016,7 +5016,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-bigger .e-grid.e-grid-min-height .e-rowcell,
 .e-bigger .e-grid.e-grid-min-height .e-rowcell:first-child,
 .e-bigger .e-grid.e-grid-min-height .e-rowcell:last-child {
-  line-height: 0;
+  line-height: normal;
   padding-bottom: 0;
   padding-top: 0;
 }

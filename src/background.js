@@ -1,14 +1,15 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.0.20220131
+ * @Version: 1.0.2.20220210
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-31 17:04:00
+ * @LastEditTime: 2022-02-10 16:36:25
  */
 
 import { app, BrowserWindow, protocol } from "electron";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
+import electronDl from "electron-dl";
 import log from "electron-log";
 
 import global from "./lib/global.js";
@@ -28,6 +29,11 @@ protocol.registerSchemesAsPrivileged([
     privileges: { secure: true, standard: true },
   },
 ]); // Scheme must be registered before the app is ready.
+electronDl({
+  openFolderWhenDone: true,
+  errorMessage: `{filename} ${zhCN.default.downloadErrorMessage}`,
+  errorTitle: zhCN.default.downloadErrorTitle,
+}); // Configure file downloads.
 
 // Perform specific tasks when the app is ready.
 app.whenReady().then(async () => {

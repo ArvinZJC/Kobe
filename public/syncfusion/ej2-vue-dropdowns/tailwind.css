@@ -1833,7 +1833,8 @@ ejs-dropdownlist {
   padding-left: 12px;
 }
 
-.e-multi-select-list-wrapper .e-hide-listitem {
+.e-multi-select-list-wrapper .e-hide-listitem,
+.e-multi-select-list-wrapper .e-hide-group-header {
   display: none;
 }
 

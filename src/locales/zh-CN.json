@@ -30,6 +30,8 @@
   "dayVolumeUnitExplanation": "设定每日成交量的单位，1 手 = 100 股。注意：此设置的改动在下次搜索时生效。",
   "decimalPointsTitle": "小数位数",
   "delete": "删除",
+  "downloadErrorMessage": "下载被中断。",
+  "downloadErrorTitle": "下载过程中出错",
   "editMenu": "编辑",
   "enterFullScreen": "进入全屏幕",
   "externalSearchExplanation": "指定在应用内右键菜单选择搜索选中的文字时使用的在线搜索服务。注意：此设置的改动在新建的窗口中生效。",
