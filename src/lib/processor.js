@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.0.20220207
+ * @Version: 1.0.1.20220217
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 20:48:27
+ * @LastEditTime: 2022-02-17 10:27:07
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -65,9 +65,10 @@ async function arrangeSearchResults(
  * @returns an array of the working dates in the date range.
  */
 function createDateArray(endDate, startDate) {
+  var dateArray = [];
+
   for (
-    var dateArray = [],
-      date = new Date(`${startDate}${global.common.DAY_TIME_START}`);
+    var date = new Date(`${startDate}${global.common.DAY_TIME_START}`);
     date <= new Date(`${endDate}${global.common.DAY_TIME_START}`);
 
   ) {

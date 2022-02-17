@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.1.20220217
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 18:31:13
+ * @LastEditTime: 2022-02-17 12:59:49
  */
 
 global.common = {
@@ -111,6 +111,7 @@ global.common = {
   SF_EQUAL: "equal",
   SF_ERROR_CLASS: "e-error",
   SF_FADE_IN: "FadeIn",
+  SF_GRID_STACKED_HEADER_CLASSES: "e-gridheader e-stackedheader",
   SF_MENU: "Menu",
   SF_MOVABLE_CONTENT_CLASS: "e-movablecontent",
   SF_MULTIPLE: "Multiple",
@@ -119,6 +120,7 @@ global.common = {
   SF_STYLES: "syncfusionStyles",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
+  SF_TOOLBAR_CLASSES: "e-control e-toolbar",
   SHARE_1: 1,
   SLIDER: "slider",
   SMOOTH_SCROLL: "smooth",

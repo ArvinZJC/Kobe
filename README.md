@@ -25,24 +25,24 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 2 月 10 日，使用 Visual Studio Code（版本：1.64.1）、Node.js 16.13.2 和 Vue CLI 4.5.15 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
+1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 2 月 17 日，使用 Visual Studio Code（版本：1.64.2）、Node.js 16.13.2 和 Vue CLI 4.5.15 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
 2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 Windows 7 及更高版本（arm64、x64 和 x86），以及 macOS 10.11（El Capitan）及更高版本（arm64 和 x64）。
 3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
 
    | 名称                             |    版本    |
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.5    |
-   | @syncfusion/ej2-vue-buttons      |  19.4.48   |
-   | @syncfusion/ej2-vue-calendars    |  19.4.48   |
-   | @syncfusion/ej2-vue-dropdowns    |  19.4.48   |
-   | @syncfusion/ej2-vue-grids        |  19.4.48   |
-   | @syncfusion/ej2-vue-inputs       |  19.4.48   |
-   | @syncfusion/ej2-vue-navigations  |  19.4.48   |
-   | @syncfusion/ej2-vue-popups       |  19.4.48   |
-   | @syncfusion/ej2-vue-splitbuttons |  19.4.48   |
+   | @syncfusion/ej2-vue-buttons      |  19.4.52   |
+   | @syncfusion/ej2-vue-calendars    |  19.4.52   |
+   | @syncfusion/ej2-vue-dropdowns    |  19.4.52   |
+   | @syncfusion/ej2-vue-grids        |  19.4.52   |
+   | @syncfusion/ej2-vue-inputs       |  19.4.52   |
+   | @syncfusion/ej2-vue-navigations  |  19.4.52   |
+   | @syncfusion/ej2-vue-popups       |  19.4.52   |
+   | @syncfusion/ej2-vue-splitbuttons |  19.4.52   |
    | cldr-data                        |   36.0.0   |
-   | electron                         |   17.0.0   |
-   | electron-context-menu            |   3.1.1    |
+   | electron                         |   17.0.1   |
+   | electron-context-menu            |   3.1.2    |
    | electron-devtools-installer      |   3.2.0    |
    | electron-fetch                   |   1.7.4    |
    | electron-log                     |   4.4.5    |
@@ -51,8 +51,8 @@
    | htmlparser2                      |   7.2.0    |
    | iconv-lite                       |   0.6.3    |
    | smoothscroll-polyfill            |   0.4.4    |
-   | tailwindcss                      |   3.0.18   |
-   | vue                              |   3.2.29   |
+   | tailwindcss                      |   3.0.23   |
+   | vue                              |   3.2.31   |
    | vue-class-component              | 8.0.0-rc.1 |
    | vue-cli-plugin-electron-builder  |   2.1.1    |
    | vue-router                       |   4.0.12   |

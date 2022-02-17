@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.0.20220207
+ * @Version: 1.0.1.20220217
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 20:41:13
+ * @LastEditTime: 2022-02-17 12:51:35
 -->
 
 <template>
@@ -225,17 +225,20 @@ export default {
      */
     patchAutoCompletePopUp() {
       if (this.hasBarLayout) {
-        setTimeout(() => {
-          const autoCompletePopUpArray = document.getElementsByClassName(
-            global.common.SF_AUTO_COMPLETE_POP_UP_CLASSES
-          );
-
-          Array.prototype.forEach.call(autoCompletePopUpArray, (element) => {
-            element.classList.add("e-popup-fixed");
-            element.style.bottom = popUpBottom;
-            element.style.top = null;
-          });
-        }, 50);
+        setTimeout(
+          () =>
+            Array.prototype.forEach.call(
+              document.getElementsByClassName(
+                global.common.SF_AUTO_COMPLETE_POP_UP_CLASSES
+              ),
+              (element) => {
+                element.classList.add("e-popup-fixed");
+                element.style.bottom = popUpBottom;
+                element.style.top = null;
+              }
+            ),
+          50
+        );
       } // end if
     }, // end function patchAutoCompletePopUp
 
@@ -244,16 +247,19 @@ export default {
      */
     patchDateRangePickerPopUp() {
       if (this.hasBarLayout) {
-        setTimeout(() => {
-          const dateRangePickerPopUpArray = document.getElementsByClassName(
-            global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
-          );
-
-          Array.prototype.forEach.call(dateRangePickerPopUpArray, (element) => {
-            element.style.bottom = popUpBottom;
-            element.style.top = null;
-          });
-        }, 50);
+        setTimeout(
+          () =>
+            Array.prototype.forEach.call(
+              document.getElementsByClassName(
+                global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
+              ),
+              (element) => {
+                element.style.bottom = popUpBottom;
+                element.style.top = null;
+              }
+            ),
+          50
+        );
       } // end if
     }, // end function patchDateRangePickerPopUp
 

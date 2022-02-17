@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.0.20220207
+ * @Version: 1.0.3.20220217
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 17:16:42
+ * @LastEditTime: 2022-02-17 13:00:06
 -->
 
 <template>
@@ -45,6 +45,7 @@
       :allowSorting="true"
       :clipMode="global.common.SF_ELLIPSIS_WITH_TOOLTIP"
       :dataSource="searchResultData"
+      :enableHeaderFocus="true"
       :enableStickyHeader="true"
       :filterSettings="{ type: global.common.SF_MENU }"
       :frozenColumns="2"
@@ -130,6 +131,7 @@ export default {
         this.shouldShowGrid = true;
       } // end if...else
 
+      this.patchGridStackedHeaderAndToolbar();
       setTimeout(() => this.styleSearchBarBg(), 50);
     }, // end function adjustGrid
 
@@ -137,9 +139,10 @@ export default {
      * Build the grid.
      */
     buildGrid() {
+      var dayVolumeColumns = [];
+
       for (
-        var dayVolumeColumns = [],
-          date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
+        var date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
         date <= new Date(`${this.endDate}${global.common.DAY_TIME_START}`);
 
       ) {
@@ -361,6 +364,21 @@ export default {
     }, // end function invokeIpc
 
     /**
+     * Patch the grid component's stacked header and toolbar to avoid strange appearance.
+     */
+    patchGridStackedHeaderAndToolbar() {
+      Array.prototype.forEach.call(
+        Array.prototype.concat.call(
+          document.getElementsByClassName(
+            global.common.SF_GRID_STACKED_HEADER_CLASSES
+          )[0],
+          document.getElementsByClassName(global.common.SF_TOOLBAR_CLASSES)[0]
+        ),
+        (element) => element.classList.add("!w-auto")
+      );
+    }, // end function patchGridToolbarHeader
+
+    /**
      * Search the grid.
      * @param {Event | KeyboardEvent} event the object of the event invoking searching.
      */
@@ -381,9 +399,6 @@ export default {
 
       if (gridSearchBar != null) {
         gridSearchBar.addEventListener("input", (event) =>
-          this.searchGrid(event)
-        );
-        gridSearchBar.addEventListener("keyup", (event) =>
           this.searchGrid(event)
         );
       } // end if
@@ -470,7 +485,7 @@ export default {
         : this.$route.query.stockSymbol + " "
     }${this.filename}`;
     this.invokeIpc();
-    window.addEventListener("resize", this.styleSearchBarBg);
+    window.addEventListener("resize", () => this.styleSearchBarBg);
     window.addEventListener("scroll", () => {
       const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);
 

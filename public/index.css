@@ -8,7 +8,7 @@
  */
 
 /*
- ! tailwindcss v3.0.18 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -831,6 +831,10 @@ body::selection {
 
 .w-4 {
   width: 1rem;
+}
+
+.\!w-auto {
+  width: auto !important;
 }
 
 .max-w-md {
