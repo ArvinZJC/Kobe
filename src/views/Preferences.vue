@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.1.20220219
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 11:30:50
+ * @LastEditTime: 2022-02-19 20:40:17
 -->
 
 <template>
@@ -82,9 +82,9 @@ import {
 import { DialogComponent } from "@syncfusion/ej2-vue-popups";
 import { createApp } from "vue";
 
-import General from "../components/Preferences/General.vue";
-import ResultDisplay from "../components/Preferences/ResultDisplay.vue";
-import SearchEngine from "../components/Preferences/SearchEngine.vue";
+import General from "../components/preferences/General.vue";
+import ResultDisplay from "../components/preferences/ResultDisplay.vue";
+import SearchEngine from "../components/preferences/SearchEngine.vue";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
 

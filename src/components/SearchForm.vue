@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.1.20220217
+ * @Version: 1.0.2.20220219
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-17 12:51:35
+ * @LastEditTime: 2022-02-19 20:38:45
 -->
 
 <template>
@@ -141,7 +141,7 @@ import { FormValidator } from "@syncfusion/ej2-vue-inputs";
 import { TooltipComponent } from "@syncfusion/ej2-vue-popups";
 import { createApp } from "vue";
 
-import AppTextLogo from "./SVG/AppTextLogo.vue";
+import AppTextLogo from "./svg/AppTextLogo.vue";
 import global from "../lib/global.js";
 import { toDateStr } from "../lib/utils";
 import * as zhCN from "../locales/zh-CN.json";

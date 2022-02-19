@@ -829,12 +829,12 @@ body::selection {
   width: 6rem;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
 .\!w-auto {
   width: auto !important;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .max-w-md {
@@ -936,6 +936,11 @@ body::selection {
 
 .border {
   border-width: 1px;
+}
+
+.bg-indigo-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
 .bg-opacity-0 {

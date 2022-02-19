@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component
- * @Version: 1.0.3.20220217
+ * @Version: 1.0.4.20220219
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-17 13:00:06
+ * @LastEditTime: 2022-02-19 20:39:00
 -->
 
 <template>
@@ -67,7 +67,7 @@
 <script>
 import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
-import LoadingIcon from "./SVG/LoadingIcon.vue";
+import LoadingIcon from "./svg/LoadingIcon.vue";
 import global from "../lib/global.js";
 import { toDateStr, toVolumeUnitText } from "../lib/utils";
 import * as syncfusion from "../locales/syncfusion.json";

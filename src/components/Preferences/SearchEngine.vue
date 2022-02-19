@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.1.20220219
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 14:29:49
+ * @LastEditTime: 2022-02-19 20:39:46
 -->
 
 <template>
@@ -43,7 +43,7 @@ import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
-import TurtleIcon from "../SVG/TurtleIcon.vue";
+import TurtleIcon from "../svg/TurtleIcon.vue";
 
 export default {
   components: { Preference },

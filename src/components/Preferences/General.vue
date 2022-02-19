@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.1.20220219
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 13:59:54
+ * @LastEditTime: 2022-02-19 20:39:17
 -->
 
 <template>
@@ -35,8 +35,8 @@ import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
-import BaiduIcon from "../SVG/BaiduIcon.vue";
-import GoogleIcon from "../SVG/GoogleIcon.vue";
+import BaiduIcon from "../svg/BaiduIcon.vue";
+import GoogleIcon from "../svg/GoogleIcon.vue";
 
 export default {
   components: { Preference },

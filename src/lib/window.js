@@ -1,10 +1,10 @@
 /*
  * @Description: the window builder
- * @Version: 1.0.0.20220207
+ * @Version: 1.0.1.20220219
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 17:49:40
+ * @LastEditTime: 2022-02-19 20:47:05
  */
 
 import {
@@ -19,7 +19,7 @@ import log from "electron-log";
 import settings from "electron-settings";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
-import * as stockList from "../../extensions/StockList/StockList.json";
+import * as stockList from "../../extensions/stock-list/StockList.json";
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
 import { setAppMenu, setContextMenu } from "./menu.js";
@@ -351,7 +351,7 @@ export function initialiseIpcMainListener() {
       } // end switch-case
     } // end if...else
   });
-}
+} // end function initialiseIpcMainListener
 
 /**
  * Create a preference window if it does not exist. Otherwise, focus on the existing preference window.
