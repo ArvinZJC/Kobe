@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.4.20220222
+ * @Version: 1.0.5.20220223
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-22 23:28:53
+ * @LastEditTime: 2022-02-23 00:39:56
  */
 
 global.common = {
@@ -122,6 +122,8 @@ global.common = {
   SF_NARROW: "Narrow",
   SF_NUM: "number",
   SF_STYLES: "syncfusionStyles",
+  SF_TABLE_BORDER_CLASS: "e-tableborder",
+  SF_TABLE_CLASSES: "e-sortfilter e-table",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
   SF_TOOLBAR_CLASSES: "e-control e-toolbar",

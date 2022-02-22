@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.0.20220222
+ * @Version: 1.1.1.20220223
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-22 13:59:28
+ * @LastEditTime: 2022-02-23 00:42:19
 -->
 
 <template>
@@ -49,9 +49,11 @@
     <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
       <!-- The search result grid component. -->
       <ejs-grid
+        @actionComplete="patchGridBorder"
         @created="searchGridImmediately"
         @dataBound="adjustGrid"
         @load="buildGrid"
+        @toolbarClick="handleToolbarClick"
         :allowExcelExport="true"
         :allowFiltering="true"
         :allowResizing="true"
@@ -72,7 +74,6 @@
         :showColumnChooser="true"
         :showColumnMenu="true"
         :toolbar="searchResultGridToolbar"
-        :toolbarClick="handleToolbarClick"
       />
     </div>
   </div>
@@ -376,6 +377,17 @@ export default {
         searchData
       );
     }, // end function invokeIpc
+
+    /**
+     * Patch the grid component's border to avoid strange appearance.
+     */
+    patchGridBorder() {
+      for (const tableSection of document.getElementsByClassName(
+        global.common.SF_TABLE_CLASSES
+      )) {
+        tableSection.classList.add(global.common.SF_TABLE_BORDER_CLASS);
+      } // end for
+    }, // end function patchGridBorder
 
     /**
      * Patch the grid component's stacked header and toolbar to avoid strange appearance.
