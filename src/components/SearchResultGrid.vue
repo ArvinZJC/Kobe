@@ -1,66 +1,80 @@
 <!--
- * @Description: the search result grid component
- * @Version: 1.0.4.20220219
+ * @Description: the search result grid component with a search status area
+ * @Version: 1.1.0.20220222
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-19 20:39:00
+ * @LastEditTime: 2022-02-22 13:59:28
 -->
 
 <template>
+  <!-- The trick container. -->
   <div
-    :class="[
-      shouldShowGrid ? 'hidden' : 'flex h-full items-center justify-center',
-    ]"
-    :id="global.common.SEARCH_STATUS_AREA_ID"
+    :id="global.common.TRICK_CONTAINER_ID"
+    class="h-screen hidden w-screen"
+  />
+  <!-- The search result area. -->
+  <div
+    :id="global.common.SEARCH_RESULT_AREA_ID"
+    class="px-block h-screen pb-20 pt-4"
   >
-    <div class="flex flex-col justify-center max-w-sm text-center">
-      <div class="flex items-center justify-center">
-        <span
-          v-if="hasSearchError"
-          class="text-primary-red e-circle-info e-icons text-2xl"
-        />
-        <LoadingIcon v-else aria-hidden="true" class="animate-spin h-6" />
-        <span
-          :class="[
-            'font-medium leading-6 ml-2 text-lg',
-            hasSearchError ? 'text-primary-red' : 'text-primary',
-          ]"
-          >{{ searchStatusTitle }}</span
-        >
+    <!-- The search status area. -->
+    <div
+      :class="[
+        shouldShowGrid ? 'hidden' : 'flex h-full items-center justify-center',
+      ]"
+      :id="global.common.SEARCH_STATUS_AREA_ID"
+    >
+      <div class="flex flex-col justify-center max-w-sm text-center">
+        <div class="flex items-center justify-center">
+          <span
+            v-if="hasSearchError"
+            class="text-primary-red e-circle-info e-icons text-2xl"
+          />
+          <LoadingIcon v-else aria-hidden="true" class="animate-spin h-6" />
+          <span
+            :class="[
+              'font-medium leading-6 ml-2 text-lg',
+              hasSearchError ? 'text-primary-red' : 'text-primary',
+            ]"
+            >{{ searchStatusTitle }}</span
+          >
+        </div>
+        <p class="text-conent mt-2 text-sm">{{ searchStatusMessage }}</p>
       </div>
-      <p class="text-conent mt-2 text-sm">{{ searchStatusMessage }}</p>
     </div>
-  </div>
-  <input :id="global.common.TRICK_INPUT_ID" class="hidden" />
-  <!-- The grid needs "invisible" rather than "hidden" to ensure a correct column header format. -->
-  <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
-    <ejs-grid
-      @created="searchGridImmediately"
-      @dataBound="adjustGrid"
-      @load="buildGrid"
-      :allowExcelExport="true"
-      :allowFiltering="true"
-      :allowResizing="true"
-      :allowSorting="true"
-      :clipMode="global.common.SF_ELLIPSIS_WITH_TOOLTIP"
-      :dataSource="searchResultData"
-      :enableHeaderFocus="true"
-      :enableStickyHeader="true"
-      :filterSettings="{ type: global.common.SF_MENU }"
-      :frozenColumns="2"
-      :gridLines="global.common.SF_BOTH"
-      :ref="global.common.SEARCH_RESULT_GRID_NAME"
-      :searchSettings="{ operator: global.common.SF_EQUAL }"
-      :selectionSettings="{
-        mode: global.common.SF_BOTH,
-        type: global.common.SF_MULTIPLE,
-      }"
-      :showColumnChooser="true"
-      :showColumnMenu="true"
-      :toolbar="searchResultGridToolbar"
-      :toolbarClick="handleToolbarClick"
-    />
+    <!-- The trick input. -->
+    <input :id="global.common.TRICK_INPUT_ID" class="hidden" />
+    <!-- The grid needs "invisible" rather than "hidden" to ensure a correct column header format. -->
+    <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
+      <!-- The search result grid component. -->
+      <ejs-grid
+        @created="searchGridImmediately"
+        @dataBound="adjustGrid"
+        @load="buildGrid"
+        :allowExcelExport="true"
+        :allowFiltering="true"
+        :allowResizing="true"
+        :allowSorting="true"
+        :clipMode="global.common.SF_ELLIPSIS_WITH_TOOLTIP"
+        :dataSource="searchResultData"
+        :enableHeaderFocus="true"
+        :enableStickyHeader="true"
+        :filterSettings="{ type: global.common.SF_MENU }"
+        :frozenColumns="2"
+        :gridLines="global.common.SF_BOTH"
+        :ref="global.common.SEARCH_RESULT_GRID_NAME"
+        :searchSettings="{ operator: global.common.SF_EQUAL }"
+        :selectionSettings="{
+          mode: global.common.SF_BOTH,
+          type: global.common.SF_MULTIPLE,
+        }"
+        :showColumnChooser="true"
+        :showColumnMenu="true"
+        :toolbar="searchResultGridToolbar"
+        :toolbarClick="handleToolbarClick"
+      />
+    </div>
   </div>
 </template>
 
@@ -269,7 +283,7 @@ export default {
      * Use the IPC channel to exchange information.
      */
     invokeIpc() {
-      var searchData = {};
+      const searchData = {};
 
       searchData[global.common.END_DATE_KEY] = this.endDate;
       searchData[global.common.START_DATE_KEY] = this.startDate;
@@ -408,35 +422,21 @@ export default {
      * Apply the search bar's blur effect if applicable.
      */
     styleSearchBarBg() {
-      var searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
-
-      window[global.common.IPC_RENDERER_API_KEY].receive(
-        global.common.IPC_RECEIVE,
-        (data) => {
-          if (
-            Array.isArray(data) &&
-            data.length === 2 &&
-            typeof data[0] === "number"
-          ) {
-            const screenHeight = data[1];
-
-            if (searchBar != null && screenHeight != null) {
-              // Remove the search bar's blur effect if the view is not scrollable.
-              if (document.body.offsetHeight > screenHeight) {
-                searchBar.classList.add("bg-blur", "shadow-xl-reverse");
-                searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
-              } else {
-                searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
-                searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
-              } // end if...else
-            } // end if
-          } //end if
-        }
+      const searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
+      const trickContainer = document.getElementById(
+        global.common.TRICK_CONTAINER_ID
       );
-      window[global.common.IPC_RENDERER_API_KEY].send(
-        global.common.IPC_SEND,
-        global.common.GET_CONTENT_SIZE
-      );
+
+      if (searchBar != null && trickContainer != null) {
+        // Remove the search bar's blur effect if the view is not scrollable.
+        if (document.body.offsetHeight > trickContainer.offsetHeight) {
+          searchBar.classList.add("bg-blur", "shadow-xl-reverse");
+          searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
+        } else {
+          searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
+          searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
+        } // end if...else
+      } // end if
     }, // end function styleSearchBarBg
   },
   props: {

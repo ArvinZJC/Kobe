@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.2.20220219
+ * @Version: 1.0.4.20220221
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-19 20:38:45
+ * @LastEditTime: 2022-02-21 13:48:55
 -->
 
 <template>
@@ -23,7 +23,6 @@
         <img
           :class="[hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40']"
           alt="App icon"
-          id="app-icon"
           src="../assets/AppIcon.png"
         />
       </div>
@@ -449,7 +448,7 @@ export default {
       });
     } // end if
 
-    var rules = {}; // The rules for the Syncfusion form validator.
+    const rules = {}; // The rules for the Syncfusion form validator.
 
     rules[global.common.DATE_RANGE_PICKER_NAME] = {
       required: true,

@@ -1,25 +1,20 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.4.20220222
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 13:38:16
+ * @LastEditTime: 2022-02-22 13:50:02
 -->
 
 <template>
   <main class="container-view">
-    <!-- The search result area. -->
-    <div
-      :id="global.common.SEARCH_RESULT_AREA_ID"
-      class="px-block h-screen pb-20 pt-4"
-    >
-      <SearchResultGrid
-        :endDate="this.$route.query.endDate"
-        :startDate="this.$route.query.startDate"
-        :stockSymbol="this.$route.query.stockSymbol"
-      />
-    </div>
+    <!-- The search result grid component. -->
+    <SearchResultGrid
+      :endDate="this.$route.query.endDate"
+      :startDate="this.$route.query.startDate"
+      :stockSymbol="this.$route.query.stockSymbol"
+    />
     <!-- The button for scrolling to the top. -->
     <transition
       enter-active-class="motion-safe:transition-300 ease-out"
@@ -120,33 +115,19 @@ export default {
     };
   },
   mounted() {
-    this.searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        if (typeof data === "string") {
-          this.appName = data;
-        } // end if
-      }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_APP_NAME
-    );
-    window.addEventListener("scroll", this.handleScroll);
-    setTimeout(() => {
-      const dateRange =
-        this.$route.query.startDate +
-        (this.$route.query.startDate === this.$route.query.endDate
-          ? ""
-          : ` - ${this.$route.query.endDate}`);
+    const dateRange =
+      this.$route.query.startDate +
+      (this.$route.query.startDate === this.$route.query.endDate
+        ? ""
+        : ` - ${this.$route.query.endDate}`);
 
-      document.title = `${
-        this.$route.query.stockName === ""
-          ? this.$route.query.stockSymbol
-          : this.$route.query.stockName
-      }（${dateRange}）- ${this.appName}`;
-    }, 100);
+    document.title = `${
+      this.$route.query.stockName === ""
+        ? this.$route.query.stockSymbol
+        : this.$route.query.stockName
+    }（${dateRange}）`;
+    this.searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
+    window.addEventListener("scroll", this.handleScroll);
   },
 };
 </script>
