@@ -1,14 +1,13 @@
 /*
- * @Description: the window builder
- * @Version: 1.0.1.20220219
+ * @Description: the app window manager
+ * @Version: 2.0.0.20220222
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-19 20:47:05
+ * @LastEditTime: 2022-02-22 23:32:31
  */
 
 import {
-  app,
   BrowserWindow,
   ipcMain,
   nativeTheme,
@@ -17,115 +16,98 @@ import {
 } from "electron";
 import log from "electron-log";
 import settings from "electron-settings";
+import { platform } from "process";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
-import * as stockList from "../../extensions/stock-list/StockList.json";
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
-import { setAppMenu, setContextMenu } from "./menu.js";
-import { getPreference, resetPreferences } from "./preferences.js";
+import { setAppMenu } from "./menu.js";
+import {
+  getPreference,
+  initialisePreferences,
+  resetPreferences,
+} from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
+import { TabbedWindow } from "./tabbed-window.js";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
-const path = require("path");
 
 /**
- * Create a tabbed app window.
+ * Create a tabbed window.
+ * @param {object} stockList the stock list.
  */
-export async function addTabbedAppWin() {
-  if (process.platform === global.common.MACOS) {
-    const win = BrowserWindow.getFocusedWindow(); // It is necessary to put this line before creating a window to add the tabbed app window properly.
-    const tabbedAppWin = await createWin(global.common.APP_WIN_ID);
+export async function createTabbedWin(stockList) {
+  await initialisePreferences();
 
-    win.addTabbedWindow(tabbedAppWin);
-  } // end if
-} // end function addTabbedAppWin
+  const { height, width } = screen.getPrimaryDisplay().workAreaSize;
+  var baseUrl;
 
-/**
- * Create a window.
- * @param {string} id the window ID.
- */
-export async function createWin(id) {
-  var winOptions = {
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    baseUrl = process.env.WEBPACK_DEV_SERVER_URL; // Load the dev server URL if it exists.
+  } else {
+    createProtocol(global.common.APP_SCHEME);
+    baseUrl = `${global.common.APP_SCHEME}://./index.html`; // Load "index.html" if the dev server URL does not exist.
+  } // end if...else
+
+  const winHeight = Math.round(height * 0.7);
+  const winOptions = {
     backgroundColor: nativeTheme.shouldUseDarkColors
       ? global.common.DARK_WIN_COLOUR
       : global.common.LIGHT_WIN_COLOUR,
     center: true,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
-    show: false,
-    title:
-      id === global.common.PREFERENCE_WIN_ID
-        ? zhCN.default.preferences
-        : app.name,
-    webPreferences: {
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      devTools: isDev,
-      enableBlinkFeatures: "CSSColorSchemeUARendering", // See https://stackoverflow.com/a/65313951 for reference.
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
-      preload: path.join(__dirname, "preload.js"),
-      scrollBounce: true,
-    },
   };
-
-  if (id === global.common.APP_WIN_ID) {
-    const { height, width } = screen.getPrimaryDisplay().workAreaSize;
-    const winHeight = Math.round(height * 0.7);
-    const winWidth = Math.round(width * 0.7);
-
-    winOptions.height =
+  const winWidth = Math.round(width * 0.7);
+  var tabbedWin = new TabbedWindow({
+    blankPage: baseUrl,
+    blankTitle: zhCN.default.newTabItem,
+    controlHeight: global.common.TAB_BAR_HEIGHT,
+    controlPanel: `${baseUrl}/#/${global.common.TAB_BAR_VIEW}`,
+    debug: isDev,
+    height:
       winHeight >= global.common.WIN_HEIGHT_MIN
         ? winHeight
-        : global.common.WIN_HEIGHT_MIN;
-    winOptions.tabbingIdentifier = global.common.APP_WIN_ID;
-    winOptions.width =
+        : global.common.WIN_HEIGHT_MIN,
+    startPage: baseUrl,
+    width:
       winWidth >= global.common.WIN_WIDTH_MIN
         ? winWidth
-        : global.common.WIN_WIDTH_MIN;
-  } // end if
+        : global.common.WIN_WIDTH_MIN,
+    winOptions,
+  });
 
-  if (id === global.common.PREFERENCE_WIN_ID) {
-    winOptions.fullscreenable = false;
-    winOptions.minimizable = false;
-    winOptions.resizable = false;
-  } // end if...else
-
-  const win = new BrowserWindow(winOptions);
-  const startPath =
-    id === global.common.PREFERENCE_WIN_ID
-      ? `/#/${global.common.PREFERENCE_VIEW}`
-      : "";
-
-  setAppMenu(isDev);
-  await setContextMenu(isDev, win);
-  win.setMenuBarVisibility(id !== global.common.PREFERENCE_WIN_ID); // TODO: depend on tab implementation on Windows. Hide the menu bar on Windows but keep the browser dev tools in dev mode.
-
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    win.loadURL(`${process.env.WEBPACK_DEV_SERVER_URL}${startPath}`); // Load the url of the dev server if in the dev mode.
-  } else {
-    createProtocol(global.common.APP_SCHEME);
-    win.loadURL(`${global.common.APP_SCHEME}://./index.html${startPath}`); // Load the index.html if not in the dev mode.
-  } // end if...else
-
-  win.once("ready-to-show", () => win.show());
-  return win;
-} // end function createWin
+  initialiseIpcMainListener(stockList, tabbedWin);
+  setAppMenu(); // TODO: the app menu need refactoring (e.g., reload, resize, ...)
+  // TODO: the context menu need refactoring (e.g., reload)
+  tabbedWin.win.setMenuBarVisibility(true); // TODO: Hide the menu bar on Windows.
+  tabbedWin.on("closed", () => {
+    tabbedWin = null;
+  });
+} // end function createTabbedWin
 
 /**
  * Initialise the IPC main channel listener.
+ * @param {object} stockList the stock list.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
  */
-export function initialiseIpcMainListener() {
-  Array.prototype.forEach.call(stockList.default, (element, index, array) => {
-    const symbolParts = element[global.common.STOCK_SYMBOL_KEY].split("."); // Split the original value of the stock symbol key (e.g., "601006.SZ" => {"601006", "SZ"}).
-
-    array[index][global.common.STOCK_SYMBOL_KEY] =
-      symbolParts[1] + symbolParts[0];
-  }); // Process the stock list data from the specific JSON file.
+function initialiseIpcMainListener(stockList, tabbedWin) {
+  ipcMain.removeAllListeners([global.common.IPC_SEND]);
   ipcMain.on(global.common.IPC_SEND, async (event, data) => {
-    const winContents = webContents.fromId(event.sender.id);
+    const viewContents = webContents.fromId(event.sender.id);
 
     if (typeof data === "object") {
       switch (data[global.common.TAG_KEY]) {
+        case global.common.GET_NEW_TAB_ITEM_ID: {
+          const newTabId = {};
+
+          newTabId[global.common.GET_NEW_TAB_ITEM_ID] =
+            tabbedWin.tabs[tabbedWin.tabs.length - 1];
+          newTabId[global.common.NEW_TAB_ITEM_INDEX_KEY] =
+            data[global.common.NEW_TAB_ITEM_INDEX_KEY];
+          viewContents.send(global.common.IPC_RECEIVE, newTabId);
+          break;
+        }
         case global.common.GET_SEARCH_RESULT_DATA: {
           const searchResultData = await getSearchResultData(
             data[global.common.END_DATE_KEY],
@@ -133,7 +115,7 @@ export function initialiseIpcMainListener() {
             data[global.common.STOCK_SYMBOL_KEY]
           );
 
-          winContents.send(global.common.IPC_RECEIVE, searchResultData);
+          viewContents.send(global.common.IPC_RECEIVE, searchResultData);
           break;
         }
         case global.common.SET_APPEARANCE: {
@@ -216,6 +198,10 @@ export function initialiseIpcMainListener() {
       } // end switch-case
     } else {
       switch (data) {
+        case global.common.CLOSE_WIN: {
+          tabbedWin.win.close();
+          break;
+        }
         case global.common.CORRECT_WIN_COLOUR: {
           Array.prototype.forEach.call(
             BrowserWindow.getAllWindows(),
@@ -228,21 +214,10 @@ export function initialiseIpcMainListener() {
           );
           break;
         }
-        case global.common.GET_APP_NAME: {
-          winContents.send(global.common.IPC_RECEIVE, app.name);
-          break;
-        }
         case global.common.GET_APPEARANCE: {
           const appearance = await getPreference(global.common.APPEARANCE_KEY);
 
-          winContents.send(global.common.IPC_RECEIVE, appearance);
-          break;
-        }
-        case global.common.GET_CONTENT_SIZE: {
-          winContents.send(
-            global.common.IPC_RECEIVE,
-            BrowserWindow.fromWebContents(winContents).getContentSize()
-          );
+          viewContents.send(global.common.IPC_RECEIVE, appearance);
           break;
         }
         case global.common.GET_DAY_VOLUME_DECIMAL_POINTS: {
@@ -250,7 +225,7 @@ export function initialiseIpcMainListener() {
             global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, dayVolumeDecimalPoints);
+          viewContents.send(global.common.IPC_RECEIVE, dayVolumeDecimalPoints);
           break;
         }
         case global.common.GET_DAY_VOLUME_UNIT: {
@@ -258,7 +233,7 @@ export function initialiseIpcMainListener() {
             global.common.DAY_VOLUME_UNIT_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
+          viewContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
           break;
         }
         case global.common.GET_EXTERNAL_SEARCH: {
@@ -266,7 +241,7 @@ export function initialiseIpcMainListener() {
             global.common.EXTERNAL_SEARCH_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, externalSearch);
+          viewContents.send(global.common.IPC_RECEIVE, externalSearch);
           break;
         }
         case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
@@ -274,7 +249,7 @@ export function initialiseIpcMainListener() {
             global.common.INCLUDE_HIDDEN_COLUMNS_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, includeHiddenColumns);
+          viewContents.send(global.common.IPC_RECEIVE, includeHiddenColumns);
           break;
         }
         case global.common.GET_MAX_DATE_RANGE_SPAN: {
@@ -282,13 +257,20 @@ export function initialiseIpcMainListener() {
             global.common.MAX_DATE_RANGE_SPAN_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, maxDateRangeSpan);
+          viewContents.send(global.common.IPC_RECEIVE, maxDateRangeSpan);
           break;
         }
         case global.common.GET_MIN_DATE: {
           const minDate = await getPreference(global.common.MIN_DATE_KEY);
 
-          winContents.send(global.common.IPC_RECEIVE, minDate);
+          viewContents.send(global.common.IPC_RECEIVE, minDate);
+          break;
+        }
+        case global.common.GET_PLATFORM: {
+          const os = {};
+
+          os[global.common.GET_PLATFORM] = platform;
+          viewContents.send(global.common.IPC_RECEIVE, os);
           break;
         }
         case global.common.GET_SEARCH_ENGINE_MODE: {
@@ -296,11 +278,19 @@ export function initialiseIpcMainListener() {
             global.common.SEARCH_ENGINE_MODE_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, searchEngineMode);
+          viewContents.send(global.common.IPC_RECEIVE, searchEngineMode);
+          break;
+        }
+        case global.common.GET_START_TAB_ITEM_ID: {
+          const startTabItemId = {};
+
+          startTabItemId[global.common.GET_START_TAB_ITEM_ID] =
+            tabbedWin.tabs[0];
+          viewContents.send(global.common.IPC_RECEIVE, startTabItemId);
           break;
         }
         case global.common.GET_STOCK_LIST: {
-          winContents.send(global.common.IPC_RECEIVE, stockList.default);
+          viewContents.send(global.common.IPC_RECEIVE, stockList);
           break;
         }
         case global.common.GET_TOTAL_VOLUME_DECIMAL_POINTS: {
@@ -308,7 +298,10 @@ export function initialiseIpcMainListener() {
             global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, totalVolumeDecimalPoints);
+          viewContents.send(
+            global.common.IPC_RECEIVE,
+            totalVolumeDecimalPoints
+          );
           break;
         }
         case global.common.GET_TOTAL_VOLUME_UNIT: {
@@ -316,7 +309,7 @@ export function initialiseIpcMainListener() {
             global.common.TOTAL_VOLUME_UNIT_KEY
           );
 
-          winContents.send(global.common.IPC_RECEIVE, totalVolumeUnit);
+          viewContents.send(global.common.IPC_RECEIVE, totalVolumeUnit);
           break;
         }
         case global.common.GET_VOLUME_FORMAT: {
@@ -334,12 +327,12 @@ export function initialiseIpcMainListener() {
           volumeFormat[3] = await getPreference(
             global.common.TOTAL_VOLUME_UNIT_KEY
           );
-          winContents.send(global.common.IPC_RECEIVE, volumeFormat);
+          viewContents.send(global.common.IPC_RECEIVE, volumeFormat);
           break;
         }
         case global.common.RESET_PREFERENCES: {
           await resetPreferences();
-          winContents.reload();
+          viewContents.reload();
           break;
         }
         default: {
@@ -357,12 +350,5 @@ export function initialiseIpcMainListener() {
  * Create a preference window if it does not exist. Otherwise, focus on the existing preference window.
  */
 export async function showPreferenceWin() {
-  for (const win of BrowserWindow.getAllWindows()) {
-    if (win.title === zhCN.default.preferences) {
-      win.focus();
-      return;
-    } // end if
-  } // end for
-
-  await createWin(global.common.PREFERENCE_WIN_ID);
+  // TODO:
 } // end function showPreferenceWin

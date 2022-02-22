@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.1.20220221
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 18:27:38
+ * @LastEditTime: 2022-02-21 13:49:30
  */
 
 import global from "./global.js";
@@ -16,7 +16,7 @@ import global from "./global.js";
  * @param {string} tag the preference tag.
  */
 export function changePreference(id, key, tag) {
-  var change = {};
+  const change = {};
 
   change[global.common.TAG_KEY] = tag;
   change[key] = id;
@@ -46,7 +46,7 @@ export function checkOption(id) {
 export async function getPreference(key) {
   const settings = require("electron-settings"); // It is necessary to import the module here because this script contains functions for both the main process and the renderer processes.
 
-  var preference = {};
+  const preference = {};
 
   preference[key] = await settings.get(key);
   return preference;

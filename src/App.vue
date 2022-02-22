@@ -1,15 +1,20 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.0.20220129
+ * @Version: 1.0.3.20220221
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-29 18:12:46
+ * @LastEditTime: 2022-02-21 13:48:28
 -->
 
 <template>
   <router-view v-slot="{ Component }">
+    <component
+      v-if="this.$route.name === global.common.TAB_BAR_VIEW"
+      :is="Component"
+    />
     <transition
+      v-else
       enter-active-class="motion-safe:transition-opacity-300 ease-out"
       enter-from-class="opacity-0"
       enter-to-class="opacity-100"
@@ -45,7 +50,7 @@ import { applyAppearance } from "./lib/appearance.js";
 import global from "./lib/global.js";
 import * as syncfusionLocale from "./locales/syncfusion.json";
 
-var syncfusionZhCN = {};
+const syncfusionZhCN = {};
 
 syncfusionZhCN[global.common.SF_CULTURE] =
   syncfusionLocale.default[global.common.SF_CULTURE];
@@ -72,6 +77,9 @@ export default {
       Sort,
       Toolbar,
     ],
+  },
+  data() {
+    return { global };
   },
   mounted() {
     const darkModeMql = window.matchMedia("(prefers-color-scheme: dark)"); // A MediaQueryList object containing the results of detecting the system appearance.

@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.1.20220217
+ * @Version: 1.0.2.20220221
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-17 10:27:07
+ * @LastEditTime: 2022-02-21 13:50:16
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -150,7 +150,7 @@ function generateRowData(
   totalVolumes,
   totalVolumeUnit
 ) {
-  var rowData = {};
+  const rowData = {};
 
   rowData[global.common.STRIKE_PRICE_KEY] = strikePrice;
   rowData[global.common.TOTAL_VOLUME_KEY] =
@@ -181,7 +181,7 @@ function generateRowData(
  * @returns
  */
 export async function getSearchResultData(endDate, startDate, stockSymbol) {
-  var dayVolumes = {};
+  const dayVolumes = {};
   var totalVolumes = await fetchFromApi(endDate, startDate, stockSymbol);
 
   // Retrive the day volumes only if there is no error message at present and the start date does not equal the end date.
@@ -223,7 +223,7 @@ export async function getSearchResultData(endDate, startDate, stockSymbol) {
  */
 function parseDom(dom) {
   const tbody = DomUtils.getElementsByTagName("tbody", dom.children)[0];
-  var volumes = {};
+  const volumes = {};
 
   if (tbody == null) {
     const title = DomUtils.getElementsByTagName("title", dom.children)[0];

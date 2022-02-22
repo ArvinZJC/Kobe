@@ -45,6 +45,9 @@
     "numerictextbox": {
       "decrementTitle": "减少",
       "incrementTitle": "增加"
+    },
+    "tab": {
+      "closeButtonTitle": "关闭标签页"
     }
   }
 }

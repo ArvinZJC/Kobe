@@ -1074,6 +1074,7 @@
 }
 
 .e-xlflmenu .e-radio + label .e-label {
+  margin-top: 0;
   padding-left: 25px;
   padding-right: 9px;
 }
@@ -1215,6 +1216,7 @@
 .e-excelfilter.e-bigger .e-contextmenu-wrapper ul .e-menu-item .e-caret {
   height: 40px;
   line-height: 40px;
+  margin-right: 9px;
 }
 
 .e-bigger .e-excelfilter.e-dialog .e-dlg-content,
@@ -1348,6 +1350,7 @@
 .e-excelfilter .e-contextmenu-wrapper ul .e-menu-item .e-caret {
   height: 36px;
   line-height: 36px;
+  margin-right: 5px;
 }
 
 .e-excelfilter .e-footer-content {
@@ -1926,7 +1929,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-bigger .e-grid .e-filtermenudiv,
 .e-grid.e-bigger .e-filtermenudiv {
-  margin: -20px -6px;
+  margin: -16.5px -6px;
 }
 
 .e-bigger .e-grid .e-sortfilterdiv,
@@ -1936,7 +1939,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-bigger .e-grid .e-gridheader .e-fltr-icon .e-sortfilterdiv,
 .e-grid.e-bigger .e-gridheader .e-fltr-icon .e-sortfilterdiv {
-  margin: -32px 18px -31px 0;
+  margin: -27.5px 18px -31px 0;
 }
 
 .e-bigger .e-grid .e-gridheader .e-columnheader.e-wrap .e-sortfilterdiv,
@@ -1984,7 +1987,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-bigger .e-grid .e-gridheader .e-rightalign .e-sortnumber,
 .e-grid.e-bigger .e-gridheader .e-rightalign .e-sortnumber {
   float: left;
-  margin: 3px 0 0 15px;
+  margin: 0.2px 0 0 15px;
 }
 
 .e-bigger .e-grid .e-sortnumber,
@@ -1995,14 +1998,14 @@ li.e-separator.e-menu-item.e-excel-separator {
   font-size: 9px;
   height: 16px;
   line-height: 16px;
-  margin: 3px 18px 0 2px;
+  margin: 0.5px 18px 0 2px;
   text-align: center;
   width: 16px;
 }
 
 .e-bigger .e-grid .e-gridheader .e-rightalign.e-fltr-icon .e-sortfilterdiv,
 .e-grid.e-bigger .e-gridheader .e-rightalign.e-fltr-icon .e-sortfilterdiv {
-  margin: -32px -20px 0 2px;
+  margin: -27.5px -20px -4px 2px;
 }
 
 .e-bigger .e-grid.e-rtl .e-headercell .e-sortfilterdiv,
@@ -2019,29 +2022,29 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-bigger .e-grid.e-rtl .e-gridheader .e-fltr-icon .e-sortfilterdiv,
 .e-grid.e-bigger.e-rtl .e-gridheader .e-fltr-icon .e-sortfilterdiv {
-  margin: -29px 0 0 14px;
+  margin: -27.5px 0 1.5px 14px;
 }
 
 .e-bigger .e-grid.e-rtl .e-gridheader .e-rightalign.e-fltr-icon .e-sortfilterdiv,
 .e-grid.e-bigger.e-rtl .e-gridheader .e-rightalign.e-fltr-icon .e-sortfilterdiv {
-  margin: -26px 0 0 18px;
+  margin: -27.5px 0 2px 18px;
 }
 
 .e-bigger .e-grid.e-rtl .e-filtermenudiv,
 .e-grid.e-bigger.e-rtl .e-filtermenudiv {
-  margin: -20px 0 -18px -38px;
+  margin: -18.5px 0 -18px -38px;
 }
 
 .e-bigger .e-grid.e-rtl .e-rightalign .e-filtermenudiv,
 .e-grid.e-bigger.e-rtl .e-rightalign .e-filtermenudiv {
-  margin: -20px 0 -18px -42px;
+  margin: -18.5px 0 -18px -42px;
 }
 
 .e-bigger .e-grid.e-rtl .e-headercell .e-headercelldiv .e-sortnumber,
 .e-bigger .e-grid.e-rtl .e-detailheadercell .e-headercelldiv .e-sortnumber,
 .e-grid.e-bigger.e-rtl .e-headercell .e-headercelldiv .e-sortnumber,
 .e-grid.e-bigger.e-rtl .e-detailheadercell .e-headercelldiv .e-sortnumber {
-  margin: 6px 0 0 33px;
+  margin: 0.5px 0 0 33px;
 }
 
 .e-bigger .e-grid .e-rowcell,
@@ -2119,7 +2122,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-bigger .e-grid .e-columnmenu,
 .e-grid.e-bigger .e-columnmenu {
-  right: 10px;
+  right: 23px;
 }
 
 .e-bigger .e-grid .e-groupheadercell,
@@ -2264,8 +2267,8 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid.e-bigger .e-unboundcell,
 .e-grid.e-bigger .e-editedrow .e-normaledit .e-unboundcell,
 .e-grid.e-bigger .e-addedrow .e-normaledit .e-unboundcell {
-  padding-bottom: 6px;
-  padding-top: 6px;
+  padding-bottom: 2.2px;
+  padding-top: 2.2px;
 }
 
 .e-bigger .e-grid .e-grouptext,
@@ -2449,7 +2452,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid .e-gridheader thead .e-icons:not(.e-check):not(.e-stop) {
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .e-grid .e-row .e-icon-rowdragicon::before {
@@ -2541,8 +2544,8 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-grid .e-res-toolbar .e-toolbar-items .e-toolbar-right .e-search-wrapper {
   width: 100%;
-  padding-left: 18px;
-  padding-right: 18px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .e-grid .e-res-toolbar .e-toolbar-items .e-toolbar-right .e-search-wrapper .e-search-icon {
@@ -3250,8 +3253,8 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-grid .e-filtermenudiv {
   float: right;
-  margin: -17px -7px;
-  padding: 6px;
+  margin: -15px -7px;
+  padding: 4px;
   text-align: right;
 }
 
@@ -3342,7 +3345,7 @@ li.e-separator.e-menu-item.e-excel-separator {
   position: absolute;
   right: 23px;
   float: right;
-  margin: -19px -27px -5px -19px;
+  margin: -19px -23px -23px 0;
   padding: 6px;
 }
 
@@ -3741,6 +3744,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-grid .e-groupdroparea {
   height: auto;
+  line-height: normal;
   min-height: 38px;
 }
 
@@ -3968,7 +3972,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-grid .e-toolbar-item.e-cc.e-ccdiv.e-cc-toolbar {
   margin-top: 0;
-  padding: 0;
+  padding: 4px;
 }
 
 .e-grid .e-edit-dialog .e-dlg-content {
@@ -4136,7 +4140,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-ccdlg .e-cc-searchdiv span.e-ccsearch-icon.e-icons {
   float: right;
   opacity: .6;
-  padding: 0 5px;
+  padding: 5px 5px;
 }
 
 .e-grid .e-ccdlg .e-cc-searchdiv span.e-ccsearch-icon.e-cc-cancel {
@@ -4176,9 +4180,9 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-ccdlg .e-cc.e-input,
 .e-grid .e-ccdlg .e-cc.e-input:focus {
   border: 0;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   padding-left: 4px;
-  padding-top: 6px;
+  padding-top: 5px;
 }
 
 .e-grid .e-checkboxfiltertext {
@@ -4345,7 +4349,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid.e-rtl .e-headercell .e-headercelldiv.e-headerchkcelldiv,
 .e-grid.e-rtl .e-detailheadercell .e-headercelldiv,
 .e-grid.e-rtl .e-detailheadercell .e-headercelldiv.e-headerchkcelldiv {
-  padding: 2px 0.4em 0 1.8em;
+  padding: 0 0.4em 0 1.8em;
   text-align: right;
 }
 
@@ -4354,7 +4358,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid.e-rtl .e-detailheadercell .e-headercelldiv .e-sortnumber,
 .e-grid.e-rtl .e-detailheadercell .e-headercelldiv.e-headerchkcelldiv .e-sortnumber {
   float: left;
-  margin: 0 0 0 31px;
+  margin: 0 0 0 17px;
 }
 
 .e-grid.e-rtl .e-headercell .e-filterbarcell input,
@@ -5611,7 +5615,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-grid .e-gridheader .e-headercontent .e-icon-reorderuparrow,
 .e-grid .e-gridheader .e-headercontent .e-icon-reorderdownarrow {
-  color: #6b7280;
+  color: #4f46e5;
 }
 
 .e-grid .e-groupdroparea .e-icons {

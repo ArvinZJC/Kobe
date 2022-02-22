@@ -1,28 +1,28 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.0.0.20220130
+ * @Version: 1.0.5.20220221
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-01-30 14:28:08
+ * @LastEditTime: 2022-02-21 15:32:31
  */
 
 import { app, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import settings from "electron-settings";
+import { platform } from "process";
 
-import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
 import { showPreferenceWin } from "./window.js";
+import * as zhCN from "../locales/zh-CN.json";
 
 /**
  * Set the app menu.
  * Reference: https://github.com/electron/electron/blob/main/lib/browser/api/menu-item-roles.ts
- * @param {boolean} isDev a flag indicating if the app is in the dev mode.
  */
-export function setAppMenu(isDev) {
+export function setAppMenu() {
   const menu = Menu.buildFromTemplate([
-    ...(process.platform === global.common.MACOS
+    ...(platform === global.common.MACOS
       ? [
           {
             label: app.name,
@@ -46,7 +46,7 @@ export function setAppMenu(isDev) {
               { type: global.common.SEPARATOR },
               {
                 label:
-                  process.platform === global.common.MACOS
+                  platform === global.common.MACOS
                     ? `${zhCN.default.quit}${app.name}`
                     : zhCN.default.quit,
                 role: "quit",
@@ -59,7 +59,7 @@ export function setAppMenu(isDev) {
       label: zhCN.default.fileMenu,
       role: "fileMenu",
       submenu:
-        process.platform === global.common.MACOS
+        platform === global.common.MACOS
           ? [{ label: zhCN.default.closeWin, role: "close" }]
           : [
               {
@@ -71,7 +71,7 @@ export function setAppMenu(isDev) {
               },
               {
                 label:
-                  process.platform === global.common.MACOS
+                  platform === global.common.MACOS
                     ? `${zhCN.default.quit} ${app.name}`
                     : zhCN.default.quit,
                 role: "quit",
@@ -88,7 +88,7 @@ export function setAppMenu(isDev) {
         { label: zhCN.default.cut, role: "cut" },
         { label: zhCN.default.copy, role: "copy" },
         { label: zhCN.default.paste, role: "paste" },
-        ...(process.platform === global.common.MACOS
+        ...(platform === global.common.MACOS
           ? [
               {
                 label: zhCN.default.pasteAndMatchStyle,
@@ -124,9 +124,6 @@ export function setAppMenu(isDev) {
         { label: zhCN.default.zoomOut, role: "zoomOut" },
         { type: global.common.SEPARATOR },
         { label: zhCN.default.enterFullScreen, role: "togglefullscreen" },
-        ...(isDev
-          ? [{ type: global.common.SEPARATOR }, { role: "toggleDevTools" }]
-          : []),
       ],
     },
     {
@@ -135,7 +132,7 @@ export function setAppMenu(isDev) {
       submenu: [
         { label: zhCN.default.minimise, role: "minimize" },
         { label: zhCN.default.zoom, role: "zoom" },
-        ...(process.platform === global.common.MACOS
+        ...(platform === global.common.MACOS
           ? [
               { type: global.common.SEPARATOR },
               { label: zhCN.default.bringAllToFront, role: "front" },
@@ -187,10 +184,9 @@ export function setAppMenu(isDev) {
  * Set the context menu.
  *
  * Reference: https://github.com/sindresorhus/electron-context-menu/blob/main/index.js
- * @param {boolean} isDev a flag indicating if the app is in the dev mode.
- * @param {BrowserWindow} win the window owning the context menu.
+ * @param {BrowserView} view the tab view owning the context menu.
  */
-export async function setContextMenu(isDev, win) {
+export async function setContextMenu(view) {
   const externalSearch = await settings.get(global.common.EXTERNAL_SEARCH_KEY);
   const showSearchWithBaidu = externalSearch === global.common.BAIDU_ID;
 
@@ -225,7 +221,7 @@ export async function setContextMenu(isDev, win) {
       },
       {
         accelerator:
-          process.platform === global.common.MACOS
+          platform === global.common.MACOS
             ? "Shift+CommandOrControl+Z"
             : "Control+Y",
         click: () => currentWin.webContents.redo(),
@@ -260,7 +256,7 @@ export async function setContextMenu(isDev, win) {
         visible: params.isEditable,
         label: zhCN.default.paste,
       },
-      process.platform === global.common.MACOS && {
+      platform === global.common.MACOS && {
         accelerator: "Cmd+Option+Shift+V",
         click: () => currentWin.webContents.pasteAndMatchStyle(),
         enabled: params.editFlags.canPaste,
@@ -293,8 +289,6 @@ export async function setContextMenu(isDev, win) {
         label: zhCN.default.forceReload,
       },
       actions.separator(),
-      isDev && actions.inspect(),
-      actions.separator(),
     ],
     labels: {
       copy: zhCN.default.copy,
@@ -305,6 +299,6 @@ export async function setContextMenu(isDev, win) {
       paste: zhCN.default.paste,
       searchWithGoogle: `${zhCN.default.use}${zhCN.default.google}${zhCN.default.search}“{selection}”`,
     },
-    window: win,
+    window: view,
   });
 } // end function setContextMenu

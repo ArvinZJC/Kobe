@@ -1,17 +1,16 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.1.20220217
+ * @Version: 1.0.4.20220222
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-17 12:59:49
+ * @LastEditTime: 2022-02-22 23:28:53
  */
 
 global.common = {
   ANIMATION_DURATION: 300,
   API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
   APP_SCHEME: "app",
-  APP_WIN_ID: "kobe-app",
   APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
   BOARD_LOT_1: 100,
@@ -20,6 +19,8 @@ global.common = {
   BOARD_LOT_1000: 100000,
   BOARD_LOT_10000: 1000000,
   BUTTON_GROUP: "buttonGroup",
+  CLOSE_TAB_ITEM: "close-tab",
+  CLOSE_WIN: "closeWin",
   CORRECT_WIN_COLOUR: "correctWinColour",
   DARK_MODE_ID: "dark",
   DARK_WIN_COLOUR: "#000",
@@ -39,17 +40,18 @@ global.common = {
   EXTERNAL_SEARCH_KEY: "externalSearch",
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
-  GET_APP_NAME: "getAppName",
   GET_APPEARANCE: "getAppearance",
-  GET_CONTENT_SIZE: "getContentSize",
   GET_DAY_VOLUME_DECIMAL_POINTS: "getDayVolumeDecimalPoints",
   GET_DAY_VOLUME_UNIT: "getDayVolumeUnit",
   GET_EXTERNAL_SEARCH: "getExternalSearch",
   GET_INCLUDE_HIDDEN_COLUMNS: "getIncludeHiddenColumns",
   GET_MAX_DATE_RANGE_SPAN: "getMaxDateRangeSpan",
   GET_MIN_DATE: "getMinDate",
+  GET_NEW_TAB_ITEM_ID: "getNewTabItemId",
+  GET_PLATFORM: "getPlatform",
   GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
+  GET_START_TAB_ITEM_ID: "getStartTabItemId",
   GET_STOCK_LIST: "getStockList",
   GET_TOTAL_VOLUME_DECIMAL_POINTS: "getTotalVolumeDecimalPoints",
   GET_TOTAL_VOLUME_UNIT: "getTotalVolumeUnit",
@@ -72,10 +74,12 @@ global.common = {
   MIN_DECIMAL_POINTS: 0,
   MIN_MAX_DATE_RANGE_SPAN: 1,
   MIN_MIN_DATE: "1990-12-03",
-  PREFERENCE_WIN_ID: "kobe-preferences",
+  NEW_TAB_ITEM: "new-tab",
+  NEW_TAB_ITEM_BUTTON_ID: "new-tab-item-button",
+  NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   PREFERENCE_VIEW: "preferences",
   PREFERENCE_VIEW_ID: "preference-view",
-  PROCESSOR_ERROR_KEY: "ProcessorError",
+  PROCESSOR_ERROR_KEY: "processorError",
   RESET_PREFERENCES: "resetPreferences",
   RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
     "dialogueResetPreferencesConfirmation",
@@ -132,13 +136,23 @@ global.common = {
   STOCK_SYMBOL_TOOLTIP_NAME: "tooltipStockSymbol",
   STRIKE_PRICE_KEY: "strikePrice",
   SWITCH: "switch",
+  SWITCH_TAB_ITEM: "switch-tab",
   SYSTEM_DEFAULT_MODE_ID: "system",
+  TAB_BAR_AREA_ID: "tab-bar-area",
+  TAB_BAR_HEIGHT: 40,
+  TAB_BAR_READY: "control-ready",
+  TAB_BAR_TAB_AREA_ID: "tab-bar-tab-area",
+  TAB_BAR_TABS_NAME: "tabsTabBar",
+  TAB_BAR_TABS_UPDATE: "tabs-update",
+  TAB_BAR_VIEW: "tabBar",
   TAG_KEY: "tag",
   TOTAL_VOLUME_DECIMAL_POINTS_KEY: "totalVolumeDecimalPoints",
   TOTAL_VOLUME_KEY: "totalVolume",
   TOTAL_VOLUME_UNIT_KEY: "totalVolumeUnit",
+  TRICK_CONTAINER_ID: "trick-container",
   TRICK_INPUT_ID: "trick-input",
   UNKNOWN: "Unknown",
+  WIN_CONTROL_AREA_ID: "win-control-area",
   WIN_HEIGHT_MIN: 600,
   WIN_WIDTH_MIN: 800,
   WINDOWS: "win32",

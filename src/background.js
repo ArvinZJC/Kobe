@@ -1,25 +1,22 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.2.20220210
+ * @Version: 1.0.7.20220221
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-10 16:36:25
+ * @LastEditTime: 2022-02-21 22:38:13
  */
 
 import { app, BrowserWindow, protocol } from "electron";
 import installExtension, { VUEJS3_DEVTOOLS } from "electron-devtools-installer";
 import electronDl from "electron-dl";
 import log from "electron-log";
+import { platform } from "process";
 
 import global from "./lib/global.js";
-import { initialisePreferences } from "./lib/preferences.js";
-import {
-  addTabbedAppWin,
-  createWin,
-  initialiseIpcMainListener,
-} from "./lib/window.js";
+import { createTabbedWin } from "./lib/window.js";
 import * as zhCN from "./locales/zh-CN.json";
+import * as stockList from "../extensions/stock-list/StockList.json";
 
 const isDev = process.env.NODE_ENV === global.common.DEV;
 
@@ -45,26 +42,25 @@ app.whenReady().then(async () => {
     } // end try...catch
   } // end if
 
-  await initialisePreferences();
-  initialiseIpcMainListener();
-  await createWin(global.common.APP_WIN_ID);
+  Array.prototype.forEach.call(stockList.default, (element, index, array) => {
+    const symbolParts = element[global.common.STOCK_SYMBOL_KEY].split("."); // Split the original value of the stock symbol key (e.g., "601006.SZ" => {"601006", "SZ"}).
+
+    array[index][global.common.STOCK_SYMBOL_KEY] =
+      symbolParts[1] + symbolParts[0];
+  }); // Process the stock list data from the specific JSON file.
+  await createTabbedWin(stockList.default);
 
   // Emitted when the app is activated.
   app.on("activate", async () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      await createWin(global.common.APP_WIN_ID); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
+      await createTabbedWin(stockList.default); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
     } // end if
-  });
-
-  // Emitted when the user clicks the native macOS new tab button.
-  app.on("new-window-for-tab", async () => {
-    await addTabbedAppWin();
   });
 });
 
 // Emitted when all windows have been closed.
 app.on("window-all-closed", () => {
-  if (process.platform !== global.common.MACOS) {
+  if (platform !== global.common.MACOS) {
     app.quit(); // Quit the app, except on macOS where the user quits the app explicitly with command + Q.
   } // end if
 });
@@ -73,7 +69,7 @@ app.setAboutPanelOptions({ credits: zhCN.default.appDescription });
 
 // Exit cleanly on any request from the parent process in the dev mode.
 if (isDev) {
-  if (process.platform === global.common.WINDOWS) {
+  if (platform === global.common.WINDOWS) {
     process.on("message", (data) => {
       if (data === "graceful-exit") {
         app.quit();
