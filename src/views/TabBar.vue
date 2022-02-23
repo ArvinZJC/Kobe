@@ -4,19 +4,16 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 13:53:56
+ * @LastEditTime: 2022-02-23 21:42:10
 -->
 
 <template>
-  <main
-    :id="global.common.TAB_BAR_AREA_ID"
-    class="container-view flex items-center overflow-hidden"
-  >
+  <main :id="global.common.TAB_BAR_AREA_ID" class="container-tab-bar">
     <!-- The window control area on macOS. -->
     <div
       v-if="platform === global.common.MACOS"
       :id="global.common.WIN_CONTROL_AREA_ID"
-      class="flex-none w-28"
+      class="flex-none w-20"
     />
     <!-- The tab bar tab area. -->
     <div :id="global.common.TAB_BAR_TAB_AREA_ID" class="grow">
@@ -35,6 +32,7 @@
           <e-tabitem
             :header="{ text: zhCN.default.newTabItem }"
             :id="startTabItemId"
+            cssClass="non-draggable-area"
           />
         </e-tabitems>
       </ejs-tab>
@@ -44,7 +42,7 @@
       @click="openNewTabItem"
       :id="global.common.NEW_TAB_ITEM_BUTTON_ID"
       :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
-      class="e-icons e-plus flex-none"
+      class="non-draggable-area e-icons e-plus flex-none"
     />
     <!-- The window control area on Windows. -->
     <div
@@ -112,7 +110,12 @@ export default {
         global.common.NEW_TAB_ITEM
       );
       this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.addTab(
-        [{ header: { text: zhCN.default.newTabItem } }],
+        [
+          {
+            cssClass: "non-draggable-area",
+            header: { text: zhCN.default.newTabItem },
+          },
+        ],
         newTabItemIndex
       );
       this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(

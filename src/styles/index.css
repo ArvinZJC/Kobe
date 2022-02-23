@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.0.1.20220221
+ * @Version: 1.1.0.20220223
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 14:45:57
+ * @LastEditTime: 2022-02-23 21:40:25
  */
 
 @tailwind base;
@@ -56,6 +56,12 @@
     @apply antialiased flex flex-col font-sans;
   }
 
+  /* Container for the tab bar. */
+  .container-tab-bar {
+    -webkit-app-region: drag;
+    @apply container-view bg-slate-800 flex items-center overflow-hidden;
+  }
+
   /* Container for a view. */
   .container-view {
     @apply grow min-h-screen relative;
@@ -82,6 +88,11 @@
   /* Endpoint of the float-up animation. */
   .float-up {
     @apply opacity-100 translate-y-0;
+  }
+
+  /* Non-draggable area in the frameless window's draggable area. */
+  .non-draggable-area {
+    -webkit-app-region: no-drag;
   }
 
   /* Horizontal padding for a general block. */

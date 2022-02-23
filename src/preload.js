@@ -1,18 +1,17 @@
 /*
  * @Description: the preload script
- * @Version: 1.1.0.20220222
+ * @Version: 1.1.0.20220223
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 14:03:57
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-22 22:46:45
+ * @LastEditTime: 2022-02-23 17:38:25
  */
 
 import { contextBridge, ipcRenderer } from "electron";
 
 import global from "./lib/global.js";
 
-// Expose protected methods that allow the renderer process to use the ipcRenderer without exposing the entire object.
-// Reference: https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration
+// Expose protected methods that allow the renderer process to use the ipcRenderer without exposing the entire object. Reference: https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration
 contextBridge.exposeInMainWorld(global.common.IPC_RENDERER_API_KEY, {
   receive: (channel, func) => {
     if (

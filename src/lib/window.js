@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.0.20220222
+ * @Version: 2.0.0.20220223
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 14:33:56
+ * @LastEditTime: 2022-02-23 21:41:28
  */
 
 import {
@@ -57,8 +57,12 @@ export async function createTabbedWin(stockList) {
     center: true,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
-    titleBarOverlay: { color: "#2f3241", symbolColor: "#74b1be", height: 10 },
-    titleBarStyle: "hidden",
+    titleBarOverlay: {
+      color: global.common.TITLE_BAR_OVERLAY_COLOUR,
+      height: global.common.TAB_BAR_HEIGHT,
+      symbolColor: global.common.LIGHT_WIN_COLOUR,
+    },
+    titleBarStyle: platform === global.common.MACOS ? "hiddenInset" : "hidden",
   };
   const winWidth = Math.round(width * 0.7);
   var tabbedWin = new TabbedWindow({

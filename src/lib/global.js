@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 00:39:56
+ * @LastEditTime: 2022-02-23 18:21:35
  */
 
 global.common = {
@@ -148,6 +148,7 @@ global.common = {
   TAB_BAR_TABS_UPDATE: "tabs-update",
   TAB_BAR_VIEW: "tabBar",
   TAG_KEY: "tag",
+  TITLE_BAR_OVERLAY_COLOUR: "#1e293b",
   TOTAL_VOLUME_DECIMAL_POINTS_KEY: "totalVolumeDecimalPoints",
   TOTAL_VOLUME_KEY: "totalVolume",
   TOTAL_VOLUME_UNIT_KEY: "totalVolumeUnit",

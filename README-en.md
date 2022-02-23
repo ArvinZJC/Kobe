@@ -25,37 +25,37 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 22 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 23 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
 2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on Windows 7 and later (arm64, x64, and x86), and macOS 10.11 (El Capitan) and later (arm64 and x64).
 3. The primary dependencies of the project are listed in the following table. For more information, please refer to [`package.json`](./package.json).
 
-   | Name                             |  Version   |
-   | :------------------------------- | :--------: |
-   | @heroicons/vue                   |   1.0.5    |
-   | @syncfusion/ej2-vue-buttons      |  19.4.53   |
-   | @syncfusion/ej2-vue-calendars    |  19.4.52   |
-   | @syncfusion/ej2-vue-dropdowns    |  19.4.52   |
-   | @syncfusion/ej2-vue-grids        |  19.4.53   |
-   | @syncfusion/ej2-vue-inputs       |  19.4.52   |
-   | @syncfusion/ej2-vue-navigations  |  19.4.53   |
-   | @syncfusion/ej2-vue-popups       |  19.4.53   |
-   | @syncfusion/ej2-vue-splitbuttons |  19.4.52   |
-   | cldr-data                        |   36.0.0   |
-   | electron                         |   17.0.1   |
-   | electron-context-menu            |   3.1.2    |
-   | electron-devtools-installer      |   3.2.0    |
-   | electron-fetch                   |   1.7.4    |
-   | electron-log                     |   4.4.5    |
-   | electron-settings                |   4.0.2    |
-   | electron-updater                 |   4.6.1    |
-   | htmlparser2                      |   7.2.0    |
-   | iconv-lite                       |   0.6.3    |
-   | smoothscroll-polyfill            |   0.4.4    |
-   | tailwindcss                      |   3.0.23   |
-   | vue                              |   3.2.31   |
-   | vue-class-component              | 8.0.0-rc.1 |
-   | vue-cli-plugin-electron-builder  |   2.1.1    |
-   | vue-router                       |   4.0.12   |
+   | Name                             |    Version     |
+   | :------------------------------- | :------------: |
+   | @heroicons/vue                   |     1.0.5      |
+   | @syncfusion/ej2-vue-buttons      |    19.4.53     |
+   | @syncfusion/ej2-vue-calendars    |    19.4.52     |
+   | @syncfusion/ej2-vue-dropdowns    |    19.4.52     |
+   | @syncfusion/ej2-vue-grids        |    19.4.53     |
+   | @syncfusion/ej2-vue-inputs       |    19.4.52     |
+   | @syncfusion/ej2-vue-navigations  |    19.4.53     |
+   | @syncfusion/ej2-vue-popups       |    19.4.53     |
+   | @syncfusion/ej2-vue-splitbuttons |    19.4.52     |
+   | cldr-data                        |     36.0.0     |
+   | electron                         | 18.0.0-alpha.3 |
+   | electron-context-menu            |     3.1.2      |
+   | electron-devtools-installer      |     3.2.0      |
+   | electron-fetch                   |     1.7.4      |
+   | electron-log                     |     4.4.5      |
+   | electron-settings                |     4.0.2      |
+   | electron-updater                 |     4.6.1      |
+   | htmlparser2                      |     7.2.0      |
+   | iconv-lite                       |     0.6.3      |
+   | smoothscroll-polyfill            |     0.4.4      |
+   | tailwindcss                      |     3.0.23     |
+   | vue                              |     3.2.31     |
+   | vue-class-component              |   8.0.0-rc.1   |
+   | vue-cli-plugin-electron-builder  |     2.1.1      |
+   | vue-router                       |     4.0.12     |
 
 4. A part of SVG resources in this project are from [Flaticon](https://www.flaticon.com/packs/font-awesome) and [Iconscout](https://iconscout.com/).
 5. Vue CLI is a necessary dependency of this project. Assuming the terminal is opened in the project's root directory, the project could be run locally following the steps below using npm.
