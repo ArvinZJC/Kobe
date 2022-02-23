@@ -1,10 +1,10 @@
 /*
  * @Description: the tabbed window builder
- * @Version: 1.0.0.20220221
+ * @Version: 1.0.0.20220223
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-22 23:06:24
+ * @LastEditTime: 2022-02-23 00:47:50
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow).
@@ -171,7 +171,7 @@ export class TabbedWindow extends EventEmitter {
 
     if (view) {
       view.webContents.destroy();
-      this.views[viewId] = undefined;
+      this.views[viewId] = null;
     } // end if
   } // end function destoryView
 
@@ -360,7 +360,7 @@ export class TabbedWindow extends EventEmitter {
         this.tabs = this.tabs.filter((v) => v !== id);
         this.tabConfigs = {
           ...this.tabConfigs,
-          [id]: undefined,
+          [id]: null,
         };
         this.destroyView(id);
       },
@@ -378,7 +378,7 @@ export class TabbedWindow extends EventEmitter {
         this.emit("control-ready", e);
       },
       "new-tab": async (e, url, references) => {
-        await this.newTab(url, undefined, references);
+        await this.newTab(url, null, references);
       },
       "switch-tab": (e, id) => {
         this.switchTab(id);

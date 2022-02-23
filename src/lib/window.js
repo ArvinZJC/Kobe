@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-22 23:32:31
+ * @LastEditTime: 2022-02-23 14:33:56
  */
 
 import {
@@ -57,6 +57,8 @@ export async function createTabbedWin(stockList) {
     center: true,
     minHeight: global.common.WIN_HEIGHT_MIN,
     minWidth: global.common.WIN_WIDTH_MIN,
+    titleBarOverlay: { color: "#2f3241", symbolColor: "#74b1be", height: 10 },
+    titleBarStyle: "hidden",
   };
   const winWidth = Math.round(width * 0.7);
   var tabbedWin = new TabbedWindow({

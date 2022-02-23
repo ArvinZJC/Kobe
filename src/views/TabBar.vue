@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.0.0.20220222
+ * @Version: 1.0.0.20220223
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-22 23:39:15
+ * @LastEditTime: 2022-02-23 13:53:56
 -->
 
 <template>
@@ -12,14 +12,12 @@
     :id="global.common.TAB_BAR_AREA_ID"
     class="container-view flex items-center overflow-hidden"
   >
-    <!-- The window controls on macOS. -->
+    <!-- The window control area on macOS. -->
     <div
       v-if="platform === global.common.MACOS"
       :id="global.common.WIN_CONTROL_AREA_ID"
-      class="flex-none"
-    >
-      macOS window controls
-    </div>
+      class="flex-none w-28"
+    />
     <!-- The tab bar tab area. -->
     <div :id="global.common.TAB_BAR_TAB_AREA_ID" class="grow">
       <!-- The tab component. -->
@@ -48,14 +46,12 @@
       :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
       class="e-icons e-plus flex-none"
     />
-    <!-- The window controls on Windows. -->
+    <!-- The window control area on Windows. -->
     <div
       v-if="platform === global.common.WINDOWS"
       :id="global.common.WIN_CONTROL_AREA_ID"
-      class="flex-none"
-    >
-      Windows window controls
-    </div>
+      class="flex-none w-36"
+    />
   </main>
 </template>
 
