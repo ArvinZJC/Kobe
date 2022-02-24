@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 13:46:00
+ * @LastEditTime: 2022-02-24 22:51:34
  */
 
 import {
@@ -22,7 +22,7 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
 import * as zhCN from "../locales/zh-CN.json";
 import global from "./global.js";
-import { setAppMenu } from "./menu.js";
+import { getInitialAppMenuTemplate, setAppMenu } from "./menu.js";
 import {
   getPreference,
   initialisePreferences,
@@ -85,12 +85,43 @@ export async function createTabbedWin(stockList) {
   });
 
   initialiseIpcMainListener(stockList, tabbedWin);
-  setAppMenu(tabbedWin); // TODO: the app menu need refactoring (e.g., reload, resize, ...)
-  // TODO: the context menu need refactoring (e.g., reload)
+  setAppMenu(tabbedWin);
   tabbedWin.on("closed", () => {
     tabbedWin = null;
   });
-  tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
+  tabbedWin.win.on("enter-full-screen", () => {
+    const appMenuTemplate = getInitialAppMenuTemplate(tabbedWin);
+
+    if (platform === global.common.MACOS) {
+      appMenuTemplate[3].submenu[3].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
+    } else {
+      appMenuTemplate[2].submenu[3].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
+    } // end if...else
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
+    tabbedWin.controlView.webContents.send(
+      global.common.IPC_RECEIVE,
+      global.common.ENTER_FULL_SCREEN
+    );
+  });
+  tabbedWin.win.on("leave-full-screen", () => {
+    setAppMenu(tabbedWin);
+    tabbedWin.controlView.webContents.send(
+      global.common.IPC_RECEIVE,
+      global.common.EXIT_FULL_SCREEN
+    );
+  });
+
+  if (platform === global.common.WINDOWS) {
+    tabbedWin.win.on("maximize", () => {
+      const appMenuTemplate = getInitialAppMenuTemplate(tabbedWin);
+
+      appMenuTemplate[3].submenu[1].label = zhCN.default.restore;
+      Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
+    });
+    tabbedWin.win.on("restore", () => setAppMenu(tabbedWin));
+    tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
+  } // end if
 } // end function createTabbedWin
 
 /**

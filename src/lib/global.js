@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 14:46:54
+ * @LastEditTime: 2022-02-24 22:52:25
  */
 
 global.common = {
@@ -39,6 +39,8 @@ global.common = {
   DEV: "development",
   DROP_DOWN_LIST: "dropDownList",
   END_DATE_KEY: "endDate",
+  ENTER_FULL_SCREEN: "enterFullScreen",
+  EXIT_FULL_SCREEN: "exitFullScreen",
   EXTERNAL_SEARCH_KEY: "externalSearch",
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,

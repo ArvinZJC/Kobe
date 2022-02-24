@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.1.0.20220224
+ * @Version: 2.0.0.20220224
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 01:37:50
+ * @LastEditTime: 2022-02-24 22:34:30
  */
 
 import { app, Menu, shell } from "electron";
@@ -17,19 +17,39 @@ import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
 /**
- * Set the app menu.
+ * Get the initial app menu template.
+ * Most accelerators are needed to specify to show on the app menu on Windows.
  * Reference: https://github.com/electron/electron/blob/main/lib/browser/api/menu-item-roles.ts
  * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the initial app menu template.
  */
-export function setAppMenu(tabbedWin) {
-  const menu = Menu.buildFromTemplate([
+export function getInitialAppMenuTemplate(tabbedWin) {
+  const menuItemAbout = {
+    label: `${zhCN.default.about}${app.name}`,
+    role: "about",
+  };
+  const menuItemDelete = {
+    click: () => {
+      tabbedWin.currentWebContents.delete();
+    },
+    label: zhCN.default.delete,
+  };
+  const menuItemSelectAll = {
+    accelerator: "CommandOrControl+A",
+    click: () => {
+      tabbedWin.currentWebContents.selectAll();
+    },
+    label: zhCN.default.selectAll,
+  };
+
+  return [
     ...(platform === global.common.MACOS
       ? [
           {
             label: app.name,
             role: "appMenu",
             submenu: [
-              { label: `${zhCN.default.about}${app.name}`, role: "about" },
+              menuItemAbout,
               { type: global.common.SEPARATOR },
               {
                 accelerator: "CommandOrControl+,",
@@ -83,20 +103,60 @@ export function setAppMenu(tabbedWin) {
       label: zhCN.default.editMenu,
       role: "editMenu",
       submenu: [
-        { label: zhCN.default.undo, role: "undo" },
-        { label: zhCN.default.redo, role: "redo" },
+        {
+          accelerator: "CommandOrControl+Z",
+          click: () => {
+            tabbedWin.currentWebContents.undo();
+          },
+          label: zhCN.default.undo,
+        },
+        {
+          accelerator:
+            platform === global.common.MACOS
+              ? "Shift+CommandOrControl+Z"
+              : "Control+Y",
+          click: () => {
+            tabbedWin.currentWebContents.redo();
+          },
+          label: zhCN.default.redo,
+        },
         { type: global.common.SEPARATOR },
-        { label: zhCN.default.cut, role: "cut" },
-        { label: zhCN.default.copy, role: "copy" },
-        { label: zhCN.default.paste, role: "paste" },
+        {
+          accelerator: "CommandOrControl+X",
+          click: () => {
+            tabbedWin.currentWebContents.cut();
+          },
+          label: zhCN.default.cut,
+          registerAccelerator: false,
+        },
+        {
+          accelerator: "CommandOrControl+C",
+          click: () => {
+            tabbedWin.currentWebContents.copy();
+          },
+          label: zhCN.default.copy,
+          registerAccelerator: false,
+        },
+        {
+          accelerator: "CommandOrControl+V",
+          click: () => {
+            tabbedWin.currentWebContents.paste();
+          },
+          label: zhCN.default.paste,
+          registerAccelerator: false,
+        },
         ...(platform === global.common.MACOS
           ? [
               {
+                accelerator: "Cmd+Option+Shift+V",
+                click: () => {
+                  tabbedWin.currentWebContents.pasteAndMatchStyle();
+                },
                 label: zhCN.default.pasteAndMatchStyle,
-                role: "pasteAndMatchStyle",
+                registerAccelerator: false,
               },
-              { label: zhCN.default.delete, role: "delete" },
-              { label: zhCN.default.selectAll, role: "selectAll" },
+              menuItemDelete,
+              menuItemSelectAll,
               { type: global.common.SEPARATOR },
               {
                 label: zhCN.default.speech,
@@ -107,9 +167,9 @@ export function setAppMenu(tabbedWin) {
               },
             ]
           : [
-              { label: zhCN.default.delete, role: "delete" },
+              menuItemDelete,
               { type: global.common.SEPARATOR },
-              { label: zhCN.default.selectAll, role: "selectAll" },
+              menuItemSelectAll,
             ]),
       ],
     },
@@ -117,28 +177,63 @@ export function setAppMenu(tabbedWin) {
       label: zhCN.default.viewMenu,
       role: "viewMenu",
       submenu: [
-        { label: zhCN.default.reload, role: "reload" },
-        { label: zhCN.default.forceReload, role: "forceReload" },
+        {
+          accelerator: "CmdOrCtrl+R",
+          click: () => {
+            tabbedWin.currentWebContents.reload();
+          },
+          label: zhCN.default.reload,
+          nonNativeMacOSRole: true,
+        },
+        {
+          accelerator: "Shift+CmdOrCtrl+R",
+          click: () => {
+            tabbedWin.currentWebContents.reloadIgnoringCache();
+          },
+          label: zhCN.default.forceReload,
+          nonNativeMacOSRole: true,
+        },
         { type: global.common.SEPARATOR },
-        { label: zhCN.default.actualSize, role: "resetZoom" },
-        { label: zhCN.default.zoomIn, role: "zoomIn" },
-        { label: zhCN.default.zoomOut, role: "zoomOut" },
-        { type: global.common.SEPARATOR },
-        { label: zhCN.default.enterFullScreen, role: "togglefullscreen" },
+        {
+          accelerator:
+            platform === global.common.MACOS ? "Control+Command+F" : "F11",
+          click: () => {
+            tabbedWin.win.setFullScreen(!tabbedWin.win.isFullScreen());
+          },
+          label: `${zhCN.default.enter}${zhCN.default.fullScreen}`,
+        },
       ],
     },
     {
       label: zhCN.default.windowMenu,
       role: "windowMenu",
       submenu: [
-        { label: zhCN.default.minimise, role: "minimize" },
-        { label: zhCN.default.zoom, role: "zoom" },
+        {
+          accelerator: "CommandOrControl+M",
+          label: zhCN.default.minimise,
+          role: "minimize",
+        },
         ...(platform === global.common.MACOS
           ? [
+              { label: zhCN.default.zoom, role: "zoom" },
               { type: global.common.SEPARATOR },
               { label: zhCN.default.bringAllToFront, role: "front" },
             ]
-          : [{ label: zhCN.default.closeWin, role: "close" }]),
+          : [
+              {
+                click: () => {
+                  tabbedWin.win.isMaximized()
+                    ? tabbedWin.win.restore()
+                    : tabbedWin.win.maximize();
+                },
+                label: zhCN.default.maximise,
+              },
+              {
+                accelerator: "CommandOrControl+W",
+                label: zhCN.default.closeWin,
+                role: "close",
+              },
+            ]),
       ],
     },
     {
@@ -147,7 +242,7 @@ export function setAppMenu(tabbedWin) {
       submenu: [
         {
           enabled: false,
-          label: zhCN.default.officialWebsite,
+          label: `${app.name}${zhCN.default.website}`,
         },
         {
           enabled: false,
@@ -174,11 +269,21 @@ export function setAppMenu(tabbedWin) {
           },
           label: zhCN.default.releaseNotes,
         },
+        { type: global.common.SEPARATOR },
+        ...(platform === global.common.WINDOWS ? [menuItemAbout] : []),
       ],
     },
-  ]);
+  ];
+} // end function getInitialAppMenuTemplate
 
-  Menu.setApplicationMenu(menu);
+/**
+ * Set the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ */
+export function setAppMenu(tabbedWin) {
+  Menu.setApplicationMenu(
+    Menu.buildFromTemplate(getInitialAppMenuTemplate(tabbedWin))
+  );
 } // end function setAppMenu
 
 /**
@@ -215,7 +320,7 @@ export async function setContextMenu(view) {
       actions.separator(),
       {
         accelerator: "CommandOrControl+Z",
-        click: () => currentWin.webContents.undo(),
+        click: () => view.webContents.undo(),
         enabled: params.editFlags.canUndo,
         visible: params.isEditable,
         label: zhCN.default.undo,
@@ -225,7 +330,7 @@ export async function setContextMenu(view) {
           platform === global.common.MACOS
             ? "Shift+CommandOrControl+Z"
             : "Control+Y",
-        click: () => currentWin.webContents.redo(),
+        click: () => view.webContents.redo(),
         enabled: params.editFlags.canRedo,
         visible: params.isEditable,
         label: zhCN.default.redo,
@@ -235,7 +340,7 @@ export async function setContextMenu(view) {
       actions.separator(),
       {
         accelerator: "CommandOrControl+X",
-        click: () => currentWin.webContents.cut(),
+        click: () => view.webContents.cut(),
         enabled: params.editFlags.canCut,
         registerAccelerator: false,
         visible: params.isEditable,
@@ -243,7 +348,7 @@ export async function setContextMenu(view) {
       },
       {
         accelerator: "CommandOrControl+C",
-        click: () => currentWin.webContents.copy(),
+        click: () => view.webContents.copy(),
         enabled: params.editFlags.canCopy,
         registerAccelerator: false,
         visible: params.isEditable || params.selectionText.length > 0,
@@ -251,7 +356,7 @@ export async function setContextMenu(view) {
       },
       {
         accelerator: "CommandOrControl+V",
-        click: () => currentWin.webContents.paste(),
+        click: () => view.webContents.paste(),
         enabled: params.editFlags.canPaste,
         registerAccelerator: false,
         visible: params.isEditable,
@@ -259,21 +364,21 @@ export async function setContextMenu(view) {
       },
       platform === global.common.MACOS && {
         accelerator: "Cmd+Option+Shift+V",
-        click: () => currentWin.webContents.pasteAndMatchStyle(),
+        click: () => view.webContents.pasteAndMatchStyle(),
         enabled: params.editFlags.canPaste,
         registerAccelerator: false,
         visible: params.isEditable,
         label: zhCN.default.pasteAndMatchStyle,
       },
       {
-        click: () => currentWin.webContents.delete(),
+        click: () => view.webContents.delete(),
         enabled: params.editFlags.canDelete,
         visible: params.isEditable,
         label: zhCN.default.delete,
       },
       {
         accelerator: "CommandOrControl+A",
-        click: () => currentWin.webContents.selectAll(),
+        click: () => view.webContents.selectAll(),
         enabled: params.editFlags.canSelectAll,
         visible: params.isEditable || params.selectionText.length > 0,
         label: zhCN.default.selectAll,
@@ -281,12 +386,12 @@ export async function setContextMenu(view) {
       actions.separator(),
       {
         accelerator: "CmdOrCtrl+R",
-        click: () => currentWin.reload(),
+        click: () => view.webContents.reload(),
         label: zhCN.default.reload,
       },
       {
         accelerator: "Shift+CmdOrCtrl+R",
-        click: () => currentWin.webContents.reloadIgnoringCache(),
+        click: () => view.webContents.reloadIgnoringCache(),
         label: zhCN.default.forceReload,
       },
       actions.separator(),
