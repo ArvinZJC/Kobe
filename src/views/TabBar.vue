@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.0.0.20220223
+ * @Version: 1.0.0.20220224
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 21:42:10
+ * @LastEditTime: 2022-02-24 09:38:41
 -->
 
 <template>
@@ -37,13 +37,25 @@
         </e-tabitems>
       </ejs-tab>
     </div>
-    <!-- The button for opening a new tab item. -->
-    <button
-      @click="openNewTabItem"
-      :id="global.common.NEW_TAB_ITEM_BUTTON_ID"
-      :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
-      class="non-draggable-area e-icons e-plus flex-none"
-    />
+    <!-- The tab bar button area. -->
+    <div :id="global.common.TAB_BAR_BUTTON_AREA_ID" class="flex">
+      <!-- Preserved for ensuring the frameless window's dragging area. -->
+      <div class="w-10" />
+      <!-- The button for opening a new tab item. -->
+      <button
+        @click="openNewTabItem(null)"
+        :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
+        class="btn-tab-bar e-icons e-plus mr-2"
+      />
+      <!-- The button for opening the app menu. -->
+      <button
+        @click="popUpAppMenu"
+        v-if="platform === global.common.WINDOWS"
+        :id="global.common.APP_MENU_BUTTON_ID"
+        :title="`${zhCN.default.open}${zhCN.default.appMenu}`"
+        class="btn-tab-bar e-icons e-menu"
+      />
+    </div>
     <!-- The window control area on Windows. -->
     <div
       v-if="platform === global.common.WINDOWS"
@@ -101,18 +113,23 @@ export default {
 
     /**
      * Open a new tab item.
+     * @param {string} url the URL to load.
      */
-    openNewTabItem() {
+    openNewTabItem(url) {
       const newTabItemIndex =
         this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items.length;
 
       window[global.common.IPC_RENDERER_API_KEY].send(
-        global.common.NEW_TAB_ITEM
+        global.common.NEW_TAB_ITEM,
+        url
       );
       this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.addTab(
         [
           {
-            cssClass: "non-draggable-area",
+            cssClass:
+              "non-draggable-area" + url.includes(global.common.PREFERENCE_VIEW)
+                ? ` ${global.common.PREFERENCE_VIEW_ID}`
+                : "",
             header: { text: zhCN.default.newTabItem },
           },
         ],
@@ -131,6 +148,27 @@ export default {
         newTabItemId
       );
     }, // end function openNewTabItem
+
+    popUpAppMenu() {
+      const appMenuButton = document.getElementById(
+        global.common.APP_MENU_BUTTON_ID
+      );
+
+      if (appMenuButton != null) {
+        const appMenuButtonRect = appMenuButton.getBoundingClientRect();
+        const appMenuPosition = {};
+
+        appMenuPosition[global.common.TAG_KEY] = global.common.POP_UP_APP_MENU;
+        appMenuPosition[global.common.APP_MENU_POSITION_KEY] = {
+          x: appMenuButtonRect.left,
+          y: appMenuButtonRect.bottom + 1,
+        };
+        window[global.common.IPC_RENDERER_API_KEY].send(
+          global.common.IPC_SEND,
+          appMenuPosition
+        );
+      } // end if
+    }, // end function popUpAppMenu
 
     /**
      * Select a tab item.
@@ -155,22 +193,22 @@ export default {
      * Update the tab bar tab width.
      */
     updateTabBarTabWidth() {
-      const newTabItemButton = document.getElementById(
-        global.common.NEW_TAB_ITEM_BUTTON_ID
-      );
       const tabBarArea = document.getElementById(global.common.TAB_BAR_AREA_ID);
+      const tabBarButtonArea = document.getElementById(
+        global.common.TAB_BAR_BUTTON_AREA_ID
+      );
       const winControlArea = document.getElementById(
         global.common.WIN_CONTROL_AREA_ID
       );
 
       if (
-        newTabItemButton != null &&
         tabBarArea != null &&
+        tabBarButtonArea != null &&
         winControlArea != null
       ) {
         this.tabBarTabWidth =
           tabBarArea.offsetWidth -
-          newTabItemButton.offsetWidth -
+          tabBarButtonArea.offsetWidth -
           winControlArea.offsetWidth; // Using the tab bar tab area's width is inapplicable.
       } // end if
     }, // end function updateTabBarTabWidth
@@ -226,6 +264,39 @@ export default {
         ) {
           this.platform = data[global.common.GET_PLATFORM];
           this.updateTabBarTabWidth();
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.SHOW_PREFERENCE_TAB_ITEM
+          )
+        ) {
+          var preferenceTabItemIndex = null;
+
+          for (
+            var i = 0;
+            i <
+            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items
+              .length;
+            i++
+          ) {
+            if (
+              this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
+                i
+              ].cssClass.includes(global.common.PREFERENCE_VIEW_ID)
+            ) {
+              preferenceTabItemIndex = i;
+              break;
+            } // end if
+          } // end for
+
+          preferenceTabItemIndex == null
+            ? this.openNewTabItem(data[global.common.SHOW_PREFERENCE_TAB_ITEM])
+            : this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(
+                preferenceTabItemIndex
+              );
         } // end if
       }
     );

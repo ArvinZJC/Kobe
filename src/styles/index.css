@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.0.20220223
+ * @Version: 1.1.0.20220224
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 21:40:25
+ * @LastEditTime: 2022-02-24 02:33:28
  */
 
 @tailwind base;
@@ -30,6 +30,11 @@
   /* Round button. */
   .btn-round {
     @apply bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-400 dark:hover:bg-cyan-500 flex h-8 items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-cyan-400 focus:ring-offset-2 dark:focus:ring-offset-black rounded-full text-white dark:text-black w-8;
+  }
+
+  /* Button on the tab bar. */
+  .btn-tab-bar {
+    @apply non-draggable-area motion-safe:transition-colours-300 focus:bg-gray-600 hover:bg-gray-700 flex-none h-8 rounded text-white w-8;
   }
 
   /* Container for a bottom bar. */
@@ -59,7 +64,7 @@
   /* Container for the tab bar. */
   .container-tab-bar {
     -webkit-app-region: drag;
-    @apply container-view bg-slate-800 flex items-center overflow-hidden;
+    @apply container-view bg-slate-900 flex items-center overflow-hidden;
   }
 
   /* Container for a view. */
@@ -146,6 +151,11 @@
     @apply duration-300 transition;
   }
 
+  /* Transition for some colour properties within 300ms. */
+  .transition-colours-300 {
+    @apply duration-300 transition-colors;
+  }
+
   /* Transition for the opacity property within 300ms. */
   .transition-opacity-300 {
     @apply duration-300 transition-opacity;
@@ -167,11 +177,6 @@
   @apply !fixed !max-h-fit;
 }
 
-/* The customised tab item style. */
-.e-tab .e-tab-header .e-toolbar-item:not(.e-separator) {
-  @apply px-block;
-}
-
 /* The customised tab item text area style. */
 .e-tab .e-tab-header .e-toolbar-item .e-icon-left + .e-tab-text {
   @apply !mb-0;
@@ -184,7 +189,39 @@
 
 /* The customised horizontal tab header style. */
 .e-tab .e-tab-header:not(.e-vertical) {
-  @apply !border-b-0;
+  @apply border-b-0;
+}
+
+/* The customised responsive horizontal tab header style. */
+.e-tab .e-tab-header:not(.e-vertical) .e-scroll-nav:focus .e-nav-arrow:hover,
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow:hover,
+.e-tab
+  .e-tab-header:not(.e-vertical)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover,
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover {
+  @apply !bg-gray-700;
+}
+
+/* The customised horizontal tab item close icon style. */
+.e-tab
+  .e-tab-header:not(.e-vertical)
+  .e-toolbar-item
+  .e-close-icon:not(:hover) {
+  @apply text-gray-400 dark:text-gray-300;
+}
+
+/* The customised horizontal tab item text wrap style. */
+.e-tab .e-tab-header:not(.e-vertical) .e-toolbar-item .e-tab-wrap {
+  @apply pl-2.5 pr-0.5 text-gray-400 dark:text-gray-300;
 }
 
 /* The customised vertical tab header style. */
@@ -192,7 +229,12 @@
   @apply border-gray-200 dark:border-gray-600;
 }
 
-/* The customised tab item container style. */
+/* The customised vertical tab item style. */
+.e-tab .e-tab-header.e-vertical .e-toolbar-item:not(.e-separator) {
+  @apply px-block;
+}
+
+/* The customised vertical tab item container style. */
 .e-tab .e-tab-header.e-vertical .e-toolbar-item .e-tab-wrap {
   @apply !px-0;
 }

@@ -1,15 +1,17 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.5.20220223
+ * @Version: 1.0.6.20220224
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 18:21:35
+ * @LastEditTime: 2022-02-24 02:09:26
  */
 
 global.common = {
   ANIMATION_DURATION: 300,
   API_ACCESS_DENIED_PAGE_TITLE: "拒绝访问",
+  APP_MENU_BUTTON_ID: "app-menu-button",
+  APP_MENU_POSITION_KEY: "appMenuPosition",
   APP_SCHEME: "app",
   APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
@@ -75,8 +77,8 @@ global.common = {
   MIN_MAX_DATE_RANGE_SPAN: 1,
   MIN_MIN_DATE: "1990-12-03",
   NEW_TAB_ITEM: "new-tab",
-  NEW_TAB_ITEM_BUTTON_ID: "new-tab-item-button",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
+  POP_UP_APP_MENU: "popUpAppMenu",
   PREFERENCE_VIEW: "preferences",
   PREFERENCE_VIEW_ID: "preference-view",
   PROCESSOR_ERROR_KEY: "processorError",
@@ -128,6 +130,7 @@ global.common = {
   SF_TAILWIND_DARK: "tailwind-dark",
   SF_TOOLBAR_CLASSES: "e-control e-toolbar",
   SHARE_1: 1,
+  SHOW_PREFERENCE_TAB_ITEM: "showPreferenceTabItem",
   SLIDER: "slider",
   SMOOTH_SCROLL: "smooth",
   STABLE_MODE_ID: "stable",
@@ -141,6 +144,7 @@ global.common = {
   SWITCH_TAB_ITEM: "switch-tab",
   SYSTEM_DEFAULT_MODE_ID: "system",
   TAB_BAR_AREA_ID: "tab-bar-area",
+  TAB_BAR_BUTTON_AREA_ID: "tab-bar-button-area",
   TAB_BAR_HEIGHT: 40,
   TAB_BAR_READY: "control-ready",
   TAB_BAR_TAB_AREA_ID: "tab-bar-tab-area",
@@ -148,7 +152,7 @@ global.common = {
   TAB_BAR_TABS_UPDATE: "tabs-update",
   TAB_BAR_VIEW: "tabBar",
   TAG_KEY: "tag",
-  TITLE_BAR_OVERLAY_COLOUR: "#1e293b",
+  TITLE_BAR_OVERLAY_COLOUR: "#0f172a",
   TOTAL_VOLUME_DECIMAL_POINTS_KEY: "totalVolumeDecimalPoints",
   TOTAL_VOLUME_KEY: "totalVolume",
   TOTAL_VOLUME_UNIT_KEY: "totalVolumeUnit",

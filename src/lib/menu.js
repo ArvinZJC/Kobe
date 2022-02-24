@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 1.0.5.20220221
+ * @Version: 1.1.0.20220224
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 15:32:31
+ * @LastEditTime: 2022-02-24 01:37:50
  */
 
 import { app, Menu, shell } from "electron";
@@ -13,14 +13,15 @@ import settings from "electron-settings";
 import { platform } from "process";
 
 import global from "./global.js";
-import { showPreferenceWin } from "./window.js";
+import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
 /**
  * Set the app menu.
  * Reference: https://github.com/electron/electron/blob/main/lib/browser/api/menu-item-roles.ts
+ * @param {TabbedWindow} tabbedWin a tabbed window.
  */
-export function setAppMenu() {
+export function setAppMenu(tabbedWin) {
   const menu = Menu.buildFromTemplate([
     ...(platform === global.common.MACOS
       ? [
@@ -32,8 +33,8 @@ export function setAppMenu() {
               { type: global.common.SEPARATOR },
               {
                 accelerator: "CommandOrControl+,",
-                click: async () => {
-                  await showPreferenceWin();
+                click: () => {
+                  showPreferenceTabItem(tabbedWin);
                 },
                 label: zhCN.default.preferences,
               },
@@ -64,8 +65,8 @@ export function setAppMenu() {
           : [
               {
                 accelerator: "CommandOrControl+,",
-                click: async () => {
-                  await showPreferenceWin();
+                click: () => {
+                  showPreferenceTabItem(tabbedWin);
                 },
                 label: zhCN.default.preferences,
               },
@@ -146,7 +147,7 @@ export function setAppMenu() {
       submenu: [
         {
           enabled: false,
-          label: zhCN.default.appHomePage,
+          label: zhCN.default.officialWebsite,
         },
         {
           enabled: false,

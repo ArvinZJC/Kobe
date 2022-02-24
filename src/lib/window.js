@@ -1,15 +1,16 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.0.20220223
+ * @Version: 2.0.0.20220224
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 21:41:28
+ * @LastEditTime: 2022-02-24 09:40:29
  */
 
 import {
   BrowserWindow,
   ipcMain,
+  Menu,
   nativeTheme,
   screen,
   webContents,
@@ -84,9 +85,8 @@ export async function createTabbedWin(stockList) {
   });
 
   initialiseIpcMainListener(stockList, tabbedWin);
-  setAppMenu(); // TODO: the app menu need refactoring (e.g., reload, resize, ...)
+  setAppMenu(tabbedWin); // TODO: the app menu need refactoring (e.g., reload, resize, ...)
   // TODO: the context menu need refactoring (e.g., reload)
-  tabbedWin.win.setMenuBarVisibility(true); // TODO: Hide the menu bar on Windows.
   tabbedWin.on("closed", () => {
     tabbedWin = null;
   });
@@ -122,6 +122,12 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
           );
 
           viewContents.send(global.common.IPC_RECEIVE, searchResultData);
+          break;
+        }
+        case global.common.POP_UP_APP_MENU: {
+          Menu.getApplicationMenu().popup(
+            data[global.common.APP_MENU_POSITION_KEY]
+          );
           break;
         }
         case global.common.SET_APPEARANCE: {
@@ -353,8 +359,24 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
 } // end function initialiseIpcMainListener
 
 /**
- * Create a preference window if it does not exist. Otherwise, focus on the existing preference window.
+ * Open a preference tab item if it does not exist. Otherwise, focus on the existing preference tab item.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
  */
-export async function showPreferenceWin() {
-  // TODO:
-} // end function showPreferenceWin
+export function showPreferenceTabItem(tabbedWin) {
+  var baseUrl;
+  const preferenceTabItemUrl = {};
+
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    baseUrl = process.env.WEBPACK_DEV_SERVER_URL;
+  } else {
+    baseUrl = `${global.common.APP_SCHEME}://./index.html`;
+  } // end if...else
+
+  preferenceTabItemUrl[
+    global.common.SHOW_PREFERENCE_TAB_ITEM
+  ] = `${baseUrl}/#/${global.common.PREFERENCE_VIEW}`;
+  tabbedWin.controlView.webContents.send(
+    global.common.IPC_RECEIVE,
+    preferenceTabItemUrl
+  );
+} // end function showPreferenceTabItem
