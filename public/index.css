@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 14:21:03
+ * @LastEditTime: 2022-02-24 19:25:40
  */
 
 /*
@@ -928,32 +928,12 @@ body::selection {
   width: 1rem;
 }
 
-.w-fit {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.\!w-fit {
-  width: -webkit-fit-content !important;
-  width: -moz-fit-content !important;
-  width: fit-content !important;
-}
-
 .max-w-md {
   max-width: 28rem;
 }
 
 .max-w-sm {
   max-width: 24rem;
-}
-
-.max-w-4xl {
-  max-width: 56rem;
-}
-
-.max-w-5xl {
-  max-width: 64rem;
 }
 
 .max-w-\[60rem\] {
@@ -1374,6 +1354,11 @@ body::selection {
   border-right-width: 0px !important;
 }
 
+.e-hscroll .e-scroll-nav {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
+}
+
 /* Force the pop-up height and position to be fixed. */
 
 .e-popup-fixed {
@@ -1381,6 +1366,12 @@ body::selection {
   max-height: -webkit-fit-content !important;
   max-height: -moz-fit-content !important;
   max-height: fit-content !important;
+}
+
+/* The customised left vertical tab style. */
+
+.e-tab.e-vertical-tab.e-vertical-left {
+  height: 100vh !important;
 }
 
 /* The customised tab item text area style. */
@@ -1399,24 +1390,6 @@ body::selection {
 
 .e-tab .e-tab-header:not(.e-vertical) {
   border-bottom-width: 0px;
-}
-
-/* The customised responsive horizontal tab header style. */
-
-.e-tab .e-tab-header:not(.e-vertical) .e-scroll-nav:focus .e-nav-arrow:hover, .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow:hover, .e-tab
-  .e-tab-header:not(.e-vertical)
-  .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover, .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
 }
 
 /* The customised horizontal tab item close icon style. */
@@ -1491,10 +1464,58 @@ body::selection {
   padding-right: 0px !important;
 }
 
-/* The customised left vertical tab style. */
+/* The customised tab scroll bar style.  */
 
-.e-tab.e-vertical-tab.e-vertical-left {
-  height: 100vh !important;
+.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow:hover, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav:focus, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow:hover {
+  background-color: transparent !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(79 70 229 / var(--tw-text-opacity)) !important;
+}
+
+.dark .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow:hover, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav:focus, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(34 211 238 / var(--tw-text-opacity)) !important;
+}
+
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
+  --tw-text-opacity: 1 !important;
+  color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
