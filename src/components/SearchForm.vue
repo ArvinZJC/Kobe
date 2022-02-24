@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.4.20220221
+ * @Version: 1.0.5.20220224
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 13:48:55
+ * @LastEditTime: 2022-02-24 20:42:40
 -->
 
 <template>
@@ -21,8 +21,12 @@
     >
       <div :class="[hasBarLayout ? 'w-7' : 'w-24 sm:w-32 lg:w-48']">
         <img
-          :class="[hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40']"
+          :class="[
+            'select-none',
+            hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40',
+          ]"
           alt="App icon"
+          draggable="false"
           src="../assets/AppIcon.png"
         />
       </div>
