@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 09:40:29
+ * @LastEditTime: 2022-02-24 13:46:00
  */
 
 import {
@@ -90,6 +90,7 @@ export async function createTabbedWin(stockList) {
   tabbedWin.on("closed", () => {
     tabbedWin = null;
   });
+  tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
 } // end function createTabbedWin
 
 /**
