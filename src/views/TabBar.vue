@@ -4,14 +4,14 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 12:07:10
+ * @LastEditTime: 2022-02-24 23:05:29
 -->
 
 <template>
   <main :id="global.common.TAB_BAR_AREA_ID" class="container-tab-bar">
     <!-- The window control area on macOS. -->
     <div
-      v-if="platform === global.common.MACOS"
+      v-if="platform === global.common.MACOS && !isFullScreen"
       :id="global.common.WIN_CONTROL_AREA_ID"
       class="flex-none w-20"
     />
@@ -51,14 +51,14 @@
       <button
         @click="popUpAppMenu"
         v-if="platform === global.common.WINDOWS"
+        :class="['btn-tab-bar e-icons e-menu', isFullScreen ? 'mr-2' : '']"
         :id="global.common.APP_MENU_BUTTON_ID"
         :title="`${zhCN.default.open}${zhCN.default.appMenu}`"
-        class="btn-tab-bar e-icons e-menu"
       />
     </div>
     <!-- The window control area on Windows. -->
     <div
-      v-if="platform === global.common.WINDOWS"
+      v-if="platform === global.common.WINDOWS && !isFullScreen"
       :id="global.common.WIN_CONTROL_AREA_ID"
       class="flex-none w-36"
     />
@@ -198,9 +198,9 @@ export default {
       const tabBarButtonArea = document.getElementById(
         global.common.TAB_BAR_BUTTON_AREA_ID
       );
-      const winControlArea = document.getElementById(
-        global.common.WIN_CONTROL_AREA_ID
-      );
+      const winControlArea = this.isFullScreen
+        ? { offsetWidth: 0 }
+        : document.getElementById(global.common.WIN_CONTROL_AREA_ID);
 
       if (
         tabBarArea != null &&
@@ -236,6 +236,7 @@ export default {
   data() {
     return {
       global,
+      isFullScreen: false,
       platform: global.common.UNKNOWN,
       startTabItemId: null,
       tabBarTabWidth: "100%",
@@ -246,6 +247,14 @@ export default {
     window[global.common.IPC_RENDERER_API_KEY].receive(
       global.common.IPC_RECEIVE,
       (data) => {
+        if (data === global.common.ENTER_FULL_SCREEN) {
+          this.isFullScreen = true;
+        } // end if
+
+        if (data === global.common.EXIT_FULL_SCREEN) {
+          this.isFullScreen = false;
+        } // end if
+
         if (
           typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(
