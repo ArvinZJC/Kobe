@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 17:46:23
+ * @LastEditTime: 2022-02-24 14:48:23
 -->
 
 <template>
@@ -34,6 +34,7 @@
       :fields="{ text: 'text', value: 'value' }"
       :ref="options.id"
       :value="value"
+      :width="global.common.MAX_PREFERENCE_OPTION_WIDTH"
     />
     <!-- Slider preference options. -->
     <ejs-slider
@@ -50,6 +51,7 @@
         smallStep: options.smallStep,
       }"
       :value="value"
+      :width="global.common.MAX_PREFERENCE_OPTION_WIDTH"
     />
     <!-- Switch preference options. -->
     <ejs-switch
@@ -77,6 +79,7 @@
         :ref="options.id"
         :showClearButton="false"
         :value="value"
+        :width="global.common.MAX_PREFERENCE_OPTION_WIDTH"
       />
     </ejs-tooltip>
   </div>

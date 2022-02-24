@@ -1,15 +1,15 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.1.20220219
+ * @Version: 1.0.4.20220224
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-19 20:40:17
+ * @LastEditTime: 2022-02-24 15:35:30
 -->
 
 <template>
   <main :id="global.common.PREFERENCE_VIEW_ID" class="container-view">
-    <div class="h-screen">
+    <div class="h-screen max-w-[60rem]">
       <!-- The preference tab component. -->
       <ejs-tab
         :animation="{
@@ -24,6 +24,7 @@
             easing: global.common.EASE,
           },
         }"
+        :ref="global.common.PREFERENCE_TABS_NAME"
         headerPlacement="Left"
       >
         <e-tabitems>
@@ -162,6 +163,23 @@ export default {
   },
   mounted() {
     document.title = zhCN.default.preferences;
+    window.addEventListener("load", () => {
+      for (const indicator of document.getElementsByClassName(
+        global.common.SF_INDICATOR_CLASS
+      )) {
+        const tabItemStyles = getComputedStyle(
+          this.$refs[global.common.PREFERENCE_TABS_NAME].ej2Instances.tbItem[0]
+        );
+
+        indicator.style.height = `${
+          parseInt(tabItemStyles.borderBottomWidth) +
+          parseInt(tabItemStyles.borderTopWidth) +
+          this.$refs[global.common.PREFERENCE_TABS_NAME].ej2Instances.tbItem[0]
+            .clientHeight
+        }px`;
+        indicator.style.top = 0;
+      } // end for
+    }); // Set the styles of the first tab item's indicator after loading the view to avoid possible strange appearance.
   },
 };
 </script>

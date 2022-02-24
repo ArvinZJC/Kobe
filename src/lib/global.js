@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.6.20220224
+ * @Version: 1.0.7.20220224
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 02:09:26
+ * @LastEditTime: 2022-02-24 14:46:54
  */
 
 global.common = {
@@ -70,6 +70,7 @@ global.common = {
   MAX_DATE_RANGE_SPAN_KEY: "maxDateRangeSpan",
   MAX_DECIMAL_POINTS: 6,
   MAX_MAX_DATE_RANGE_SPAN: 8,
+  MAX_PREFERENCE_OPTION_WIDTH: 215,
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE_KEY: "minDate",
   MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
@@ -79,6 +80,7 @@ global.common = {
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   POP_UP_APP_MENU: "popUpAppMenu",
+  PREFERENCE_TABS_NAME: "preferenceTabs",
   PREFERENCE_VIEW: "preferences",
   PREFERENCE_VIEW_ID: "preference-view",
   PROCESSOR_ERROR_KEY: "processorError",
@@ -118,6 +120,7 @@ global.common = {
   SF_ERROR_CLASS: "e-error",
   SF_FADE_IN: "FadeIn",
   SF_GRID_STACKED_HEADER_CLASSES: "e-gridheader e-stackedheader",
+  SF_INDICATOR_CLASS: "e-indicator",
   SF_MENU: "Menu",
   SF_MOVABLE_CONTENT_CLASS: "e-movablecontent",
   SF_MULTIPLE: "Multiple",

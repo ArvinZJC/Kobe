@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 02:33:28
+ * @LastEditTime: 2022-02-24 14:21:03
  */
 
 /*
@@ -740,6 +740,8 @@ body::selection {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1rem;
   overflow: auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   padding-left: 1rem !important;
   padding-right: 1rem !important;
 }
@@ -755,25 +757,6 @@ body::selection {
   .container-preferences {
     padding-left: 2rem !important;
     padding-right: 2rem !important;
-  }
-}
-
-.container-preferences {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-@media (min-width: 640px) {
-  .container-preferences {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-preferences {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
   }
 }
 
@@ -933,8 +916,8 @@ body::selection {
   width: 5rem;
 }
 
-.w-5 {
-  width: 1.25rem;
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-36 {
@@ -945,8 +928,16 @@ body::selection {
   width: 1rem;
 }
 
-.w-10 {
-  width: 2.5rem;
+.w-fit {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.\!w-fit {
+  width: -webkit-fit-content !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
 }
 
 .max-w-md {
@@ -955,6 +946,18 @@ body::selection {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+.max-w-5xl {
+  max-width: 64rem;
+}
+
+.max-w-\[60rem\] {
+  max-width: 60rem;
 }
 
 .flex-none {
