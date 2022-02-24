@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 09:38:41
+ * @LastEditTime: 2022-02-24 12:07:10
 -->
 
 <template>
@@ -116,6 +116,7 @@ export default {
      * @param {string} url the URL to load.
      */
     openNewTabItem(url) {
+      var cssClass = "non-draggable-area";
       const newTabItemIndex =
         this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items.length;
 
@@ -123,16 +124,16 @@ export default {
         global.common.NEW_TAB_ITEM,
         url
       );
+
+      if (
+        typeof url === "string" &&
+        url.includes(global.common.PREFERENCE_VIEW)
+      ) {
+        cssClass += ` ${global.common.PREFERENCE_VIEW_ID}`;
+      } // end if
+
       this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.addTab(
-        [
-          {
-            cssClass:
-              "non-draggable-area" + url.includes(global.common.PREFERENCE_VIEW)
-                ? ` ${global.common.PREFERENCE_VIEW_ID}`
-                : "",
-            header: { text: zhCN.default.newTabItem },
-          },
-        ],
+        [{ cssClass, header: { text: zhCN.default.newTabItem } }],
         newTabItemIndex
       );
       this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(
