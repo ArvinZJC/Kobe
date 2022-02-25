@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 13:05:03
+ * @LastEditTime: 2022-02-25 14:12:56
 -->
 
 <template>
@@ -195,7 +195,6 @@ export default {
      * Update the tab bar tab width.
      */
     updateTabBarTabWidth() {
-      console.log(1);
       const tabBarArea = document.getElementById(global.common.TAB_BAR_AREA_ID);
       const tabBarButtonArea = document.getElementById(
         global.common.TAB_BAR_BUTTON_AREA_ID
