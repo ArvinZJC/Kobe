@@ -121,7 +121,7 @@
            },
            {
              // Windows 下不可构建 macOS 桌面应用，所以 Windows 下不可配置此部分。
-             "name": "electron: production for macOS",
+             "name": "electron: macOS production",
              "request": "launch",
              "runtimeArgs": ["run", "electron:build", "--", "-m"],
              "runtimeExecutable": "npm",
@@ -129,25 +129,17 @@
              "type": "node"
            },
            {
-             "name": "electron: production for Win ARM64",
+             "name": "electron: Windows production",
              "request": "launch",
-             "runtimeArgs": ["run", "electron:build", "--", "-w", "--arm64"],
-             "runtimeExecutable": "npm",
-             "skipFiles": ["<node_internals>/**"],
-             "type": "node"
-           },
-           {
-             "name": "electron: production for Win x64",
-             "request": "launch",
-             "runtimeArgs": ["run", "electron:build", "--", "-w", "--x64"],
-             "runtimeExecutable": "npm",
-             "skipFiles": ["<node_internals>/**"],
-             "type": "node"
-           },
-           {
-             "name": "electron: production for Win x86",
-             "request": "launch",
-             "runtimeArgs": ["run", "electron:build", "--", "-w", "--ia32"],
+             "runtimeArgs": [
+               "run",
+               "electron:build",
+               "--",
+               "-w",
+               "--arm64",
+               "--x64"
+               "--ia32"
+             ],
              "runtimeExecutable": "npm",
              "skipFiles": ["<node_internals>/**"],
              "type": "node"
