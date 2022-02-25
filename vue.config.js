@@ -1,10 +1,10 @@
 /*
  * @Description: Vue configuration
- * @Version: 1.0.2.20220207
+ * @Version: 1.0.3.20220225
  * @Author: Arvin Zhao
  * @Date: 2021-12-09 00:57:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-07 22:17:38
+ * @LastEditTime: 2022-02-25 23:06:59
  */
 
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     electronBuilder: {
       builderOptions: {
         appId: "com.isarvin.kobe",
-        buildVersion: "1",
+        generateUpdatesFilesForAllChannels: true,
         mac: {
           category: "public.app-category.utilities",
           target: [
