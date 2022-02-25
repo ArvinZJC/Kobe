@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.0.20220224
+ * @Version: 2.0.0.20220225
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 22:34:30
+ * @LastEditTime: 2022-02-25 11:34:39
  */
 
 import { app, Menu, shell } from "electron";
@@ -16,6 +16,11 @@ import global from "./global.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
+const menuItemAboutTemplate = {
+  label: `${zhCN.default.about}${app.name}`,
+  role: "about",
+};
+
 /**
  * Get the initial app menu template.
  * Most accelerators are needed to specify to show on the app menu on Windows.
@@ -24,17 +29,68 @@ import * as zhCN from "../locales/zh-CN.json";
  * @returns the initial app menu template.
  */
 export function getInitialAppMenuTemplate(tabbedWin) {
-  const menuItemAbout = {
-    label: `${zhCN.default.about}${app.name}`,
-    role: "about",
+  return [
+    ...(platform === global.common.MACOS
+      ? [getMenuAppTemplate(tabbedWin)]
+      : []),
+    getMenuFileTemplate(tabbedWin),
+    getMenuEditTemplate(tabbedWin),
+    getMenuViewTemplate(tabbedWin),
+    getMenuWindowTemplate(tabbedWin),
+    getMenuHelpTemplate(tabbedWin),
+  ];
+} // end function getInitialAppMenuTemplate
+
+/**
+ * Get the template of the app section in the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the template of the app section in the app menu.
+ */
+function getMenuAppTemplate(tabbedWin) {
+  return {
+    label: app.name,
+    role: "appMenu",
+    submenu: [
+      menuItemAboutTemplate,
+      { type: global.common.SEPARATOR },
+      {
+        accelerator: "CommandOrControl+,",
+        click: () => {
+          showPreferenceTabItem(tabbedWin);
+        },
+        label: zhCN.default.preferences,
+      },
+      { type: global.common.SEPARATOR },
+      { label: zhCN.default.services, role: "services" },
+      { type: global.common.SEPARATOR },
+      { label: `${zhCN.default.hide}${app.name}`, role: "hide" },
+      { label: zhCN.default.hideOthers, role: "hideOthers" },
+      { label: zhCN.default.showAll, role: "unhide" },
+      { type: global.common.SEPARATOR },
+      {
+        label:
+          platform === global.common.MACOS
+            ? `${zhCN.default.quit}${app.name}`
+            : zhCN.default.quit,
+        role: "quit",
+      },
+    ],
   };
-  const menuItemDelete = {
+} // end function getMenuAppTemplate
+
+/**
+ * Get the template of the edit section in the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the template of the edit section in the app menu.
+ */
+function getMenuEditTemplate(tabbedWin) {
+  const menuItemDeleteTemplate = {
     click: () => {
       tabbedWin.currentWebContents.delete();
     },
     label: zhCN.default.delete,
   };
-  const menuItemSelectAll = {
+  const menuItemSelectAllTemplate = {
     accelerator: "CommandOrControl+A",
     click: () => {
       tabbedWin.currentWebContents.selectAll();
@@ -42,239 +98,260 @@ export function getInitialAppMenuTemplate(tabbedWin) {
     label: zhCN.default.selectAll,
   };
 
-  return [
-    ...(platform === global.common.MACOS
-      ? [
-          {
-            label: app.name,
-            role: "appMenu",
-            submenu: [
-              menuItemAbout,
-              { type: global.common.SEPARATOR },
-              {
-                accelerator: "CommandOrControl+,",
-                click: () => {
-                  showPreferenceTabItem(tabbedWin);
-                },
-                label: zhCN.default.preferences,
+  return {
+    label: zhCN.default.editMenu,
+    role: "editMenu",
+    submenu: [
+      {
+        accelerator: "CommandOrControl+Z",
+        click: () => {
+          tabbedWin.currentWebContents.undo();
+        },
+        label: zhCN.default.undo,
+      },
+      {
+        accelerator:
+          platform === global.common.MACOS
+            ? "Shift+CommandOrControl+Z"
+            : "Control+Y",
+        click: () => {
+          tabbedWin.currentWebContents.redo();
+        },
+        label: zhCN.default.redo,
+      },
+      { type: global.common.SEPARATOR },
+      {
+        accelerator: "CommandOrControl+X",
+        click: () => {
+          tabbedWin.currentWebContents.cut();
+        },
+        label: zhCN.default.cut,
+        registerAccelerator: false,
+      },
+      {
+        accelerator: "CommandOrControl+C",
+        click: () => {
+          tabbedWin.currentWebContents.copy();
+        },
+        label: zhCN.default.copy,
+        registerAccelerator: false,
+      },
+      {
+        accelerator: "CommandOrControl+V",
+        click: () => {
+          tabbedWin.currentWebContents.paste();
+        },
+        label: zhCN.default.paste,
+        registerAccelerator: false,
+      },
+      ...(platform === global.common.MACOS
+        ? [
+            {
+              accelerator: "Cmd+Option+Shift+V",
+              click: () => {
+                tabbedWin.currentWebContents.pasteAndMatchStyle();
               },
-              { type: global.common.SEPARATOR },
-              { label: zhCN.default.services, role: "services" },
-              { type: global.common.SEPARATOR },
-              { label: `${zhCN.default.hide}${app.name}`, role: "hide" },
-              { label: zhCN.default.hideOthers, role: "hideOthers" },
-              { label: zhCN.default.showAll, role: "unhide" },
-              { type: global.common.SEPARATOR },
-              {
-                label:
-                  platform === global.common.MACOS
-                    ? `${zhCN.default.quit}${app.name}`
-                    : zhCN.default.quit,
-                role: "quit",
+              label: zhCN.default.pasteAndMatchStyle,
+              registerAccelerator: false,
+            },
+            menuItemDeleteTemplate,
+            menuItemSelectAllTemplate,
+            { type: global.common.SEPARATOR },
+            {
+              label: zhCN.default.speech,
+              submenu: [
+                { label: zhCN.default.startSpeaking, role: "startSpeaking" },
+                { label: zhCN.default.stopSpeaking, role: "stopSpeaking" },
+              ],
+            },
+          ]
+        : [
+            menuItemDeleteTemplate,
+            { type: global.common.SEPARATOR },
+            menuItemSelectAllTemplate,
+          ]),
+    ],
+  };
+} // end function getMenuEditTemplate
+
+/**
+ * Get the template of the file section in the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the template of the file section in the app menu.
+ */
+function getMenuFileTemplate(tabbedWin) {
+  return {
+    label: zhCN.default.fileMenu,
+    role: "fileMenu",
+    submenu:
+      platform === global.common.MACOS
+        ? [{ label: zhCN.default.closeWin, role: "close" }]
+        : [
+            {
+              accelerator: "CommandOrControl+,",
+              click: () => {
+                showPreferenceTabItem(tabbedWin);
               },
-            ],
-          },
-        ]
-      : []),
-    {
-      label: zhCN.default.fileMenu,
-      role: "fileMenu",
-      submenu:
-        platform === global.common.MACOS
-          ? [{ label: zhCN.default.closeWin, role: "close" }]
-          : [
-              {
-                accelerator: "CommandOrControl+,",
-                click: () => {
-                  showPreferenceTabItem(tabbedWin);
-                },
-                label: zhCN.default.preferences,
+              label: zhCN.default.preferences,
+            },
+            {
+              label:
+                platform === global.common.MACOS
+                  ? `${zhCN.default.quit} ${app.name}`
+                  : zhCN.default.quit,
+              role: "quit",
+            },
+          ],
+  };
+} // end function getMenuFileTemplate
+
+/**
+ * Get the template of the help section in the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the template of the help section in the app menu.
+ */
+function getMenuHelpTemplate(tabbedWin) {
+  return {
+    label: zhCN.default.help,
+    role: "help",
+    submenu: [
+      {
+        enabled: false,
+        label: `${app.name}${zhCN.default.website}`,
+      },
+      {
+        enabled: false,
+        label: zhCN.default.userManual,
+      },
+      { type: global.common.SEPARATOR },
+      {
+        click: async () => {
+          await shell.openExternal("https://github.com/ArvinZJC/Kobe");
+        },
+        label: zhCN.default.githubRepo,
+      },
+      {
+        click: async () => {
+          await shell.openExternal("https://github.com/ArvinZJC/Kobe/issues");
+        },
+        label: zhCN.default.viewIssues,
+      },
+      {
+        click: async () => {
+          await shell.openExternal("https://github.com/ArvinZJC/Kobe/releases");
+        },
+        label: zhCN.default.releaseNotes,
+      },
+      { type: global.common.SEPARATOR },
+      ...(platform === global.common.WINDOWS ? [menuItemAboutTemplate] : []),
+      ...(process.env.NODE_ENV === global.common.DEV
+        ? [
+            { type: global.common.SEPARATOR },
+            {
+              click: () => {
+                tabbedWin.controlView.webContents.isDevToolsOpened()
+                  ? tabbedWin.controlView.webContents.closeDevTools()
+                  : tabbedWin.controlView.webContents.openDevTools({
+                      mode: "detach",
+                    });
               },
-              {
-                label:
-                  platform === global.common.MACOS
-                    ? `${zhCN.default.quit} ${app.name}`
-                    : zhCN.default.quit,
-                role: "quit",
+              label: "Toggle Tab Bar's Dev Tools",
+            },
+            {
+              accelerator:
+                platform === global.common.MACOS
+                  ? "Alt+Command+I"
+                  : "Ctrl+Shift+I",
+              click: () => {
+                tabbedWin.currentWebContents.toggleDevTools();
               },
-            ],
-    },
-    {
-      label: zhCN.default.editMenu,
-      role: "editMenu",
-      submenu: [
-        {
-          accelerator: "CommandOrControl+Z",
-          click: () => {
-            tabbedWin.currentWebContents.undo();
-          },
-          label: zhCN.default.undo,
+              label: "Toggle Active Tab's Dev Tools",
+              nonNativeMacOSRole: true,
+            },
+          ]
+        : []),
+    ],
+  };
+} // end function getMenuHelpTemplate
+
+/**
+ * Get the template of the view section in the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the template of the view section in the app menu.
+ */
+function getMenuViewTemplate(tabbedWin) {
+  return {
+    label: zhCN.default.viewMenu,
+    role: "viewMenu",
+    submenu: [
+      {
+        accelerator: "CmdOrCtrl+R",
+        click: () => {
+          tabbedWin.currentWebContents.reload();
         },
-        {
-          accelerator:
-            platform === global.common.MACOS
-              ? "Shift+CommandOrControl+Z"
-              : "Control+Y",
-          click: () => {
-            tabbedWin.currentWebContents.redo();
-          },
-          label: zhCN.default.redo,
+        label: zhCN.default.reload,
+        nonNativeMacOSRole: true,
+      },
+      {
+        accelerator: "Shift+CmdOrCtrl+R",
+        click: () => {
+          tabbedWin.currentWebContents.reloadIgnoringCache();
         },
-        { type: global.common.SEPARATOR },
-        {
-          accelerator: "CommandOrControl+X",
-          click: () => {
-            tabbedWin.currentWebContents.cut();
-          },
-          label: zhCN.default.cut,
-          registerAccelerator: false,
+        label: zhCN.default.forceReload,
+        nonNativeMacOSRole: true,
+      },
+      { type: global.common.SEPARATOR },
+      {
+        accelerator:
+          platform === global.common.MACOS ? "Control+Command+F" : "F11",
+        click: () => {
+          tabbedWin.win.setFullScreen(!tabbedWin.win.isFullScreen());
         },
-        {
-          accelerator: "CommandOrControl+C",
-          click: () => {
-            tabbedWin.currentWebContents.copy();
-          },
-          label: zhCN.default.copy,
-          registerAccelerator: false,
-        },
-        {
-          accelerator: "CommandOrControl+V",
-          click: () => {
-            tabbedWin.currentWebContents.paste();
-          },
-          label: zhCN.default.paste,
-          registerAccelerator: false,
-        },
-        ...(platform === global.common.MACOS
-          ? [
-              {
-                accelerator: "Cmd+Option+Shift+V",
-                click: () => {
-                  tabbedWin.currentWebContents.pasteAndMatchStyle();
-                },
-                label: zhCN.default.pasteAndMatchStyle,
-                registerAccelerator: false,
+        label: `${zhCN.default.enter}${zhCN.default.fullScreen}`,
+      },
+    ],
+  };
+} // end function getMenuViewTemplate
+
+/**
+ * Get the template of the window section in the app menu.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @returns the template of the window section in the app menu.
+ */
+function getMenuWindowTemplate(tabbedWin) {
+  return {
+    label: zhCN.default.windowMenu,
+    role: "windowMenu",
+    submenu: [
+      {
+        accelerator: "CommandOrControl+M",
+        label: zhCN.default.minimise,
+        role: "minimize",
+      },
+      ...(platform === global.common.MACOS
+        ? [
+            { label: zhCN.default.zoom, role: "zoom" },
+            { type: global.common.SEPARATOR },
+            { label: zhCN.default.bringAllToFront, role: "front" },
+          ]
+        : [
+            {
+              click: () => {
+                tabbedWin.win.isMaximized()
+                  ? tabbedWin.win.restore()
+                  : tabbedWin.win.maximize();
               },
-              menuItemDelete,
-              menuItemSelectAll,
-              { type: global.common.SEPARATOR },
-              {
-                label: zhCN.default.speech,
-                submenu: [
-                  { label: zhCN.default.startSpeaking, role: "startSpeaking" },
-                  { label: zhCN.default.stopSpeaking, role: "stopSpeaking" },
-                ],
-              },
-            ]
-          : [
-              menuItemDelete,
-              { type: global.common.SEPARATOR },
-              menuItemSelectAll,
-            ]),
-      ],
-    },
-    {
-      label: zhCN.default.viewMenu,
-      role: "viewMenu",
-      submenu: [
-        {
-          accelerator: "CmdOrCtrl+R",
-          click: () => {
-            tabbedWin.currentWebContents.reload();
-          },
-          label: zhCN.default.reload,
-          nonNativeMacOSRole: true,
-        },
-        {
-          accelerator: "Shift+CmdOrCtrl+R",
-          click: () => {
-            tabbedWin.currentWebContents.reloadIgnoringCache();
-          },
-          label: zhCN.default.forceReload,
-          nonNativeMacOSRole: true,
-        },
-        { type: global.common.SEPARATOR },
-        {
-          accelerator:
-            platform === global.common.MACOS ? "Control+Command+F" : "F11",
-          click: () => {
-            tabbedWin.win.setFullScreen(!tabbedWin.win.isFullScreen());
-          },
-          label: `${zhCN.default.enter}${zhCN.default.fullScreen}`,
-        },
-      ],
-    },
-    {
-      label: zhCN.default.windowMenu,
-      role: "windowMenu",
-      submenu: [
-        {
-          accelerator: "CommandOrControl+M",
-          label: zhCN.default.minimise,
-          role: "minimize",
-        },
-        ...(platform === global.common.MACOS
-          ? [
-              { label: zhCN.default.zoom, role: "zoom" },
-              { type: global.common.SEPARATOR },
-              { label: zhCN.default.bringAllToFront, role: "front" },
-            ]
-          : [
-              {
-                click: () => {
-                  tabbedWin.win.isMaximized()
-                    ? tabbedWin.win.restore()
-                    : tabbedWin.win.maximize();
-                },
-                label: zhCN.default.maximise,
-              },
-              {
-                accelerator: "CommandOrControl+W",
-                label: zhCN.default.closeWin,
-                role: "close",
-              },
-            ]),
-      ],
-    },
-    {
-      label: zhCN.default.help,
-      role: "help",
-      submenu: [
-        {
-          enabled: false,
-          label: `${app.name}${zhCN.default.website}`,
-        },
-        {
-          enabled: false,
-          label: zhCN.default.userManual,
-        },
-        { type: global.common.SEPARATOR },
-        {
-          click: async () => {
-            await shell.openExternal("https://github.com/ArvinZJC/Kobe");
-          },
-          label: zhCN.default.githubRepo,
-        },
-        {
-          click: async () => {
-            await shell.openExternal("https://github.com/ArvinZJC/Kobe/issues");
-          },
-          label: zhCN.default.viewIssues,
-        },
-        {
-          click: async () => {
-            await shell.openExternal(
-              "https://github.com/ArvinZJC/Kobe/releases"
-            );
-          },
-          label: zhCN.default.releaseNotes,
-        },
-        { type: global.common.SEPARATOR },
-        ...(platform === global.common.WINDOWS ? [menuItemAbout] : []),
-      ],
-    },
-  ];
-} // end function getInitialAppMenuTemplate
+              label: zhCN.default.maximise,
+            },
+            {
+              accelerator: "CommandOrControl+W",
+              label: zhCN.default.closeWin,
+              role: "close",
+            },
+          ]),
+    ],
+  };
+} // end function getMenuWindowTemplate
 
 /**
  * Set the app menu.
@@ -394,7 +471,21 @@ export async function setContextMenu(view) {
         click: () => view.webContents.reloadIgnoringCache(),
         label: zhCN.default.forceReload,
       },
-      actions.separator(),
+      ...(process.env.NODE_ENV === global.common.DEV
+        ? [
+            actions.separator(),
+            {
+              click: () => {
+                view.webContents.inspectElement(params.x, params.y);
+
+                if (view.webContents.isDevToolsOpened()) {
+                  view.webContents.devToolsWebContents.focus();
+                } // end if
+              },
+              label: "Inspect Element",
+            },
+          ]
+        : []),
     ],
     labels: {
       copy: zhCN.default.copy,

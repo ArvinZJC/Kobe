@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.0.20220224
+ * @Version: 2.0.0.20220225
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 22:51:34
+ * @LastEditTime: 2022-02-25 09:59:38
  */
 
 import {
@@ -30,8 +30,6 @@ import {
 } from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
 import { TabbedWindow } from "./tabbed-window.js";
-
-const isDev = process.env.NODE_ENV === global.common.DEV;
 
 /**
  * Create a tabbed window.
@@ -71,12 +69,13 @@ export async function createTabbedWin(stockList) {
     blankTitle: zhCN.default.newTabItem,
     controlHeight: global.common.TAB_BAR_HEIGHT,
     controlPanel: `${baseUrl}/#/${global.common.TAB_BAR_VIEW}`,
-    debug: isDev,
+    debug: process.env.NODE_ENV === global.common.DEV,
     height:
       winHeight >= global.common.WIN_HEIGHT_MIN
         ? winHeight
         : global.common.WIN_HEIGHT_MIN,
     startPage: baseUrl,
+    viewReferences: { scrollBounce: true },
     width:
       winWidth >= global.common.WIN_WIDTH_MIN
         ? winWidth

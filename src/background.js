@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.7.20220221
+ * @Version: 1.0.8.20220225
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 22:38:13
+ * @LastEditTime: 2022-02-25 09:58:27
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -17,8 +17,6 @@ import global from "./lib/global.js";
 import { createTabbedWin } from "./lib/window.js";
 import * as zhCN from "./locales/zh-CN.json";
 import * as stockList from "../extensions/stock-list/StockList.json";
-
-const isDev = process.env.NODE_ENV === global.common.DEV;
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -34,7 +32,7 @@ electronDl({
 
 // Perform specific tasks when the app is ready.
 app.whenReady().then(async () => {
-  if (isDev && !process.env.IS_TEST) {
+  if (process.env.NODE_ENV === global.common.DEV && !process.env.IS_TEST) {
     try {
       await installExtension(VUEJS3_DEVTOOLS); // Install Vue 3 Devtools.
     } catch (e) {
@@ -68,7 +66,7 @@ app.on("window-all-closed", () => {
 app.setAboutPanelOptions({ credits: zhCN.default.appDescription });
 
 // Exit cleanly on any request from the parent process in the dev mode.
-if (isDev) {
+if (process.env.NODE_ENV === global.common.DEV) {
   if (platform === global.common.WINDOWS) {
     process.on("message", (data) => {
       if (data === "graceful-exit") {
