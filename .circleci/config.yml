@@ -22,7 +22,7 @@ jobs:
           command: npm run electron:build -- -m
           name: Generate builds
       - store_artifacts:
-          path: ~/kobe/artifacts
+          path: ~/kobe/dist_electron
     working_directory: ~/kobe
 
   build_windows:
@@ -31,7 +31,7 @@ jobs:
     steps:
       - checkout
       - run:
-          command: sudo npm install -g npm
+          command: npm install -g npm
           name: Update npm
       - restore_cache:
           key: kobe-windows-{{ checksum "package.json" }}
@@ -46,7 +46,7 @@ jobs:
           command: npm run electron:build -- -w --arm64 --x64 --ia32
           name: Generate builds
       - store_artifacts:
-          path: ~/kobe/artifacts
+          path: ~/kobe/dist_electron
     working_directory: ~/kobe
 
 workflows:
