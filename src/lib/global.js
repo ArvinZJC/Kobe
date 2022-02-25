@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.7.20220224
+ * @Version: 1.0.7.20220225
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 22:52:25
+ * @LastEditTime: 2022-02-25 12:53:16
  */
 
 global.common = {
@@ -79,8 +79,11 @@ global.common = {
   MIN_DECIMAL_POINTS: 0,
   MIN_MAX_DATE_RANGE_SPAN: 1,
   MIN_MIN_DATE: "1990-12-03",
+  MIN_WIN_HEIGHT: 600,
+  MIN_WIN_WIDTH: 800,
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
+  PATCH_EXIT_FULL_SCREEN: "patchExitFullScreen",
   POP_UP_APP_MENU: "popUpAppMenu",
   PREFERENCE_TABS_NAME: "preferenceTabs",
   PREFERENCE_VIEW: "preferences",
@@ -128,6 +131,7 @@ global.common = {
   SF_MULTIPLE: "Multiple",
   SF_NARROW: "Narrow",
   SF_NUM: "number",
+  SF_SCROLL_RIGHT_NAV_CLASS: "e-scroll-right-nav",
   SF_STYLES: "syncfusionStyles",
   SF_TABLE_BORDER_CLASS: "e-tableborder",
   SF_TABLE_CLASSES: "e-sortfilter e-table",
@@ -165,8 +169,6 @@ global.common = {
   TRICK_INPUT_ID: "trick-input",
   UNKNOWN: "Unknown",
   WIN_CONTROL_AREA_ID: "win-control-area",
-  WIN_HEIGHT_MIN: 600,
-  WIN_WIDTH_MIN: 800,
   WINDOWS: "win32",
 };
 

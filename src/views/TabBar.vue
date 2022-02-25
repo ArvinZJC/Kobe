@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.0.0.20220224
+ * @Version: 1.0.0.20220225
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 23:05:29
+ * @LastEditTime: 2022-02-25 13:05:03
 -->
 
 <template>
@@ -39,13 +39,11 @@
     </div>
     <!-- The tab bar button area. -->
     <div :id="global.common.TAB_BAR_BUTTON_AREA_ID" class="flex">
-      <!-- Preserved for ensuring the frameless window's dragging area. -->
-      <div class="w-10" />
       <!-- The button for opening a new tab item. -->
       <button
         @click="openNewTabItem(null)"
         :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
-        class="btn-tab-bar e-icons e-plus mr-2"
+        class="btn-tab-bar e-icons e-plus ml-10 mr-2"
       />
       <!-- The button for opening the app menu. -->
       <button
@@ -150,6 +148,9 @@ export default {
       );
     }, // end function openNewTabItem
 
+    /**
+     * Pop up the app menu.
+     */
     popUpAppMenu() {
       const appMenuButton = document.getElementById(
         global.common.APP_MENU_BUTTON_ID
@@ -194,6 +195,7 @@ export default {
      * Update the tab bar tab width.
      */
     updateTabBarTabWidth() {
+      console.log(1);
       const tabBarArea = document.getElementById(global.common.TAB_BAR_AREA_ID);
       const tabBarButtonArea = document.getElementById(
         global.common.TAB_BAR_BUTTON_AREA_ID
@@ -212,6 +214,13 @@ export default {
           tabBarButtonArea.offsetWidth -
           winControlArea.offsetWidth; // Using the tab bar tab area's width is inapplicable.
       } // end if
+
+      /* Programmatically scroll the scroll bar's to the right end to avoid preventing dragging the app window. */
+      for (const scrollRightNav of document.getElementsByClassName(
+        global.common.SF_SCROLL_RIGHT_NAV_CLASS
+      )) {
+        scrollRightNav.click();
+      } // end for
     }, // end function updateTabBarTabWidth
 
     /**
@@ -253,6 +262,14 @@ export default {
 
         if (data === global.common.EXIT_FULL_SCREEN) {
           this.isFullScreen = false;
+          setTimeout(
+            () =>
+              window[global.common.IPC_RENDERER_API_KEY].send(
+                global.common.IPC_SEND,
+                global.common.PATCH_EXIT_FULL_SCREEN
+              ),
+            50
+          );
         } // end if
 
         if (

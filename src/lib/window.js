@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 09:59:38
+ * @LastEditTime: 2022-02-25 13:20:11
  */
 
 import {
@@ -54,8 +54,8 @@ export async function createTabbedWin(stockList) {
       ? global.common.DARK_WIN_COLOUR
       : global.common.LIGHT_WIN_COLOUR,
     center: true,
-    minHeight: global.common.WIN_HEIGHT_MIN,
-    minWidth: global.common.WIN_WIDTH_MIN,
+    minHeight: global.common.MIN_WIN_HEIGHT,
+    minWidth: global.common.MIN_WIN_WIDTH,
     titleBarOverlay: {
       color: global.common.TITLE_BAR_OVERLAY_COLOUR,
       height: global.common.TAB_BAR_HEIGHT,
@@ -71,15 +71,15 @@ export async function createTabbedWin(stockList) {
     controlPanel: `${baseUrl}/#/${global.common.TAB_BAR_VIEW}`,
     debug: process.env.NODE_ENV === global.common.DEV,
     height:
-      winHeight >= global.common.WIN_HEIGHT_MIN
+      winHeight >= global.common.MIN_WIN_HEIGHT
         ? winHeight
-        : global.common.WIN_HEIGHT_MIN,
+        : global.common.MIN_WIN_HEIGHT,
     startPage: baseUrl,
     viewReferences: { scrollBounce: true },
     width:
-      winWidth >= global.common.WIN_WIDTH_MIN
+      winWidth >= global.common.MIN_WIN_WIDTH
         ? winWidth
-        : global.common.WIN_WIDTH_MIN,
+        : global.common.MIN_WIN_WIDTH,
     winOptions,
   });
 
@@ -371,6 +371,20 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
             global.common.TOTAL_VOLUME_UNIT_KEY
           );
           viewContents.send(global.common.IPC_RECEIVE, volumeFormat);
+          break;
+        }
+        case global.common.PATCH_EXIT_FULL_SCREEN: {
+          // Programmatically emulate resizing and restoring the app window size to avoid possible strange tab appearance when exiting the full screen mode.
+          const winSize = tabbedWin.win.getSize();
+
+          tabbedWin.win.setSize(
+            winSize[0] +
+              (winSize[0] + 1 > screen.getPrimaryDisplay().workAreaSize.width
+                ? -1
+                : 1),
+            winSize[1]
+          );
+          tabbedWin.win.setSize(winSize[0], winSize[1]);
           break;
         }
         case global.common.RESET_PREFERENCES: {
