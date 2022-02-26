@@ -1,19 +1,19 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.0.20220226
+ * @Version: 2.0.2.20220226
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 13:58:08
+ * @LastEditTime: 2022-02-26 23:42:45
  */
 
 import { app, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import settings from "electron-settings";
-import { autoUpdater } from "electron-updater";
 import { platform } from "process";
 
 import global from "./global.js";
+import { updateManually } from "./updater.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -25,8 +25,8 @@ const menuItemAboutAndCheckForUpdatesTemplates = [
   ...(process.env.WEBPACK_DEV_SERVER_URL == null
     ? [
         {
-          click: () => {
-            autoUpdater.checkForUpdatesAndNotify();
+          click: (menuItem) => {
+            updateManually(menuItem);
           },
           label: zhCN.default.checkForUpdates,
         },
@@ -240,7 +240,13 @@ function getMenuHelpTemplate(tabbedWin) {
         click: async () => {
           await shell.openExternal("https://github.com/ArvinZJC/Kobe");
         },
-        label: zhCN.default.githubRepo,
+        label: `GitHub ${zhCN.default.repo}`,
+      },
+      {
+        click: async () => {
+          await shell.openExternal("https://gitee.com/ArvinZJC/Kobe");
+        },
+        label: `Gitee ${zhCN.default.repo}（${zhCN.default.backup}）`,
       },
       {
         click: async () => {
