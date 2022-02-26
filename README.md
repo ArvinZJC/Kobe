@@ -64,7 +64,7 @@
    - 安装项目所需依赖。
 
      ```sh
-     npm install -g @vue/cli
+     npm install -g @vue/cli  # 可选。
      npm install
      ```
 

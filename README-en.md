@@ -64,7 +64,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    - Install all the required dependencies.
 
      ```sh
-     npm install -g @vue/cli
+     npm install -g @vue/cli  # Optional.
      npm install
      ```
 
