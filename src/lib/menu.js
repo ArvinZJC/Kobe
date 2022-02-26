@@ -1,25 +1,46 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.0.20220225
+ * @Version: 2.0.0.20220226
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 11:34:39
+ * @LastEditTime: 2022-02-26 13:58:08
  */
 
 import { app, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import settings from "electron-settings";
+import { autoUpdater } from "electron-updater";
 import { platform } from "process";
 
 import global from "./global.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const menuItemAboutTemplate = {
-  label: `${zhCN.default.about}${app.name}`,
-  role: "about",
+const menuItemAboutAndCheckForUpdatesTemplates = [
+  {
+    label: `${zhCN.default.about}${app.name}`,
+    role: "about",
+  },
+  ...(process.env.WEBPACK_DEV_SERVER_URL == null
+    ? [
+        {
+          click: () => {
+            autoUpdater.checkForUpdatesAndNotify();
+          },
+          label: zhCN.default.checkForUpdates,
+        },
+      ]
+    : []),
+];
+const menuItemCloseTemplate = {
+  label:
+    platform === global.common.MACOS
+      ? zhCN.default.closeWin
+      : `${zhCN.default.close}${app.name}`,
+  role: "close",
 };
+const menuItemSeparatorTemplate = { type: global.common.SEPARATOR };
 
 /**
  * Get the initial app menu template.
@@ -30,15 +51,13 @@ const menuItemAboutTemplate = {
  */
 export function getInitialAppMenuTemplate(tabbedWin) {
   return [
-    ...(platform === global.common.MACOS
-      ? [getMenuAppTemplate(tabbedWin)]
-      : []),
-    getMenuFileTemplate(tabbedWin),
-    getMenuEditTemplate(tabbedWin),
-    getMenuViewTemplate(tabbedWin),
-    getMenuWindowTemplate(tabbedWin),
-    getMenuHelpTemplate(tabbedWin),
-  ];
+    ...getMenuAppTemplate(tabbedWin),
+    ...getMenuFileTemplate(),
+    ...getMenuEditTemplate(tabbedWin),
+    ...getMenuViewTemplate(tabbedWin),
+    ...getMenuWindowTemplate(),
+    ...getMenuHelpTemplate(tabbedWin),
+  ]; // NOTE: check the tabbed window's enter-full-screen event listener when any changes to this function and its related functions occur.
 } // end function getInitialAppMenuTemplate
 
 /**
@@ -47,35 +66,35 @@ export function getInitialAppMenuTemplate(tabbedWin) {
  * @returns the template of the app section in the app menu.
  */
 function getMenuAppTemplate(tabbedWin) {
-  return {
-    label: app.name,
-    role: "appMenu",
-    submenu: [
-      menuItemAboutTemplate,
-      { type: global.common.SEPARATOR },
+  if (platform === global.common.MACOS) {
+    return [
       {
-        accelerator: "CommandOrControl+,",
-        click: () => {
-          showPreferenceTabItem(tabbedWin);
-        },
-        label: zhCN.default.preferences,
+        label: app.name,
+        role: "appMenu",
+        submenu: [
+          ...menuItemAboutAndCheckForUpdatesTemplates,
+          menuItemSeparatorTemplate,
+          {
+            accelerator: "CommandOrControl+,",
+            click: () => {
+              showPreferenceTabItem(tabbedWin);
+            },
+            label: zhCN.default.preferences,
+          },
+          menuItemSeparatorTemplate,
+          { label: zhCN.default.services, role: "services" },
+          menuItemSeparatorTemplate,
+          { label: `${zhCN.default.hide}${app.name}`, role: "hide" },
+          { label: zhCN.default.hideOthers, role: "hideOthers" },
+          { label: zhCN.default.showAll, role: "unhide" },
+          menuItemSeparatorTemplate,
+          { label: `${zhCN.default.quit}${app.name}`, role: "quit" },
+        ],
       },
-      { type: global.common.SEPARATOR },
-      { label: zhCN.default.services, role: "services" },
-      { type: global.common.SEPARATOR },
-      { label: `${zhCN.default.hide}${app.name}`, role: "hide" },
-      { label: zhCN.default.hideOthers, role: "hideOthers" },
-      { label: zhCN.default.showAll, role: "unhide" },
-      { type: global.common.SEPARATOR },
-      {
-        label:
-          platform === global.common.MACOS
-            ? `${zhCN.default.quit}${app.name}`
-            : zhCN.default.quit,
-        role: "quit",
-      },
-    ],
-  };
+    ];
+  } // end if
+
+  return [];
 } // end function getMenuAppTemplate
 
 /**
@@ -97,8 +116,7 @@ function getMenuEditTemplate(tabbedWin) {
     },
     label: zhCN.default.selectAll,
   };
-
-  return {
+  const menuEditTemplate = {
     label: zhCN.default.editMenu,
     role: "editMenu",
     submenu: [
@@ -119,7 +137,7 @@ function getMenuEditTemplate(tabbedWin) {
         },
         label: zhCN.default.redo,
       },
-      { type: global.common.SEPARATOR },
+      menuItemSeparatorTemplate,
       {
         accelerator: "CommandOrControl+X",
         click: () => {
@@ -156,7 +174,7 @@ function getMenuEditTemplate(tabbedWin) {
             },
             menuItemDeleteTemplate,
             menuItemSelectAllTemplate,
-            { type: global.common.SEPARATOR },
+            menuItemSeparatorTemplate,
             {
               label: zhCN.default.speech,
               submenu: [
@@ -167,11 +185,17 @@ function getMenuEditTemplate(tabbedWin) {
           ]
         : [
             menuItemDeleteTemplate,
-            { type: global.common.SEPARATOR },
+            menuItemSeparatorTemplate,
             menuItemSelectAllTemplate,
           ]),
     ],
   };
+
+  if (platform === global.common.MACOS) {
+    return [menuEditTemplate];
+  } // end if
+
+  return [menuEditTemplate, menuItemSeparatorTemplate];
 } // end function getMenuEditTemplate
 
 /**
@@ -179,30 +203,18 @@ function getMenuEditTemplate(tabbedWin) {
  * @param {TabbedWindow} tabbedWin a tabbed window.
  * @returns the template of the file section in the app menu.
  */
-function getMenuFileTemplate(tabbedWin) {
-  return {
-    label: zhCN.default.fileMenu,
-    role: "fileMenu",
-    submenu:
-      platform === global.common.MACOS
-        ? [{ label: zhCN.default.closeWin, role: "close" }]
-        : [
-            {
-              accelerator: "CommandOrControl+,",
-              click: () => {
-                showPreferenceTabItem(tabbedWin);
-              },
-              label: zhCN.default.preferences,
-            },
-            {
-              label:
-                platform === global.common.MACOS
-                  ? `${zhCN.default.quit} ${app.name}`
-                  : zhCN.default.quit,
-              role: "quit",
-            },
-          ],
-  };
+function getMenuFileTemplate() {
+  if (platform === global.common.MACOS) {
+    return [
+      {
+        label: zhCN.default.fileMenu,
+        role: "fileMenu",
+        submenu: [menuItemCloseTemplate],
+      },
+    ];
+  } // end if
+
+  return [];
 } // end function getMenuFileTemplate
 
 /**
@@ -211,7 +223,7 @@ function getMenuFileTemplate(tabbedWin) {
  * @returns the template of the help section in the app menu.
  */
 function getMenuHelpTemplate(tabbedWin) {
-  return {
+  const menuHelpTemplate = {
     label: zhCN.default.help,
     role: "help",
     submenu: [
@@ -223,7 +235,7 @@ function getMenuHelpTemplate(tabbedWin) {
         enabled: false,
         label: zhCN.default.userManual,
       },
-      { type: global.common.SEPARATOR },
+      menuItemSeparatorTemplate,
       {
         click: async () => {
           await shell.openExternal("https://github.com/ArvinZJC/Kobe");
@@ -242,11 +254,13 @@ function getMenuHelpTemplate(tabbedWin) {
         },
         label: zhCN.default.releaseNotes,
       },
-      { type: global.common.SEPARATOR },
-      ...(platform === global.common.WINDOWS ? [menuItemAboutTemplate] : []),
+      menuItemSeparatorTemplate,
+      ...(platform === global.common.WINDOWS
+        ? menuItemAboutAndCheckForUpdatesTemplates
+        : []),
       ...(process.env.NODE_ENV === global.common.DEV
         ? [
-            { type: global.common.SEPARATOR },
+            menuItemSeparatorTemplate,
             {
               click: () => {
                 tabbedWin.controlView.webContents.isDevToolsOpened()
@@ -272,6 +286,23 @@ function getMenuHelpTemplate(tabbedWin) {
         : []),
     ],
   };
+
+  if (platform === global.common.MACOS) {
+    return [menuHelpTemplate];
+  } // end if
+
+  return [
+    {
+      accelerator: "CommandOrControl+,",
+      click: () => {
+        showPreferenceTabItem(tabbedWin);
+      },
+      label: zhCN.default.preferences,
+    },
+    menuHelpTemplate,
+    menuItemSeparatorTemplate,
+    menuItemCloseTemplate,
+  ];
 } // end function getMenuHelpTemplate
 
 /**
@@ -280,37 +311,46 @@ function getMenuHelpTemplate(tabbedWin) {
  * @returns the template of the view section in the app menu.
  */
 function getMenuViewTemplate(tabbedWin) {
-  return {
-    label: zhCN.default.viewMenu,
-    role: "viewMenu",
-    submenu: [
-      {
-        accelerator: "CmdOrCtrl+R",
-        click: () => {
-          tabbedWin.currentWebContents.reload();
-        },
-        label: zhCN.default.reload,
-        nonNativeMacOSRole: true,
+  const menuViewSubmenuTemplate = [
+    {
+      accelerator: "CmdOrCtrl+R",
+      click: () => {
+        tabbedWin.currentWebContents.reload();
       },
-      {
-        accelerator: "Shift+CmdOrCtrl+R",
-        click: () => {
-          tabbedWin.currentWebContents.reloadIgnoringCache();
-        },
-        label: zhCN.default.forceReload,
-        nonNativeMacOSRole: true,
+      label: zhCN.default.reload,
+      nonNativeMacOSRole: true,
+    },
+    {
+      accelerator: "Shift+CmdOrCtrl+R",
+      click: () => {
+        tabbedWin.currentWebContents.reloadIgnoringCache();
       },
-      { type: global.common.SEPARATOR },
-      {
-        accelerator:
-          platform === global.common.MACOS ? "Control+Command+F" : "F11",
-        click: () => {
-          tabbedWin.win.setFullScreen(!tabbedWin.win.isFullScreen());
-        },
-        label: `${zhCN.default.enter}${zhCN.default.fullScreen}`,
+      label: zhCN.default.forceReload,
+      nonNativeMacOSRole: true,
+    },
+    menuItemSeparatorTemplate,
+    {
+      accelerator:
+        platform === global.common.MACOS ? "Control+Command+F" : "F11",
+      click: () => {
+        tabbedWin.win.setFullScreen(!tabbedWin.win.isFullScreen());
       },
-    ],
-  };
+      label: `${zhCN.default.enter}${zhCN.default.fullScreen}`,
+    },
+    menuItemSeparatorTemplate, // Required for Windows.
+  ];
+
+  if (platform === global.common.MACOS) {
+    return [
+      {
+        label: zhCN.default.viewMenu,
+        role: "viewMenu",
+        submenu: menuViewSubmenuTemplate,
+      },
+    ];
+  } // end if
+
+  return menuViewSubmenuTemplate;
 } // end function getMenuViewTemplate
 
 /**
@@ -318,39 +358,27 @@ function getMenuViewTemplate(tabbedWin) {
  * @param {TabbedWindow} tabbedWin a tabbed window.
  * @returns the template of the window section in the app menu.
  */
-function getMenuWindowTemplate(tabbedWin) {
-  return {
-    label: zhCN.default.windowMenu,
-    role: "windowMenu",
-    submenu: [
+function getMenuWindowTemplate() {
+  if (platform === global.common.MACOS) {
+    return [
       {
-        accelerator: "CommandOrControl+M",
-        label: zhCN.default.minimise,
-        role: "minimize",
+        label: zhCN.default.windowMenu,
+        role: "windowMenu",
+        submenu: [
+          {
+            accelerator: "CommandOrControl+M",
+            label: zhCN.default.minimise,
+            role: "minimize",
+          },
+          { label: zhCN.default.zoom, role: "zoom" },
+          menuItemSeparatorTemplate,
+          { label: zhCN.default.bringAllToFront, role: "front" },
+        ],
       },
-      ...(platform === global.common.MACOS
-        ? [
-            { label: zhCN.default.zoom, role: "zoom" },
-            { type: global.common.SEPARATOR },
-            { label: zhCN.default.bringAllToFront, role: "front" },
-          ]
-        : [
-            {
-              click: () => {
-                tabbedWin.win.isMaximized()
-                  ? tabbedWin.win.restore()
-                  : tabbedWin.win.maximize();
-              },
-              label: zhCN.default.maximise,
-            },
-            {
-              accelerator: "CommandOrControl+W",
-              label: zhCN.default.closeWin,
-              role: "close",
-            },
-          ]),
-    ],
-  };
+    ];
+  } // end if
+
+  return [];
 } // end function getMenuWindowTemplate
 
 /**

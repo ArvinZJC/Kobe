@@ -5,6 +5,7 @@
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ArvinZJC/Kobe?include_prereleases)](../../releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/ArvinZJC/Kobe/total)](../../releases)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a280d86eb52342a0a141e3421f902428)](https://www.codacy.com/gh/ArvinZJC/Kobe/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ArvinZJC/Kobe&utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/ArvinZJC/Kobe/tree/main.svg?style=svg)](https://circleci.com/gh/ArvinZJC/Kobe/tree/main)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
 [简体中文](./README-zhCN.md) | **English**
@@ -25,8 +26,8 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 25 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
-2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on Windows 7 and later (arm64, x64, and x86), and macOS 10.11 (El Capitan) and later (arm64 and x64).
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 26 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on Windows 7 and later (arm64, x64, and x86), and macOS 10.11 (El Capitan) and later (arm64 and x64). Kobe will never ever collect and upload any user privacy. Should you report a problem encountered, you may find [Issues](https://github.com/ArvinZJC/Kobe/issues) useful.
 3. The primary dependencies of the project are listed in the following table. For more information, please refer to [`package.json`](./package.json).
 
    | Name                             |  Version   |
@@ -58,12 +59,12 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    | vue-router                       |   4.0.12   |
 
 4. A part of SVG resources in this project are from [Flaticon](https://www.flaticon.com/packs/font-awesome) and [Iconscout](https://iconscout.com/).
-5. Vue CLI is a necessary dependency of this project. Assuming the terminal is opened in the project's root directory, the project could be run locally following the steps below using npm.
+5. Vue CLI is a necessary dependency of this project. Assuming the terminal is opened in the project's root directory, the project could be run locally following the steps below using npm. However, you are expected to do some extra work yourself to activate [code signing](https://www.electron.build/code-signing) and [auto update](https://www.electron.build/auto-update).
 
    - Install all the required dependencies.
 
      ```sh
-     npm install -g @vue/cli
+     npm install -g @vue/cli  # Optional.
      npm install
      ```
 
@@ -189,6 +190,8 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
          "version": "2.0.0"
        }
        ```
+
+6. CircleCI is used to help improve integration and release efficiency. Please refer to [`config.yml`](./.circleci/config.yml) for the primary configurations.
 
 Good luck! 💖
 

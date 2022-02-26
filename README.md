@@ -5,6 +5,7 @@
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ArvinZJC/Kobe?include_prereleases)](../../releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/ArvinZJC/Kobe/total)](../../releases)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a280d86eb52342a0a141e3421f902428)](https://www.codacy.com/gh/ArvinZJC/Kobe/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ArvinZJC/Kobe&utm_campaign=Badge_Grade)
+[![CircleCI](https://circleci.com/gh/ArvinZJC/Kobe/tree/main.svg?style=svg)](https://circleci.com/gh/ArvinZJC/Kobe/tree/main)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
 **简体中文** | [English](./README-en.md)
@@ -25,8 +26,8 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 2 月 25 日，使用 Visual Studio Code（版本：1.64.2）、Node.js 16.13.2 和 Vue CLI 4.5.15 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
-2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 Windows 7 及更高版本（arm64、x64 和 x86），以及 macOS 10.11（El Capitan）及更高版本（arm64 和 x64）。
+1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 2 月 26 日，使用 Visual Studio Code（版本：1.64.2）、Node.js 16.13.2 和 Vue CLI 4.5.15 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
+2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 Windows 7 及更高版本（arm64、x64 和 x86），以及 macOS 10.11（El Capitan）及更高版本（arm64 和 x64）。此应用不会收集并上传任何用户隐私。若遇问题，可移步 [Issues](https://github.com/ArvinZJC/Kobe/issues)。
 3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
 
    | 名称                             |    版本    |
@@ -58,12 +59,12 @@
    | vue-router                       |   4.0.12   |
 
 4. 此项目部分 SVG 图像资源来自 [Flaticon](https://www.flaticon.com/packs/font-awesome) 和 [Iconscout](https://iconscout.com/)。
-5. Vue CLI 是此项目的一个重要依赖。在项目根目录下，按如下步骤使用 npm 的命令可以在本地运行此项目。
+5. Vue CLI 是此项目的一个重要依赖。在项目根目录下，按如下步骤使用 npm 的命令可以在本地运行此项目，但[应用签名](https://www.electron.build/code-signing)和[自动更新](https://www.electron.build/auto-update)会需要自己额外配置。
 
    - 安装项目所需依赖。
 
      ```sh
-     npm install -g @vue/cli
+     npm install -g @vue/cli  # 可选。
      npm install
      ```
 
@@ -189,6 +190,8 @@
          "version": "2.0.0"
        }
        ```
+
+6. 此项目使用 CircleCI 来帮助提高集成和发布效率，主要配置可参见 [`config.yml`](./.circleci/config.yml)。
 
 好运哦! 💖
 
