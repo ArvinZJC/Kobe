@@ -3,9 +3,9 @@
 # 神户座（Kobe）
 
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ArvinZJC/Kobe?include_prereleases)](../../releases)
-[![GitHub All Releases](https://img.shields.io/github/downloads/ArvinZJC/Kobe/total)](../../releases)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a280d86eb52342a0a141e3421f902428)](https://www.codacy.com/gh/ArvinZJC/Kobe/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ArvinZJC/Kobe&utm_campaign=Badge_Grade)
 [![CircleCI](https://circleci.com/gh/ArvinZJC/Kobe/tree/main.svg?style=svg)](https://circleci.com/gh/ArvinZJC/Kobe/tree/main)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ArvinZJC/Kobe)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
 **简体中文** | [English](./README-en.md)

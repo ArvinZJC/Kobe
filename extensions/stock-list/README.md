@@ -1,20 +1,20 @@
 # [Kobe](../../../..)/stock-list
 
-**简体中文** | [English](./README-en.md)
+[简体中文](./README-zhCN.md) | **English**
 
-股票列表是一个 Python 脚本插件。此插件用于查询北交所、上交所和深交所上市的股票代码和相应的股票名称，并将它们保存在一个 JSON 数据文件中。这个数据文件是神户座的股票代码输入框的自动补全功能必不可少的数据来源。
+Stock List is a Python script extension. This extension can retrieve and store a list of stocks' symbols and corresponding names in a JSON data file. The supported stock exchanges are Beijing Stock Exchange, Shanghai Stock Exchange, and Shenzhen Stock Exchange. The JSON file is essential and processed to provide the autocomplete functionality of Kobe's auto-complete component to input the stock symbol.
 
-## ❗ 注意
+## ❗ ATTENTION
 
-> 敲黑板了！敲黑板了！🔥
+> May I have your attention pls? 🔥
 
-1. 截至 2022 年 2 月 26 日，使用 Visual Studio Code（版本：1.64.2）和 Python 3.10.2 开发表现良好。此外，我要特别感谢 [TuShare Pro](https://tushare.pro/) 提供的宝贵数据。
-2. 插件主要的包参见下面的表格。更多信息请参见 [`requirements.txt`](./requirements.txt)。
+1. By 26 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Python 3.10.2. Additionaly, I would like to thankfully acknowledge [TuShare Pro](https://tushare.pro/) for its valuabale data.
+2. The primary packages of the project are listed in the following table. For more information, please refer to [`requirements.txt`](./requirements.txt).
 
-   | 名称          |  版本  |
-   | :------------ | :----: |
-   | pandas        | 1.4.0  |
-   | python-dotenv | 0.19.2 |
-   | tushare       | 1.2.83 |
+   | Name          | Version |
+   | :------------ | :-----: |
+   | pandas        |  1.4.0  |
+   | python-dotenv | 0.19.2  |
+   | tushare       | 1.2.83  |
 
-3. 若一切配置妥当，则应可成功执行 `updater.py` 脚本来根据查询结果生成/更新 JSON 数据文件。
+3. If all configurations are set properly, the script `updater.py` can be executed successfully to generate/update the JSON data file as per the search results.
