@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.0.20220226
+ * @Version: 2.0.1.20220226
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 13:38:13
+ * @LastEditTime: 2022-02-26 22:12:17
  */
 
 import {
@@ -30,6 +30,8 @@ import {
 } from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
 import { TabbedWindow } from "./tabbed-window.js";
+
+log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
 /**
  * Create a tabbed window.

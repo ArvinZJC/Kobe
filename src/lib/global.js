@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.7.20220225
+ * @Version: 1.0.8.20220226
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 12:53:16
+ * @LastEditTime: 2022-02-26 22:16:04
  */
 
 global.common = {
@@ -77,6 +77,7 @@ global.common = {
   MIN_DATE_KEY: "minDate",
   MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
   MIN_DECIMAL_POINTS: 0,
+  MIN_LOG_LEVEL: "info",
   MIN_MAX_DATE_RANGE_SPAN: 1,
   MIN_MIN_DATE: "1990-12-03",
   MIN_WIN_HEIGHT: 600,

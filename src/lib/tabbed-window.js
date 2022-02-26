@@ -1,10 +1,10 @@
 /*
  * @Description: the tabbed window builder
- * @Version: 1.0.0.20220226
+ * @Version: 1.0.1.20220226
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 13:39:51
+ * @LastEditTime: 2022-02-26 22:12:32
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow).
@@ -16,6 +16,8 @@ import EventEmitter from "events";
 import { setContextMenu } from "./menu.js";
 
 const path = require("path");
+
+log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
 /**
  * @typedef {number} TabID
