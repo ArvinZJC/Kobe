@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.2.20220221
+ * @Version: 1.0.3.20220226
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 13:50:16
+ * @LastEditTime: 2022-02-26 22:48:59
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -16,6 +16,8 @@ import iconv from "iconv-lite";
 import global from "./global.js";
 import { toDateStr } from "./utils.js";
 import * as zhCN from "../locales/zh-CN.json";
+
+log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
 /**
  * Arrange the search results.
@@ -111,7 +113,10 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
       volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
     } // end if...else
   } catch (e) {
-    log.error("Failed to fetch from the specific API:", e.stack);
+    log.error(
+      "Failed to fetch from the specific API:",
+      e == null ? global.common.UNKNOWN : (e.stack || e).toString()
+    );
 
     // Reference: https://github.com/arantes555/electron-fetch/blob/master/ERROR-HANDLING.md
     if (e instanceof FetchError && e.type === "system") {

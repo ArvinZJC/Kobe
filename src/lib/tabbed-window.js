@@ -1,21 +1,23 @@
 /*
  * @Description: the tabbed window builder
- * @Version: 1.0.0.20220226
+ * @Version: 1.0.2.20220226
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 13:39:51
+ * @LastEditTime: 2022-02-26 22:44:34
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow).
 import { BrowserWindow, BrowserView, ipcMain, ipcRenderer } from "electron";
 import log from "electron-log";
-import { autoUpdater } from "electron-updater";
 import EventEmitter from "events";
 
 import { setContextMenu } from "./menu.js";
+import { updateAutomatically } from "./updater.js";
 
 const path = require("path");
+
+log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
 /**
  * @typedef {number} TabID
@@ -362,10 +364,7 @@ export class TabbedWindow extends EventEmitter {
         await this.newTab(this.options.startPage || "");
         this.controlView.setBounds(this.getControlBounds()); // Set the control view bounds here to ensure that the tab bar can be shown properly when the app starts.
         this.win.show();
-
-        if (process.env.WEBPACK_DEV_SERVER_URL == null) {
-          autoUpdater.checkForUpdatesAndNotify();
-        } // end if
+        updateAutomatically();
 
         /**
          * The control-ready event.
