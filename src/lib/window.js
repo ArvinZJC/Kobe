@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.0.20220225
+ * @Version: 2.0.0.20220226
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 13:20:11
+ * @LastEditTime: 2022-02-26 13:15:23
  */
 
 import {
@@ -94,7 +94,7 @@ export async function createTabbedWin(stockList) {
     if (platform === global.common.MACOS) {
       appMenuTemplate[3].submenu[3].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
     } else {
-      appMenuTemplate[2].submenu[3].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
+      appMenuTemplate[5].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
     } // end if...else
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
@@ -110,17 +110,7 @@ export async function createTabbedWin(stockList) {
       global.common.EXIT_FULL_SCREEN
     );
   });
-
-  if (platform === global.common.WINDOWS) {
-    tabbedWin.win.on("maximize", () => {
-      const appMenuTemplate = getInitialAppMenuTemplate(tabbedWin);
-
-      appMenuTemplate[3].submenu[1].label = zhCN.default.restore;
-      Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
-    });
-    tabbedWin.win.on("restore", () => setAppMenu(tabbedWin));
-    tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
-  } // end if
+  tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
 } // end function createTabbedWin
 
 /**
