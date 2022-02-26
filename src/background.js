@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:12:52
+ * @LastEditTime: 2022-02-26 22:48:48
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -38,7 +38,10 @@ app.whenReady().then(async () => {
     try {
       await installExtension(VUEJS3_DEVTOOLS); // Install Vue 3 Devtools.
     } catch (e) {
-      log.error("Failed to install Vue 3 Devtools:", e.stack);
+      log.error(
+        "Failed to install Vue 3 Devtools:",
+        e == null ? global.common.UNKNOWN : (e.stack || e).toString()
+      );
     } // end try...catch
   } // end if
 
