@@ -4,22 +4,35 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 13:17:05
+ * @LastEditTime: 2022-02-26 13:58:08
  */
 
 import { app, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import settings from "electron-settings";
+import { autoUpdater } from "electron-updater";
 import { platform } from "process";
 
 import global from "./global.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const menuItemAboutTemplate = {
-  label: `${zhCN.default.about}${app.name}`,
-  role: "about",
-};
+const menuItemAboutAndCheckForUpdatesTemplates = [
+  {
+    label: `${zhCN.default.about}${app.name}`,
+    role: "about",
+  },
+  ...(process.env.WEBPACK_DEV_SERVER_URL == null
+    ? [
+        {
+          click: () => {
+            autoUpdater.checkForUpdatesAndNotify();
+          },
+          label: zhCN.default.checkForUpdates,
+        },
+      ]
+    : []),
+];
 const menuItemCloseTemplate = {
   label:
     platform === global.common.MACOS
@@ -59,7 +72,7 @@ function getMenuAppTemplate(tabbedWin) {
         label: app.name,
         role: "appMenu",
         submenu: [
-          menuItemAboutTemplate,
+          ...menuItemAboutAndCheckForUpdatesTemplates,
           menuItemSeparatorTemplate,
           {
             accelerator: "CommandOrControl+,",
@@ -242,7 +255,9 @@ function getMenuHelpTemplate(tabbedWin) {
         label: zhCN.default.releaseNotes,
       },
       menuItemSeparatorTemplate,
-      ...(platform === global.common.WINDOWS ? [menuItemAboutTemplate] : []),
+      ...(platform === global.common.WINDOWS
+        ? menuItemAboutAndCheckForUpdatesTemplates
+        : []),
       ...(process.env.NODE_ENV === global.common.DEV
         ? [
             menuItemSeparatorTemplate,

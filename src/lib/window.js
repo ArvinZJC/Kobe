@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 13:15:23
+ * @LastEditTime: 2022-02-26 13:38:13
  */
 
 import {
@@ -41,11 +41,11 @@ export async function createTabbedWin(stockList) {
   const { height, width } = screen.getPrimaryDisplay().workAreaSize;
   var baseUrl;
 
-  if (process.env.WEBPACK_DEV_SERVER_URL) {
-    baseUrl = process.env.WEBPACK_DEV_SERVER_URL; // Load the dev server URL if it exists.
-  } else {
+  if (process.env.WEBPACK_DEV_SERVER_URL == null) {
     createProtocol(global.common.APP_SCHEME);
     baseUrl = `${global.common.APP_SCHEME}://./index.html`; // Load "index.html" if the dev server URL does not exist.
+  } else {
+    baseUrl = process.env.WEBPACK_DEV_SERVER_URL; // Load the dev server URL if it exists.
   } // end if...else
 
   const winHeight = Math.round(height * 0.7);
