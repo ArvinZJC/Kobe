@@ -27,7 +27,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 > May I have your attention pls? 🔥
 
 1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 26 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
-2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on Windows 7 and later (arm64, x64, and x86), and macOS 10.11 (El Capitan) and later (arm64 and x64). Kobe will never ever collect and upload any user privacy. Should you report a problem encountered, you may find [Issues](https://github.com/ArvinZJC/Kobe/issues) useful.
+2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on Windows 7 and later (arm64, x64, and x86), and macOS 10.11 (El Capitan) and later (arm64 and x64). Kobe will never ever collect and upload any user privacy. Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
 3. The primary dependencies of the project are listed in the following table. For more information, please refer to [`package.json`](./package.json).
 
    | Name                             |  Version   |

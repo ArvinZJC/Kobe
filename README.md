@@ -27,7 +27,7 @@
 > 敲黑板了！敲黑板了！🔥
 
 1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 2 月 26 日，使用 Visual Studio Code（版本：1.64.2）、Node.js 16.13.2 和 Vue CLI 4.5.15 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
-2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 Windows 7 及更高版本（arm64、x64 和 x86），以及 macOS 10.11（El Capitan）及更高版本（arm64 和 x64）。此应用不会收集并上传任何用户隐私。若遇问题，可移步 [Issues](https://github.com/ArvinZJC/Kobe/issues)。
+2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 Windows 7 及更高版本（arm64、x64 和 x86），以及 macOS 10.11（El Capitan）及更高版本（arm64 和 x64）。此应用不会收集并上传任何用户隐私。若遇问题，可移步 [issues](https://github.com/ArvinZJC/Kobe/issues)。
 3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
 
    | 名称                             |    版本    |
