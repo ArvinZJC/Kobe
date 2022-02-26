@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.8.20220225
+ * @Version: 1.0.9.20220226
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 09:58:27
+ * @LastEditTime: 2022-02-26 17:59:22
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -32,6 +32,7 @@ electronDl({
 
 // Perform specific tasks when the app is ready.
 app.whenReady().then(async () => {
+  log.info(`Starting ${app.name} V${app.getVersion()}`);
   if (process.env.NODE_ENV === global.common.DEV && !process.env.IS_TEST) {
     try {
       await installExtension(VUEJS3_DEVTOOLS); // Install Vue 3 Devtools.
