@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.1.20220221
+ * @Version: 1.0.2.20220227
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 13:49:30
+ * @LastEditTime: 2022-02-27 14:44:48
  */
 
 import global from "./global.js";
@@ -112,16 +112,13 @@ export async function initialisePreferences() {
     );
   } // end if
 
-  // Initialise the external search preference to default if the user preference does not exist or is illegal.
+  // Initialise the online search preference to default if the user preference does not exist or is illegal.
   if (
     ![global.common.BAIDU_ID, global.common.GOOGLE_ID].includes(
-      preferences[global.common.EXTERNAL_SEARCH_KEY]
+      preferences[global.common.ONLINE_SEARCH_KEY]
     )
   ) {
-    await settings.set(
-      global.common.EXTERNAL_SEARCH_KEY,
-      global.common.BAIDU_ID
-    );
+    await settings.set(global.common.ONLINE_SEARCH_KEY, global.common.BAIDU_ID);
   } // end if
 
   // Initialise whether to include the hidden columns while exporting to Excel to default if the user preference does not exist or is illegal.

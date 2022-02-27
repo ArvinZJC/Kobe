@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.1.20220226
+ * @Version: 2.0.2.20220227
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:12:17
+ * @LastEditTime: 2022-02-27 14:45:35
  */
 
 import {
@@ -175,10 +175,10 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
           );
           break;
         }
-        case global.common.SET_EXTERNAL_SEARCH: {
+        case global.common.SET_ONLINE_SEARCH: {
           await settings.set(
-            global.common.EXTERNAL_SEARCH_KEY,
-            data[global.common.EXTERNAL_SEARCH_KEY]
+            global.common.ONLINE_SEARCH_KEY,
+            data[global.common.ONLINE_SEARCH_KEY]
           );
           break;
         }
@@ -271,12 +271,12 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
           viewContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
           break;
         }
-        case global.common.GET_EXTERNAL_SEARCH: {
-          const externalSearch = await getPreference(
-            global.common.EXTERNAL_SEARCH_KEY
+        case global.common.GET_ONLINE_SEARCH: {
+          const onlineSearch = await getPreference(
+            global.common.ONLINE_SEARCH_KEY
           );
 
-          viewContents.send(global.common.IPC_RECEIVE, externalSearch);
+          viewContents.send(global.common.IPC_RECEIVE, onlineSearch);
           break;
         }
         case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
