@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.0.0.20220226
+ * @Version: 1.0.2.20220227
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 23:36:50
+ * @LastEditTime: 2022-02-27 13:26:25
  */
 
 import { app, dialog } from "electron";
@@ -23,10 +23,7 @@ autoUpdater.on("error", (e) => {
   );
 
   if (!autoUpdater.autoDownload) {
-    dialog.showErrorBox(
-      zhCN.default.updateErrorTitle,
-      zhCN.default.updateErrorContent
-    );
+    dialog.showErrorBox(app.name, zhCN.default.updateErrorContent);
   } // end if
 });
 autoUpdater.on("update-available", (updateInfo) => {
@@ -34,10 +31,10 @@ autoUpdater.on("update-available", (updateInfo) => {
     dialog
       .showMessageBox({
         buttons: [zhCN.default.confirm, zhCN.default.cancel],
-        message: `${
-          zhCN.default.updateAvailabeMessage
-        }（V${app.getVersion()} → V${updateInfo.version}）`,
-        title: zhCN.default.updateAvailableTitle,
+        detail: `V${app.getVersion()} → V${updateInfo.version}`,
+        message: zhCN.default.updateAvailableMessage,
+        noLink: true,
+        title: app.name,
         type: "info",
       })
       .then((buttonIndex) => {
@@ -50,12 +47,14 @@ autoUpdater.on("update-available", (updateInfo) => {
       });
   } // end if
 });
-autoUpdater.on("update-downloaded", () => {
+autoUpdater.on("update-downloaded", (updateInfo) => {
   if (!autoUpdater.autoDownload) {
     dialog
       .showMessageBox({
+        detail: `V${app.getVersion()} → V${updateInfo.version}`,
         message: zhCN.default.updateDownloadedMessage,
-        title: zhCN.default.updateReadyTitle,
+        title: app.name,
+        type: "info",
       })
       .then(() => {
         setImmediate(() => autoUpdater.quitAndInstall());
@@ -65,8 +64,10 @@ autoUpdater.on("update-downloaded", () => {
 autoUpdater.on("update-not-available", () => {
   if (!autoUpdater.autoDownload) {
     dialog.showMessageBox({
+      detail: `V${app.getVersion()}`,
       message: zhCN.default.noUpdatesMessage,
-      title: zhCN.default.noUpdatesTitle,
+      title: app.name,
+      type: "info",
     });
     menuItemCheckForUpdates.enabled = true;
     menuItemCheckForUpdates = null;
