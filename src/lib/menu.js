@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.2.20220226
+ * @Version: 2.0.4.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 23:42:45
+ * @LastEditTime: 2022-02-27 14:26:44
  */
 
 import { app, Menu, shell } from "electron";
@@ -17,22 +17,16 @@ import { updateManually } from "./updater.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const menuItemAboutAndCheckForUpdatesTemplates = [
-  {
-    label: `${zhCN.default.about}${app.name}`,
-    role: "about",
+const menuItemAboutTemplate = {
+  label: `${zhCN.default.about}${app.name}`,
+  role: "about",
+};
+const menuItemCheckForUpdatesTemplate = {
+  click: (menuItem) => {
+    updateManually(menuItem);
   },
-  ...(process.env.WEBPACK_DEV_SERVER_URL == null
-    ? [
-        {
-          click: (menuItem) => {
-            updateManually(menuItem);
-          },
-          label: zhCN.default.checkForUpdates,
-        },
-      ]
-    : []),
-];
+  label: zhCN.default.checkForUpdates,
+};
 const menuItemCloseTemplate = {
   label:
     platform === global.common.MACOS
@@ -72,7 +66,10 @@ function getMenuAppTemplate(tabbedWin) {
         label: app.name,
         role: "appMenu",
         submenu: [
-          ...menuItemAboutAndCheckForUpdatesTemplates,
+          menuItemAboutTemplate,
+          ...(process.env.WEBPACK_DEV_SERVER_URL == null
+            ? [menuItemCheckForUpdatesTemplate]
+            : []),
           menuItemSeparatorTemplate,
           {
             accelerator: "CommandOrControl+,",
@@ -262,7 +259,12 @@ function getMenuHelpTemplate(tabbedWin) {
       },
       menuItemSeparatorTemplate,
       ...(platform === global.common.WINDOWS
-        ? menuItemAboutAndCheckForUpdatesTemplates
+        ? [
+            ...(process.env.WEBPACK_DEV_SERVER_URL == null
+              ? [menuItemCheckForUpdatesTemplate]
+              : []),
+            menuItemAboutTemplate,
+          ]
         : []),
       ...(process.env.NODE_ENV === global.common.DEV
         ? [
