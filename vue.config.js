@@ -1,10 +1,10 @@
 /*
  * @Description: Vue configuration
- * @Version: 1.0.5.20220226
+ * @Version: 1.0.6.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-09 00:57:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 21:04:09
+ * @LastEditTime: 2022-02-27 19:15:44
  */
 
 module.exports = {
@@ -35,9 +35,10 @@ module.exports = {
           perMachine: true,
           runAfterFinish: false,
         },
+        win: { verifyUpdateCodeSignature: false },
       },
       preload: "./src/preload.js",
     },
-  },
+  }, // Reference: https://www.electron.build/configuration/configuration
   runtimeCompiler: true,
 };
