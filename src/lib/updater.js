@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.0.4.20220227
+ * @Version: 1.1.0.20220227
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 18:26:07
+ * @LastEditTime: 2022-02-27 20:47:06
  */
 
 import { app, dialog } from "electron";
@@ -22,19 +22,25 @@ autoUpdater.on("error", (e) => {
     e == null ? global.common.UNKNOWN : (e.stack || e).toString()
   );
 
-  if (!autoUpdater.autoDownload) {
-    dialog.showMessageBox({
-      message: zhCN.default.updateErrorMessage,
-      title: app.name,
-      type: "error",
-    });
+  if (autoUpdater.autoDownload) {
+    global.isAutoUpdateBusy = false;
+    return;
   } // end if
+
+  dialog.showMessageBox({
+    message: zhCN.default.updateErrorMessage,
+    title: app.name,
+    type: "error",
+  });
+  menuItemCheckForUpdates.enabled = true;
+  menuItemCheckForUpdates = null;
 });
 autoUpdater.on("update-available", (updateInfo) => {
   if (!autoUpdater.autoDownload) {
     dialog
       .showMessageBox({
         buttons: [zhCN.default.confirm, zhCN.default.cancel],
+        cancelId: 1,
         detail: `V${app.getVersion()} → V${updateInfo.version}`,
         message: zhCN.default.updateAvailableMessage,
         noLink: true,
@@ -52,30 +58,36 @@ autoUpdater.on("update-available", (updateInfo) => {
   } // end if
 });
 autoUpdater.on("update-downloaded", (updateInfo) => {
-  if (!autoUpdater.autoDownload) {
-    dialog
-      .showMessageBox({
-        detail: `V${app.getVersion()} → V${updateInfo.version}`,
-        message: zhCN.default.updateDownloadedMessage,
-        title: app.name,
-        type: "info",
-      })
-      .then(() => {
-        setImmediate(() => autoUpdater.quitAndInstall());
-      });
+  if (autoUpdater.autoDownload) {
+    global.isAutoUpdateBusy = false;
+    return;
   } // end if
-});
-autoUpdater.on("update-not-available", () => {
-  if (!autoUpdater.autoDownload) {
-    dialog.showMessageBox({
-      detail: `V${app.getVersion()}`,
-      message: zhCN.default.noUpdatesMessage,
+
+  dialog
+    .showMessageBox({
+      detail: `V${app.getVersion()} → V${updateInfo.version}`,
+      message: zhCN.default.updateDownloadedMessage,
       title: app.name,
       type: "info",
+    })
+    .then(() => {
+      setImmediate(() => autoUpdater.quitAndInstall());
     });
-    menuItemCheckForUpdates.enabled = true;
-    menuItemCheckForUpdates = null;
+});
+autoUpdater.on("update-not-available", () => {
+  if (autoUpdater.autoDownload) {
+    global.isAutoUpdateBusy = false;
+    return;
   } // end if
+
+  dialog.showMessageBox({
+    detail: `V${app.getVersion()}`,
+    message: zhCN.default.noUpdatesMessage,
+    title: app.name,
+    type: "info",
+  });
+  menuItemCheckForUpdates.enabled = true;
+  menuItemCheckForUpdates = null;
 });
 
 /**
@@ -83,6 +95,7 @@ autoUpdater.on("update-not-available", () => {
  */
 export function updateAutomatically() {
   if (process.env.WEBPACK_DEV_SERVER_URL == null) {
+    global.isAutoUpdateBusy = true;
     autoUpdater.autoDownload = true;
     autoUpdater.checkForUpdatesAndNotify({
       body: `{appName}${
@@ -98,9 +111,9 @@ export function updateAutomatically() {
  * @param {Electron.MenuItem} menuItem the menu item for checking for updates.
  */
 export function updateManually(menuItem) {
-  if (autoUpdater.isUpdaterActive()) {
+  if (global.isAutoUpdateBusy) {
     dialog.showMessageBox({
-      message: zhCN.default.updaterActiveMessage,
+      message: zhCN.default.AutoUpdateBusyMessage,
       title: app.name,
       type: "info",
     });
