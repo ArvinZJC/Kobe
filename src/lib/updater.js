@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.0.2.20220227
+ * @Version: 1.0.4.20220227
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 13:26:25
+ * @LastEditTime: 2022-02-27 18:26:07
  */
 
 import { app, dialog } from "electron";
@@ -23,7 +23,11 @@ autoUpdater.on("error", (e) => {
   );
 
   if (!autoUpdater.autoDownload) {
-    dialog.showErrorBox(app.name, zhCN.default.updateErrorContent);
+    dialog.showMessageBox({
+      message: zhCN.default.updateErrorMessage,
+      title: app.name,
+      type: "error",
+    });
   } // end if
 });
 autoUpdater.on("update-available", (updateInfo) => {
@@ -94,6 +98,15 @@ export function updateAutomatically() {
  * @param {Electron.MenuItem} menuItem the menu item for checking for updates.
  */
 export function updateManually(menuItem) {
+  if (autoUpdater.isUpdaterActive()) {
+    dialog.showMessageBox({
+      message: zhCN.default.updaterActiveMessage,
+      title: app.name,
+      type: "info",
+    });
+    return;
+  } // end if
+
   menuItemCheckForUpdates = menuItem;
   menuItemCheckForUpdates.enabled = false;
   autoUpdater.autoDownload = false;
