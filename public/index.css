@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.0.20220225
+ * @Version: 1.1.2.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 01:30:50
+ * @LastEditTime: 2022-02-27 15:59:28
  */
 
 /*
@@ -712,6 +712,7 @@ body::selection {
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  padding-bottom: 0.25rem;
 }
 
 /* Container for the preference header and explanation area. */
@@ -1378,10 +1379,72 @@ body::selection {
   max-height: fit-content !important;
 }
 
-/* The customised left vertical tab style. */
+/* The customised tab scroll bar style. */
 
-.e-tab.e-vertical-tab.e-vertical-left {
-  height: 100vh !important;
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
+  --tw-text-opacity: 1 !important;
+  color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
+}
+
+/* The customised tab scroll bar style on hover and focus.  */
+
+.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow:hover, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover, .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow:hover, .e-tab
+  .e-tab-header
+  .e-scroll-nav
+  .e-nav-arrow:hover
+  .e-tab
+  .e-tab-header
+  .e-scroll-nav:focus, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
+  background-color: transparent !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(79 70 229 / var(--tw-text-opacity)) !important;
+}
+
+.dark .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow:hover, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover, .dark .e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow:hover, .dark .e-tab
+  .e-tab-header
+  .e-scroll-nav
+  .e-nav-arrow:hover
+  .e-tab
+  .e-tab-header
+  .e-scroll-nav:focus, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
+  --tw-text-opacity: 1 !important;
+  color: rgb(34 211 238 / var(--tw-text-opacity)) !important;
 }
 
 /* The customised tab item text area style. */
@@ -1446,6 +1509,13 @@ body::selection {
   border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
+/* The customised vertical tab item container style. */
+
+.e-tab .e-tab-header.e-vertical .e-toolbar-item .e-tab-wrap {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 /* The customised vertical tab item style. */
 
 .e-tab .e-tab-header.e-vertical .e-toolbar-item:not(.e-separator) {
@@ -1467,67 +1537,26 @@ body::selection {
   }
 }
 
-/* The customised vertical tab item container style. */
+/* The customised left vertical tab style. */
 
-.e-tab .e-tab-header.e-vertical .e-toolbar-item .e-tab-wrap {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+.e-tab.e-vertical-tab.e-vertical-left {
+  height: 100vh !important;
 }
 
-/* The customised tab scroll bar style on hover and focus.  */
+/* The customised draggable tab item style. */
 
-.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow, .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow:hover, .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover, .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav
-  .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav:focus, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow:hover {
-  background-color: transparent !important;
+.e-tab-clone-element {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity)) !important;
   --tw-text-opacity: 1 !important;
-  color: rgb(79 70 229 / var(--tw-text-opacity)) !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
 }
 
-.dark .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .dark .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow, .dark .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow:hover, .dark .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover, .dark .e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav
-  .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav:focus, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow:hover {
-  --tw-text-opacity: 1 !important;
-  color: rgb(34 211 238 / var(--tw-text-opacity)) !important;
-}
+/* The customised draggable tab item wrap style. */
 
-/* The customised tab scroll bar style. */
-
-.e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav
-  .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
+.e-tab-clone-element .e-tab-wrap, .e-tab-clone-element .e-tab-wrap .e-tab-icon {
   --tw-text-opacity: 1 !important;
-  color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
+  color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {

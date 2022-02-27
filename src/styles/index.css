@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.0.20220225
+ * @Version: 1.1.2.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-25 01:30:50
+ * @LastEditTime: 2022-02-27 15:59:28
  */
 
 @tailwind base;
@@ -44,7 +44,7 @@
 
   /* Container for the preference option area. */
   .container-preference-options {
-    @apply col-span-2 flex items-end justify-end;
+    @apply col-span-2 flex items-end justify-end pb-1;
   }
 
   /* Container for the preference header and explanation area. */
@@ -182,9 +182,49 @@
   @apply !fixed !max-h-fit;
 }
 
-/* The customised left vertical tab style. */
-.e-tab.e-vertical-tab.e-vertical-left {
-  @apply !h-screen;
+/* The customised tab scroll bar style. */
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow,
+.e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
+  @apply !text-gray-400;
+}
+
+/* The customised tab scroll bar style on hover and focus.  */
+.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus,
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow,
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav:focus
+  .e-nav-arrow:hover,
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav.e-overlay
+  .e-nav-arrow:hover,
+.e-tab
+  .e-tab-header
+  .e-hscroll:not(.e-scroll-device)
+  .e-scroll-nav
+  .e-nav-arrow:hover,
+.e-tab
+  .e-tab-header
+  .e-scroll-nav
+  .e-nav-arrow:hover
+  .e-tab
+  .e-tab-header
+  .e-scroll-nav:focus,
+.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow,
+.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover,
+.e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
+  @apply !bg-transparent !text-indigo-600 dark:!text-cyan-400;
 }
 
 /* The customised tab item text area style. */
@@ -220,52 +260,28 @@
   @apply border-gray-200 dark:border-gray-600;
 }
 
-/* The customised vertical tab item style. */
-.e-tab .e-tab-header.e-vertical .e-toolbar-item:not(.e-separator) {
-  @apply px-block;
-}
-
 /* The customised vertical tab item container style. */
 .e-tab .e-tab-header.e-vertical .e-toolbar-item .e-tab-wrap {
   @apply !px-0;
 }
 
-/* The customised tab scroll bar style on hover and focus.  */
-.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus,
-.e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow,
-.e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav:focus
-  .e-nav-arrow:hover,
-.e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover,
-.e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav
-  .e-nav-arrow:hover,
-.e-tab .e-tab-header .e-scroll-nav:focus,
-.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow,
-.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover,
-.e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover,
-.e-tab .e-tab-header .e-scroll-nav .e-nav-arrow:hover {
-  @apply !bg-transparent !text-indigo-600 dark:!text-cyan-400;
+/* The customised vertical tab item style. */
+.e-tab .e-tab-header.e-vertical .e-toolbar-item:not(.e-separator) {
+  @apply px-block;
 }
 
-/* The customised tab scroll bar style. */
-.e-tab
-  .e-tab-header
-  .e-hscroll:not(.e-scroll-device)
-  .e-scroll-nav
-  .e-nav-arrow,
-.e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
-  @apply !text-gray-400;
+/* The customised left vertical tab style. */
+.e-tab.e-vertical-tab.e-vertical-left {
+  @apply !h-screen;
+}
+
+/* The customised draggable tab item style. */
+.e-tab-clone-element {
+  @apply !bg-gray-600 !text-gray-300;
+}
+
+/* The customised draggable tab item wrap style. */
+.e-tab-clone-element .e-tab-wrap,
+.e-tab-clone-element .e-tab-wrap .e-tab-icon {
+  @apply !text-gray-300;
 }
