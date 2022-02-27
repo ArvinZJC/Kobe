@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-19 20:39:17
+ * @LastEditTime: 2022-02-27 14:45:49
 -->
 
 <template>
@@ -17,12 +17,12 @@
       :title="zhCN.default.appearanceTitle"
       :type="global.common.BUTTON_GROUP"
     />
-    <!-- External search. -->
+    <!-- Online search. -->
     <Preference
-      :explanation="zhCN.default.externalSearchExplanation"
-      :options="options.externalSearch"
-      :selectionChangedHandler="changeExternalSearch"
-      :title="zhCN.default.externalSearchTitle"
+      :explanation="zhCN.default.onlineSearchExplanation"
+      :options="options.onlineSearch"
+      :selectionChangedHandler="changeOnlineSearch"
+      :title="zhCN.default.onlineSearchTitle"
       :type="global.common.BUTTON_GROUP"
     />
   </div>
@@ -54,16 +54,16 @@ export default {
     }, // end function changeAppearance
 
     /**
-     * Change the external search.
-     * @param {string} id the external search option ID.
+     * Change the online search.
+     * @param {string} id the online search option ID.
      */
-    changeExternalSearch(id) {
+    changeOnlineSearch(id) {
       changePreference(
         id,
-        global.common.EXTERNAL_SEARCH_KEY,
-        global.common.SET_EXTERNAL_SEARCH
+        global.common.ONLINE_SEARCH_KEY,
+        global.common.SET_ONLINE_SEARCH
       );
-    }, // end function changeExternalSearch
+    }, // end function changeOnlineSearch
   },
   data() {
     return { data: {}, global, zhCN };
@@ -86,10 +86,10 @@ export default {
           typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(
             data,
-            global.common.EXTERNAL_SEARCH_KEY
+            global.common.ONLINE_SEARCH_KEY
           )
         ) {
-          checkOption(data[global.common.EXTERNAL_SEARCH_KEY]);
+          checkOption(data[global.common.ONLINE_SEARCH_KEY]);
         } // end if
       }
     );
@@ -99,7 +99,7 @@ export default {
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
-      global.common.GET_EXTERNAL_SEARCH
+      global.common.GET_ONLINE_SEARCH
     );
   },
   setup() {
@@ -122,7 +122,7 @@ export default {
             value: zhCN.default.dark,
           }, // Dark.
         ],
-        externalSearch: [
+        onlineSearch: [
           {
             icon: BaiduIcon,
             id: global.common.BAIDU_ID,

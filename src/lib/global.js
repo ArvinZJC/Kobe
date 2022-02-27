@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.8.20220226
+ * @Version: 1.0.9.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:16:04
+ * @LastEditTime: 2022-02-27 15:06:38
  */
 
 global.common = {
@@ -15,6 +15,8 @@ global.common = {
   APP_SCHEME: "app",
   APPEARANCE_KEY: "appearance",
   BAIDU_ID: "baidu",
+  BAIDU_SEARCH_KEY: "wd",
+  BAIDU_SEARCH_URL: "https://www.baidu.com/s",
   BOARD_LOT_1: 100,
   BOARD_LOT_10: 1000,
   BOARD_LOT_100: 10000,
@@ -41,17 +43,16 @@ global.common = {
   END_DATE_KEY: "endDate",
   ENTER_FULL_SCREEN: "enterFullScreen",
   EXIT_FULL_SCREEN: "exitFullScreen",
-  EXTERNAL_SEARCH_KEY: "externalSearch",
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
   GET_APPEARANCE: "getAppearance",
   GET_DAY_VOLUME_DECIMAL_POINTS: "getDayVolumeDecimalPoints",
   GET_DAY_VOLUME_UNIT: "getDayVolumeUnit",
-  GET_EXTERNAL_SEARCH: "getExternalSearch",
   GET_INCLUDE_HIDDEN_COLUMNS: "getIncludeHiddenColumns",
   GET_MAX_DATE_RANGE_SPAN: "getMaxDateRangeSpan",
   GET_MIN_DATE: "getMinDate",
   GET_NEW_TAB_ITEM_ID: "getNewTabItemId",
+  GET_ONLINE_SEARCH: "getOnlineSearch",
   GET_PLATFORM: "getPlatform",
   GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
@@ -60,7 +61,13 @@ global.common = {
   GET_TOTAL_VOLUME_DECIMAL_POINTS: "getTotalVolumeDecimalPoints",
   GET_TOTAL_VOLUME_UNIT: "getTotalVolumeUnit",
   GET_VOLUME_FORMAT: "getVolumeFormat",
+  GITEE_KOBE: "https://gitee.com/ArvinZJC/Kobe",
+  GITHUB_KOBE: "https://github.com/ArvinZJC/Kobe",
+  GITHUB_KOBE_ISSUES: "https://github.com/ArvinZJC/Kobe/issues",
+  GITHUB_KOBE_RELEASES: "https://github.com/ArvinZJC/Kobe/releases",
   GOOGLE_ID: "google",
+  GOOGLE_SEARCH_KEY: "q",
+  GOOGLE_SEARCH_URL: "https://www.google.com/search",
   HOME_VIEW: "home",
   INCLUDE_HIDDEN_COLUMNS_KEY: "includeHiddenColumns",
   IPC_RECEIVE: "fromMain",
@@ -84,6 +91,7 @@ global.common = {
   MIN_WIN_WIDTH: 800,
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
+  ONLINE_SEARCH_KEY: "onlineSearch",
   PATCH_EXIT_FULL_SCREEN: "patchExitFullScreen",
   POP_UP_APP_MENU: "popUpAppMenu",
   PREFERENCE_TABS_NAME: "preferenceTabs",
@@ -104,10 +112,10 @@ global.common = {
   SET_APPEARANCE: "setAppearance",
   SET_DAY_VOLUME_DECIMAL_POINTS: "setDayVolumeDecimalPoints",
   SET_DAY_VOLUME_UNIT: "setDayVolumeUnit",
-  SET_EXTERNAL_SEARCH: "setExternalSearch",
   SET_INCLUDE_HIDDEN_COLUMNS: "setIncludeHiddenColumns",
   SET_MAX_DATE_RANGE_SPAN: "setMaxDateRangeSpan",
   SET_MIN_DATE: "setMinDate",
+  SET_ONLINE_SEARCH: "setOnlineSearch",
   SET_SEARCH_ENGINE_MODE: "setSearchEngineMode",
   SET_TOTAL_VOLUME_DECIMAL_POINTS: "setTotalVolumeDecimalPoints",
   SET_TOTAL_VOLUME_UNIT: "setTotalVolumeUnit",

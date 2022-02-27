@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.2.20220226
+ * @Version: 2.0.6.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 23:42:45
+ * @LastEditTime: 2022-02-27 15:10:28
  */
 
 import { app, Menu, shell } from "electron";
@@ -17,22 +17,16 @@ import { updateManually } from "./updater.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const menuItemAboutAndCheckForUpdatesTemplates = [
-  {
-    label: `${zhCN.default.about}${app.name}`,
-    role: "about",
+const menuItemAboutTemplate = {
+  label: `${zhCN.default.about}${app.name}`,
+  role: "about",
+};
+const menuItemCheckForUpdatesTemplate = {
+  click: (menuItem) => {
+    updateManually(menuItem);
   },
-  ...(process.env.WEBPACK_DEV_SERVER_URL == null
-    ? [
-        {
-          click: (menuItem) => {
-            updateManually(menuItem);
-          },
-          label: zhCN.default.checkForUpdates,
-        },
-      ]
-    : []),
-];
+  label: zhCN.default.checkForUpdates,
+};
 const menuItemCloseTemplate = {
   label:
     platform === global.common.MACOS
@@ -72,7 +66,10 @@ function getMenuAppTemplate(tabbedWin) {
         label: app.name,
         role: "appMenu",
         submenu: [
-          ...menuItemAboutAndCheckForUpdatesTemplates,
+          menuItemAboutTemplate,
+          ...(process.env.WEBPACK_DEV_SERVER_URL == null
+            ? [menuItemCheckForUpdatesTemplate]
+            : []),
           menuItemSeparatorTemplate,
           {
             accelerator: "CommandOrControl+,",
@@ -237,32 +234,37 @@ function getMenuHelpTemplate(tabbedWin) {
       },
       menuItemSeparatorTemplate,
       {
-        click: async () => {
-          await shell.openExternal("https://github.com/ArvinZJC/Kobe");
+        click: () => {
+          shell.openExternal(global.common.GITHUB_KOBE);
         },
         label: `GitHub ${zhCN.default.repo}`,
       },
       {
-        click: async () => {
-          await shell.openExternal("https://gitee.com/ArvinZJC/Kobe");
+        click: () => {
+          shell.openExternal(global.common.GITEE_KOBE);
         },
         label: `Gitee ${zhCN.default.repo}（${zhCN.default.backup}）`,
       },
       {
-        click: async () => {
-          await shell.openExternal("https://github.com/ArvinZJC/Kobe/issues");
+        click: () => {
+          shell.openExternal(global.common.GITHUB_KOBE_ISSUES);
         },
         label: zhCN.default.viewIssues,
       },
       {
-        click: async () => {
-          await shell.openExternal("https://github.com/ArvinZJC/Kobe/releases");
+        click: () => {
+          shell.openExternal(global.common.GITHUB_KOBE_RELEASES);
         },
         label: zhCN.default.releaseNotes,
       },
       menuItemSeparatorTemplate,
       ...(platform === global.common.WINDOWS
-        ? menuItemAboutAndCheckForUpdatesTemplates
+        ? [
+            ...(process.env.WEBPACK_DEV_SERVER_URL == null
+              ? [menuItemCheckForUpdatesTemplate]
+              : []),
+            menuItemAboutTemplate,
+          ]
         : []),
       ...(process.env.NODE_ENV === global.common.DEV
         ? [
@@ -404,9 +406,6 @@ export function setAppMenu(tabbedWin) {
  * @param {BrowserView} view the tab view owning the context menu.
  */
 export async function setContextMenu(view) {
-  const externalSearch = await settings.get(global.common.EXTERNAL_SEARCH_KEY);
-  const showSearchWithBaidu = externalSearch === global.common.BAIDU_ID;
-
   contextMenu({
     menu: (actions, params, currentWin, dictionarySuggestions) => [
       dictionarySuggestions.length > 0 && actions.separator(),
@@ -416,18 +415,28 @@ export async function setContextMenu(view) {
       actions.separator(),
       actions.lookUpSelection(),
       actions.separator(),
-      showSearchWithBaidu && {
+      {
         click: async () => {
-          await shell.openExternal(
-            `https://www.baidu.com/s?wd=${encodeURIComponent(
-              params.selectionText
-            )}`
+          const onlineSearch = await settings.get(
+            global.common.ONLINE_SEARCH_KEY
           );
+          const onlineSearchUrl = new URL(
+            onlineSearch === global.common.BAIDU_ID
+              ? global.common.BAIDU_SEARCH_URL
+              : global.common.GOOGLE_SEARCH_URL
+          );
+
+          onlineSearchUrl.searchParams.set(
+            onlineSearch === global.common.BAIDU_ID
+              ? global.common.BAIDU_SEARCH_KEY
+              : global.common.GOOGLE_SEARCH_KEY,
+            params.selectionText
+          );
+          shell.openExternal(onlineSearchUrl.toString());
         },
-        label: `${zhCN.default.use}${zhCN.default.baidu}${zhCN.default.search}“{selection}”`,
+        label: `${zhCN.default.onlineSearchTitle}“{selection}”`,
         visible: params.selectionText.trim().length > 0,
       },
-      !showSearchWithBaidu && actions.searchWithGoogle(),
       actions.separator(),
       {
         accelerator: "CommandOrControl+Z",

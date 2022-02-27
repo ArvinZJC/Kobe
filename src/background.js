@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.0.9.20220226
+ * @Version: 1.0.10.20220227
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:48:48
+ * @LastEditTime: 2022-02-27 13:30:33
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -28,7 +28,7 @@ protocol.registerSchemesAsPrivileged([
 electronDl({
   openFolderWhenDone: true,
   errorMessage: `{filename} ${zhCN.default.downloadErrorMessage}`,
-  errorTitle: zhCN.default.downloadErrorTitle,
+  errorTitle: app.name,
 }); // Configure file downloads.
 
 // Perform specific tasks when the app is ready.
