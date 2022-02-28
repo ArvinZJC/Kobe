@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.5.20220224
+ * @Version: 1.0.6.20220228
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 20:42:40
+ * @LastEditTime: 2022-02-28 23:31:39
 -->
 
 <template>
@@ -27,7 +27,7 @@
           ]"
           alt="App icon"
           draggable="false"
-          src="../assets/AppIcon.png"
+          src="../assets/app_icon.png"
         />
       </div>
       <AppTextLogo
