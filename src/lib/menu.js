@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.6.20220227
+ * @Version: 2.0.7.20220228
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 15:10:28
+ * @LastEditTime: 2022-02-28 23:03:08
  */
 
 import { app, Menu, shell } from "electron";
@@ -270,6 +270,10 @@ function getMenuHelpTemplate(tabbedWin) {
         ? [
             menuItemSeparatorTemplate,
             {
+              accelerator:
+                platform === global.common.MACOS
+                  ? "Command+Option+T"
+                  : "Ctrl+Alt+T",
               click: () => {
                 tabbedWin.controlView.webContents.isDevToolsOpened()
                   ? tabbedWin.controlView.webContents.closeDevTools()
@@ -282,7 +286,7 @@ function getMenuHelpTemplate(tabbedWin) {
             {
               accelerator:
                 platform === global.common.MACOS
-                  ? "Alt+Command+I"
+                  ? "Command+Option+I"
                   : "Ctrl+Shift+I",
               click: () => {
                 tabbedWin.currentWebContents.toggleDevTools();

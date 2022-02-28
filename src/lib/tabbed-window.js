@@ -1,10 +1,10 @@
 /*
  * @Description: the tabbed window builder
- * @Version: 1.0.2.20220226
+ * @Version: 1.0.3.20220228
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:44:34
+ * @LastEditTime: 2022-02-28 20:31:20
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow).
@@ -92,7 +92,6 @@ export class TabbedWindow extends EventEmitter {
     this.commonWebPreferences = {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
       devTools: this.options.debug,
-      enableBlinkFeatures: "CSSColorSchemeUARendering", // See https://stackoverflow.com/a/65313951 for reference.
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
       preload: path.join(__dirname, "preload.js"),
       sandbox: true, // Support window.opener. See https://github.com/electron/electron/issues/1865#issuecomment-249989894 for more info.

@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.2.20220227
+ * @Version: 1.1.4.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 15:59:28
+ * @LastEditTime: 2022-03-01 07:22:46
  */
 
 /*
@@ -660,30 +660,28 @@ body::selection {
   --tw-ring-offset-color: #000;
 }
 
-/* Button on the tab bar. */
+/* The base style of a tab bar button. */
 
-.btn-tab-bar {
-  height: 2rem;
-  width: 2rem;
-  flex: none;
-  border-radius: 0.25rem;
+/* Tab bar button on macOS. */
+
+.btn-tab-bar-mac {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
   -webkit-app-region: no-drag;
 }
 
-.btn-tab-bar:hover {
+.btn-tab-bar-mac:hover {
   --tw-bg-opacity: 1;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+  background-color: rgb(47 54 70 / var(--tw-bg-opacity));
 }
 
-.btn-tab-bar:focus {
+.btn-tab-bar-mac:focus {
   --tw-bg-opacity: 1;
-  background-color: rgb(75 85 99 / var(--tw-bg-opacity));
+  background-color: rgb(77 83 97 / var(--tw-bg-opacity));
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .btn-tab-bar {
+  .btn-tab-bar-mac {
     transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
@@ -691,9 +689,51 @@ body::selection {
     transition-duration: 150ms;
   }
 
-  .btn-tab-bar {
+  .btn-tab-bar-mac {
     transition-duration: 300ms;
   }
+}
+
+.btn-tab-bar-mac {
+  height: 2rem;
+  width: 2rem;
+}
+
+/* Tab bar button on Windows. */
+
+.btn-tab-bar-win {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  -webkit-app-region: no-drag;
+}
+
+.btn-tab-bar-win:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(47 54 70 / var(--tw-bg-opacity));
+}
+
+.btn-tab-bar-win:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(77 83 97 / var(--tw-bg-opacity));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn-tab-bar-win {
+    transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  .btn-tab-bar-win {
+    transition-duration: 300ms;
+  }
+}
+
+.btn-tab-bar-win {
+  height: 100vh;
+  width: 45.8px;
 }
 
 /* Container for a bottom bar. */
@@ -921,8 +961,8 @@ body::selection {
   width: 5rem;
 }
 
-.w-36 {
-  width: 9rem;
+.w-\[137\.4px\] {
+  width: 137.4px;
 }
 
 .w-4 {
@@ -1167,42 +1207,15 @@ body::selection {
 
 .bg-blur {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.9;
+  --tw-bg-opacity: 0.3;
+  --tw-backdrop-blur: blur(8px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
 .dark .bg-blur {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.9;
-}
-
-.bg-blur {
-  /* A workaround if the browser does not support the particular feature. */
-}
-
-@supports (((-webkit-backdrop-filter: none) or (backdrop-filter: none)) or (-webkit-backdrop-filter: none)) {
-  .bg-blur {
-    --tw-bg-opacity: 1;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  }
-
-  .bg-blur {
-    --tw-bg-opacity: 0.3;
-  }
-
-  .bg-blur {
-    --tw-backdrop-blur: blur(8px);
-    -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-            backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-  }
-
-  .dark .bg-blur {
-    --tw-bg-opacity: 1;
-    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-  }
-
-  .dark .bg-blur {
-    --tw-bg-opacity: 0.3;
-  }
+  --tw-bg-opacity: 0.3;
 }
 
 /* Endpoint of the float-down animation with Transform 1. */
@@ -1557,6 +1570,16 @@ body::selection {
 .e-tab-clone-element .e-tab-wrap, .e-tab-clone-element .e-tab-wrap .e-tab-icon {
   --tw-text-opacity: 1 !important;
   color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+.hover\:bg-\[\#e81123\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 17 35 / var(--tw-bg-opacity));
+}
+
+.focus\:bg-\[\#901326\]:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 19 38 / var(--tw-bg-opacity));
 }
 
 @media (prefers-reduced-motion: no-preference) {
