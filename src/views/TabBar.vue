@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 14:10:07
+ * @LastEditTime: 2022-03-01 14:14:10
 -->
 
 <template>
@@ -458,7 +458,6 @@ export default {
             global.common.IPC_SEND,
             global.common.MAXIMISE_OR_RESTORE_WIN
           );
-          console.log(true);
         } // end if
       } // end if
     });
