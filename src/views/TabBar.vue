@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 13:02:15
+ * @LastEditTime: 2022-03-01 14:10:07
 -->
 
 <template>
@@ -439,6 +439,29 @@ export default {
         });
       }
     );
+    window.addEventListener("dblclick", (args) => {
+      if (this.platform === global.common.MACOS) {
+        var isNonDraggable = false;
+
+        for (const elementPath of args.path) {
+          if (
+            elementPath.classList.contains("btn-tab-bar-mac") ||
+            elementPath.classList.contains("non-draggable-area")
+          ) {
+            isNonDraggable = true;
+            break;
+          } // end if
+        } // end for
+
+        if (!isNonDraggable) {
+          window[global.common.IPC_RENDERER_API_KEY].send(
+            global.common.IPC_SEND,
+            global.common.MAXIMISE_OR_RESTORE_WIN
+          );
+          console.log(true);
+        } // end if
+      } // end if
+    });
     window.addEventListener("load", () => {
       window[global.common.IPC_RENDERER_API_KEY].receive(
         global.common.IPC_RECEIVE,

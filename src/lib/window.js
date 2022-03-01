@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.5.20220228
+ * @Version: 2.0.6.20220301
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-28 23:19:56
+ * @LastEditTime: 2022-03-01 13:55:28
  */
 
 import {
@@ -13,6 +13,7 @@ import {
   Menu,
   nativeTheme,
   screen,
+  systemPreferences,
   webContents,
 } from "electron";
 import log from "electron-log";
@@ -137,6 +138,22 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
     } // end if...else
   });
 } // end function initialiseIpcMainListener
+
+/**
+ * Maximise or restore the window.
+ * TODO: titleBarOverlay temp workaround.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @param {Electron.WebContents} viewContents the tab item web contents.
+ */
+function maximiseOrRestoreWin(tabbedWin, viewContents) {
+  if (tabbedWin.win.isMaximized()) {
+    tabbedWin.win.restore();
+    viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
+  } else {
+    tabbedWin.win.maximize();
+    viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
+  } // end if...else
+} // end function maximiseOrRestoreWin
 
 /**
  * React to the IPC channel's ID data.
@@ -270,17 +287,30 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.MAXIMISE_OR_RESTORE_WIN: {
-      //TODO: titleBarOverlay temp workaround.
-      if (tabbedWin.win.isMaximized()) {
-        tabbedWin.win.restore();
-        viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
-      } else {
-        tabbedWin.win.maximize();
-        viewContents.send(
-          global.common.IPC_RECEIVE,
-          global.common.MAXIMISE_WIN
-        );
-      } // end if...else
+      // TODO: titleBarOverlay temp workaround.
+      if (platform === global.common.WINDOWS) {
+        maximiseOrRestoreWin(tabbedWin, viewContents);
+        return;
+      } // end if
+
+      // NOTE: react to this ID data on macOS only.
+      // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
+      switch (
+        systemPreferences.getUserDefault("AppleActionOnDoubleClick", "string")
+      ) {
+        case "Minimize": {
+          tabbedWin.win.minimize();
+          break;
+        }
+        case "None": {
+          break;
+        }
+        default: {
+          tabbedWin.win.isMaximized()
+            ? tabbedWin.win.restore()
+            : tabbedWin.win.maximize();
+        }
+      } // end switch-case
 
       break;
     }

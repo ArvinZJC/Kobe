@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.10.20220228
+ * @Version: 1.0.10.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-28 22:49:51
+ * @LastEditTime: 2022-03-01 13:17:47
  */
 
 global.common = {
@@ -80,7 +80,7 @@ global.common = {
   MAX_DECIMAL_POINTS: 6,
   MAX_MAX_DATE_RANGE_SPAN: 8,
   MAX_PREFERENCE_OPTION_WIDTH: 215,
-  MAXIMISE_OR_RESTORE_WIN: "maximiseOrRestoreWin", // TODO: titleBarOverlay temp workaround.
+  MAXIMISE_OR_RESTORE_WIN: "maximiseOrRestoreWin",
   MAXIMISE_WIN: "maximiseWin", // TODO: titleBarOverlay temp workaround.
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE_KEY: "minDate",
