@@ -34,9 +34,9 @@
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.5    |
    | @syncfusion/ej2-vue-buttons      |  19.4.53   |
-   | @syncfusion/ej2-vue-calendars    |  19.4.52   |
-   | @syncfusion/ej2-vue-dropdowns    |  19.4.52   |
-   | @syncfusion/ej2-vue-grids        |  19.4.53   |
+   | @syncfusion/ej2-vue-calendars    |  19.4.54   |
+   | @syncfusion/ej2-vue-dropdowns    |  19.4.54   |
+   | @syncfusion/ej2-vue-grids        |  19.4.54   |
    | @syncfusion/ej2-vue-inputs       |  19.4.52   |
    | @syncfusion/ej2-vue-navigations  |  19.4.53   |
    | @syncfusion/ej2-vue-popups       |  19.4.53   |
@@ -56,7 +56,7 @@
    | vue                              |   3.2.31   |
    | vue-class-component              | 8.0.0-rc.1 |
    | vue-cli-plugin-electron-builder  |   2.1.1    |
-   | vue-router                       |   4.0.12   |
+   | vue-router                       |   4.0.13   |
 
 4. 此项目部分 SVG 图像资源来自 [Flaticon](https://www.flaticon.com/packs/font-awesome) 和 [Iconscout](https://iconscout.com/)。
 5. Vue CLI 是此项目的一个重要依赖。在项目根目录下，按如下步骤使用 npm 的命令可以在本地运行此项目，但[应用签名](https://www.electron.build/code-signing)和[自动更新](https://www.electron.build/auto-update)会需要自己额外配置。

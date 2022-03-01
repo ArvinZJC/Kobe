@@ -34,9 +34,9 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.5    |
    | @syncfusion/ej2-vue-buttons      |  19.4.53   |
-   | @syncfusion/ej2-vue-calendars    |  19.4.52   |
-   | @syncfusion/ej2-vue-dropdowns    |  19.4.52   |
-   | @syncfusion/ej2-vue-grids        |  19.4.53   |
+   | @syncfusion/ej2-vue-calendars    |  19.4.54   |
+   | @syncfusion/ej2-vue-dropdowns    |  19.4.54   |
+   | @syncfusion/ej2-vue-grids        |  19.4.54   |
    | @syncfusion/ej2-vue-inputs       |  19.4.52   |
    | @syncfusion/ej2-vue-navigations  |  19.4.53   |
    | @syncfusion/ej2-vue-popups       |  19.4.53   |
@@ -56,7 +56,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    | vue                              |   3.2.31   |
    | vue-class-component              | 8.0.0-rc.1 |
    | vue-cli-plugin-electron-builder  |   2.1.1    |
-   | vue-router                       |   4.0.12   |
+   | vue-router                       |   4.0.13   |
 
 4. A part of SVG resources in this project are from [Flaticon](https://www.flaticon.com/packs/font-awesome) and [Iconscout](https://iconscout.com/).
 5. Vue CLI is a necessary dependency of this project. Assuming the terminal is opened in the project's root directory, the project could be run locally following the steps below using npm. However, you are expected to do some extra work yourself to activate [code signing](https://www.electron.build/code-signing) and [auto update](https://www.electron.build/auto-update).
