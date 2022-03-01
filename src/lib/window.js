@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.6.20220301
+ * @Version: 2.0.7.20220301
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 13:55:28
+ * @LastEditTime: 2022-03-01 14:31:10
  */
 
 import {
@@ -147,7 +147,7 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
  */
 function maximiseOrRestoreWin(tabbedWin, viewContents) {
   if (tabbedWin.win.isMaximized()) {
-    tabbedWin.win.restore();
+    tabbedWin.win.unmaximize();
     viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
   } else {
     tabbedWin.win.maximize();
@@ -307,7 +307,7 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
         }
         default: {
           tabbedWin.win.isMaximized()
-            ? tabbedWin.win.restore()
+            ? tabbedWin.win.unmaximize()
             : tabbedWin.win.maximize();
         }
       } // end switch-case

@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 14:14:10
+ * @LastEditTime: 2022-03-01 14:24:49
 -->
 
 <template>
@@ -445,8 +445,9 @@ export default {
 
         for (const elementPath of args.path) {
           if (
-            elementPath.classList.contains("btn-tab-bar-mac") ||
-            elementPath.classList.contains("non-draggable-area")
+            elementPath.classList != null &&
+            (elementPath.classList.contains("btn-tab-bar-mac") ||
+              elementPath.classList.contains("non-draggable-area"))
           ) {
             isNonDraggable = true;
             break;
