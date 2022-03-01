@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 18:39:24
+ * @LastEditTime: 2022-03-01 20:10:26
  */
 
 import {
@@ -37,6 +37,7 @@ log.transports.file.level = global.common.MIN_LOG_LEVEL;
 /**
  * Create a tabbed window.
  * @param {object} stockList the stock list.
+ * @returns a tabbed window.
  */
 export async function createTabbedWin(stockList) {
   await initialisePreferences();
@@ -119,6 +120,7 @@ export async function createTabbedWin(stockList) {
     );
   });
   tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
+  return tabbedWin;
 } // end function createTabbedWin
 
 /**
