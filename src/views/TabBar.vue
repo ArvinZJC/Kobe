@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 18:48:47
+ * @LastEditTime: 2022-03-01 18:57:06
 -->
 
 <template>
@@ -38,7 +38,10 @@
       </ejs-tab>
     </div>
     <!-- The tab bar button area. -->
-    <div :id="global.common.TAB_BAR_BUTTON_AREA_ID" class="flex h-full">
+    <div
+      :id="global.common.TAB_BAR_BUTTON_AREA_ID"
+      class="flex h-full items-center"
+    >
       <!-- The button for opening a new tab item. -->
       <button
         @click="openNewTabItem(null)"
