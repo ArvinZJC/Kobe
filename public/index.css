@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.6.20220301
+ * @Version: 1.1.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 12:53:12
+ * @LastEditTime: 2022-03-01 18:48:31
  */
 
 /*
@@ -432,6 +432,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: none;
 }
 
+:root {
+  --tab-bar-height: 40px;
+  /* This should be the same as "global.common.TAB_BAR_HEIGHT". */
+}
+
 body {
   background-color: transparent;
 }
@@ -462,6 +467,11 @@ body::selection {
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.dark body {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .dark body *::-moz-selection {
@@ -732,7 +742,7 @@ body::selection {
 }
 
 .btn-tab-bar-win {
-  height: 100vh;
+  height: 100%;
   width: 45.8px;
 }
 
@@ -815,9 +825,7 @@ body::selection {
 
 .container-tab-bar {
   -webkit-app-region: drag;
-  position: relative;
-  min-height: 100vh;
-  flex-grow: 1;
+  height: var(--tab-bar-height);
   display: flex;
   align-items: center;
   overflow: hidden;

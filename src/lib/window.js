@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.7.20220301
+ * @Version: 2.0.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 14:31:10
+ * @LastEditTime: 2022-03-01 18:39:24
  */
 
 import {
@@ -106,14 +106,14 @@ export async function createTabbedWin(stockList) {
     } // end if...else
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
-    tabbedWin.controlView.webContents.send(
+    tabbedWin.win.webContents.send(
       global.common.IPC_RECEIVE,
       global.common.ENTER_FULL_SCREEN
     );
   });
   tabbedWin.win.on("leave-full-screen", () => {
     setAppMenu(tabbedWin);
-    tabbedWin.controlView.webContents.send(
+    tabbedWin.win.webContents.send(
       global.common.IPC_RECEIVE,
       global.common.EXIT_FULL_SCREEN
     );
@@ -478,7 +478,7 @@ export function showPreferenceTabItem(tabbedWin) {
   preferenceTabItemUrl[
     global.common.SHOW_PREFERENCE_TAB_ITEM
   ] = `${baseUrl}/#/${global.common.PREFERENCE_VIEW}`;
-  tabbedWin.controlView.webContents.send(
+  tabbedWin.win.webContents.send(
     global.common.IPC_RECEIVE,
     preferenceTabItemUrl
   );

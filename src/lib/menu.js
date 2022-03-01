@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.7.20220228
+ * @Version: 2.0.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-28 23:03:08
+ * @LastEditTime: 2022-03-01 18:26:25
  */
 
 import { app, Menu, shell } from "electron";
@@ -275,9 +275,9 @@ function getMenuHelpTemplate(tabbedWin) {
                   ? "Command+Option+T"
                   : "Ctrl+Alt+T",
               click: () => {
-                tabbedWin.controlView.webContents.isDevToolsOpened()
-                  ? tabbedWin.controlView.webContents.closeDevTools()
-                  : tabbedWin.controlView.webContents.openDevTools({
+                tabbedWin.win.webContents.isDevToolsOpened()
+                  ? tabbedWin.win.webContents.closeDevTools()
+                  : tabbedWin.win.webContents.openDevTools({
                       mode: "detach",
                     });
               },

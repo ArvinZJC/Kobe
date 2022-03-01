@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 14:24:49
+ * @LastEditTime: 2022-03-01 18:48:47
 -->
 
 <template>
@@ -38,7 +38,7 @@
       </ejs-tab>
     </div>
     <!-- The tab bar button area. -->
-    <div :id="global.common.TAB_BAR_BUTTON_AREA_ID" class="flex">
+    <div :id="global.common.TAB_BAR_BUTTON_AREA_ID" class="flex h-full">
       <!-- The button for opening a new tab item. -->
       <button
         @click="openNewTabItem(null)"
@@ -63,10 +63,10 @@
     <div
       v-if="platform === global.common.WINDOWS && !isFullScreen"
       :id="global.common.WIN_CONTROL_AREA_ID"
-      class="flex-none w-[137.4px]"
+      class="flex-none h-full w-[137.4px]"
     >
       <!-- TODO: titleBarOverlay temp workaround. -->
-      <div class="flex">
+      <div class="flex h-full">
         <button
           @click="minimiseWin"
           :title="zhCN.default.minimise"

@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.6.20220301
+ * @Version: 1.1.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 12:53:12
+ * @LastEditTime: 2022-03-01 18:48:31
  */
 
 @tailwind base;
@@ -12,8 +12,12 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --tab-bar-height: 40px; /* This should be the same as "global.common.TAB_BAR_HEIGHT". */
+  }
+
   body {
-    @apply bg-transparent selection:bg-indigo-600 dark:selection:bg-cyan-400 selection:text-white dark:selection:text-black;
+    @apply bg-transparent dark:bg-black selection:bg-indigo-600 dark:selection:bg-cyan-400 selection:text-white dark:selection:text-black;
   }
 }
 
@@ -44,7 +48,7 @@
 
   /* Tab bar button on Windows. */
   .btn-tab-bar-win {
-    @apply btn-tab-bar-base h-screen w-[45.8px];
+    @apply btn-tab-bar-base h-full w-[45.8px];
   }
 
   /* Container for a bottom bar. */
@@ -74,7 +78,8 @@
   /* Container for the tab bar. */
   .container-tab-bar {
     -webkit-app-region: drag;
-    @apply container-view bg-slate-900 flex items-center overflow-hidden;
+    height: var(--tab-bar-height);
+    @apply bg-slate-900 flex items-center overflow-hidden;
   }
 
   /* Container for a view. */
