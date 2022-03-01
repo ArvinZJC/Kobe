@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 18:35:29
+ * @LastEditTime: 2022-03-01 22:40:43
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow). However, the control view is rendered on the browser window rather than a separate browser view to take advantage of the Windows Controls Overlay APIs (https://github.com/WICG/window-controls-overlay/blob/main/explainer.md).
@@ -382,7 +382,11 @@ export class TabbedWindow extends EventEmitter {
         name,
         (e, ...args) => {
           // Support multiple tabbed windows.
-          if (this.win && e.sender === this.win.webContents) {
+          if (
+            this.win &&
+            !this.win.isDestroyed() &&
+            e.sender === this.win.webContents
+          ) {
             listener(e, ...args);
           } // end if
         },

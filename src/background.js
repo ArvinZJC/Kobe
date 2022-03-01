@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 21:57:53
+ * @LastEditTime: 2022-03-01 22:39:23
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -18,7 +18,7 @@ import { createTabbedWin } from "./lib/window.js";
 import * as zhCN from "./locales/zh-CN.json";
 import * as stockList from "../extensions/stock-list/StockList.json";
 
-var tabbedWin = null;
+var tabbedWin;
 
 log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
