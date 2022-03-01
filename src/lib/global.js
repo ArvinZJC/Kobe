@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 13:17:47
+ * @LastEditTime: 2022-03-01 21:05:27
  */
 
 global.common = {
@@ -14,6 +14,7 @@ global.common = {
   APP_MENU_POSITION_KEY: "appMenuPosition",
   APP_SCHEME: "app",
   APPEARANCE_KEY: "appearance",
+  AUTHOR: "ArvinZJC",
   BAIDU_ID: "baidu",
   BAIDU_SEARCH_KEY: "wd",
   BAIDU_SEARCH_URL: "https://www.baidu.com/s",

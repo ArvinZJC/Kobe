@@ -4,12 +4,13 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 18:26:25
+ * @LastEditTime: 2022-03-01 21:45:27
  */
 
-import { app, Menu, shell } from "electron";
+import { app, dialog, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import settings from "electron-settings";
+import path from "path";
 import { platform } from "process";
 
 import global from "./global.js";
@@ -17,10 +18,28 @@ import { updateManually } from "./updater.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const menuItemAboutTemplate = {
-  label: `${zhCN.default.about}${app.name}`,
-  role: "about",
-};
+const menuItemAboutTemplate =
+  platform === global.common.MACOS
+    ? {
+        label: `${zhCN.default.about}${app.name}`,
+        role: "about",
+      }
+    : {
+        click: () => {
+          dialog.showMessageBox({
+            detail: `V${app.getVersion()}\n\n${
+              zhCN.default.appDescription
+            }\n\nCopyright © ${new Date().getFullYear()} ${
+              global.common.AUTHOR
+            }`,
+            // eslint-disable-next-line no-undef
+            icon: path.join(__static, "favicon.ico"),
+            message: app.name,
+            title: app.name,
+          });
+        },
+        label: `${zhCN.default.about}${app.name}`,
+      };
 const menuItemCheckForUpdatesTemplate = {
   click: (menuItem) => {
     updateManually(menuItem);

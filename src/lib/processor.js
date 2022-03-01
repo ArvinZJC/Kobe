@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.3.20220226
+ * @Version: 1.0.4.20220301
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:48:59
+ * @LastEditTime: 2022-03-01 21:50:11
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -107,11 +107,11 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
         iconv.decode(Buffer.from(buffer), "gb2312").toString() // Decode using GB2312 rather than UTF-8 to avoid garbled characters due to the original character set used by the above API.
       );
 
-      volumes = parseDom(dom);
-    } else {
-      log.warn(`Processor: ${response.status} ${response.statusText}`);
-      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
-    } // end if...else
+      return parseDom(dom);
+    } // end if
+
+    log.warn(`Processor: ${response.status} ${response.statusText}`);
+    volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
   } catch (e) {
     log.error(
       "Failed to fetch from the specific API:",
