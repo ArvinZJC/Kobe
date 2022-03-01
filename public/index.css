@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.4.20220301
+ * @Version: 1.1.6.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 07:22:46
+ * @LastEditTime: 2022-03-01 12:53:12
  */
 
 /*
@@ -1081,6 +1081,10 @@ body::selection {
   overflow: hidden;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1499,8 +1503,8 @@ body::selection {
 /* The customised horizontal tab item text wrap style. */
 
 .e-tab .e-tab-header:not(.e-vertical) .e-toolbar-item .e-tab-wrap {
-  padding-left: 0.625rem;
-  padding-right: 0.125rem;
+  padding-left: 1.25rem;
+  padding-right: 0.75rem;
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
@@ -1508,6 +1512,13 @@ body::selection {
 .dark .e-tab .e-tab-header:not(.e-vertical) .e-toolbar-item .e-tab-wrap {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
+}
+
+/* The customised horizontal tab item (excluding the separator) style. */
+
+.e-tab .e-tab-header:not(.e-vertical) .e-toolbar-item:not(.e-separator) {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 /* The customised vertical tab header style. */
@@ -1565,11 +1576,26 @@ body::selection {
   color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
 }
 
+/* The customised draggable tab item close icon style. */
+
+.e-tab-clone-element .e-icons.e-close-icon {
+  margin-left: 0.5rem;
+}
+
 /* The customised draggable tab item wrap style. */
 
 .e-tab-clone-element .e-tab-wrap, .e-tab-clone-element .e-tab-wrap .e-tab-icon {
+  padding-left: 1.25rem !important;
+  padding-right: 0.75rem !important;
   --tw-text-opacity: 1 !important;
   color: rgb(209 213 219 / var(--tw-text-opacity)) !important;
+}
+
+/* The customised draggable tab item (excluding the separator) style. */
+
+.e-tab-clone-element:not(.e-separator) {
+  padding-left: 0px !important;
+  padding-right: 0.375rem !important;
 }
 
 .hover\:bg-\[\#e81123\]:hover {

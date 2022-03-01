@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 07:30:00
+ * @LastEditTime: 2022-03-01 13:02:15
 -->
 
 <template>
@@ -45,7 +45,7 @@
         :class="[
           'e-icons e-plus ml-10',
           platform === global.common.MACOS
-            ? 'btn-tab-bar-mac mr-2'
+            ? 'btn-tab-bar-mac mr-2 rounded'
             : 'btn-tab-bar-win',
         ]"
         :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
@@ -71,22 +71,26 @@
           @click="minimiseWin"
           :title="zhCN.default.minimise"
           class="btn-tab-bar-win e-icons e-intermediate-state"
+          tabindex="-1"
         />
         <button
           @click="maximiseOrRestoreWin"
           :title="maximiseOrRestoreButtonTitle"
           class="btn-tab-bar-win flex items-center justify-center"
+          tabindex="-1"
         >
           <img
             :alt="maximiseOrRestoreButtonTitle"
             :src="maximiseOrRestoreButtonImage"
             class="h-4"
+            draggable="false"
           />
         </button>
         <button
           @click="closeWin"
           :title="zhCN.default.close"
           class="btn-tab-bar-win focus:bg-[#901326] hover:bg-[#e81123] e-close e-icons"
+          tabindex="-1"
         />
       </div>
     </div>
@@ -160,7 +164,9 @@ export default {
      * @param {object} args the click event arguments.
      */
     maximiseOrRestoreWin(args) {
-      args.target.blur();
+      args.target.nodeName === "BUTTON"
+        ? args.target.blur()
+        : args.target.parentElement.blur();
       window[global.common.IPC_RENDERER_API_KEY].send(
         global.common.IPC_SEND,
         global.common.MAXIMISE_OR_RESTORE_WIN
