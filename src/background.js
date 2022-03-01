@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 20:15:31
+ * @LastEditTime: 2022-03-01 21:57:53
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -96,4 +96,6 @@ if (app.requestSingleInstanceLock()) {
       });
     } // end if...else
   } // end if
-}
+} else {
+  app.quit();
+} // end if...else
