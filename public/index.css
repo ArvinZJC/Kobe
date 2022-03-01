@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 18:48:31
+ * @LastEditTime: 2022-03-01 22:47:51
  */
 
 /*
@@ -675,6 +675,7 @@ body::selection {
 /* Tab bar button on macOS. */
 
 .btn-tab-bar-mac {
+  cursor: default;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
   -webkit-app-region: no-drag;
@@ -712,6 +713,7 @@ body::selection {
 /* Tab bar button on Windows. */
 
 .btn-tab-bar-win {
+  cursor: default;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
   -webkit-app-region: no-drag;
@@ -873,10 +875,6 @@ body::selection {
   margin-left: 2.5rem;
 }
 
-.mr-2 {
-  margin-right: 0.5rem;
-}
-
 .mr-1 {
   margin-right: 0.25rem;
 }
@@ -1024,6 +1022,10 @@ body::selection {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.\!cursor-default {
+  cursor: default !important;
 }
 
 .select-none {

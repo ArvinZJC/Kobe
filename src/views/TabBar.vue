@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 18:57:06
+ * @LastEditTime: 2022-03-01 22:54:27
 -->
 
 <template>
@@ -30,9 +30,9 @@
       >
         <e-tabitems>
           <e-tabitem
+            :cssClass="newTabItemCssClass"
             :header="{ text: zhCN.default.newTabItem }"
             :id="startTabItemId"
-            cssClass="non-draggable-area"
           />
         </e-tabitems>
       </ejs-tab>
@@ -48,7 +48,7 @@
         :class="[
           'e-icons e-plus ml-10',
           platform === global.common.MACOS
-            ? 'btn-tab-bar-mac mr-2 rounded'
+            ? 'btn-tab-bar-mac mr-1 rounded'
             : 'btn-tab-bar-win',
         ]"
         :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
@@ -194,7 +194,7 @@ export default {
      * @param {string} url the URL to load.
      */
     openNewTabItem(url) {
-      var cssClass = "non-draggable-area";
+      var cssClass = this.newTabItemCssClass;
       const newTabItemIndex =
         this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items.length;
 
@@ -344,6 +344,7 @@ export default {
       isFullScreen: false,
       maximiseOrRestoreButtonImage: MaximiseIcon, // TODO: titleBarOverlay temp workaround.
       maximiseOrRestoreButtonTitle: zhCN.default.maximise, // TODO: titleBarOverlay temp workaround.
+      newTabItemCssClass: "non-draggable-area !cursor-default",
       platform: global.common.UNKNOWN,
       startTabItemId: null,
       tabBarTabWidth: "100%",
