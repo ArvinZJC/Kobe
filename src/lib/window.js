@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.2.20220227
+ * @Version: 2.0.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 14:45:35
+ * @LastEditTime: 2022-03-01 20:10:26
  */
 
 import {
@@ -13,6 +13,7 @@ import {
   Menu,
   nativeTheme,
   screen,
+  systemPreferences,
   webContents,
 } from "electron";
 import log from "electron-log";
@@ -36,6 +37,7 @@ log.transports.file.level = global.common.MIN_LOG_LEVEL;
 /**
  * Create a tabbed window.
  * @param {object} stockList the stock list.
+ * @returns a tabbed window.
  */
 export async function createTabbedWin(stockList) {
   await initialisePreferences();
@@ -58,13 +60,18 @@ export async function createTabbedWin(stockList) {
     center: true,
     minHeight: global.common.MIN_WIN_HEIGHT,
     minWidth: global.common.MIN_WIN_WIDTH,
-    titleBarOverlay: {
+    titleBarStyle: platform === global.common.MACOS ? "hiddenInset" : "hidden",
+  };
+
+  // TODO: titleBarOverlay temp workaround.
+  if (platform === global.common.MACOS) {
+    winOptions.titleBarOverlay = {
       color: global.common.TITLE_BAR_OVERLAY_COLOUR,
       height: global.common.TAB_BAR_HEIGHT,
       symbolColor: global.common.LIGHT_WIN_COLOUR,
-    },
-    titleBarStyle: platform === global.common.MACOS ? "hiddenInset" : "hidden",
-  };
+    };
+  } // end if
+
   const winWidth = Math.round(width * 0.7);
   var tabbedWin = new TabbedWindow({
     blankPage: baseUrl,
@@ -100,19 +107,20 @@ export async function createTabbedWin(stockList) {
     } // end if...else
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
-    tabbedWin.controlView.webContents.send(
+    tabbedWin.win.webContents.send(
       global.common.IPC_RECEIVE,
       global.common.ENTER_FULL_SCREEN
     );
   });
   tabbedWin.win.on("leave-full-screen", () => {
     setAppMenu(tabbedWin);
-    tabbedWin.controlView.webContents.send(
+    tabbedWin.win.webContents.send(
       global.common.IPC_RECEIVE,
       global.common.EXIT_FULL_SCREEN
     );
   });
   tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
+  return tabbedWin;
 } // end function createTabbedWin
 
 /**
@@ -126,274 +134,334 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
     const viewContents = webContents.fromId(event.sender.id);
 
     if (typeof data === "object") {
-      switch (data[global.common.TAG_KEY]) {
-        case global.common.GET_NEW_TAB_ITEM_ID: {
-          const newTabId = {};
-
-          newTabId[global.common.GET_NEW_TAB_ITEM_ID] =
-            tabbedWin.tabs[tabbedWin.tabs.length - 1];
-          newTabId[global.common.NEW_TAB_ITEM_INDEX_KEY] =
-            data[global.common.NEW_TAB_ITEM_INDEX_KEY];
-          viewContents.send(global.common.IPC_RECEIVE, newTabId);
-          break;
-        }
-        case global.common.GET_SEARCH_RESULT_DATA: {
-          const searchResultData = await getSearchResultData(
-            data[global.common.END_DATE_KEY],
-            data[global.common.START_DATE_KEY],
-            data[global.common.STOCK_SYMBOL_KEY]
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, searchResultData);
-          break;
-        }
-        case global.common.POP_UP_APP_MENU: {
-          Menu.getApplicationMenu().popup(
-            data[global.common.APP_MENU_POSITION_KEY]
-          );
-          break;
-        }
-        case global.common.SET_APPEARANCE: {
-          await settings.set(
-            global.common.APPEARANCE_KEY,
-            data[global.common.APPEARANCE_KEY]
-          );
-          nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
-          break;
-        }
-        case global.common.SET_DAY_VOLUME_DECIMAL_POINTS: {
-          await settings.set(
-            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY,
-            data[global.common.DAY_VOLUME_DECIMAL_POINTS_KEY]
-          );
-          break;
-        }
-        case global.common.SET_DAY_VOLUME_UNIT: {
-          await settings.set(
-            global.common.DAY_VOLUME_UNIT_KEY,
-            data[global.common.DAY_VOLUME_UNIT_KEY]
-          );
-          break;
-        }
-        case global.common.SET_ONLINE_SEARCH: {
-          await settings.set(
-            global.common.ONLINE_SEARCH_KEY,
-            data[global.common.ONLINE_SEARCH_KEY]
-          );
-          break;
-        }
-        case global.common.SET_INCLUDE_HIDDEN_COLUMNS: {
-          await settings.set(
-            global.common.INCLUDE_HIDDEN_COLUMNS_KEY,
-            data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY]
-          );
-          break;
-        }
-        case global.common.SET_MAX_DATE_RANGE_SPAN: {
-          await settings.set(
-            global.common.MAX_DATE_RANGE_SPAN_KEY,
-            data[global.common.MAX_DATE_RANGE_SPAN_KEY]
-          );
-          break;
-        }
-        case global.common.SET_MIN_DATE: {
-          await settings.set(
-            global.common.MIN_DATE_KEY,
-            data[global.common.MIN_DATE_KEY]
-          );
-          break;
-        }
-        case global.common.SET_SEARCH_ENGINE_MODE: {
-          await settings.set(
-            global.common.SEARCH_ENGINE_MODE_KEY,
-            data[global.common.SEARCH_ENGINE_MODE_KEY]
-          );
-          break;
-        }
-        case global.common.SET_TOTAL_VOLUME_DECIMAL_POINTS: {
-          await settings.set(
-            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY,
-            data[global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY]
-          );
-          break;
-        }
-        case global.common.SET_TOTAL_VOLUME_UNIT: {
-          await settings.set(
-            global.common.TOTAL_VOLUME_UNIT_KEY,
-            data[global.common.TOTAL_VOLUME_UNIT_KEY]
-          );
-          break;
-        }
-        default: {
-          log.warn(
-            "Unknown IPC channel event in the data message:",
-            JSON.stringify(data)
-          );
-        }
-      } // end switch-case
+      await reactToIpcObjectData(data, tabbedWin, viewContents);
     } else {
-      switch (data) {
-        case global.common.CLOSE_WIN: {
-          tabbedWin.win.close();
-          break;
-        }
-        case global.common.CORRECT_WIN_COLOUR: {
-          Array.prototype.forEach.call(
-            BrowserWindow.getAllWindows(),
-            (element) =>
-              element.setBackgroundColor(
-                nativeTheme.shouldUseDarkColors
-                  ? global.common.DARK_WIN_COLOUR
-                  : global.common.LIGHT_WIN_COLOUR
-              )
-          );
-          break;
-        }
-        case global.common.GET_APPEARANCE: {
-          const appearance = await getPreference(global.common.APPEARANCE_KEY);
-
-          viewContents.send(global.common.IPC_RECEIVE, appearance);
-          break;
-        }
-        case global.common.GET_DAY_VOLUME_DECIMAL_POINTS: {
-          const dayVolumeDecimalPoints = await getPreference(
-            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, dayVolumeDecimalPoints);
-          break;
-        }
-        case global.common.GET_DAY_VOLUME_UNIT: {
-          const dayVolumeUnit = await getPreference(
-            global.common.DAY_VOLUME_UNIT_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
-          break;
-        }
-        case global.common.GET_ONLINE_SEARCH: {
-          const onlineSearch = await getPreference(
-            global.common.ONLINE_SEARCH_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, onlineSearch);
-          break;
-        }
-        case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
-          const includeHiddenColumns = await getPreference(
-            global.common.INCLUDE_HIDDEN_COLUMNS_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, includeHiddenColumns);
-          break;
-        }
-        case global.common.GET_MAX_DATE_RANGE_SPAN: {
-          const maxDateRangeSpan = await getPreference(
-            global.common.MAX_DATE_RANGE_SPAN_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, maxDateRangeSpan);
-          break;
-        }
-        case global.common.GET_MIN_DATE: {
-          const minDate = await getPreference(global.common.MIN_DATE_KEY);
-
-          viewContents.send(global.common.IPC_RECEIVE, minDate);
-          break;
-        }
-        case global.common.GET_PLATFORM: {
-          const os = {};
-
-          os[global.common.GET_PLATFORM] = platform;
-          viewContents.send(global.common.IPC_RECEIVE, os);
-          break;
-        }
-        case global.common.GET_SEARCH_ENGINE_MODE: {
-          const searchEngineMode = await getPreference(
-            global.common.SEARCH_ENGINE_MODE_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, searchEngineMode);
-          break;
-        }
-        case global.common.GET_START_TAB_ITEM_ID: {
-          const startTabItemId = {};
-
-          startTabItemId[global.common.GET_START_TAB_ITEM_ID] =
-            tabbedWin.tabs[0];
-          viewContents.send(global.common.IPC_RECEIVE, startTabItemId);
-          break;
-        }
-        case global.common.GET_STOCK_LIST: {
-          viewContents.send(global.common.IPC_RECEIVE, stockList);
-          break;
-        }
-        case global.common.GET_TOTAL_VOLUME_DECIMAL_POINTS: {
-          const totalVolumeDecimalPoints = await getPreference(
-            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
-          );
-
-          viewContents.send(
-            global.common.IPC_RECEIVE,
-            totalVolumeDecimalPoints
-          );
-          break;
-        }
-        case global.common.GET_TOTAL_VOLUME_UNIT: {
-          const totalVolumeUnit = await getPreference(
-            global.common.TOTAL_VOLUME_UNIT_KEY
-          );
-
-          viewContents.send(global.common.IPC_RECEIVE, totalVolumeUnit);
-          break;
-        }
-        case global.common.GET_VOLUME_FORMAT: {
-          var volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
-
-          volumeFormat[0] = await getPreference(
-            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
-          );
-          volumeFormat[1] = await getPreference(
-            global.common.DAY_VOLUME_UNIT_KEY
-          );
-          volumeFormat[2] = await getPreference(
-            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
-          );
-          volumeFormat[3] = await getPreference(
-            global.common.TOTAL_VOLUME_UNIT_KEY
-          );
-          viewContents.send(global.common.IPC_RECEIVE, volumeFormat);
-          break;
-        }
-        case global.common.PATCH_EXIT_FULL_SCREEN: {
-          // Programmatically emulate resizing and restoring the app window size to avoid possible strange tab appearance when exiting the full screen mode.
-          const winSize = tabbedWin.win.getSize();
-
-          tabbedWin.win.setSize(
-            winSize[0] +
-              (winSize[0] + 1 > screen.getPrimaryDisplay().workAreaSize.width
-                ? -1
-                : 1),
-            winSize[1]
-          );
-          tabbedWin.win.setSize(winSize[0], winSize[1]);
-          break;
-        }
-        case global.common.RESET_PREFERENCES: {
-          await resetPreferences();
-          viewContents.reload();
-          break;
-        }
-        default: {
-          log.warn(
-            "Unknown IPC channel event in the data message:",
-            JSON.stringify(data)
-          );
-        }
-      } // end switch-case
+      await reactToIpcIdData(data, stockList, tabbedWin, viewContents);
     } // end if...else
   });
 } // end function initialiseIpcMainListener
+
+/**
+ * Maximise or restore the window.
+ * TODO: titleBarOverlay temp workaround.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @param {Electron.WebContents} viewContents the tab item web contents.
+ */
+function maximiseOrRestoreWin(tabbedWin, viewContents) {
+  if (tabbedWin.win.isMaximized()) {
+    tabbedWin.win.unmaximize();
+    viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
+  } else {
+    tabbedWin.win.maximize();
+    viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
+  } // end if...else
+} // end function maximiseOrRestoreWin
+
+/**
+ * React to the IPC channel's ID data.
+ * @param {string} data the ID data sent via the IPC channel.
+ * @param {object} stockList the stock list.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @param {Electron.WebContents} viewContents the tab item web contents.
+ */
+async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
+  switch (data) {
+    case global.common.CLOSE_WIN: {
+      tabbedWin.win.close();
+      break;
+    }
+    case global.common.CORRECT_WIN_COLOUR: {
+      Array.prototype.forEach.call(BrowserWindow.getAllWindows(), (element) =>
+        element.setBackgroundColor(
+          nativeTheme.shouldUseDarkColors
+            ? global.common.DARK_WIN_COLOUR
+            : global.common.LIGHT_WIN_COLOUR
+        )
+      );
+      break;
+    }
+    case global.common.GET_APPEARANCE: {
+      const appearance = await getPreference(global.common.APPEARANCE_KEY);
+
+      viewContents.send(global.common.IPC_RECEIVE, appearance);
+      break;
+    }
+    case global.common.GET_DAY_VOLUME_DECIMAL_POINTS: {
+      const dayVolumeDecimalPoints = await getPreference(
+        global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, dayVolumeDecimalPoints);
+      break;
+    }
+    case global.common.GET_DAY_VOLUME_UNIT: {
+      const dayVolumeUnit = await getPreference(
+        global.common.DAY_VOLUME_UNIT_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
+      break;
+    }
+    case global.common.GET_ONLINE_SEARCH: {
+      const onlineSearch = await getPreference(global.common.ONLINE_SEARCH_KEY);
+
+      viewContents.send(global.common.IPC_RECEIVE, onlineSearch);
+      break;
+    }
+    case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
+      const includeHiddenColumns = await getPreference(
+        global.common.INCLUDE_HIDDEN_COLUMNS_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, includeHiddenColumns);
+      break;
+    }
+    case global.common.GET_MAX_DATE_RANGE_SPAN: {
+      const maxDateRangeSpan = await getPreference(
+        global.common.MAX_DATE_RANGE_SPAN_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, maxDateRangeSpan);
+      break;
+    }
+    case global.common.GET_MIN_DATE: {
+      const minDate = await getPreference(global.common.MIN_DATE_KEY);
+
+      viewContents.send(global.common.IPC_RECEIVE, minDate);
+      break;
+    }
+    case global.common.GET_PLATFORM: {
+      const os = {};
+
+      os[global.common.GET_PLATFORM] = platform;
+      viewContents.send(global.common.IPC_RECEIVE, os);
+      break;
+    }
+    case global.common.GET_SEARCH_ENGINE_MODE: {
+      const searchEngineMode = await getPreference(
+        global.common.SEARCH_ENGINE_MODE_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, searchEngineMode);
+      break;
+    }
+    case global.common.GET_START_TAB_ITEM_ID: {
+      const startTabItemId = {};
+
+      startTabItemId[global.common.GET_START_TAB_ITEM_ID] = tabbedWin.tabs[0];
+      viewContents.send(global.common.IPC_RECEIVE, startTabItemId);
+      break;
+    }
+    case global.common.GET_STOCK_LIST: {
+      viewContents.send(global.common.IPC_RECEIVE, stockList);
+      break;
+    }
+    case global.common.GET_TOTAL_VOLUME_DECIMAL_POINTS: {
+      const totalVolumeDecimalPoints = await getPreference(
+        global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, totalVolumeDecimalPoints);
+      break;
+    }
+    case global.common.GET_TOTAL_VOLUME_UNIT: {
+      const totalVolumeUnit = await getPreference(
+        global.common.TOTAL_VOLUME_UNIT_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, totalVolumeUnit);
+      break;
+    }
+    case global.common.GET_VOLUME_FORMAT: {
+      var volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
+
+      volumeFormat[0] = await getPreference(
+        global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
+      );
+      volumeFormat[1] = await getPreference(global.common.DAY_VOLUME_UNIT_KEY);
+      volumeFormat[2] = await getPreference(
+        global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
+      );
+      volumeFormat[3] = await getPreference(
+        global.common.TOTAL_VOLUME_UNIT_KEY
+      );
+      viewContents.send(global.common.IPC_RECEIVE, volumeFormat);
+      break;
+    }
+    case global.common.MAXIMISE_OR_RESTORE_WIN: {
+      // TODO: titleBarOverlay temp workaround.
+      if (platform === global.common.WINDOWS) {
+        maximiseOrRestoreWin(tabbedWin, viewContents);
+        return;
+      } // end if
+
+      // NOTE: react to this ID data on macOS only.
+      // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
+      switch (
+        systemPreferences.getUserDefault("AppleActionOnDoubleClick", "string")
+      ) {
+        case "Minimize": {
+          tabbedWin.win.minimize();
+          break;
+        }
+        case "None": {
+          break;
+        }
+        default: {
+          tabbedWin.win.isMaximized()
+            ? tabbedWin.win.unmaximize()
+            : tabbedWin.win.maximize();
+        }
+      } // end switch-case
+
+      break;
+    }
+    case global.common.MINIMISE_WIN: {
+      // TODO: titleBarOverlay temp workaround.
+      tabbedWin.win.minimize();
+      break;
+    }
+    case global.common.PATCH_EXIT_FULL_SCREEN: {
+      // Programmatically emulate resizing and restoring the app window size to avoid possible strange tab appearance when exiting the full screen mode.
+      const winSize = tabbedWin.win.getSize();
+
+      tabbedWin.win.setSize(
+        winSize[0] +
+          (winSize[0] + 1 > screen.getPrimaryDisplay().workAreaSize.width
+            ? -1
+            : 1),
+        winSize[1]
+      );
+      tabbedWin.win.setSize(winSize[0], winSize[1]);
+      break;
+    }
+    case global.common.RESET_PREFERENCES: {
+      await resetPreferences();
+      viewContents.reload();
+      break;
+    }
+    default: {
+      log.warn(
+        "Unknown IPC channel event in the data message:",
+        JSON.stringify(data)
+      );
+    }
+  } // end switch-case
+} // end function reactToIpcIdData
+
+/**
+ * React to the IPC channel's object data.
+ * @param {object} data the object data sent via the IPC channel.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ * @param {Electron.WebContents} viewContents the tab item web contents.
+ */
+async function reactToIpcObjectData(data, tabbedWin, viewContents) {
+  switch (data[global.common.TAG_KEY]) {
+    case global.common.GET_NEW_TAB_ITEM_ID: {
+      const newTabId = {};
+
+      newTabId[global.common.GET_NEW_TAB_ITEM_ID] =
+        tabbedWin.tabs[tabbedWin.tabs.length - 1];
+      newTabId[global.common.NEW_TAB_ITEM_INDEX_KEY] =
+        data[global.common.NEW_TAB_ITEM_INDEX_KEY];
+      viewContents.send(global.common.IPC_RECEIVE, newTabId);
+      break;
+    }
+    case global.common.GET_SEARCH_RESULT_DATA: {
+      const searchResultData = await getSearchResultData(
+        data[global.common.END_DATE_KEY],
+        data[global.common.START_DATE_KEY],
+        data[global.common.STOCK_SYMBOL_KEY]
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, searchResultData);
+      break;
+    }
+    case global.common.POP_UP_APP_MENU: {
+      Menu.getApplicationMenu().popup(
+        data[global.common.APP_MENU_POSITION_KEY]
+      );
+      break;
+    }
+    case global.common.SET_APPEARANCE: {
+      await settings.set(
+        global.common.APPEARANCE_KEY,
+        data[global.common.APPEARANCE_KEY]
+      );
+      nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
+      break;
+    }
+    case global.common.SET_DAY_VOLUME_DECIMAL_POINTS: {
+      await settings.set(
+        global.common.DAY_VOLUME_DECIMAL_POINTS_KEY,
+        data[global.common.DAY_VOLUME_DECIMAL_POINTS_KEY]
+      );
+      break;
+    }
+    case global.common.SET_DAY_VOLUME_UNIT: {
+      await settings.set(
+        global.common.DAY_VOLUME_UNIT_KEY,
+        data[global.common.DAY_VOLUME_UNIT_KEY]
+      );
+      break;
+    }
+    case global.common.SET_ONLINE_SEARCH: {
+      await settings.set(
+        global.common.ONLINE_SEARCH_KEY,
+        data[global.common.ONLINE_SEARCH_KEY]
+      );
+      break;
+    }
+    case global.common.SET_INCLUDE_HIDDEN_COLUMNS: {
+      await settings.set(
+        global.common.INCLUDE_HIDDEN_COLUMNS_KEY,
+        data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY]
+      );
+      break;
+    }
+    case global.common.SET_MAX_DATE_RANGE_SPAN: {
+      await settings.set(
+        global.common.MAX_DATE_RANGE_SPAN_KEY,
+        data[global.common.MAX_DATE_RANGE_SPAN_KEY]
+      );
+      break;
+    }
+    case global.common.SET_MIN_DATE: {
+      await settings.set(
+        global.common.MIN_DATE_KEY,
+        data[global.common.MIN_DATE_KEY]
+      );
+      break;
+    }
+    case global.common.SET_SEARCH_ENGINE_MODE: {
+      await settings.set(
+        global.common.SEARCH_ENGINE_MODE_KEY,
+        data[global.common.SEARCH_ENGINE_MODE_KEY]
+      );
+      break;
+    }
+    case global.common.SET_TOTAL_VOLUME_DECIMAL_POINTS: {
+      await settings.set(
+        global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY,
+        data[global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY]
+      );
+      break;
+    }
+    case global.common.SET_TOTAL_VOLUME_UNIT: {
+      await settings.set(
+        global.common.TOTAL_VOLUME_UNIT_KEY,
+        data[global.common.TOTAL_VOLUME_UNIT_KEY]
+      );
+      break;
+    }
+    default: {
+      log.warn(
+        "Unknown IPC channel event in the data message:",
+        JSON.stringify(data)
+      );
+    }
+  } // end switch-case
+} // end function reactToIpcObjectData
 
 /**
  * Open a preference tab item if it does not exist. Otherwise, focus on the existing preference tab item.
@@ -412,7 +480,7 @@ export function showPreferenceTabItem(tabbedWin) {
   preferenceTabItemUrl[
     global.common.SHOW_PREFERENCE_TAB_ITEM
   ] = `${baseUrl}/#/${global.common.PREFERENCE_VIEW}`;
-  tabbedWin.controlView.webContents.send(
+  tabbedWin.win.webContents.send(
     global.common.IPC_RECEIVE,
     preferenceTabItemUrl
   );

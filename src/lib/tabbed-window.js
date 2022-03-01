@@ -1,13 +1,13 @@
 /*
  * @Description: the tabbed window builder
- * @Version: 1.0.2.20220226
+ * @Version: 1.1.0.20220301
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-26 22:44:34
+ * @LastEditTime: 2022-03-01 22:40:43
  */
 
-// The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow).
+// The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow). However, the control view is rendered on the browser window rather than a separate browser view to take advantage of the Windows Controls Overlay APIs (https://github.com/WICG/window-controls-overlay/blob/main/explainer.md).
 import { BrowserWindow, BrowserView, ipcMain, ipcRenderer } from "electron";
 import log from "electron-log";
 import EventEmitter from "events";
@@ -66,8 +66,8 @@ export class TabbedWindow extends EventEmitter {
    */
   constructor(options) {
     super();
-
     this.options = options;
+
     const {
       controlPanel,
       controlReferences,
@@ -76,38 +76,29 @@ export class TabbedWindow extends EventEmitter {
       winOptions = {},
     } = options;
 
+    this.commonWebPreferences = {
+      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
+      devTools: this.options.debug,
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
+      preload: path.join(__dirname, "preload.js"),
+      sandbox: true, // Support window.opener. See https://github.com/electron/electron/issues/1865#issuecomment-249989894 for more info.
+    };
+    this.defCurrentViewId = null;
+    this.defTabConfigs = {};
+    this.ipc = null; // IPC channel.
+    this.tabs = []; // Keep order.
+    this.views = {}; // Prevent browser views garbage collected.
     this.win = new BrowserWindow({
       ...winOptions,
       height,
       show: false,
       width,
-    });
-
-    this.defCurrentViewId = null;
-    this.defTabConfigs = {};
-    this.views = {}; // Prevent browser views garbage collected.
-    this.tabs = []; // Keep order.
-    this.ipc = null; // IPC channel.
-
-    this.commonWebPreferences = {
-      contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION,
-      devTools: this.options.debug,
-      enableBlinkFeatures: "CSSColorSchemeUARendering", // See https://stackoverflow.com/a/65313951 for reference.
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION, // See https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info.
-      preload: path.join(__dirname, "preload.js"),
-      sandbox: true, // Support window.opener. See https://github.com/electron/electron/issues/1865#issuecomment-249989894 for more info.
-    };
-    this.controlView = new BrowserView({
       webPreferences: {
         ...this.commonWebPreferences,
         ...controlReferences, // Put it here to overwrite existing values in the above properties.
       },
     });
-
-    this.win.addBrowserView(this.controlView);
-    this.controlView.setAutoResize({ width: true });
-    this.controlView.webContents.loadURL(controlPanel);
-
+    this.win.loadURL(controlPanel);
     this.setChannel();
   } // end constructor
 
@@ -362,7 +353,6 @@ export class TabbedWindow extends EventEmitter {
       "control-ready": async (e) => {
         this.ipc = e;
         await this.newTab(this.options.startPage || "");
-        this.controlView.setBounds(this.getControlBounds()); // Set the control view bounds here to ensure that the tab bar can be shown properly when the app starts.
         this.win.show();
         updateAutomatically();
 
@@ -392,7 +382,11 @@ export class TabbedWindow extends EventEmitter {
         name,
         (e, ...args) => {
           // Support multiple tabbed windows.
-          if (this.controlView && e.sender === this.controlView.webContents) {
+          if (
+            this.win &&
+            !this.win.isDestroyed() &&
+            e.sender === this.win.webContents
+          ) {
             listener(e, ...args);
           } // end if
         },
@@ -410,12 +404,6 @@ export class TabbedWindow extends EventEmitter {
       ); // Remember to clear all ipcMain events as ipcMain bind on every new tabbed window instance.
 
       this.tabs.forEach((id) => this.destroyView(id)); // Prevent BrowserView memory leak on close.
-
-      if (this.controlView) {
-        this.controlView.webContents.destroy();
-        this.controlView = null;
-      } // end if
-
       this.emit("closed");
     });
   } // end function setChannel

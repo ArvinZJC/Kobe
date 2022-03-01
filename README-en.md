@@ -26,17 +26,17 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 27 February 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
-2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). Kobe will never ever collect and upload any user privacy. Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 1 March 2022, everything looks good with Visual Studio Code (Version: 1.64.2) + Node.js 16.13.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). **It is awfully safe to permit the app behaviour for any system prompt regarding safety confirmation. The app is signed, is not malware, and will never ever collect and upload any user privacy.** Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
 3. The primary dependencies of the project are listed in the following table. For more information, please refer to [`package.json`](./package.json).
 
    | Name                             |  Version   |
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.5    |
    | @syncfusion/ej2-vue-buttons      |  19.4.53   |
-   | @syncfusion/ej2-vue-calendars    |  19.4.52   |
-   | @syncfusion/ej2-vue-dropdowns    |  19.4.52   |
-   | @syncfusion/ej2-vue-grids        |  19.4.53   |
+   | @syncfusion/ej2-vue-calendars    |  19.4.54   |
+   | @syncfusion/ej2-vue-dropdowns    |  19.4.54   |
+   | @syncfusion/ej2-vue-grids        |  19.4.54   |
    | @syncfusion/ej2-vue-inputs       |  19.4.52   |
    | @syncfusion/ej2-vue-navigations  |  19.4.53   |
    | @syncfusion/ej2-vue-popups       |  19.4.53   |
@@ -56,7 +56,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    | vue                              |   3.2.31   |
    | vue-class-component              | 8.0.0-rc.1 |
    | vue-cli-plugin-electron-builder  |   2.1.1    |
-   | vue-router                       |   4.0.12   |
+   | vue-router                       |   4.0.13   |
 
 4. A part of SVG resources in this project are from [Flaticon](https://www.flaticon.com/packs/font-awesome) and [Iconscout](https://iconscout.com/).
 5. Vue CLI is a necessary dependency of this project. Assuming the terminal is opened in the project's root directory, the project could be run locally following the steps below using npm. However, you are expected to do some extra work yourself to activate [code signing](https://www.electron.build/code-signing) and [auto update](https://www.electron.build/auto-update).

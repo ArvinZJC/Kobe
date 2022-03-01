@@ -1,15 +1,16 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.6.20220227
+ * @Version: 2.0.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 15:10:28
+ * @LastEditTime: 2022-03-01 21:45:27
  */
 
-import { app, Menu, shell } from "electron";
+import { app, dialog, Menu, shell } from "electron";
 import contextMenu from "electron-context-menu";
 import settings from "electron-settings";
+import path from "path";
 import { platform } from "process";
 
 import global from "./global.js";
@@ -17,10 +18,28 @@ import { updateManually } from "./updater.js";
 import { showPreferenceTabItem } from "./window.js";
 import * as zhCN from "../locales/zh-CN.json";
 
-const menuItemAboutTemplate = {
-  label: `${zhCN.default.about}${app.name}`,
-  role: "about",
-};
+const menuItemAboutTemplate =
+  platform === global.common.MACOS
+    ? {
+        label: `${zhCN.default.about}${app.name}`,
+        role: "about",
+      }
+    : {
+        click: () => {
+          dialog.showMessageBox({
+            detail: `V${app.getVersion()}\n\n${
+              zhCN.default.appDescription
+            }\n\nCopyright © ${new Date().getFullYear()} ${
+              global.common.AUTHOR
+            }`,
+            // eslint-disable-next-line no-undef
+            icon: path.join(__static, "favicon.ico"),
+            message: app.name,
+            title: app.name,
+          });
+        },
+        label: `${zhCN.default.about}${app.name}`,
+      };
 const menuItemCheckForUpdatesTemplate = {
   click: (menuItem) => {
     updateManually(menuItem);
@@ -270,10 +289,14 @@ function getMenuHelpTemplate(tabbedWin) {
         ? [
             menuItemSeparatorTemplate,
             {
+              accelerator:
+                platform === global.common.MACOS
+                  ? "Command+Option+T"
+                  : "Ctrl+Alt+T",
               click: () => {
-                tabbedWin.controlView.webContents.isDevToolsOpened()
-                  ? tabbedWin.controlView.webContents.closeDevTools()
-                  : tabbedWin.controlView.webContents.openDevTools({
+                tabbedWin.win.webContents.isDevToolsOpened()
+                  ? tabbedWin.win.webContents.closeDevTools()
+                  : tabbedWin.win.webContents.openDevTools({
                       mode: "detach",
                     });
               },
@@ -282,7 +305,7 @@ function getMenuHelpTemplate(tabbedWin) {
             {
               accelerator:
                 platform === global.common.MACOS
-                  ? "Alt+Command+I"
+                  ? "Command+Option+I"
                   : "Ctrl+Shift+I",
               click: () => {
                 tabbedWin.currentWebContents.toggleDevTools();

@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.2.20220227
+ * @Version: 1.1.8.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 15:59:28
+ * @LastEditTime: 2022-03-01 22:47:51
  */
 
 @tailwind base;
@@ -12,8 +12,12 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --tab-bar-height: 40px; /* This should be the same as "global.common.TAB_BAR_HEIGHT". */
+  }
+
   body {
-    @apply bg-transparent selection:bg-indigo-600 dark:selection:bg-cyan-400 selection:text-white dark:selection:text-black;
+    @apply bg-transparent dark:bg-black selection:bg-indigo-600 dark:selection:bg-cyan-400 selection:text-white dark:selection:text-black;
   }
 }
 
@@ -32,9 +36,19 @@
     @apply bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-400 dark:hover:bg-cyan-500 flex h-8 items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-cyan-400 focus:ring-offset-2 dark:focus:ring-offset-black rounded-full text-white dark:text-black w-8;
   }
 
-  /* Button on the tab bar. */
-  .btn-tab-bar {
-    @apply non-draggable-area motion-safe:transition-colours-300 focus:bg-gray-600 hover:bg-gray-700 flex-none h-8 rounded text-white w-8;
+  /* The base style of a tab bar button. */
+  .btn-tab-bar-base {
+    @apply non-draggable-area motion-safe:transition-colours-300 focus:bg-[#4d5361] hover:bg-[#2f3646] cursor-default text-white;
+  }
+
+  /* Tab bar button on macOS. */
+  .btn-tab-bar-mac {
+    @apply btn-tab-bar-base h-8 w-8;
+  }
+
+  /* Tab bar button on Windows. */
+  .btn-tab-bar-win {
+    @apply btn-tab-bar-base h-full w-[45.8px];
   }
 
   /* Container for a bottom bar. */
@@ -64,7 +78,8 @@
   /* Container for the tab bar. */
   .container-tab-bar {
     -webkit-app-region: drag;
-    @apply container-view bg-slate-900 flex items-center overflow-hidden;
+    height: var(--tab-bar-height);
+    @apply bg-slate-900 flex items-center overflow-hidden;
   }
 
   /* Container for a view. */
@@ -76,13 +91,7 @@
 @layer utilities {
   /* Backdrop blur filter. */
   .bg-blur {
-    @apply bg-opacity-90 dark:bg-opacity-90 bg-white dark:bg-black; /* A workaround if the browser does not support the particular feature. */
-  }
-
-  @supports ((backdrop-filter: none) or (-webkit-backdrop-filter: none)) {
-    .bg-blur {
-      @apply backdrop-blur bg-opacity-30 dark:bg-opacity-30 bg-white dark:bg-black;
-    }
+    @apply backdrop-blur bg-opacity-30 dark:bg-opacity-30 bg-white dark:bg-black;
   }
 
   /* Endpoint of the float-down animation with Transform 1. */
@@ -252,7 +261,12 @@
 
 /* The customised horizontal tab item text wrap style. */
 .e-tab .e-tab-header:not(.e-vertical) .e-toolbar-item .e-tab-wrap {
-  @apply pl-2.5 pr-0.5 text-gray-400 dark:text-gray-300;
+  @apply pl-5 pr-3 text-gray-400 dark:text-gray-300;
+}
+
+/* The customised horizontal tab item (excluding the separator) style. */
+.e-tab .e-tab-header:not(.e-vertical) .e-toolbar-item:not(.e-separator) {
+  @apply px-0;
 }
 
 /* The customised vertical tab header style. */
@@ -280,8 +294,18 @@
   @apply !bg-gray-600 !text-gray-300;
 }
 
+/* The customised draggable tab item close icon style. */
+.e-tab-clone-element .e-icons.e-close-icon {
+  @apply ml-2;
+}
+
 /* The customised draggable tab item wrap style. */
 .e-tab-clone-element .e-tab-wrap,
 .e-tab-clone-element .e-tab-wrap .e-tab-icon {
-  @apply !text-gray-300;
+  @apply !pl-5 !pr-3 !text-gray-300;
+}
+
+/* The customised draggable tab item (excluding the separator) style. */
+.e-tab-clone-element:not(.e-separator) {
+  @apply !pl-0 !pr-1.5;
 }

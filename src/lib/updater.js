@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.1.0.20220227
+ * @Version: 1.1.1.20220227
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 20:47:06
+ * @LastEditTime: 2022-02-27 23:32:49
  */
 
 import { app, dialog } from "electron";
@@ -113,7 +113,7 @@ export function updateAutomatically() {
 export function updateManually(menuItem) {
   if (global.isAutoUpdateBusy) {
     dialog.showMessageBox({
-      message: zhCN.default.AutoUpdateBusyMessage,
+      message: zhCN.default.autoUpdateBusyMessage,
       title: app.name,
       type: "info",
     });

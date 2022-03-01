@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.9.20220227
+ * @Version: 1.0.10.20220301
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 15:06:38
+ * @LastEditTime: 2022-03-01 21:05:27
  */
 
 global.common = {
@@ -14,6 +14,7 @@ global.common = {
   APP_MENU_POSITION_KEY: "appMenuPosition",
   APP_SCHEME: "app",
   APPEARANCE_KEY: "appearance",
+  AUTHOR: "ArvinZJC",
   BAIDU_ID: "baidu",
   BAIDU_SEARCH_KEY: "wd",
   BAIDU_SEARCH_URL: "https://www.baidu.com/s",
@@ -80,6 +81,8 @@ global.common = {
   MAX_DECIMAL_POINTS: 6,
   MAX_MAX_DATE_RANGE_SPAN: 8,
   MAX_PREFERENCE_OPTION_WIDTH: 215,
+  MAXIMISE_OR_RESTORE_WIN: "maximiseOrRestoreWin",
+  MAXIMISE_WIN: "maximiseWin", // TODO: titleBarOverlay temp workaround.
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE_KEY: "minDate",
   MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
@@ -89,6 +92,7 @@ global.common = {
   MIN_MIN_DATE: "1990-12-03",
   MIN_WIN_HEIGHT: 600,
   MIN_WIN_WIDTH: 800,
+  MINIMISE_WIN: "minimiseWin", // TODO: titleBarOverlay temp workaround.
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   ONLINE_SEARCH_KEY: "onlineSearch",
@@ -101,6 +105,7 @@ global.common = {
   RESET_PREFERENCES: "resetPreferences",
   RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
     "dialogueResetPreferencesConfirmation",
+  RESTORE_WIN: "restoreWin", // TODO: titleBarOverlay temp workaround.
   SEARCH_BAR_ID: "search-bar",
   SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
   SEARCH_FORM_ID: "search-form",
