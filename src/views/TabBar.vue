@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.0.20220301
+ * @Version: 1.1.1.20220302
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 22:54:27
+ * @LastEditTime: 2022-03-02 22:55:57
 -->
 
 <template>
@@ -106,11 +106,16 @@ import {
   TabItemDirective,
   TabItemsDirective,
 } from "@syncfusion/ej2-vue-navigations";
+import path from "path";
 
-import MaximiseIcon from "../assets/maximise.png";
-import RestoreIcon from "../assets/restore.png";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
+
+const maximiseImagePath = path.join(
+  process.env.BASE_URL,
+  "assets/maximise.png"
+);
+const restoreImagePath = path.join(process.env.BASE_URL, "assets/restore.png");
 
 export default {
   components: {
@@ -259,12 +264,12 @@ export default {
      */
     reactToMaximiseOrRestore(data) {
       if (data === global.common.MAXIMISE_WIN) {
-        this.maximiseOrRestoreButtonImage = RestoreIcon;
+        this.maximiseOrRestoreButtonImage = restoreImagePath;
         this.maximiseOrRestoreButtonTitle = zhCN.default.restore;
       } // end if
 
       if (data === global.common.RESTORE_WIN) {
-        this.maximiseOrRestoreButtonImage = MaximiseIcon;
+        this.maximiseOrRestoreButtonImage = maximiseImagePath;
         this.maximiseOrRestoreButtonTitle = zhCN.default.maximise;
       } // end if
     }, // end function reactToMaximiseOrRestore
@@ -342,7 +347,7 @@ export default {
     return {
       global,
       isFullScreen: false,
-      maximiseOrRestoreButtonImage: MaximiseIcon, // TODO: titleBarOverlay temp workaround.
+      maximiseOrRestoreButtonImage: maximiseImagePath, // TODO: titleBarOverlay temp workaround.
       maximiseOrRestoreButtonTitle: zhCN.default.maximise, // TODO: titleBarOverlay temp workaround.
       newTabItemCssClass: "non-draggable-area !cursor-default",
       platform: global.common.UNKNOWN,

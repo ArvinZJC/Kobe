@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.8.20220301
+ * @Version: 2.0.9.20220302
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 21:45:27
+ * @LastEditTime: 2022-03-02 22:46:15
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -33,7 +33,7 @@ const menuItemAboutTemplate =
               global.common.AUTHOR
             }`,
             // eslint-disable-next-line no-undef
-            icon: path.join(__static, "favicon.ico"),
+            icon: path.join(__static, "assets/app_icon.png"),
             message: app.name,
             title: app.name,
           });
