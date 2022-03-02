@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.1.0.20220301
+ * @Version: 1.1.1.20220302
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 22:39:23
+ * @LastEditTime: 2022-03-02 22:39:11
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -34,6 +34,11 @@ if (app.requestSingleInstanceLock()) {
     errorMessage: `{filename} ${zhCN.default.downloadErrorMessage}`,
     errorTitle: app.name,
   }); // Configure file downloads.
+
+  if (platform === global.common.WINDOWS) {
+    app.setAppUserModelId(app.name); // Change the app user model ID on Windows to avoid showing "electron.app.XXX" in any system notification sent by the app.
+  } // end if
+
   app.on("second-instance", () => {
     if (tabbedWin != null) {
       if (tabbedWin.win.isMinimized()) {
@@ -72,7 +77,6 @@ if (app.requestSingleInstanceLock()) {
     }); // Process the stock list data from the specific JSON file.
     tabbedWin = await createTabbedWin(stockList.default);
 
-    // Emitted when the app is activated.
     app.on("activate", async () => {
       if (BrowserWindow.getAllWindows().length === 0) {
         tabbedWin = await createTabbedWin(stockList.default); // It is common to recreate a window in the app on macOS when the dock icon is clicked and there are no other windows open.
