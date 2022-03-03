@@ -4,11 +4,13 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 20:10:26
+ * @LastEditTime: 2022-03-03 14:38:40
  */
 
 import {
+  app,
   BrowserWindow,
+  dialog,
   ipcMain,
   Menu,
   nativeTheme,
@@ -143,18 +145,41 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
 
 /**
  * Maximise or restore the window.
- * TODO: titleBarOverlay temp workaround.
  * @param {TabbedWindow} tabbedWin a tabbed window.
  * @param {Electron.WebContents} viewContents the tab item web contents.
  */
 function maximiseOrRestoreWin(tabbedWin, viewContents) {
-  if (tabbedWin.win.isMaximized()) {
-    tabbedWin.win.unmaximize();
-    viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
-  } else {
-    tabbedWin.win.maximize();
-    viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
-  } // end if...else
+  // TODO: titleBarOverlay temp workaround.
+  if (platform === global.common.WINDOWS) {
+    if (tabbedWin.win.isMaximized()) {
+      tabbedWin.win.unmaximize();
+      viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
+    } else {
+      tabbedWin.win.maximize();
+      viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
+    } // end if...else
+
+    return;
+  } // end if
+
+  // NOTE: react to this ID data on macOS only.
+  // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
+  switch (
+    systemPreferences.getUserDefault("AppleActionOnDoubleClick", "string")
+  ) {
+    case "Minimize": {
+      tabbedWin.win.minimize();
+      break;
+    }
+    case "None": {
+      break;
+    }
+    default: {
+      tabbedWin.win.isMaximized()
+        ? tabbedWin.win.unmaximize()
+        : tabbedWin.win.maximize();
+    }
+  } // end switch-case
 } // end function maximiseOrRestoreWin
 
 /**
@@ -273,7 +298,7 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.GET_VOLUME_FORMAT: {
-      var volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
+      const volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
 
       volumeFormat[0] = await getPreference(
         global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
@@ -289,31 +314,7 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.MAXIMISE_OR_RESTORE_WIN: {
-      // TODO: titleBarOverlay temp workaround.
-      if (platform === global.common.WINDOWS) {
-        maximiseOrRestoreWin(tabbedWin, viewContents);
-        return;
-      } // end if
-
-      // NOTE: react to this ID data on macOS only.
-      // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
-      switch (
-        systemPreferences.getUserDefault("AppleActionOnDoubleClick", "string")
-      ) {
-        case "Minimize": {
-          tabbedWin.win.minimize();
-          break;
-        }
-        case "None": {
-          break;
-        }
-        default: {
-          tabbedWin.win.isMaximized()
-            ? tabbedWin.win.unmaximize()
-            : tabbedWin.win.maximize();
-        }
-      } // end switch-case
-
+      maximiseOrRestoreWin(tabbedWin, viewContents);
       break;
     }
     case global.common.MINIMISE_WIN: {
@@ -336,8 +337,22 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.RESET_PREFERENCES: {
-      await resetPreferences();
-      viewContents.reload();
+      dialog
+        .showMessageBox(tabbedWin.win, {
+          buttons: [zhCN.default.confirm, zhCN.default.cancel],
+          cancelId: 1,
+          detail: zhCN.default.resetPreferencesConfirmationDetail,
+          message: zhCN.default.resetPreferencesConfirmationMessage,
+          noLink: true,
+          title: app.name,
+          type: "warning",
+        })
+        .then(async (results) => {
+          if (results.response === 0) {
+            await resetPreferences();
+            viewContents.reload();
+          } // end if
+        });
       break;
     }
     default: {
