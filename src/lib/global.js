@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.10.20220301
+ * @Version: 1.0.10.20220303
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 21:05:27
+ * @LastEditTime: 2022-03-03 23:15:16
  */
 
 global.common = {
@@ -145,10 +145,11 @@ global.common = {
   SF_MULTIPLE: "Multiple",
   SF_NARROW: "Narrow",
   SF_NUM: "number",
+  SF_SCROLL_BAR_CLASS: "e-scrollbar",
   SF_SCROLL_RIGHT_NAV_CLASS: "e-scroll-right-nav",
   SF_STYLES: "syncfusionStyles",
   SF_TABLE_BORDER_CLASS: "e-tableborder",
-  SF_TABLE_CLASSES: "e-sortfilter e-table",
+  SF_TABLE_CLASS: "e-table",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
   SF_TOOLBAR_CLASSES: "e-control e-toolbar",
