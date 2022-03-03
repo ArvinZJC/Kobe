@@ -53,6 +53,7 @@
   "includeHiddenColumnsTitle": "包含隐藏列",
   "learnSpelling": "学习拼写",
   "light": "浅色",
+  "logDir": "日志文件目录",
   "lookUp": "查询",
   "maxDateRangeSpanExplanation": "设定搜索引擎所搜索的日期范围的最大周数。注意：此设置的改动在重新载入的或新的标签页中生效。",
   "maxDateRangeSpanTitle": "最长日期跨度",
