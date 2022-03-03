@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.1.20220223
+ * @Version: 1.1.2.20220303
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 00:42:19
+ * @LastEditTime: 2022-03-03 14:34:57
 -->
 
 <template>
@@ -154,7 +154,7 @@ export default {
      * Build the grid.
      */
     buildGrid() {
-      var dayVolumeColumns = [];
+      const dayVolumeColumns = [];
 
       for (
         var date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
