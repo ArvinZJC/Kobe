@@ -1,15 +1,16 @@
 /*
  * @Description: the app updater
- * @Version: 1.1.2.20220303
+ * @Version: 1.1.3.20220303
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 14:25:04
+ * @LastEditTime: 2022-03-03 15:58:49
  */
 
-import { app, dialog } from "electron";
+import { app, dialog, Notification } from "electron";
 import log from "electron-log";
 import { autoUpdater } from "electron-updater";
+import path from "path";
 
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -92,16 +93,26 @@ autoUpdater.on("update-not-available", () => {
 
 /**
  * Check for updates and notify when an update is available.
+ * Reference: https://github.com/electron-userland/electron-builder/blob/8bfeef83a9b1f75761596d33b9504c7dca1cac53/packages/electron-updater/src/AppUpdater.ts#L265
+ *
  */
 export function updateAutomatically() {
   if (process.env.WEBPACK_DEV_SERVER_URL == null) {
     global.isAutoUpdateBusy = true;
     autoUpdater.autoDownload = true;
-    autoUpdater.checkForUpdatesAndNotify({
-      body: `{appName}${
-        zhCN.default.updateReadyBody
-      }（V${app.getVersion()} → V{version}）`,
-      title: zhCN.default.updateReadyTitle,
+    autoUpdater.checkForUpdates().then((it) => {
+      if (it != null && it.downloadPromise != null) {
+        it.downloadPromise.then(() => {
+          new Notification({
+            body: `${zhCN.default.updateReadyBody}（V${app.getVersion()} → V${
+              it.updateInfo.version
+            }）`,
+            // eslint-disable-next-line no-undef
+            icon: path.join(__static, "assets/app_icon.png"),
+            title: zhCN.default.updateReadyTitle,
+          }).show();
+        });
+      }
     });
   } // end if
 } // end function updateAutomatically
