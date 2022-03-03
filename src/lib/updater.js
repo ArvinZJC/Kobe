@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.1.1.20220227
+ * @Version: 1.1.2.20220303
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 23:32:49
+ * @LastEditTime: 2022-03-03 14:25:04
  */
 
 import { app, dialog } from "electron";
@@ -47,8 +47,8 @@ autoUpdater.on("update-available", (updateInfo) => {
         title: app.name,
         type: "info",
       })
-      .then((buttonIndex) => {
-        if (buttonIndex === 0) {
+      .then((results) => {
+        if (results.response === 0) {
           autoUpdater.downloadUpdate();
         } else {
           menuItemCheckForUpdates.enabled = true;
