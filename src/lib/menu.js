@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.9.20220302
+ * @Version: 2.0.10.20220303
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-02 22:46:15
+ * @LastEditTime: 2022-03-03 13:38:53
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -275,6 +275,13 @@ function getMenuHelpTemplate(tabbedWin) {
           shell.openExternal(global.common.GITHUB_KOBE_RELEASES);
         },
         label: zhCN.default.releaseNotes,
+      },
+      menuItemSeparatorTemplate,
+      {
+        click: () => {
+          shell.openPath(app.getPath("logs"));
+        },
+        label: `${zhCN.default.open}${zhCN.default.logDir}`,
       },
       menuItemSeparatorTemplate,
       ...(platform === global.common.WINDOWS
