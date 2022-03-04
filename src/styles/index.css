@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.10.20220304
+ * @Version: 1.1.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 09:06:20
+ * @LastEditTime: 2022-03-04 17:10:29
  */
 
 @tailwind base;
@@ -174,6 +174,27 @@
 /* The customised round button style. */
 .e-btn.e-round .e-btn-icon {
   font-size: 18px !important;
+}
+
+/* The customised date range picker range style. */
+.e-daterangepicker.e-popup
+  .e-calendar
+  .e-content
+  .e-range-hover:not(.e-selected),
+.e-daterangepicker.e-popup
+  .e-calendar
+  .e-content
+  .e-range-hover:not(.e-selected)
+  span {
+  @apply dark:!bg-gray-600;
+}
+
+/* The customised date range picker range style on hover. */
+.e-daterangepicker.e-popup
+  .e-calendar
+  .e-range-hover:not(.e-selected):hover
+  span.e-day {
+  @apply dark:!bg-gray-500;
 }
 
 /* The grid's customised empty row style. */

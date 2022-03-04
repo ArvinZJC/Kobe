@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.10.20220304
+ * @Version: 1.1.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 09:06:20
+ * @LastEditTime: 2022-03-04 17:10:29
  */
 
 /*
@@ -1378,6 +1378,30 @@ body::selection {
 
 .e-btn.e-round .e-btn-icon {
   font-size: 18px !important;
+}
+
+/* The customised date range picker range style. */
+
+.dark .e-daterangepicker.e-popup
+  .e-calendar
+  .e-content
+  .e-range-hover:not(.e-selected), .dark .e-daterangepicker.e-popup
+  .e-calendar
+  .e-content
+  .e-range-hover:not(.e-selected)
+  span {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity)) !important;
+}
+
+/* The customised date range picker range style on hover. */
+
+.dark .e-daterangepicker.e-popup
+  .e-calendar
+  .e-range-hover:not(.e-selected):hover
+  span.e-day {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity)) !important;
 }
 
 /* The grid's customised empty row style. */
