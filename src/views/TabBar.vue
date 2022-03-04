@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.1.20220302
+ * @Version: 1.1.2.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 08:52:35
+ * @LastEditTime: 2022-03-04 08:56:59
 -->
 
 <template>
@@ -321,7 +321,6 @@ export default {
         for (const scrollRightNav of document.getElementsByClassName(
           global.common.SF_SCROLL_RIGHT_NAV_CLASS
         )) {
-          console.log(1);
           scrollRightNav.click();
         } // end for
       }, 50);
