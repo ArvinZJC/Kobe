@@ -1,10 +1,10 @@
 /*
  * @Description: the tabbed window builder
- * @Version: 1.1.0.20220301
- * @Author: Arvin Zhao
+ * @Version: 1.1.2.20220304
+ * @Author: hulufei
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 22:40:43
+ * @LastEditTime: 2022-03-04 16:01:50
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow). However, the control view is rendered on the browser window rather than a separate browser view to take advantage of the Windows Controls Overlay APIs (https://github.com/WICG/window-controls-overlay/blob/main/explainer.md).
@@ -349,6 +349,13 @@ export class TabbedWindow extends EventEmitter {
           [id]: null,
         };
         this.destroyView(id);
+
+        /**
+         * The close-tab event.
+         * @event TabbedWindow#close-tab
+         * @returns the tab item index.
+         */
+        this.emit("close-tab", id);
       },
       "control-ready": async (e) => {
         this.ipc = e;
@@ -393,17 +400,17 @@ export class TabbedWindow extends EventEmitter {
       ])
       .forEach(([name, listener]) => ipcMain.on(name, listener));
 
-    /**
-     * The closed event.
-     *
-     * @event TabbedWindow#closed
-     */
     this.win.on("closed", () => {
       channels.forEach(([name, listener]) =>
         ipcMain.removeListener(name, listener)
       ); // Remember to clear all ipcMain events as ipcMain bind on every new tabbed window instance.
 
       this.tabs.forEach((id) => this.destroyView(id)); // Prevent BrowserView memory leak on close.
+
+      /**
+       * The closed event.
+       * @event TabbedWindow#closed
+       */
       this.emit("closed");
     });
   } // end function setChannel

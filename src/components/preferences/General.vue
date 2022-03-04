@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.1.20220219
+ * @Version: 1.0.5.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 14:45:49
+ * @LastEditTime: 2022-03-04 12:52:26
 -->
 
 <template>
@@ -24,6 +24,14 @@
       :selectionChangedHandler="changeOnlineSearch"
       :title="zhCN.default.onlineSearchTitle"
       :type="global.common.BUTTON_GROUP"
+    />
+    <!-- Confirm closing multiple tabs. -->
+    <Preference
+      :explanation="zhCN.default.confirmClosingMultipleTabsExplanation"
+      :options="options.confirmClosingMultipleTabs"
+      :title="zhCN.default.confirmClosingMultipleTabsTitle"
+      :type="global.common.SWITCH"
+      :value="confirmClosingMultipleTabs"
     />
   </div>
 </template>
@@ -66,7 +74,13 @@ export default {
     }, // end function changeOnlineSearch
   },
   data() {
-    return { data: {}, global, zhCN };
+    return {
+      confirmClosingMultipleTabs:
+        global.common.DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS,
+      data: {},
+      global,
+      zhCN,
+    };
   },
   mounted() {
     window[global.common.IPC_RENDERER_API_KEY].receive(
@@ -86,6 +100,17 @@ export default {
           typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(
             data,
+            global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
+          )
+        ) {
+          this.confirmClosingMultipleTabs =
+            data[global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY];
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
             global.common.ONLINE_SEARCH_KEY
           )
         ) {
@@ -96,6 +121,10 @@ export default {
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
       global.common.GET_APPEARANCE
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
@@ -112,16 +141,20 @@ export default {
             value: zhCN.default.systemDefault,
           }, // System default.
           {
-            icon: MoonIcon,
+            icon: SunIcon,
             id: global.common.LIGHT_MODE_ID,
             value: zhCN.default.light,
           }, // Light.
           {
-            icon: SunIcon,
+            icon: MoonIcon,
             id: global.common.DARK_MODE_ID,
             value: zhCN.default.dark,
           }, // Dark.
         ],
+        confirmClosingMultipleTabs: {
+          id: global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY,
+          value: global.common.SET_CONFIRM_CLOSING_MULTIPLE_TABS,
+        },
         onlineSearch: [
           {
             icon: BaiduIcon,

@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.10.20220304
+ * @Version: 1.0.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 11:31:51
+ * @LastEditTime: 2022-03-04 15:32:49
  */
 
 global.common = {
@@ -26,6 +26,7 @@ global.common = {
   BUTTON_GROUP: "buttonGroup",
   CLOSE_TAB_ITEM: "close-tab",
   CLOSE_WIN: "closeWin",
+  CONFIRM_CLOSING_MULTIPLE_TABS_KEY: "confirmClosingMultipleTabs",
   CORRECT_WIN_COLOUR: "correctWinColour",
   DARK_MODE_ID: "dark",
   DARK_WIN_COLOUR: "#000",
@@ -35,6 +36,7 @@ global.common = {
   DAY_TIME_START: " 00:00:00",
   DAY_VOLUME_DECIMAL_POINTS_KEY: "dayVolumeDecimalPoints",
   DAY_VOLUME_UNIT_KEY: "dayVolumeUnit",
+  DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS: true,
   DEFAULT_DAY_VOLUME_DECIMAL_POINTS: 2,
   DEFAULT_INCLUDE_HIDDEN_COLUMNS: false,
   DEFAULT_MAX_DATE_RANGE_SPAN: 4,
@@ -47,6 +49,7 @@ global.common = {
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
   GET_APPEARANCE: "getAppearance",
+  GET_CONFIRM_CLOSING_MULTIPLE_TABS: "getConfirmClosingMultipleTabs",
   GET_DAY_VOLUME_DECIMAL_POINTS: "getDayVolumeDecimalPoints",
   GET_DAY_VOLUME_UNIT: "getDayVolumeUnit",
   GET_INCLUDE_HIDDEN_COLUMNS: "getIncludeHiddenColumns",
@@ -115,6 +118,7 @@ global.common = {
   SEARCH_STATUS_AREA_ID: "search-status-area",
   SEPARATOR: "separator",
   SET_APPEARANCE: "setAppearance",
+  SET_CONFIRM_CLOSING_MULTIPLE_TABS: "setConfirmClosingMultipleTabs",
   SET_DAY_VOLUME_DECIMAL_POINTS: "setDayVolumeDecimalPoints",
   SET_DAY_VOLUME_UNIT: "setDayVolumeUnit",
   SET_INCLUDE_HIDDEN_COLUMNS: "setIncludeHiddenColumns",
@@ -177,6 +181,7 @@ global.common = {
   TAB_BAR_TABS_NAME: "tabsTabBar",
   TAB_BAR_TABS_UPDATE: "tabs-update",
   TAB_BAR_VIEW: "tabBar",
+  TAB_ITEM_COUNT_KEY: "tabItemCount",
   TAG_KEY: "tag",
   TITLE_BAR_OVERLAY_COLOUR: "#0f172a",
   TOTAL_VOLUME_DECIMAL_POINTS_KEY: "totalVolumeDecimalPoints",
