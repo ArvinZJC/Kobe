@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.4.20220303
+ * @Version: 1.1.6.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 23:29:29
+ * @LastEditTime: 2022-03-04 11:32:23
 -->
 
 <template>
@@ -125,7 +125,7 @@ export default {
       } else {
         this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns to ensure that the grid's horizontal scroll bar can be added.
         this.patchGridStackedHeaderAndToolbar();
-        this.showOrHideHScrollBar();
+        this.patchHScrollBar();
         searchResultArea.classList.add(minHeightScreenClass);
         searchResultArea.classList.remove(heightScreenClass);
         this.shouldShowGrid = true;
@@ -387,6 +387,29 @@ export default {
         (element) => element.classList.add("!w-auto")
       );
     }, // end function patchGridToolbarHeader
+
+    /**
+     * Patch the horizontal scroll bar to provide reasonable layout.
+     */
+    patchHScrollBar() {
+      for (const scrollBar of document.getElementsByClassName(
+        global.common.SF_SCROLL_BAR_CLASS
+      )) {
+        if (
+          scrollBar.parentElement.classList.contains(
+            global.common.SF_GRID_CONTENT_CLASS
+          )
+        ) {
+          for (const gridHeader of document.getElementsByClassName(
+            global.common.SF_GRID_HEADER_CLASS
+          )) {
+            gridHeader.appendChild(scrollBar); // Use "Node.appendChild()" to move the horizontal scroll bar from its current position to the new position.
+          } // end for
+        } // end if
+      } // end for
+
+      this.showOrHideHScrollBar();
+    }, // end function patchHScrollBar
 
     /**
      * Search the grid.

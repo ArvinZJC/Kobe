@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.10.20220303
+ * @Version: 1.0.10.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 23:15:16
+ * @LastEditTime: 2022-03-04 11:31:51
  */
 
 global.common = {
@@ -138,6 +138,8 @@ global.common = {
   SF_EQUAL: "equal",
   SF_ERROR_CLASS: "e-error",
   SF_FADE_IN: "FadeIn",
+  SF_GRID_CONTENT_CLASS: "e-gridcontent",
+  SF_GRID_HEADER_CLASS: "e-gridheader",
   SF_GRID_STACKED_HEADER_CLASSES: "e-gridheader e-stackedheader",
   SF_INDICATOR_CLASS: "e-indicator",
   SF_MENU: "Menu",
