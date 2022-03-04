@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.9.20220303
+ * @Version: 1.1.10.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 23:29:16
+ * @LastEditTime: 2022-03-04 09:06:20
  */
 
 /*
@@ -1406,14 +1406,6 @@ body::selection {
   font-size: 14px !important;
 }
 
-/* The customised horizontal scroll bar style. */
-
-.e-hscroll .e-scroll-nav {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
-  -webkit-app-region: no-drag;
-}
-
 /* Force the pop-up height and position to be fixed. */
 
 .e-popup-fixed {
@@ -1429,7 +1421,15 @@ body::selection {
   display: none !important;
 }
 
-/* The customised tab scroll bar style. */
+/* The customised horizontal tab scroll bar navigation style. */
+
+.e-tab .e-tab-header .e-hscroll .e-scroll-nav {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
+  -webkit-app-region: no-drag;
+}
+
+/* The customised horizontal tab scroll bar navigation arrow style. */
 
 .e-tab
   .e-tab-header
@@ -1440,7 +1440,7 @@ body::selection {
   color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
 }
 
-/* The customised tab scroll bar style on hover and focus.  */
+/* The customised horizontal tab scroll bar style on hover and focus.  */
 
 .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .e-tab
   .e-tab-header
