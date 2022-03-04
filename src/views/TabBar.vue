@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-02 22:55:57
+ * @LastEditTime: 2022-03-04 08:52:35
 -->
 
 <template>
@@ -316,12 +316,15 @@ export default {
           winControlArea.offsetWidth; // Using the tab bar tab area's width is inapplicable.
       } // end if
 
-      /* Programmatically scroll the scroll bar's to the right end to avoid preventing dragging the app window. */
-      for (const scrollRightNav of document.getElementsByClassName(
-        global.common.SF_SCROLL_RIGHT_NAV_CLASS
-      )) {
-        scrollRightNav.click();
-      } // end for
+      setTimeout(() => {
+        // Programmatically scroll the scroll bar's to the right end to avoid preventing dragging the app window.
+        for (const scrollRightNav of document.getElementsByClassName(
+          global.common.SF_SCROLL_RIGHT_NAV_CLASS
+        )) {
+          console.log(1);
+          scrollRightNav.click();
+        } // end for
+      }, 50);
     }, // end function updateTabBarTabWidth
 
     /**
