@@ -1101,6 +1101,10 @@ body::selection {
   --tw-bg-opacity: 0;
 }
 
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
+}
+
 .fill-current {
   fill: currentColor;
 }
@@ -1667,6 +1671,10 @@ body::selection {
 
 .dark .dark\:bg-opacity-0 {
   --tw-bg-opacity: 0;
+}
+
+.dark .dark\:bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
 }
 
 .dark .dark\:\!text-red-400 {
