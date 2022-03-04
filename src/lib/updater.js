@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 19:56:10
+ * @LastEditTime: 2022-03-04 21:02:45
  */
 
 import { app, dialog, Notification } from "electron";
@@ -108,6 +108,7 @@ export async function updateAutomatically() {
     autoUpdater.channel = receiveTestUpdates
       ? global.common.BETA
       : global.common.STABLE;
+    autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
     autoUpdater.checkForUpdates().then((it) => {
       if (it != null && it.downloadPromise != null) {
         it.downloadPromise.then(() => {
@@ -149,5 +150,6 @@ export async function updateManually(menuItem) {
   autoUpdater.channel = receiveTestUpdates
     ? global.common.BETA
     : global.common.STABLE;
+  autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
   autoUpdater.checkForUpdates();
 } // end function checkForUpdates
