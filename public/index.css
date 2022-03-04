@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 17:10:29
+ * @LastEditTime: 2022-03-04 17:22:01
  */
 
 /*
@@ -1414,6 +1414,14 @@ body::selection {
 
 .e-grid .e-frozen-left-content.e-frozencontent {
   border-right-width: 0px !important;
+}
+
+/* The grid's customised frozen scroll bar style. */
+
+.e-grid .e-frozenscrollbar {
+  border-right-width: 3px;
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
 }
 
 /* The customised style of the grid's header cell with filtering and sorting enabled. */
