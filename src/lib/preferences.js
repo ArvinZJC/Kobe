@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.4.20220304
+ * @Version: 1.0.5.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 12:43:36
+ * @LastEditTime: 2022-03-04 19:47:45
  */
 
 import global from "./global.js";
@@ -79,6 +79,16 @@ export async function initialisePreferences() {
   } // end if
 
   nativeTheme.themeSource = preferences[global.common.APPEARANCE_KEY];
+
+  // Initialise the flag indicating whether to update and download automatically to default if the user preference does not exist or is illegal.
+  if (
+    typeof preferences[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY] !== "boolean"
+  ) {
+    await settings.set(
+      global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY,
+      global.common.DEFAULT_AUTO_UPDATE_AND_DOWNLOAD
+    );
+  } // end if
 
   // Initialise the flag indicating whether to confirm closing multiple tabs to default if the user preference does not exist or is illegal.
   if (
@@ -170,6 +180,16 @@ export async function initialisePreferences() {
     )
   ) {
     await settings.set(global.common.ONLINE_SEARCH_KEY, global.common.BAIDU_ID);
+  } // end if
+
+  // Initialise the flag indicating whether to receive test version updates to default if the user preference does not exist or is illegal.
+  if (
+    typeof preferences[global.common.RECEIVE_TEST_UPDATES_KEY] !== "boolean"
+  ) {
+    await settings.set(
+      global.common.RECEIVE_TEST_UPDATES_KEY,
+      global.common.DEFAULT_RECEIVE_TEST_UPDATES
+    );
   } // end if
 
   // Initialise the search engine mode preference to default if the user preference does not exist or is illegal.

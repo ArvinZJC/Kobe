@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 16:04:36
+ * @LastEditTime: 2022-03-04 19:52:13
  */
 
 import {
@@ -33,6 +33,7 @@ import {
 } from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
 import { TabbedWindow } from "./tabbed-window.js";
+import { updateAutomatically } from "./updater.js";
 
 log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
@@ -113,6 +114,15 @@ function initialiseCustomisedWinListener(tabbedWin) {
   tabbedWin.on(global.common.CLOSE_TAB_ITEM, () => {
     global.tabItemCount--;
   });
+  tabbedWin.on(global.common.TAB_BAR_READY, async () => {
+    const autoUpdateAndDownload = await settings.get(
+      global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+    );
+
+    if (autoUpdateAndDownload) {
+      await updateAutomatically();
+    } // end if
+  });
   tabbedWin.on(global.common.NEW_TAB_ITEM, () => {
     global.tabItemCount++;
   });
@@ -132,6 +142,7 @@ function initialiseCustomisedWinListener(tabbedWin) {
     const buttonIndex = dialog.showMessageBoxSync(tabbedWin.win, {
       buttons: [zhCN.default.confirm, zhCN.default.cancel],
       cancelId: 1,
+      detail: zhCN.default.closingMultipleTabsConfirmationDetail,
       message: zhCN.default.closingMultipleTabsConfirmationMessage,
       noLink: true,
       title: app.name,
@@ -252,6 +263,14 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       viewContents.send(global.common.IPC_RECEIVE, appearance);
       break;
     }
+    case global.common.GET_AUTO_UPDATE_AND_DOWNLOAD: {
+      const autoUpdateAndDownload = await getPreference(
+        global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, autoUpdateAndDownload);
+      break;
+    }
     case global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS: {
       const confirmClosingMultipleTabs = await getPreference(
         global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
@@ -309,6 +328,14 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
 
       os[global.common.GET_PLATFORM] = platform;
       viewContents.send(global.common.IPC_RECEIVE, os);
+      break;
+    }
+    case global.common.GET_RECEIVE_TEST_UPDATES: {
+      const receiveTestUpdates = await getPreference(
+        global.common.RECEIVE_TEST_UPDATES_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, receiveTestUpdates);
       break;
     }
     case global.common.GET_SEARCH_ENGINE_MODE: {
@@ -455,6 +482,13 @@ async function reactToIpcObjectData(data, tabbedWin, viewContents) {
       nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
       break;
     }
+    case global.common.SET_AUTO_UPDATE_AND_DOWNLOAD: {
+      await settings.set(
+        global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY,
+        data[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY]
+      );
+      break;
+    }
     case global.common.SET_CONFIRM_CLOSING_MULTIPLE_TABS: {
       await settings.set(
         global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY,
@@ -501,6 +535,13 @@ async function reactToIpcObjectData(data, tabbedWin, viewContents) {
       await settings.set(
         global.common.ONLINE_SEARCH_KEY,
         data[global.common.ONLINE_SEARCH_KEY]
+      );
+      break;
+    }
+    case global.common.SET_RECEIVE_TEST_UPDATES: {
+      await settings.set(
+        global.common.RECEIVE_TEST_UPDATES_KEY,
+        data[global.common.RECEIVE_TEST_UPDATES_KEY]
       );
       break;
     }

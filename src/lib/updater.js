@@ -4,11 +4,12 @@
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 15:58:49
+ * @LastEditTime: 2022-03-04 19:56:10
  */
 
 import { app, dialog, Notification } from "electron";
 import log from "electron-log";
+import settings from "electron-settings";
 import { autoUpdater } from "electron-updater";
 import path from "path";
 
@@ -96,10 +97,17 @@ autoUpdater.on("update-not-available", () => {
  * Reference: https://github.com/electron-userland/electron-builder/blob/8bfeef83a9b1f75761596d33b9504c7dca1cac53/packages/electron-updater/src/AppUpdater.ts#L265
  *
  */
-export function updateAutomatically() {
+export async function updateAutomatically() {
   if (process.env.WEBPACK_DEV_SERVER_URL == null) {
+    const receiveTestUpdates = await settings.get(
+      global.common.RECEIVE_TEST_UPDATES_KEY
+    );
+
     global.isAutoUpdateBusy = true;
     autoUpdater.autoDownload = true;
+    autoUpdater.channel = receiveTestUpdates
+      ? global.common.BETA
+      : global.common.STABLE;
     autoUpdater.checkForUpdates().then((it) => {
       if (it != null && it.downloadPromise != null) {
         it.downloadPromise.then(() => {
@@ -121,7 +129,7 @@ export function updateAutomatically() {
  * Check for updates manually via a menu item.
  * @param {Electron.MenuItem} menuItem the menu item for checking for updates.
  */
-export function updateManually(menuItem) {
+export async function updateManually(menuItem) {
   if (global.isAutoUpdateBusy) {
     dialog.showMessageBox({
       message: zhCN.default.autoUpdateBusyMessage,
@@ -131,8 +139,15 @@ export function updateManually(menuItem) {
     return;
   } // end if
 
+  const receiveTestUpdates = await settings.get(
+    global.common.RECEIVE_TEST_UPDATES_KEY
+  );
+
   menuItemCheckForUpdates = menuItem;
   menuItemCheckForUpdates.enabled = false;
   autoUpdater.autoDownload = false;
+  autoUpdater.channel = receiveTestUpdates
+    ? global.common.BETA
+    : global.common.STABLE;
   autoUpdater.checkForUpdates();
 } // end function checkForUpdates

@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.10.20220303
+ * @Version: 2.0.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 13:38:53
+ * @LastEditTime: 2022-03-04 19:57:01
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -41,8 +41,8 @@ const menuItemAboutTemplate =
         label: `${zhCN.default.about}${app.name}`,
       };
 const menuItemCheckForUpdatesTemplate = {
-  click: (menuItem) => {
-    updateManually(menuItem);
+  click: async (menuItem) => {
+    await updateManually(menuItem);
   },
   label: zhCN.default.checkForUpdates,
 };

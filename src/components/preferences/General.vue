@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.5.20220304
+ * @Version: 1.0.7.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 12:52:26
+ * @LastEditTime: 2022-03-04 19:41:19
 -->
 
 <template>
@@ -32,6 +32,24 @@
       :title="zhCN.default.confirmClosingMultipleTabsTitle"
       :type="global.common.SWITCH"
       :value="confirmClosingMultipleTabs"
+    />
+    <!-- Check for updates. -->
+    <!-- Update and download automatically. -->
+    <Preference
+      :explanation="zhCN.default.autoUpdateAndDownloadExplanation"
+      :options="options.autoUpdateAndDownload"
+      :subtitle="zhCN.default.autoUpdateAndDownloadTitle"
+      :title="zhCN.default.checkForUpdates"
+      :type="global.common.SWITCH"
+      :value="autoUpdateAndDownload"
+    />
+    <!-- Receive test version updates. -->
+    <Preference
+      :explanation="zhCN.default.receiveTestUpdatesExplanation"
+      :options="options.receiveTestUpdates"
+      :subtitle="zhCN.default.receiveTestUpdatesTitle"
+      :type="global.common.SWITCH"
+      :value="receiveTestUpdates"
     />
   </div>
 </template>
@@ -75,10 +93,12 @@ export default {
   },
   data() {
     return {
+      autoUpdateAndDownload: global.common.DEFAULT_AUTO_UPDATE_AND_DOWNLOAD,
       confirmClosingMultipleTabs:
         global.common.DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS,
       data: {},
       global,
+      receiveTestUpdates: global.common.DEFAULT_RECEIVE_TEST_UPDATES,
       zhCN,
     };
   },
@@ -94,6 +114,17 @@ export default {
           )
         ) {
           checkOption(data[global.common.APPEARANCE_KEY]);
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+          )
+        ) {
+          this.autoUpdateAndDownload =
+            data[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY];
         } // end if
 
         if (
@@ -116,6 +147,17 @@ export default {
         ) {
           checkOption(data[global.common.ONLINE_SEARCH_KEY]);
         } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.RECEIVE_TEST_UPDATES_KEY
+          )
+        ) {
+          this.receiveTestUpdates =
+            data[global.common.RECEIVE_TEST_UPDATES_KEY];
+        } // end if
       }
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
@@ -124,11 +166,19 @@ export default {
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
+      global.common.GET_AUTO_UPDATE_AND_DOWNLOAD
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
       global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
       global.common.GET_ONLINE_SEARCH
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_RECEIVE_TEST_UPDATES
     );
   },
   setup() {
@@ -151,6 +201,10 @@ export default {
             value: zhCN.default.dark,
           }, // Dark.
         ],
+        autoUpdateAndDownload: {
+          id: global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY,
+          value: global.common.SET_AUTO_UPDATE_AND_DOWNLOAD,
+        },
         confirmClosingMultipleTabs: {
           id: global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY,
           value: global.common.SET_CONFIRM_CLOSING_MULTIPLE_TABS,
@@ -167,6 +221,10 @@ export default {
             value: zhCN.default.google,
           }, // Google.
         ],
+        receiveTestUpdates: {
+          id: global.common.RECEIVE_TEST_UPDATES_KEY,
+          value: global.common.SET_RECEIVE_TEST_UPDATES,
+        },
       },
     };
   },

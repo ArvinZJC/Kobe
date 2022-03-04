@@ -4,7 +4,7 @@
  * @Author: hulufei
  * @Date: 2022-02-19 21:02:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 16:01:50
+ * @LastEditTime: 2022-03-04 18:38:50
  */
 
 // The tabbed window builder is inspired by electron-as-browser (https://github.com/hulufei/electron-as-browser, Commit 23eec2e1f4db09a6786313a5ca2a4a3700791cb3). Most of the builder's APIs are almost the same as those of electron-as-browser (https://hulufei.github.io/electron-as-browser/#browserlikewindow). However, the control view is rendered on the browser window rather than a separate browser view to take advantage of the Windows Controls Overlay APIs (https://github.com/WICG/window-controls-overlay/blob/main/explainer.md).
@@ -13,7 +13,6 @@ import log from "electron-log";
 import EventEmitter from "events";
 
 import { setContextMenu } from "./menu.js";
-import { updateAutomatically } from "./updater.js";
 
 const path = require("path");
 
@@ -361,7 +360,6 @@ export class TabbedWindow extends EventEmitter {
         this.ipc = e;
         await this.newTab(this.options.startPage || "");
         this.win.show();
-        updateAutomatically();
 
         /**
          * The control-ready event.

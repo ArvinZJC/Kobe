@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.11.20220304
+ * @Version: 1.0.12.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 15:32:49
+ * @LastEditTime: 2022-03-04 20:02:07
  */
 
 global.common = {
@@ -15,9 +15,11 @@ global.common = {
   APP_SCHEME: "app",
   APPEARANCE_KEY: "appearance",
   AUTHOR: "ArvinZJC",
+  AUTO_UPDATE_AND_DOWNLOAD_KEY: "autoUpdateAndDownload",
   BAIDU_ID: "baidu",
   BAIDU_SEARCH_KEY: "wd",
   BAIDU_SEARCH_URL: "https://www.baidu.com/s",
+  BETA: "beta",
   BOARD_LOT_1: 100,
   BOARD_LOT_10: 1000,
   BOARD_LOT_100: 10000,
@@ -36,10 +38,12 @@ global.common = {
   DAY_TIME_START: " 00:00:00",
   DAY_VOLUME_DECIMAL_POINTS_KEY: "dayVolumeDecimalPoints",
   DAY_VOLUME_UNIT_KEY: "dayVolumeUnit",
+  DEFAULT_AUTO_UPDATE_AND_DOWNLOAD: true,
   DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS: true,
   DEFAULT_DAY_VOLUME_DECIMAL_POINTS: 2,
   DEFAULT_INCLUDE_HIDDEN_COLUMNS: false,
   DEFAULT_MAX_DATE_RANGE_SPAN: 4,
+  DEFAULT_RECEIVE_TEST_UPDATES: false,
   DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS: 4,
   DEV: "development",
   DROP_DOWN_LIST: "dropDownList",
@@ -49,6 +53,7 @@ global.common = {
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
   GET_APPEARANCE: "getAppearance",
+  GET_AUTO_UPDATE_AND_DOWNLOAD: "getAutoUpdateAndDownload",
   GET_CONFIRM_CLOSING_MULTIPLE_TABS: "getConfirmClosingMultipleTabs",
   GET_DAY_VOLUME_DECIMAL_POINTS: "getDayVolumeDecimalPoints",
   GET_DAY_VOLUME_UNIT: "getDayVolumeUnit",
@@ -58,6 +63,7 @@ global.common = {
   GET_NEW_TAB_ITEM_ID: "getNewTabItemId",
   GET_ONLINE_SEARCH: "getOnlineSearch",
   GET_PLATFORM: "getPlatform",
+  GET_RECEIVE_TEST_UPDATES: "getReceiveTestUpdates",
   GET_SEARCH_ENGINE_MODE: "getSearchEngineMode",
   GET_SEARCH_RESULT_DATA: "getSearchResultData",
   GET_START_TAB_ITEM_ID: "getStartTabItemId",
@@ -101,6 +107,7 @@ global.common = {
   ONLINE_SEARCH_KEY: "onlineSearch",
   PATCH_EXIT_FULL_SCREEN: "patchExitFullScreen",
   POP_UP_APP_MENU: "popUpAppMenu",
+  RECEIVE_TEST_UPDATES_KEY: "receiveTestUpdates",
   PREFERENCE_TABS_NAME: "preferenceTabs",
   PREFERENCE_VIEW: "preferences",
   PREFERENCE_VIEW_ID: "preference-view",
@@ -118,6 +125,7 @@ global.common = {
   SEARCH_STATUS_AREA_ID: "search-status-area",
   SEPARATOR: "separator",
   SET_APPEARANCE: "setAppearance",
+  SET_AUTO_UPDATE_AND_DOWNLOAD: "setAutoUpdateAndDownload",
   SET_CONFIRM_CLOSING_MULTIPLE_TABS: "setConfirmClosingMultipleTabs",
   SET_DAY_VOLUME_DECIMAL_POINTS: "setDayVolumeDecimalPoints",
   SET_DAY_VOLUME_UNIT: "setDayVolumeUnit",
@@ -125,6 +133,7 @@ global.common = {
   SET_MAX_DATE_RANGE_SPAN: "setMaxDateRangeSpan",
   SET_MIN_DATE: "setMinDate",
   SET_ONLINE_SEARCH: "setOnlineSearch",
+  SET_RECEIVE_TEST_UPDATES: "setReceiveTestUpdates",
   SET_SEARCH_ENGINE_MODE: "setSearchEngineMode",
   SET_TOTAL_VOLUME_DECIMAL_POINTS: "setTotalVolumeDecimalPoints",
   SET_TOTAL_VOLUME_UNIT: "setTotalVolumeUnit",
@@ -163,6 +172,7 @@ global.common = {
   SHOW_PREFERENCE_TAB_ITEM: "showPreferenceTabItem",
   SLIDER: "slider",
   SMOOTH_SCROLL: "smooth",
+  STABLE: "latest",
   STABLE_MODE_ID: "stable",
   START_DATE_KEY: "startDate",
   STOCK_NAME_KEY: "name",
