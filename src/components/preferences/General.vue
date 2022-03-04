@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.1.20220219
+ * @Version: 1.0.7.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 14:45:49
+ * @LastEditTime: 2022-03-04 19:41:19
 -->
 
 <template>
@@ -24,6 +24,32 @@
       :selectionChangedHandler="changeOnlineSearch"
       :title="zhCN.default.onlineSearchTitle"
       :type="global.common.BUTTON_GROUP"
+    />
+    <!-- Confirm closing multiple tabs. -->
+    <Preference
+      :explanation="zhCN.default.confirmClosingMultipleTabsExplanation"
+      :options="options.confirmClosingMultipleTabs"
+      :title="zhCN.default.confirmClosingMultipleTabsTitle"
+      :type="global.common.SWITCH"
+      :value="confirmClosingMultipleTabs"
+    />
+    <!-- Check for updates. -->
+    <!-- Update and download automatically. -->
+    <Preference
+      :explanation="zhCN.default.autoUpdateAndDownloadExplanation"
+      :options="options.autoUpdateAndDownload"
+      :subtitle="zhCN.default.autoUpdateAndDownloadTitle"
+      :title="zhCN.default.checkForUpdates"
+      :type="global.common.SWITCH"
+      :value="autoUpdateAndDownload"
+    />
+    <!-- Receive test version updates. -->
+    <Preference
+      :explanation="zhCN.default.receiveTestUpdatesExplanation"
+      :options="options.receiveTestUpdates"
+      :subtitle="zhCN.default.receiveTestUpdatesTitle"
+      :type="global.common.SWITCH"
+      :value="receiveTestUpdates"
     />
   </div>
 </template>
@@ -66,7 +92,15 @@ export default {
     }, // end function changeOnlineSearch
   },
   data() {
-    return { data: {}, global, zhCN };
+    return {
+      autoUpdateAndDownload: global.common.DEFAULT_AUTO_UPDATE_AND_DOWNLOAD,
+      confirmClosingMultipleTabs:
+        global.common.DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS,
+      data: {},
+      global,
+      receiveTestUpdates: global.common.DEFAULT_RECEIVE_TEST_UPDATES,
+      zhCN,
+    };
   },
   mounted() {
     window[global.common.IPC_RENDERER_API_KEY].receive(
@@ -86,10 +120,43 @@ export default {
           typeof data === "object" &&
           Object.prototype.hasOwnProperty.call(
             data,
+            global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+          )
+        ) {
+          this.autoUpdateAndDownload =
+            data[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY];
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
+          )
+        ) {
+          this.confirmClosingMultipleTabs =
+            data[global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY];
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
             global.common.ONLINE_SEARCH_KEY
           )
         ) {
           checkOption(data[global.common.ONLINE_SEARCH_KEY]);
+        } // end if
+
+        if (
+          typeof data === "object" &&
+          Object.prototype.hasOwnProperty.call(
+            data,
+            global.common.RECEIVE_TEST_UPDATES_KEY
+          )
+        ) {
+          this.receiveTestUpdates =
+            data[global.common.RECEIVE_TEST_UPDATES_KEY];
         } // end if
       }
     );
@@ -99,7 +166,19 @@ export default {
     );
     window[global.common.IPC_RENDERER_API_KEY].send(
       global.common.IPC_SEND,
+      global.common.GET_AUTO_UPDATE_AND_DOWNLOAD
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
       global.common.GET_ONLINE_SEARCH
+    );
+    window[global.common.IPC_RENDERER_API_KEY].send(
+      global.common.IPC_SEND,
+      global.common.GET_RECEIVE_TEST_UPDATES
     );
   },
   setup() {
@@ -112,16 +191,24 @@ export default {
             value: zhCN.default.systemDefault,
           }, // System default.
           {
-            icon: MoonIcon,
+            icon: SunIcon,
             id: global.common.LIGHT_MODE_ID,
             value: zhCN.default.light,
           }, // Light.
           {
-            icon: SunIcon,
+            icon: MoonIcon,
             id: global.common.DARK_MODE_ID,
             value: zhCN.default.dark,
           }, // Dark.
         ],
+        autoUpdateAndDownload: {
+          id: global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY,
+          value: global.common.SET_AUTO_UPDATE_AND_DOWNLOAD,
+        },
+        confirmClosingMultipleTabs: {
+          id: global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY,
+          value: global.common.SET_CONFIRM_CLOSING_MULTIPLE_TABS,
+        },
         onlineSearch: [
           {
             icon: BaiduIcon,
@@ -134,6 +221,10 @@ export default {
             value: zhCN.default.google,
           }, // Google.
         ],
+        receiveTestUpdates: {
+          id: global.common.RECEIVE_TEST_UPDATES_KEY,
+          value: global.common.SET_RECEIVE_TEST_UPDATES,
+        },
       },
     };
   },

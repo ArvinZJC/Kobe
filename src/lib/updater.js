@@ -1,15 +1,17 @@
 /*
  * @Description: the app updater
- * @Version: 1.1.1.20220227
+ * @Version: 1.1.3.20220303
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 23:32:49
+ * @LastEditTime: 2022-03-04 21:02:45
  */
 
-import { app, dialog } from "electron";
+import { app, dialog, Notification } from "electron";
 import log from "electron-log";
+import settings from "electron-settings";
 import { autoUpdater } from "electron-updater";
+import path from "path";
 
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -47,8 +49,8 @@ autoUpdater.on("update-available", (updateInfo) => {
         title: app.name,
         type: "info",
       })
-      .then((buttonIndex) => {
-        if (buttonIndex === 0) {
+      .then((results) => {
+        if (results.response === 0) {
           autoUpdater.downloadUpdate();
         } else {
           menuItemCheckForUpdates.enabled = true;
@@ -92,16 +94,34 @@ autoUpdater.on("update-not-available", () => {
 
 /**
  * Check for updates and notify when an update is available.
+ * Reference: https://github.com/electron-userland/electron-builder/blob/8bfeef83a9b1f75761596d33b9504c7dca1cac53/packages/electron-updater/src/AppUpdater.ts#L265
+ *
  */
-export function updateAutomatically() {
+export async function updateAutomatically() {
   if (process.env.WEBPACK_DEV_SERVER_URL == null) {
+    const receiveTestUpdates = await settings.get(
+      global.common.RECEIVE_TEST_UPDATES_KEY
+    );
+
     global.isAutoUpdateBusy = true;
     autoUpdater.autoDownload = true;
-    autoUpdater.checkForUpdatesAndNotify({
-      body: `{appName}${
-        zhCN.default.updateReadyBody
-      }（V${app.getVersion()} → V{version}）`,
-      title: zhCN.default.updateReadyTitle,
+    autoUpdater.channel = receiveTestUpdates
+      ? global.common.BETA
+      : global.common.STABLE;
+    autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
+    autoUpdater.checkForUpdates().then((it) => {
+      if (it != null && it.downloadPromise != null) {
+        it.downloadPromise.then(() => {
+          new Notification({
+            body: `${zhCN.default.updateReadyBody}（V${app.getVersion()} → V${
+              it.updateInfo.version
+            }）`,
+            // eslint-disable-next-line no-undef
+            icon: path.join(__static, "assets/app_icon.png"),
+            title: zhCN.default.updateReadyTitle,
+          }).show();
+        });
+      }
     });
   } // end if
 } // end function updateAutomatically
@@ -110,7 +130,7 @@ export function updateAutomatically() {
  * Check for updates manually via a menu item.
  * @param {Electron.MenuItem} menuItem the menu item for checking for updates.
  */
-export function updateManually(menuItem) {
+export async function updateManually(menuItem) {
   if (global.isAutoUpdateBusy) {
     dialog.showMessageBox({
       message: zhCN.default.autoUpdateBusyMessage,
@@ -120,8 +140,16 @@ export function updateManually(menuItem) {
     return;
   } // end if
 
+  const receiveTestUpdates = await settings.get(
+    global.common.RECEIVE_TEST_UPDATES_KEY
+  );
+
   menuItemCheckForUpdates = menuItem;
   menuItemCheckForUpdates.enabled = false;
   autoUpdater.autoDownload = false;
+  autoUpdater.channel = receiveTestUpdates
+    ? global.common.BETA
+    : global.common.STABLE;
+  autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
   autoUpdater.checkForUpdates();
 } // end function checkForUpdates

@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.0.20220301
+ * @Version: 1.1.2.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 22:54:27
+ * @LastEditTime: 2022-03-04 08:56:59
 -->
 
 <template>
@@ -106,11 +106,16 @@ import {
   TabItemDirective,
   TabItemsDirective,
 } from "@syncfusion/ej2-vue-navigations";
+import path from "path";
 
-import MaximiseIcon from "../assets/maximise.png";
-import RestoreIcon from "../assets/restore.png";
 import global from "../lib/global.js";
 import * as zhCN from "../locales/zh-CN.json";
+
+const maximiseImagePath = path.join(
+  process.env.BASE_URL,
+  "assets/maximise.png"
+);
+const restoreImagePath = path.join(process.env.BASE_URL, "assets/restore.png");
 
 export default {
   components: {
@@ -259,12 +264,12 @@ export default {
      */
     reactToMaximiseOrRestore(data) {
       if (data === global.common.MAXIMISE_WIN) {
-        this.maximiseOrRestoreButtonImage = RestoreIcon;
+        this.maximiseOrRestoreButtonImage = restoreImagePath;
         this.maximiseOrRestoreButtonTitle = zhCN.default.restore;
       } // end if
 
       if (data === global.common.RESTORE_WIN) {
-        this.maximiseOrRestoreButtonImage = MaximiseIcon;
+        this.maximiseOrRestoreButtonImage = maximiseImagePath;
         this.maximiseOrRestoreButtonTitle = zhCN.default.maximise;
       } // end if
     }, // end function reactToMaximiseOrRestore
@@ -311,12 +316,14 @@ export default {
           winControlArea.offsetWidth; // Using the tab bar tab area's width is inapplicable.
       } // end if
 
-      /* Programmatically scroll the scroll bar's to the right end to avoid preventing dragging the app window. */
-      for (const scrollRightNav of document.getElementsByClassName(
-        global.common.SF_SCROLL_RIGHT_NAV_CLASS
-      )) {
-        scrollRightNav.click();
-      } // end for
+      setTimeout(() => {
+        // Programmatically scroll the scroll bar's to the right end to avoid preventing dragging the app window.
+        for (const scrollRightNav of document.getElementsByClassName(
+          global.common.SF_SCROLL_RIGHT_NAV_CLASS
+        )) {
+          scrollRightNav.click();
+        } // end for
+      }, 50);
     }, // end function updateTabBarTabWidth
 
     /**
@@ -342,7 +349,7 @@ export default {
     return {
       global,
       isFullScreen: false,
-      maximiseOrRestoreButtonImage: MaximiseIcon, // TODO: titleBarOverlay temp workaround.
+      maximiseOrRestoreButtonImage: maximiseImagePath, // TODO: titleBarOverlay temp workaround.
       maximiseOrRestoreButtonTitle: zhCN.default.maximise, // TODO: titleBarOverlay temp workaround.
       newTabItemCssClass: "non-draggable-area !cursor-default",
       platform: global.common.UNKNOWN,

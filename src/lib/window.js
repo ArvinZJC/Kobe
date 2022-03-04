@@ -1,14 +1,16 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.8.20220301
+ * @Version: 2.0.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 20:10:26
+ * @LastEditTime: 2022-03-04 19:52:13
  */
 
 import {
+  app,
   BrowserWindow,
+  dialog,
   ipcMain,
   Menu,
   nativeTheme,
@@ -31,6 +33,7 @@ import {
 } from "./preferences.js";
 import { getSearchResultData } from "./processor.js";
 import { TabbedWindow } from "./tabbed-window.js";
+import { updateAutomatically } from "./updater.js";
 
 log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
@@ -41,6 +44,7 @@ log.transports.file.level = global.common.MIN_LOG_LEVEL;
  */
 export async function createTabbedWin(stockList) {
   await initialisePreferences();
+  global.tabItemCount = 0;
 
   const { height, width } = screen.getPrimaryDisplay().workAreaSize;
   var baseUrl;
@@ -92,10 +96,62 @@ export async function createTabbedWin(stockList) {
     winOptions,
   });
 
+  initialiseCustomisedWinListener(tabbedWin);
   initialiseIpcMainListener(stockList, tabbedWin);
   setAppMenu(tabbedWin);
+  tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
+  return tabbedWin;
+} // end function createTabbedWin
+
+/**
+ * Initialise the customised window event listener.
+ * @param {TabbedWindow} tabbedWin a tabbed window.
+ */
+function initialiseCustomisedWinListener(tabbedWin) {
   tabbedWin.on("closed", () => {
     tabbedWin = null;
+  });
+  tabbedWin.on(global.common.CLOSE_TAB_ITEM, () => {
+    global.tabItemCount--;
+  });
+  tabbedWin.on(global.common.TAB_BAR_READY, async () => {
+    const autoUpdateAndDownload = await settings.get(
+      global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+    );
+
+    if (autoUpdateAndDownload) {
+      await updateAutomatically();
+    } // end if
+  });
+  tabbedWin.on(global.common.NEW_TAB_ITEM, () => {
+    global.tabItemCount++;
+  });
+  tabbedWin.win.on("close", (e) => {
+    const confirmClosingMultipleTabs = settings.getSync(
+      global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
+    ); // Avoid using async in this event listener.
+
+    if (!confirmClosingMultipleTabs) {
+      return;
+    } // end if
+
+    if (global.tabItemCount <= 1) {
+      return;
+    } // end if
+
+    const buttonIndex = dialog.showMessageBoxSync(tabbedWin.win, {
+      buttons: [zhCN.default.confirm, zhCN.default.cancel],
+      cancelId: 1,
+      detail: zhCN.default.closingMultipleTabsConfirmationDetail,
+      message: zhCN.default.closingMultipleTabsConfirmationMessage,
+      noLink: true,
+      title: app.name,
+      type: "info",
+    });
+
+    if (buttonIndex === 1) {
+      e.preventDefault();
+    } // end if
   });
   tabbedWin.win.on("enter-full-screen", () => {
     const appMenuTemplate = getInitialAppMenuTemplate(tabbedWin);
@@ -119,9 +175,7 @@ export async function createTabbedWin(stockList) {
       global.common.EXIT_FULL_SCREEN
     );
   });
-  tabbedWin.win.setMenuBarVisibility(true); // Although the menu bar is not actually visible on Windows due to the use of the frameless window, this line is required to enable the accelerators.
-  return tabbedWin;
-} // end function createTabbedWin
+} // end function initialiseCustomisedWinListener
 
 /**
  * Initialise the IPC main channel listener.
@@ -143,18 +197,41 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
 
 /**
  * Maximise or restore the window.
- * TODO: titleBarOverlay temp workaround.
  * @param {TabbedWindow} tabbedWin a tabbed window.
  * @param {Electron.WebContents} viewContents the tab item web contents.
  */
 function maximiseOrRestoreWin(tabbedWin, viewContents) {
-  if (tabbedWin.win.isMaximized()) {
-    tabbedWin.win.unmaximize();
-    viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
-  } else {
-    tabbedWin.win.maximize();
-    viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
-  } // end if...else
+  // TODO: titleBarOverlay temp workaround.
+  if (platform === global.common.WINDOWS) {
+    if (tabbedWin.win.isMaximized()) {
+      tabbedWin.win.unmaximize();
+      viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
+    } else {
+      tabbedWin.win.maximize();
+      viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
+    } // end if...else
+
+    return;
+  } // end if
+
+  // NOTE: react to this ID data on macOS only.
+  // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
+  switch (
+    systemPreferences.getUserDefault("AppleActionOnDoubleClick", "string")
+  ) {
+    case "Minimize": {
+      tabbedWin.win.minimize();
+      break;
+    }
+    case "None": {
+      break;
+    }
+    default: {
+      tabbedWin.win.isMaximized()
+        ? tabbedWin.win.unmaximize()
+        : tabbedWin.win.maximize();
+    }
+  } // end switch-case
 } // end function maximiseOrRestoreWin
 
 /**
@@ -186,6 +263,22 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       viewContents.send(global.common.IPC_RECEIVE, appearance);
       break;
     }
+    case global.common.GET_AUTO_UPDATE_AND_DOWNLOAD: {
+      const autoUpdateAndDownload = await getPreference(
+        global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, autoUpdateAndDownload);
+      break;
+    }
+    case global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS: {
+      const confirmClosingMultipleTabs = await getPreference(
+        global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, confirmClosingMultipleTabs);
+      break;
+    }
     case global.common.GET_DAY_VOLUME_DECIMAL_POINTS: {
       const dayVolumeDecimalPoints = await getPreference(
         global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
@@ -200,12 +293,6 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       );
 
       viewContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
-      break;
-    }
-    case global.common.GET_ONLINE_SEARCH: {
-      const onlineSearch = await getPreference(global.common.ONLINE_SEARCH_KEY);
-
-      viewContents.send(global.common.IPC_RECEIVE, onlineSearch);
       break;
     }
     case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
@@ -230,11 +317,25 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       viewContents.send(global.common.IPC_RECEIVE, minDate);
       break;
     }
+    case global.common.GET_ONLINE_SEARCH: {
+      const onlineSearch = await getPreference(global.common.ONLINE_SEARCH_KEY);
+
+      viewContents.send(global.common.IPC_RECEIVE, onlineSearch);
+      break;
+    }
     case global.common.GET_PLATFORM: {
       const os = {};
 
       os[global.common.GET_PLATFORM] = platform;
       viewContents.send(global.common.IPC_RECEIVE, os);
+      break;
+    }
+    case global.common.GET_RECEIVE_TEST_UPDATES: {
+      const receiveTestUpdates = await getPreference(
+        global.common.RECEIVE_TEST_UPDATES_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, receiveTestUpdates);
       break;
     }
     case global.common.GET_SEARCH_ENGINE_MODE: {
@@ -273,7 +374,7 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.GET_VOLUME_FORMAT: {
-      var volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
+      const volumeFormat = []; // Indexes 0 and 1 are for day volumes, and the rest are for total volumes. For each volume type, the first one is the number of decimal points, and the second is the unit.
 
       volumeFormat[0] = await getPreference(
         global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
@@ -289,31 +390,7 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.MAXIMISE_OR_RESTORE_WIN: {
-      // TODO: titleBarOverlay temp workaround.
-      if (platform === global.common.WINDOWS) {
-        maximiseOrRestoreWin(tabbedWin, viewContents);
-        return;
-      } // end if
-
-      // NOTE: react to this ID data on macOS only.
-      // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
-      switch (
-        systemPreferences.getUserDefault("AppleActionOnDoubleClick", "string")
-      ) {
-        case "Minimize": {
-          tabbedWin.win.minimize();
-          break;
-        }
-        case "None": {
-          break;
-        }
-        default: {
-          tabbedWin.win.isMaximized()
-            ? tabbedWin.win.unmaximize()
-            : tabbedWin.win.maximize();
-        }
-      } // end switch-case
-
+      maximiseOrRestoreWin(tabbedWin, viewContents);
       break;
     }
     case global.common.MINIMISE_WIN: {
@@ -336,8 +413,22 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.RESET_PREFERENCES: {
-      await resetPreferences();
-      viewContents.reload();
+      dialog
+        .showMessageBox(tabbedWin.win, {
+          buttons: [zhCN.default.confirm, zhCN.default.cancel],
+          cancelId: 1,
+          detail: zhCN.default.resetPreferencesConfirmationDetail,
+          message: zhCN.default.resetPreferencesConfirmationMessage,
+          noLink: true,
+          title: app.name,
+          type: "warning",
+        })
+        .then(async (results) => {
+          if (results.response === 0) {
+            await resetPreferences();
+            viewContents.reload();
+          } // end if
+        });
       break;
     }
     default: {
@@ -391,6 +482,20 @@ async function reactToIpcObjectData(data, tabbedWin, viewContents) {
       nativeTheme.themeSource = data[global.common.APPEARANCE_KEY];
       break;
     }
+    case global.common.SET_AUTO_UPDATE_AND_DOWNLOAD: {
+      await settings.set(
+        global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY,
+        data[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY]
+      );
+      break;
+    }
+    case global.common.SET_CONFIRM_CLOSING_MULTIPLE_TABS: {
+      await settings.set(
+        global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY,
+        data[global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY]
+      );
+      break;
+    }
     case global.common.SET_DAY_VOLUME_DECIMAL_POINTS: {
       await settings.set(
         global.common.DAY_VOLUME_DECIMAL_POINTS_KEY,
@@ -402,13 +507,6 @@ async function reactToIpcObjectData(data, tabbedWin, viewContents) {
       await settings.set(
         global.common.DAY_VOLUME_UNIT_KEY,
         data[global.common.DAY_VOLUME_UNIT_KEY]
-      );
-      break;
-    }
-    case global.common.SET_ONLINE_SEARCH: {
-      await settings.set(
-        global.common.ONLINE_SEARCH_KEY,
-        data[global.common.ONLINE_SEARCH_KEY]
       );
       break;
     }
@@ -430,6 +528,20 @@ async function reactToIpcObjectData(data, tabbedWin, viewContents) {
       await settings.set(
         global.common.MIN_DATE_KEY,
         data[global.common.MIN_DATE_KEY]
+      );
+      break;
+    }
+    case global.common.SET_ONLINE_SEARCH: {
+      await settings.set(
+        global.common.ONLINE_SEARCH_KEY,
+        data[global.common.ONLINE_SEARCH_KEY]
+      );
+      break;
+    }
+    case global.common.SET_RECEIVE_TEST_UPDATES: {
+      await settings.set(
+        global.common.RECEIVE_TEST_UPDATES_KEY,
+        data[global.common.RECEIVE_TEST_UPDATES_KEY]
       );
       break;
     }

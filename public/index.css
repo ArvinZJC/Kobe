@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.8.20220301
+ * @Version: 1.1.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 22:47:51
+ * @LastEditTime: 2022-03-04 17:22:01
  */
 
 /*
@@ -899,6 +899,10 @@ body::selection {
   display: none;
 }
 
+.\!hidden {
+  display: none !important;
+}
+
 .h-7 {
   height: 1.75rem;
 }
@@ -1081,12 +1085,6 @@ body::selection {
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
-.space-x-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1101,6 +1099,10 @@ body::selection {
 
 .bg-opacity-0 {
   --tw-bg-opacity: 0;
+}
+
+.bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
 }
 
 .fill-current {
@@ -1157,11 +1159,6 @@ body::selection {
 .\!text-red-600 {
   --tw-text-opacity: 1 !important;
   color: rgb(220 38 38 / var(--tw-text-opacity)) !important;
-}
-
-.\!text-orange-700 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(194 65 12 / var(--tw-text-opacity)) !important;
 }
 
 .opacity-0 {
@@ -1383,18 +1380,66 @@ body::selection {
   font-size: 18px !important;
 }
 
+/* The customised date range picker range style. */
+
+.dark .e-daterangepicker.e-popup
+  .e-calendar
+  .e-content
+  .e-range-hover:not(.e-selected), .dark .e-daterangepicker.e-popup
+  .e-calendar
+  .e-content
+  .e-range-hover:not(.e-selected)
+  span {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(75 85 99 / var(--tw-bg-opacity)) !important;
+}
+
+/* The customised date range picker range style on hover. */
+
+.dark .e-daterangepicker.e-popup
+  .e-calendar
+  .e-range-hover:not(.e-selected):hover
+  span.e-day {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity)) !important;
+}
+
+/* The grid's customised empty row style. */
+
+.e-grid .e-emptyrow td {
+  padding: 0.35rem !important;
+}
+
 /* The grid's customised frozen content style. */
 
 .e-grid .e-frozen-left-content.e-frozencontent {
   border-right-width: 0px !important;
 }
 
-/* The customised horizontal scroll bar style. */
+/* The grid's customised frozen scroll bar style. */
 
-.e-hscroll .e-scroll-nav {
-  --tw-bg-opacity: 1 !important;
-  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
-  -webkit-app-region: no-drag;
+.e-grid .e-frozenscrollbar {
+  border-right-width: 3px;
+  --tw-border-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-border-opacity));
+}
+
+/* The customised style of the grid's header cell with filtering and sorting enabled. */
+
+.e-grid .e-gridheader .e-sortfilter .e-headercelldiv {
+  padding-right: 0.5rem !important;
+}
+
+/* The grid's customised header cell style. */
+
+.e-grid .e-headercelldiv {
+  font-size: 14px !important;
+}
+
+/* The grid's customised stacked header cell style. */
+
+.e-grid .e-stackedheadercelldiv {
+  font-size: 14px !important;
 }
 
 /* Force the pop-up height and position to be fixed. */
@@ -1406,7 +1451,21 @@ body::selection {
   max-height: fit-content !important;
 }
 
-/* The customised tab scroll bar style. */
+/* The customised resize helper style. */
+
+.e-rhelper {
+  display: none !important;
+}
+
+/* The customised horizontal tab scroll bar navigation style. */
+
+.e-tab .e-tab-header .e-hscroll .e-scroll-nav {
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity)) !important;
+  -webkit-app-region: no-drag;
+}
+
+/* The customised horizontal tab scroll bar navigation arrow style. */
 
 .e-tab
   .e-tab-header
@@ -1417,7 +1476,7 @@ body::selection {
   color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
 }
 
-/* The customised tab scroll bar style on hover and focus.  */
+/* The customised horizontal tab scroll bar style on hover and focus.  */
 
 .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .e-tab
   .e-tab-header
@@ -1644,6 +1703,10 @@ body::selection {
 
 .dark .dark\:bg-opacity-0 {
   --tw-bg-opacity: 0;
+}
+
+.dark .dark\:bg-opacity-90 {
+  --tw-bg-opacity: 0.9;
 }
 
 .dark .dark\:\!text-red-400 {

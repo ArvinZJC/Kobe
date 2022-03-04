@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.1.20220223
+ * @Version: 1.1.6.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-23 00:42:19
+ * @LastEditTime: 2022-03-04 11:32:23
 -->
 
 <template>
@@ -49,7 +49,6 @@
     <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
       <!-- The search result grid component. -->
       <ejs-grid
-        @actionComplete="patchGridBorder"
         @created="searchGridImmediately"
         @dataBound="adjustGrid"
         @load="buildGrid"
@@ -124,29 +123,14 @@ export default {
         this.searchStatusTitle = zhCN.default.searchError;
         this.shouldShowGrid = false;
       } else {
-        const movableContentAreas = document.getElementsByClassName(
-          global.common.SF_MOVABLE_CONTENT_CLASS
-        );
-
         this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns to ensure that the grid's horizontal scroll bar can be added.
-
-        // Hide the horizontal scroll bar if the content is not overflown horizontally.
-        if (
-          movableContentAreas != null &&
-          movableContentAreas.length > 0 &&
-          movableContentAreas[0].clientWidth >=
-            movableContentAreas[0].scrollWidth
-        ) {
-          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].hideScroll();
-        } // end if
-
-        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns again because of the horizontal scroll bar.
+        this.patchGridStackedHeaderAndToolbar();
+        this.patchHScrollBar();
         searchResultArea.classList.add(minHeightScreenClass);
         searchResultArea.classList.remove(heightScreenClass);
         this.shouldShowGrid = true;
       } // end if...else
 
-      this.patchGridStackedHeaderAndToolbar();
       setTimeout(() => this.styleSearchBarBg(), 50);
     }, // end function adjustGrid
 
@@ -154,7 +138,7 @@ export default {
      * Build the grid.
      */
     buildGrid() {
-      var dayVolumeColumns = [];
+      const dayVolumeColumns = [];
 
       for (
         var date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
@@ -383,7 +367,7 @@ export default {
      */
     patchGridBorder() {
       for (const tableSection of document.getElementsByClassName(
-        global.common.SF_TABLE_CLASSES
+        global.common.SF_TABLE_CLASS
       )) {
         tableSection.classList.add(global.common.SF_TABLE_BORDER_CLASS);
       } // end for
@@ -403,6 +387,29 @@ export default {
         (element) => element.classList.add("!w-auto")
       );
     }, // end function patchGridToolbarHeader
+
+    /**
+     * Patch the horizontal scroll bar to provide reasonable layout.
+     */
+    patchHScrollBar() {
+      for (const scrollBar of document.getElementsByClassName(
+        global.common.SF_SCROLL_BAR_CLASS
+      )) {
+        if (
+          scrollBar.parentElement.classList.contains(
+            global.common.SF_GRID_CONTENT_CLASS
+          )
+        ) {
+          for (const gridHeader of document.getElementsByClassName(
+            global.common.SF_GRID_HEADER_CLASS
+          )) {
+            gridHeader.appendChild(scrollBar); // Use "Node.appendChild()" to move the horizontal scroll bar from its current position to the new position.
+          } // end for
+        } // end if
+      } // end for
+
+      this.showOrHideHScrollBar();
+    }, // end function patchHScrollBar
 
     /**
      * Search the grid.
@@ -429,6 +436,33 @@ export default {
         );
       } // end if
     }, // end function searchGridImmediately
+
+    /**
+     * Show or hide the horizontal scroll bar.
+     */
+    showOrHideHScrollBar() {
+      const movableContentAreas = document.getElementsByClassName(
+        global.common.SF_MOVABLE_CONTENT_CLASS
+      );
+
+      if (movableContentAreas != null && movableContentAreas.length > 0) {
+        for (const scrollBar of document.getElementsByClassName(
+          global.common.SF_SCROLL_BAR_CLASS
+        )) {
+          // Hide the horizontal scroll bar if the content is not overflown horizontally.
+          if (
+            movableContentAreas[0].clientWidth >=
+            movableContentAreas[0].scrollWidth
+          ) {
+            scrollBar.classList.add("!hidden");
+          } else {
+            scrollBar.classList.remove("!hidden");
+          } // end if...else
+        } // end for
+
+        this.patchGridBorder();
+      } // end if
+    }, // end function showOrHideHScrollBar
 
     /**
      * Apply the search bar's blur effect if applicable.
@@ -497,7 +531,10 @@ export default {
         : this.$route.query.stockSymbol + " "
     }${this.filename}`;
     this.invokeIpc();
-    window.addEventListener("resize", () => this.styleSearchBarBg);
+    window.addEventListener("resize", () => {
+      this.showOrHideHScrollBar();
+      this.styleSearchBarBg();
+    });
     window.addEventListener("scroll", () => {
       const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);
 

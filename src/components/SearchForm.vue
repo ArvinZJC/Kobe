@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.6.20220228
+ * @Version: 1.0.7.20220302
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-28 23:31:39
+ * @LastEditTime: 2022-03-02 22:54:39
 -->
 
 <template>
@@ -25,9 +25,9 @@
             'select-none',
             hasBarLayout ? 'h-7' : 'h-24 sm:h-32 lg:h-40',
           ]"
+          :src="appImagePath"
           alt="App icon"
           draggable="false"
-          src="../assets/app_icon.png"
         />
       </div>
       <AppTextLogo
@@ -142,6 +142,7 @@ import { DateRangePickerComponent } from "@syncfusion/ej2-vue-calendars";
 import { AutoCompleteComponent } from "@syncfusion/ej2-vue-dropdowns";
 import { FormValidator } from "@syncfusion/ej2-vue-inputs";
 import { TooltipComponent } from "@syncfusion/ej2-vue-popups";
+import path from "path";
 import { createApp } from "vue";
 
 import AppTextLogo from "./svg/AppTextLogo.vue";
@@ -357,6 +358,7 @@ export default {
   },
   data() {
     return {
+      appImagePath: path.join(process.env.BASE_URL, "assets/app_icon.png"),
       global,
       hasBarLayout: this.isBarLayout,
       maxDateRangeSpan: global.common.DEFAULT_MAX_DATE_RANGE_SPAN,

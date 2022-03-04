@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.8.20220301
+ * @Version: 2.0.11.20220304
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-01 21:45:27
+ * @LastEditTime: 2022-03-04 19:57:01
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -33,7 +33,7 @@ const menuItemAboutTemplate =
               global.common.AUTHOR
             }`,
             // eslint-disable-next-line no-undef
-            icon: path.join(__static, "favicon.ico"),
+            icon: path.join(__static, "assets/app_icon.png"),
             message: app.name,
             title: app.name,
           });
@@ -41,8 +41,8 @@ const menuItemAboutTemplate =
         label: `${zhCN.default.about}${app.name}`,
       };
 const menuItemCheckForUpdatesTemplate = {
-  click: (menuItem) => {
-    updateManually(menuItem);
+  click: async (menuItem) => {
+    await updateManually(menuItem);
   },
   label: zhCN.default.checkForUpdates,
 };
@@ -275,6 +275,13 @@ function getMenuHelpTemplate(tabbedWin) {
           shell.openExternal(global.common.GITHUB_KOBE_RELEASES);
         },
         label: zhCN.default.releaseNotes,
+      },
+      menuItemSeparatorTemplate,
+      {
+        click: () => {
+          shell.openPath(app.getPath("logs"));
+        },
+        label: `${zhCN.default.open}${zhCN.default.logDir}`,
       },
       menuItemSeparatorTemplate,
       ...(platform === global.common.WINDOWS

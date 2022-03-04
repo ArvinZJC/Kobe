@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.2.20220227
+ * @Version: 1.0.5.20220304
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-27 14:44:48
+ * @LastEditTime: 2022-03-04 19:47:45
  */
 
 import global from "./global.js";
@@ -79,6 +79,28 @@ export async function initialisePreferences() {
   } // end if
 
   nativeTheme.themeSource = preferences[global.common.APPEARANCE_KEY];
+
+  // Initialise the flag indicating whether to update and download automatically to default if the user preference does not exist or is illegal.
+  if (
+    typeof preferences[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY] !== "boolean"
+  ) {
+    await settings.set(
+      global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY,
+      global.common.DEFAULT_AUTO_UPDATE_AND_DOWNLOAD
+    );
+  } // end if
+
+  // Initialise the flag indicating whether to confirm closing multiple tabs to default if the user preference does not exist or is illegal.
+  if (
+    typeof preferences[global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY] !==
+    "boolean"
+  ) {
+    await settings.set(
+      global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY,
+      global.common.DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS
+    );
+  } // end if
+
   const decimalPoints = [...Array(global.common.MAX_DECIMAL_POINTS + 1).keys()];
 
   // Initialise the number of the day volume decimal points to default if the user preference does not exist or is illegal.
@@ -112,18 +134,9 @@ export async function initialisePreferences() {
     );
   } // end if
 
-  // Initialise the online search preference to default if the user preference does not exist or is illegal.
+  // Initialise the flag indicating whether to include the hidden columns while exporting to Excel to default if the user preference does not exist or is illegal.
   if (
-    ![global.common.BAIDU_ID, global.common.GOOGLE_ID].includes(
-      preferences[global.common.ONLINE_SEARCH_KEY]
-    )
-  ) {
-    await settings.set(global.common.ONLINE_SEARCH_KEY, global.common.BAIDU_ID);
-  } // end if
-
-  // Initialise whether to include the hidden columns while exporting to Excel to default if the user preference does not exist or is illegal.
-  if (
-    typeof preferences[global.common.INCLUDE_HIDDEN_COLUMNS_KEY] === "boolean"
+    typeof preferences[global.common.INCLUDE_HIDDEN_COLUMNS_KEY] !== "boolean"
   ) {
     await settings.set(
       global.common.INCLUDE_HIDDEN_COLUMNS_KEY,
@@ -158,6 +171,25 @@ export async function initialisePreferences() {
     minDateValue > new Date().getTime()
   ) {
     await settings.set(global.common.MIN_DATE_KEY, global.common.MIN_MIN_DATE);
+  } // end if
+
+  // Initialise the online search preference to default if the user preference does not exist or is illegal.
+  if (
+    ![global.common.BAIDU_ID, global.common.GOOGLE_ID].includes(
+      preferences[global.common.ONLINE_SEARCH_KEY]
+    )
+  ) {
+    await settings.set(global.common.ONLINE_SEARCH_KEY, global.common.BAIDU_ID);
+  } // end if
+
+  // Initialise the flag indicating whether to receive test version updates to default if the user preference does not exist or is illegal.
+  if (
+    typeof preferences[global.common.RECEIVE_TEST_UPDATES_KEY] !== "boolean"
+  ) {
+    await settings.set(
+      global.common.RECEIVE_TEST_UPDATES_KEY,
+      global.common.DEFAULT_RECEIVE_TEST_UPDATES
+    );
   } // end if
 
   // Initialise the search engine mode preference to default if the user preference does not exist or is illegal.
