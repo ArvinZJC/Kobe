@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.6.20220304
+ * @Version: 1.1.7.20220305
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 11:32:23
+ * @LastEditTime: 2022-03-05 23:52:33
 -->
 
 <template>
@@ -515,20 +515,14 @@ export default {
   },
   mounted() {
     const dateRange =
-      this.$route.query.startDate +
-      (this.$route.query.startDate === this.$route.query.endDate
-        ? ""
-        : ` - ${this.$route.query.endDate}`);
+      this.startDate +
+      (this.startDate === this.endDate ? "" : ` - ${this.endDate}`);
 
     this.filename = `${
-      this.$route.query.stockName === ""
-        ? this.$route.query.stockSymbol
-        : this.$route.query.stockName
+      this.stockName === "" ? this.stockSymbol : this.stockName
     }（${dateRange}）`;
     this.fileHeader = `${
-      this.$route.query.stockName === ""
-        ? this.$route.query.stockName
-        : this.$route.query.stockSymbol + " "
+      this.stockName === "" ? this.stockName : this.stockSymbol + " "
     }${this.filename}`;
     this.invokeIpc();
     window.addEventListener("resize", () => {

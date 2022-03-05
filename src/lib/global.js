@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.12.20220304
+ * @Version: 1.0.13.20220305
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 20:02:07
+ * @LastEditTime: 2022-03-05 21:31:15
  */
 
 global.common = {
@@ -42,7 +42,7 @@ global.common = {
   DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS: true,
   DEFAULT_DAY_VOLUME_DECIMAL_POINTS: 2,
   DEFAULT_INCLUDE_HIDDEN_COLUMNS: false,
-  DEFAULT_MAX_DATE_RANGE_SPAN: 4,
+  DEFAULT_MAX_DATE_RANGE_SPAN: 10,
   DEFAULT_RECEIVE_TEST_UPDATES: false,
   DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS: 4,
   DEV: "development",
@@ -88,7 +88,7 @@ global.common = {
   MACOS: "darwin",
   MAX_DATE_RANGE_SPAN_KEY: "maxDateRangeSpan",
   MAX_DECIMAL_POINTS: 6,
-  MAX_MAX_DATE_RANGE_SPAN: 8,
+  MAX_MAX_DATE_RANGE_SPAN: 10,
   MAX_PREFERENCE_OPTION_WIDTH: 215,
   MAXIMISE_OR_RESTORE_WIN: "maximiseOrRestoreWin",
   MAXIMISE_WIN: "maximiseWin", // TODO: titleBarOverlay temp workaround.

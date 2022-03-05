@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.5.20220304
+ * @Version: 1.0.6.20220305
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 09:23:10
+ * @LastEditTime: 2022-03-05 23:50:43
 -->
 
 <template>
@@ -105,6 +105,12 @@ export default {
       window.scroll({ top: 0, left: 0, behavior: global.common.SMOOTH_SCROLL });
     }, // end function scrollToTop
   },
+  props: {
+    endDate: String,
+    startDate: String,
+    stockName: String,
+    stockSymbol: String,
+  },
   data() {
     return {
       appName: "",
@@ -116,15 +122,11 @@ export default {
   },
   mounted() {
     const dateRange =
-      this.$route.query.startDate +
-      (this.$route.query.startDate === this.$route.query.endDate
-        ? ""
-        : ` - ${this.$route.query.endDate}`);
+      this.startDate +
+      (this.startDate === this.endDate ? "" : ` - ${this.endDate}`);
 
     document.title = `${
-      this.$route.query.stockName === ""
-        ? this.$route.query.stockSymbol
-        : this.$route.query.stockName
+      this.stockName === "" ? this.stockSymbol : this.stockName
     }（${dateRange}）`;
     this.searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
     window.addEventListener("scroll", this.handleScroll);

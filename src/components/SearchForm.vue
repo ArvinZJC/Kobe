@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.7.20220302
+ * @Version: 1.2.0.20220305
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-02 22:54:39
+ * @LastEditTime: 2022-03-05 22:20:23
 -->
 
 <template>
@@ -93,7 +93,7 @@
               :dayHeaderFormat="global.common.SF_NARROW"
               :endDate="new Date(`${endDate}${global.common.DAY_TIME_START}`)"
               :max="new Date()"
-              :maxDays="7 * maxDateRangeSpan"
+              :maxDays="7 * 4 * maxDateRangeSpan"
               :min="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
               :name="global.common.DATE_RANGE_PICKER_NAME"
               :placeholder="zhCN.default.dateRangePlaceholder"
@@ -217,9 +217,6 @@ export default {
           this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
             .value;
 
-        // Ensure the tooltip pop-ups are closed before navigating to the search result view.
-        this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].close();
-        this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].close();
         this.submitSearchForm(endDate, startDate, stockSymbol);
       } // end if
     }, // end function handleSubmit
@@ -331,6 +328,14 @@ export default {
             break;
           } // end if
         } // end for
+
+        // Ensure the tooltip pop-ups are destroyed to avoid possible strange behaviour before navigating to the search result view.
+        this.$refs[
+          global.common.DATE_RANGE_PICKER_TOOLTIP_NAME
+        ].ej2Instances.destroy();
+        this.$refs[
+          global.common.STOCK_SYMBOL_TOOLTIP_NAME
+        ].ej2Instances.destroy();
 
         this.$router.push({
           name: global.common.SEARCH_RESULT_VIEW,
