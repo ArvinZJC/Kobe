@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-05 22:20:23
+ * @LastEditTime: 2022-03-06 16:26:34
 -->
 
 <template>
@@ -354,11 +354,7 @@ export default {
     // A workaround to force vue-router to perform navigation in the search result view.
     this.$watch(
       () => this.$route.query,
-      () => {
-        if (this.hasBarLayout) {
-          window.location.reload();
-        } // end if
-      }
+      () => window.location.reload()
     );
   },
   data() {

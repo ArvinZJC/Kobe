@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.7.20220305
+ * @Version: 1.1.8.20220306
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-05 23:52:33
+ * @LastEditTime: 2022-03-06 16:26:08
 -->
 
 <template>
@@ -403,12 +403,23 @@ export default {
           for (const gridHeader of document.getElementsByClassName(
             global.common.SF_GRID_HEADER_CLASS
           )) {
-            gridHeader.appendChild(scrollBar); // Use "Node.appendChild()" to move the horizontal scroll bar from its current position to the new position.
+            for (const gridHeaderElement of gridHeader.children) {
+              if (
+                gridHeaderElement.classList.contains(
+                  global.common.SF_SCROLL_BAR_CLASS
+                )
+              ) {
+                return;
+              } // end if
+            } // end for
+
+            gridHeader.appendChild(scrollBar.cloneNode(true));
+            scrollBar.classList.add("!hidden");
+            this.showOrHideHScrollBar();
+            return;
           } // end for
         } // end if
       } // end for
-
-      this.showOrHideHScrollBar();
     }, // end function patchHScrollBar
 
     /**
@@ -449,15 +460,23 @@ export default {
         for (const scrollBar of document.getElementsByClassName(
           global.common.SF_SCROLL_BAR_CLASS
         )) {
-          // Hide the horizontal scroll bar if the content is not overflown horizontally.
           if (
-            movableContentAreas[0].clientWidth >=
-            movableContentAreas[0].scrollWidth
+            scrollBar.parentElement.classList.contains(
+              global.common.SF_GRID_HEADER_CLASS
+            )
           ) {
-            scrollBar.classList.add("!hidden");
-          } else {
-            scrollBar.classList.remove("!hidden");
-          } // end if...else
+            // Hide the horizontal scroll bar if the content is not overflown horizontally.
+            if (
+              movableContentAreas[0].clientWidth >=
+              movableContentAreas[0].scrollWidth
+            ) {
+              scrollBar.classList.add("!hidden");
+            } else {
+              scrollBar.classList.remove("!hidden");
+            } // end if...else
+
+            break;
+          } // end if
         } // end for
 
         this.patchGridBorder();
