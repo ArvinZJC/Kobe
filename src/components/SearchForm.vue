@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 17:37:17
+ * @LastEditTime: 2022-03-06 18:53:52
 -->
 
 <template>
@@ -330,12 +330,8 @@ export default {
         } // end for
 
         // Ensure the tooltip pop-ups are destroyed to avoid possible strange behaviour before navigating to the search result view.
-        this.$refs[
-          global.common.DATE_RANGE_PICKER_TOOLTIP_NAME
-        ].ej2Instances.destroy();
-        this.$refs[
-          global.common.STOCK_SYMBOL_TOOLTIP_NAME
-        ].ej2Instances.destroy();
+        this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].destroy();
+        this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].destroy();
 
         this.$router.push({
           name: global.common.SEARCH_RESULT_VIEW,

@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.2.20220304
+ * @Version: 1.1.3.20220306
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 08:56:59
+ * @LastEditTime: 2022-03-06 18:56:10
 -->
 
 <template>
@@ -215,13 +215,11 @@ export default {
         cssClass += ` ${global.common.PREFERENCE_VIEW_ID}`;
       } // end if
 
-      this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.addTab(
+      this.$refs[global.common.TAB_BAR_TABS_NAME].addTab(
         [{ cssClass, header: { text: zhCN.default.newTabItem } }],
         newTabItemIndex
       );
-      this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(
-        newTabItemIndex
-      );
+      this.$refs[global.common.TAB_BAR_TABS_NAME].select(newTabItemIndex);
 
       const newTabItemId = {};
 
@@ -337,7 +335,7 @@ export default {
         if (tabItem.id === tabItemId) {
           if (tabItem.header.text !== title) {
             tabItem.header.text = title;
-            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.refresh();
+            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
           } // end if
 
           break;
@@ -390,7 +388,7 @@ export default {
           this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
             data[global.common.NEW_TAB_ITEM_INDEX_KEY]
           ].id = data[global.common.GET_NEW_TAB_ITEM_ID];
-          this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.refresh();
+          this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
         } // end if
 
         if (
@@ -429,7 +427,7 @@ export default {
 
           preferenceTabItemIndex == null
             ? this.openNewTabItem(data[global.common.SHOW_PREFERENCE_TAB_ITEM])
-            : this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(
+            : this.$refs[global.common.TAB_BAR_TABS_NAME].select(
                 preferenceTabItemIndex
               );
         } // end if
@@ -489,7 +487,7 @@ export default {
                 global.common.TAB_BAR_TABS_NAME
               ].ej2Instances.selectedItem
             ].id = data[global.common.GET_START_TAB_ITEM_ID];
-            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.refresh();
+            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
           } // end if
         }
       );
