@@ -1,10 +1,10 @@
 /*
  * @Description: the app initialiser
- * @Version: 1.0.3.20220305
+ * @Version: 1.0.3.20220306
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-05 23:57:41
+ * @LastEditTime: 2022-03-06 13:13:57
  */
 
 import { createApp } from "vue";
@@ -46,6 +46,7 @@ createApp(App)
           name: global.common.TAB_BAR_VIEW,
           path: `/${global.common.TAB_BAR_VIEW}`,
         },
+        { path: "/:pathMatch(.*)*", redirect: "/" },
       ],
     })
   )
