@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 18:58:15
+ * @LastEditTime: 2022-03-06 22:26:45
 -->
 
 <template>
@@ -16,7 +16,7 @@
       @click="goHome"
       :class="[
         'text-primary flex items-center',
-        hasBarLayout ? 'cursor-pointer' : 'justify-center',
+        hasBarLayout && isEnabled ? 'cursor-pointer' : 'justify-center',
       ]"
     >
       <div :class="[hasBarLayout ? 'w-7' : 'w-24 sm:w-32 lg:w-48']">
@@ -71,6 +71,7 @@
               @open="patchAutoCompletePopUp"
               :autofill="true"
               :dataSource="stockList"
+              :enabled="isEnabled"
               :fields="{ value: global.common.STOCK_SYMBOL_KEY }"
               :highlight="true"
               :itemTemplate="stockListItemTemplate"
@@ -91,6 +92,7 @@
               @open="handleDateRangePickerOpen"
               @renderDayCell="disableWeekends"
               :dayHeaderFormat="global.common.SF_NARROW"
+              :enabled="isEnabled"
               :endDate="new Date(`${endDate}${global.common.DAY_TIME_START}`)"
               :max="new Date()"
               :maxDays="7 * 4 * maxDateRangeSpan"
@@ -107,6 +109,7 @@
         <div v-if="hasBarLayout" :class="[hasBarLayout ? 'grow-0' : '']">
           <div class="block lg:hidden">
             <ejs-button
+              :disabled="!isEnabled"
               :title="zhCN.default.search"
               iconCss="e-icons e-search"
               isPrimary="true"
@@ -116,6 +119,7 @@
           <div class="lg:block hidden">
             <ejs-button
               :content="zhCN.default.search"
+              :disabled="!isEnabled"
               iconCss="e-icons e-search"
               isPrimary="true"
               type="submit"
@@ -125,6 +129,7 @@
         <div v-else>
           <ejs-button
             :content="zhCN.default.search"
+            :disabled="!isEnabled"
             cssClass="e-block"
             iconCss="e-icons e-search"
             isPrimary="true"
@@ -176,7 +181,9 @@ export default {
      * Navigate to the home view.
      */
     goHome() {
-      this.$router.push({ name: global.common.HOME_VIEW });
+      if (this.isEnabled) {
+        this.$router.push({ name: global.common.HOME_VIEW });
+      } // end if
     }, // end function goHome
 
     /**
@@ -220,6 +227,66 @@ export default {
         this.submitSearchForm(endDate, startDate, stockSymbol);
       } // end if
     }, // end function handleSubmit
+
+    /**
+     * Use the IPC channel to exchange information.
+     */
+    invokeIpc() {
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          if (data === global.common.ENABLE_SEARCH_FORM) {
+            this.isEnabled = true;
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.MAX_DATE_RANGE_SPAN_KEY
+            )
+          ) {
+            this.maxDateRangeSpan = data[global.common.MAX_DATE_RANGE_SPAN_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.MIN_DATE_KEY
+            )
+          ) {
+            this.minDate = data[global.common.MIN_DATE_KEY];
+          } // end if
+
+          if (
+            Array.isArray(data) &&
+            typeof data[0] == "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data[0],
+              global.common.STOCK_SYMBOL_KEY
+            )
+          ) {
+            this.stockList = data;
+            if (!this.hasBarLayout) {
+              this.isEnabled = true;
+            } // end if
+          } // end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_MAX_DATE_RANGE_SPAN
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_MIN_DATE
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_STOCK_LIST
+      );
+    }, // end function invokeIpc
 
     /**
      * Patch the auto-complete component's pop-up if necessary to avoid strange appearance.
@@ -360,6 +427,7 @@ export default {
     return {
       appImagePath: path.join(process.env.BASE_URL, "assets/app_icon.png"),
       global,
+      isEnabled: false,
       hasBarLayout: this.isBarLayout,
       maxDateRangeSpan: global.common.DEFAULT_MAX_DATE_RANGE_SPAN,
       minDate: global.common.MIN_MIN_DATE,
@@ -382,50 +450,7 @@ export default {
     };
   },
   mounted() {
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.MAX_DATE_RANGE_SPAN_KEY
-          )
-        ) {
-          this.maxDateRangeSpan = data[global.common.MAX_DATE_RANGE_SPAN_KEY];
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(data, global.common.MIN_DATE_KEY)
-        ) {
-          this.minDate = data[global.common.MIN_DATE_KEY];
-        } // end if
-
-        if (
-          Array.isArray(data) &&
-          typeof data[0] == "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data[0],
-            global.common.STOCK_SYMBOL_KEY
-          )
-        ) {
-          this.stockList = data;
-        } // end if
-      }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_MAX_DATE_RANGE_SPAN
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_MIN_DATE
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_STOCK_LIST
-    );
+    this.invokeIpc();
     window.addEventListener("resize", () => {
       const dateRangePickerPopUpArray = document.getElementsByClassName(
         global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES

@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.8.20220306
+ * @Version: 1.2.0.20220306
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 16:26:08
+ * @LastEditTime: 2022-03-06 22:15:11
 -->
 
 <template>
@@ -20,9 +20,8 @@
   >
     <!-- The search status area. -->
     <div
-      :class="[
-        shouldShowGrid ? 'hidden' : 'flex h-full items-center justify-center',
-      ]"
+      v-if="!shouldShowGrid"
+      class="flex h-full items-center justify-center"
       :id="global.common.SEARCH_STATUS_AREA_ID"
     >
       <div class="flex flex-col justify-center max-w-sm text-center">
@@ -49,6 +48,7 @@
     <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
       <!-- The search result grid component. -->
       <ejs-grid
+        v-if="isColumnsReady"
         @created="searchGridImmediately"
         @dataBound="adjustGrid"
         @load="buildGrid"
@@ -83,7 +83,7 @@ import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
 import LoadingIcon from "./svg/LoadingIcon.vue";
 import global from "../lib/global.js";
-import { toDateStr, toVolumeUnitText } from "../lib/utils";
+import { toVolumeUnitText } from "../lib/utils.js";
 import * as syncfusion from "../locales/syncfusion.json";
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -138,86 +138,7 @@ export default {
      * Build the grid.
      */
     buildGrid() {
-      const dayVolumeColumns = [];
-
-      for (
-        var date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
-        date <= new Date(`${this.endDate}${global.common.DAY_TIME_START}`);
-
-      ) {
-        const day = date.getDay();
-
-        if (day !== 0 && day !== 6) {
-          const dateStr = toDateStr(date);
-          var dayStr = "";
-
-          switch (day) {
-            case 1: {
-              dayStr = zhCN.default.monday;
-              break;
-            }
-            case 2: {
-              dayStr = zhCN.default.tuesday;
-              break;
-            }
-            case 3: {
-              dayStr = zhCN.default.wednesday;
-              break;
-            }
-            case 4: {
-              dayStr = zhCN.default.thursday;
-              break;
-            }
-            case 5: {
-              dayStr = zhCN.default.friday;
-              break;
-            }
-            default: {
-              dayStr = zhCN.default.unknown;
-            }
-          } // end switch-case
-
-          dayVolumeColumns.push({
-            field: dateStr,
-            format: `N${global.common.DEFAULT_DAY_VOLUME_DECIMAL_POINTS}`,
-            headerText: `${dateStr}（${dayStr}）`,
-            headerTextAlign: global.common.SF_ALIGN_LEFT,
-            minWidth: global.common.MIN_COLUMN_WIDTH,
-            textAlign: global.common.SF_ALIGN_RIGHT,
-            type: global.common.SF_NUM,
-          });
-        } // end if
-
-        date.setDate(date.getDate() + 1);
-      } // end for
-
-      const columns = [
-        {
-          field: global.common.STRIKE_PRICE_KEY,
-          format: "N2",
-          headerText: zhCN.default.strikePriceColumnHeader,
-          headerTextAlign: global.common.SF_ALIGN_LEFT,
-          minWidth: global.common.MIN_COLUMN_WIDTH,
-          textAlign: global.common.SF_ALIGN_RIGHT,
-          type: global.common.SF_NUM,
-        },
-        {
-          field: global.common.TOTAL_VOLUME_KEY,
-          format: `N${global.common.DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS}`,
-          headerText: zhCN.default.totalVolumeColumnHeader,
-          headerTextAlign: global.common.SF_ALIGN_LEFT,
-          minWidth: global.common.MIN_COLUMN_WIDTH,
-          textAlign: global.common.SF_ALIGN_RIGHT,
-          type: global.common.SF_NUM,
-        },
-        {
-          columns: dayVolumeColumns,
-          headerText: zhCN.default.dayVolumeStackedColumnHeader,
-          textAlign: global.common.SF_ALIGN_CENTRE,
-        },
-      ];
-
-      Array.prototype.forEach.call(columns, (element) =>
+      Array.prototype.forEach.call(this.columns, (element) =>
         this.$refs[
           global.common.SEARCH_RESULT_GRID_NAME
         ].ej2Instances.columns.push(element)
@@ -344,6 +265,10 @@ export default {
                   global.common.STRIKE_PRICE_KEY
                 )))
           ) {
+            window[global.common.IPC_RENDERER_API_KEY].send(
+              global.common.IPC_SEND,
+              global.common.ENABLE_SEARCH_FORM
+            );
             this.searchResultData = data;
           } // end if
         }
@@ -403,18 +328,7 @@ export default {
           for (const gridHeader of document.getElementsByClassName(
             global.common.SF_GRID_HEADER_CLASS
           )) {
-            for (const gridHeaderElement of gridHeader.children) {
-              if (
-                gridHeaderElement.classList.contains(
-                  global.common.SF_SCROLL_BAR_CLASS
-                )
-              ) {
-                return;
-              } // end if
-            } // end for
-
-            gridHeader.appendChild(scrollBar.cloneNode(true));
-            scrollBar.classList.add("!hidden");
+            gridHeader.appendChild(scrollBar);
             this.showOrHideHScrollBar();
             return;
           } // end for
@@ -460,23 +374,15 @@ export default {
         for (const scrollBar of document.getElementsByClassName(
           global.common.SF_SCROLL_BAR_CLASS
         )) {
+          // Hide the horizontal scroll bar if the content is not overflown horizontally.
           if (
-            scrollBar.parentElement.classList.contains(
-              global.common.SF_GRID_HEADER_CLASS
-            )
+            movableContentAreas[0].clientWidth >=
+            movableContentAreas[0].scrollWidth
           ) {
-            // Hide the horizontal scroll bar if the content is not overflown horizontally.
-            if (
-              movableContentAreas[0].clientWidth >=
-              movableContentAreas[0].scrollWidth
-            ) {
-              scrollBar.classList.add("!hidden");
-            } else {
-              scrollBar.classList.remove("!hidden");
-            } // end if...else
-
-            break;
-          } // end if
+            scrollBar.classList.add("!hidden");
+          } else {
+            scrollBar.classList.remove("!hidden");
+          } // end if...else
         } // end for
 
         this.patchGridBorder();
@@ -516,6 +422,7 @@ export default {
       global,
       hasSearchError: false,
       includeHiddenColumns: global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS,
+      isColumnsReady: false,
       searchResultData: null,
       searchResultGridToolbar: [
         "ColumnChooser",
@@ -543,7 +450,22 @@ export default {
     this.fileHeader = `${
       this.stockName === "" ? this.stockName : this.stockSymbol + " "
     }${this.filename}`;
-    this.invokeIpc();
+
+    window.addEventListener("load", () => {
+      const worker = new Worker("/grid.js");
+
+      worker.addEventListener("message", (e) => {
+        this.columns = e.data.columns;
+        this.isColumnsReady = true;
+        this.invokeIpc();
+      });
+      worker.postMessage({
+        endDate: this.endDate,
+        global: global.common,
+        startDate: this.startDate,
+        zhCN,
+      });
+    });
     window.addEventListener("resize", () => {
       this.showOrHideHScrollBar();
       this.styleSearchBarBg();

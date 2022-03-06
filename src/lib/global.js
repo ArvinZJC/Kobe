@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.13.20220305
+ * @Version: 1.0.13.20220306
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-05 21:31:15
+ * @LastEditTime: 2022-03-06 20:48:01
  */
 
 global.common = {
@@ -47,6 +47,7 @@ global.common = {
   DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS: 4,
   DEV: "development",
   DROP_DOWN_LIST: "dropDownList",
+  ENABLE_SEARCH_FORM: "enableSearchForm",
   END_DATE_KEY: "endDate",
   ENTER_FULL_SCREEN: "enterFullScreen",
   EXIT_FULL_SCREEN: "exitFullScreen",

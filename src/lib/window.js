@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.11.20220304
+ * @Version: 2.0.12.20220306
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 19:52:13
+ * @LastEditTime: 2022-03-06 20:48:56
  */
 
 import {
@@ -254,6 +254,13 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
             ? global.common.DARK_WIN_COLOUR
             : global.common.LIGHT_WIN_COLOUR
         )
+      );
+      break;
+    }
+    case global.common.ENABLE_SEARCH_FORM: {
+      viewContents.send(
+        global.common.IPC_RECEIVE,
+        global.common.ENABLE_SEARCH_FORM
       );
       break;
     }
