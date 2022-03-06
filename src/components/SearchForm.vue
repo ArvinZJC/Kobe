@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.2.0.20220305
+ * @Version: 1.2.0.20220306
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 16:26:34
+ * @LastEditTime: 2022-03-06 17:37:17
 -->
 
 <template>
@@ -351,11 +351,10 @@ export default {
     stockSymbol: String,
   },
   created() {
-    // A workaround to force vue-router to perform navigation in the search result view.
     this.$watch(
       () => this.$route.query,
       () => window.location.reload()
-    );
+    ); // A workaround to force vue-router to perform navigation in the search result view.
   },
   data() {
     return {
