@@ -1,19 +1,20 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.6.20220305
+ * @Version: 1.0.7.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-05 23:50:43
+ * @LastEditTime: 2022-03-07 11:09:13
 -->
 
 <template>
   <main class="container-view">
     <!-- The search result grid component. -->
     <SearchResultGrid
-      :endDate="this.$route.query.endDate"
-      :startDate="this.$route.query.startDate"
-      :stockSymbol="this.$route.query.stockSymbol"
+      :endDate="endDate"
+      :startDate="startDate"
+      :stockName="stockName"
+      :stockSymbol="stockSymbol"
     />
     <!-- The button for scrolling to the top. -->
     <transition
@@ -43,10 +44,10 @@
       <div class="px-block">
         <div class="flex h-16 justify-between">
           <SearchForm
-            :endDate="this.$route.query.endDate"
+            :endDate="endDate"
             :isBarLayout="true"
-            :startDate="this.$route.query.startDate"
-            :stockSymbol="this.$route.query.stockSymbol"
+            :startDate="startDate"
+            :stockSymbol="stockSymbol"
           />
         </div>
       </div>

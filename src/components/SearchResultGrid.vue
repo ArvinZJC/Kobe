@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.2.0.20220306
+ * @Version: 1.2.0.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 22:15:11
+ * @LastEditTime: 2022-03-07 11:09:24
 -->
 
 <template>
@@ -413,6 +413,7 @@ export default {
   props: {
     endDate: String,
     startDate: String,
+    stockName: String,
     stockSymbol: String,
   },
   data() {
