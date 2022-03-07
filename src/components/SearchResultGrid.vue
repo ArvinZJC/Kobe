@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 00:30:57
+ * @LastEditTime: 2022-03-08 01:09:55
 -->
 
 <template>
@@ -451,20 +451,22 @@ export default {
     }${this.filename}`;
 
     window.addEventListener("load", () => {
-      const worker = new Worker("/grid.js");
+      setTimeout(() => {
+        const worker = new Worker("/grid.js");
 
-      worker.addEventListener("message", (e) => {
-        this.columns = e.data.columns;
-        worker.terminate();
-        this.isColumnsReady = true;
-        this.invokeIpc();
-      });
-      worker.postMessage({
-        endDate: this.endDate,
-        global: global.common,
-        startDate: this.startDate,
-        zhCN,
-      });
+        worker.addEventListener("message", (e) => {
+          this.columns = e.data.columns;
+          worker.terminate();
+          this.isColumnsReady = true;
+          this.invokeIpc();
+        });
+        worker.postMessage({
+          endDate: this.endDate,
+          global: global.common,
+          startDate: this.startDate,
+          zhCN,
+        });
+      }, 500); // Set relatively enough timeout to ensure that it can enter the search result view without too much delay.
     });
     window.addEventListener("resize", () => {
       this.clickTrickInput();
