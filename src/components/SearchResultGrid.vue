@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.2.0.20220307
+ * @Version: 1.2.0.20220308
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 22:21:55
+ * @LastEditTime: 2022-03-08 00:30:57
 -->
 
 <template>
@@ -126,11 +126,9 @@ export default {
      * Build the grid.
      */
     buildGrid() {
-      Array.prototype.forEach.call(this.columns, (element) =>
-        this.$refs[
-          global.common.SEARCH_RESULT_GRID_NAME
-        ].ej2Instances.columns.push(element)
-      );
+      this.$refs[
+        global.common.SEARCH_RESULT_GRID_NAME
+      ].ej2Instances.columns.push(...this.columns);
     }, // end function buildGrid
 
     /**
@@ -457,6 +455,7 @@ export default {
 
       worker.addEventListener("message", (e) => {
         this.columns = e.data.columns;
+        worker.terminate();
         this.isColumnsReady = true;
         this.invokeIpc();
       });
