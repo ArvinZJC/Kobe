@@ -1,45 +1,46 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.6.20220303
+ * @Version: 1.0.8.20220307
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 14:13:24
+ * @LastEditTime: 2022-03-07 14:33:56
 -->
 
 <template>
-  <main :id="global.common.PREFERENCE_VIEW_ID" class="container-view">
-    <div class="h-screen max-w-[60rem]">
-      <!-- The preference tab component. -->
-      <ejs-tab
-        :animation="{
-          previous: {
-            effect: global.common.SF_FADE_IN,
-            duration: global.common.ANIMATION_DURATION,
-            easing: global.common.EASE,
-          },
-          next: {
-            effect: global.common.SF_FADE_IN,
-            duration: global.common.ANIMATION_DURATION,
-            easing: global.common.EASE,
-          },
-        }"
-        :ref="global.common.PREFERENCE_TABS_NAME"
-        headerPlacement="Left"
-      >
-        <e-tabitems>
-          <e-tabitem :content="contentGeneral" :header="headerGeneral" />
-          <e-tabitem
-            :content="contentSearchEngine"
-            :header="headerSearchEngine"
-          />
-          <e-tabitem
-            :content="contentResultDisplay"
-            :header="headerResultDisplay"
-          />
-        </e-tabitems>
-      </ejs-tab>
-    </div>
+  <main
+    :id="global.common.PREFERENCE_VIEW_ID"
+    class="container-view max-w-[60rem]"
+  >
+    <!-- The preference tab component. -->
+    <ejs-tab
+      :animation="{
+        previous: {
+          effect: global.common.SF_FADE_IN,
+          duration: global.common.ANIMATION_DURATION,
+          easing: global.common.EASE,
+        },
+        next: {
+          effect: global.common.SF_FADE_IN,
+          duration: global.common.ANIMATION_DURATION,
+          easing: global.common.EASE,
+        },
+      }"
+      :ref="global.common.PREFERENCE_TABS_NAME"
+      headerPlacement="Left"
+    >
+      <e-tabitems>
+        <e-tabitem :content="contentGeneral" :header="headerGeneral" />
+        <e-tabitem
+          :content="contentSearchEngine"
+          :header="headerSearchEngine"
+        />
+        <e-tabitem
+          :content="contentResultDisplay"
+          :header="headerResultDisplay"
+        />
+      </e-tabitems>
+    </ejs-tab>
     <!-- The button component for resetting all preferences. -->
     <ejs-button
       @click="resetPreferences"

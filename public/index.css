@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.11.20220304
+ * @Version: 1.1.11.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 17:22:01
+ * @LastEditTime: 2022-03-07 14:24:34
  */
 
 /*
@@ -601,75 +601,6 @@ body::selection {
   }
 }
 
-/* Right floating action button. */
-
-.btn-action-right {
-  position: fixed;
-  right: 1rem;
-  z-index: 30;
-}
-
-@media (min-width: 640px) {
-  .btn-action-right {
-    right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .btn-action-right {
-    right: 2rem;
-  }
-}
-
-/* Round button. */
-
-.btn-round {
-  display: flex;
-  height: 2rem;
-  width: 2rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(79 70 229 / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.btn-round:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(67 56 202 / var(--tw-bg-opacity));
-}
-
-.btn-round:focus {
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(79 70 229 / var(--tw-ring-opacity));
-  --tw-ring-offset-width: 2px;
-}
-
-.dark .btn-round {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 211 238 / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
-.dark .btn-round:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(6 182 212 / var(--tw-bg-opacity));
-}
-
-.dark .btn-round:focus {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(34 211 238 / var(--tw-ring-opacity));
-  --tw-ring-offset-color: #000;
-}
-
 /* The base style of a tab bar button. */
 
 /* Tab bar button on macOS. */
@@ -839,7 +770,7 @@ body::selection {
 
 .container-view {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   flex-grow: 1;
 }
 
@@ -853,10 +784,6 @@ body::selection {
 
 .bottom-4 {
   bottom: 1rem;
-}
-
-.bottom-20 {
-  bottom: 5rem;
 }
 
 .ml-2 {
@@ -991,6 +918,10 @@ body::selection {
   max-width: 60rem;
 }
 
+.max-w-xs {
+  max-width: 20rem;
+}
+
 .flex-none {
   flex: none;
 }
@@ -1101,10 +1032,6 @@ body::selection {
   --tw-bg-opacity: 0;
 }
 
-.bg-opacity-90 {
-  --tw-bg-opacity: 0.9;
-}
-
 .fill-current {
   fill: currentColor;
 }
@@ -1177,18 +1104,6 @@ body::selection {
   opacity: 0.75;
 }
 
-.shadow-xl {
-  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow {
-  --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
 .blur {
   --tw-blur: blur(8px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
@@ -1212,37 +1127,6 @@ body::selection {
 
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-}
-
-/* Backdrop blur filter. */
-
-.bg-blur {
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.3;
-  --tw-backdrop-blur: blur(8px);
-  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-          backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
-}
-
-.dark .bg-blur {
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-  --tw-bg-opacity: 0.3;
-}
-
-/* Endpoint of the float-down animation with Transform 1. */
-
-.float-down-1 {
-  --tw-translate-y: 0.25rem;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  opacity: 0;
-}
-
-/* Endpoint of the float-up animation. */
-
-.float-up {
-  --tw-translate-y: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  opacity: 1;
 }
 
 /* Non-draggable area in the frameless window's draggable area. */
@@ -1368,8 +1252,6 @@ body::selection {
   color: rgb(249 250 251 / var(--tw-text-opacity));
 }
 
-/* Transition for most properties within 300ms. */
-
 /* Transition for some colour properties within 300ms. */
 
 /* Transition for the opacity property within 300ms. */
@@ -1449,12 +1331,6 @@ body::selection {
   max-height: -webkit-fit-content !important;
   max-height: -moz-fit-content !important;
   max-height: fit-content !important;
-}
-
-/* The customised resize helper style. */
-
-.e-rhelper {
-  display: none !important;
 }
 
 /* The customised horizontal tab scroll bar navigation style. */
@@ -1678,18 +1554,6 @@ body::selection {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .motion-safe\:transition-300 {
-    transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  .motion-safe\:transition-300 {
-    transition-duration: 300ms;
-  }
-
   .motion-safe\:transition-opacity-300 {
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1703,10 +1567,6 @@ body::selection {
 
 .dark .dark\:bg-opacity-0 {
   --tw-bg-opacity: 0;
-}
-
-.dark .dark\:bg-opacity-90 {
-  --tw-bg-opacity: 0.9;
 }
 
 .dark .dark\:\!text-red-400 {
@@ -1725,6 +1585,10 @@ body::selection {
 
   .sm\:w-32 {
     width: 8rem;
+  }
+
+  .sm\:max-w-sm {
+    max-width: 24rem;
   }
 }
 
@@ -1747,5 +1611,9 @@ body::selection {
 
   .lg\:w-48 {
     width: 12rem;
+  }
+
+  .lg\:max-w-lg {
+    max-width: 32rem;
   }
 }

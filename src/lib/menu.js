@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.11.20220304
+ * @Version: 2.0.12.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 19:57:01
+ * @LastEditTime: 2022-03-07 14:18:34
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -49,7 +49,7 @@ const menuItemCheckForUpdatesTemplate = {
 const menuItemCloseTemplate = {
   label:
     platform === global.common.MACOS
-      ? zhCN.default.closeWin
+      ? `${zhCN.default.close}${zhCN.default.win}`
       : `${zhCN.default.close}${app.name}`,
   role: "close",
 };
@@ -400,7 +400,7 @@ function getMenuWindowTemplate() {
   if (platform === global.common.MACOS) {
     return [
       {
-        label: zhCN.default.windowMenu,
+        label: zhCN.default.win,
         role: "windowMenu",
         submenu: [
           {
@@ -562,7 +562,7 @@ export async function setContextMenu(view) {
     ],
     labels: {
       copy: zhCN.default.copy,
-      copyLink: zhCN.default.copyLink,
+      copyLink: `${zhCN.default.copy}${zhCN.default.link}`,
       cut: zhCN.default.cut,
       learnSpelling: zhCN.default.learnSpelling,
       lookUpSelection: `${zhCN.default.lookUp}“{selection}”`,

@@ -4,12 +4,17 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 22:26:45
+ * @LastEditTime: 2022-03-07 14:30:45
 -->
 
 <template>
   <div
-    :class="['w-full', hasBarLayout ? 'flex space-x-4' : 'max-w-md space-y-8']"
+    :class="[
+      'w-full',
+      hasBarLayout
+        ? 'flex space-x-4'
+        : 'max-w-xs sm:max-w-sm lg:max-w-lg space-y-8',
+    ]"
   >
     <!-- The app logo. -->
     <div
