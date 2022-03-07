@@ -1,56 +1,29 @@
 <!--
  * @Description: the search result view
- * @Version: 1.0.7.20220307
+ * @Version: 1.1.0.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 11:09:13
+ * @LastEditTime: 2022-03-07 15:29:26
 -->
 
 <template>
-  <main class="container-view">
-    <!-- The search result grid component. -->
-    <SearchResultGrid
+  <main>
+    <!-- The search bar. -->
+    <SearchForm
       :endDate="endDate"
+      :isBarLayout="true"
       :startDate="startDate"
-      :stockName="stockName"
       :stockSymbol="stockSymbol"
     />
-    <!-- The button for scrolling to the top. -->
-    <transition
-      enter-active-class="motion-safe:transition-300 ease-out"
-      enter-from-class="float-down-1"
-      enter-to-class="float-up"
-      leave-active-class="motion-safe:transition-300 ease-in"
-      leave-from-class="float-up"
-      leave-to-class="float-down-1"
-    >
-      <button
-        v-if="!isScrollToTopDismissed"
-        @click="scrollToTop"
-        :title="zhCN.default.scrollToTopButtonTitle"
-        class="btn-action-right btn-round bottom-20 bg-opacity-90 dark:bg-opacity-90 shadow-xl"
-        id="scroll-to-top"
-        type="button"
-      >
-        <span class="e-arrow-up e-btn-icon e-icons text-lg" />
-      </button>
-    </transition>
-    <!-- The search bar. -->
-    <div
-      :id="global.common.SEARCH_BAR_ID"
-      class="container-bbar motion-safe:transition-300"
-    >
-      <div class="px-block">
-        <div class="flex h-16 justify-between">
-          <SearchForm
-            :endDate="endDate"
-            :isBarLayout="true"
-            :startDate="startDate"
-            :stockSymbol="stockSymbol"
-          />
-        </div>
-      </div>
+    <div class="container-view px-block pb-4 pt-16">
+      <!-- The search result grid component. -->
+      <SearchResultGrid
+        :endDate="endDate"
+        :startDate="startDate"
+        :stockName="stockName"
+        :stockSymbol="stockSymbol"
+      />
     </div>
   </main>
 </template>
@@ -59,52 +32,11 @@
 import SearchForm from "../components/SearchForm.vue";
 import SearchResultGrid from "../components/SearchResultGrid.vue";
 import global from "../lib/global.js";
-import * as zhCN from "../locales/zh-CN.json";
 
 export default {
   components: {
     SearchForm,
     SearchResultGrid,
-  },
-  methods: {
-    /**
-     * Handle scrolling behaviour.
-     */
-    handleScroll() {
-      // Adjust the backdrop blur filter and box shadow to the search bar if the view is scrolled vertically for a specified distance.
-      if (
-        this.searchBar != null &&
-        window.innerHeight + window.scrollY <
-          document.body.offsetHeight - this.searchBar.offsetHeight / 4
-      ) {
-        this.searchBar.classList.add("bg-blur", "shadow-xl-reverse");
-        this.searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
-      } else {
-        this.searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
-        this.searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
-      } // end if...else
-
-      var temp; // A temp record of the expected dismissing status of the button for scrolling to the top.
-
-      // Show the button for scrolling to the top if the view is scrolled vertically for a specified distance.
-      if (window.scrollY < screen.height / 3) {
-        temp = true;
-      } else {
-        temp = false;
-      } // end if...else
-
-      // Assign the value only if it is different to avoid potential animation loss.
-      if (this.isScrollToTopDismissed !== temp) {
-        this.isScrollToTopDismissed = temp;
-      } // end if
-    }, // end function handleScroll
-
-    /**
-     * Scroll to the top.
-     */
-    scrollToTop() {
-      window.scroll({ top: 0, left: 0, behavior: global.common.SMOOTH_SCROLL });
-    }, // end function scrollToTop
   },
   props: {
     endDate: String,
@@ -113,13 +45,7 @@ export default {
     stockSymbol: String,
   },
   data() {
-    return {
-      appName: "",
-      global,
-      isScrollToTopDismissed: true,
-      searchBar: null,
-      zhCN,
-    };
+    return { global };
   },
   mounted() {
     const dateRange =
@@ -129,8 +55,6 @@ export default {
     document.title = `${
       this.stockName === "" ? this.stockSymbol : this.stockName
     }（${dateRange}）`;
-    this.searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
-    window.addEventListener("scroll", this.handleScroll);
   },
 };
 </script>

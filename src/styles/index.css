@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.11.20220307
+ * @Version: 1.1.12.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 14:24:34
+ * @LastEditTime: 2022-03-07 20:38:55
  */
 
 @tailwind base;
@@ -42,11 +42,6 @@
     @apply btn-tab-bar-base h-full w-[45.8px];
   }
 
-  /* Container for a bottom bar. */
-  .container-bbar {
-    @apply bottom-0 fixed w-full z-40;
-  }
-
   /* Container for the preference option area. */
   .container-preference-options {
     @apply col-span-2 flex items-end justify-end pb-1;
@@ -80,6 +75,11 @@
 }
 
 @layer utilities {
+  /* Max width for a card or card-like block. */
+  .max-w-card {
+    @apply max-w-xs sm:max-w-sm lg:max-w-lg;
+  }
+
   /* Non-draggable area in the frameless window's draggable area. */
   .non-draggable-area {
     -webkit-app-region: no-drag;
@@ -93,12 +93,6 @@
   /* Vertical padding for a general block. */
   .py-block {
     @apply py-4 sm:py-6 lg:py-8;
-  }
-
-  /* Box shadow with the primary effect on the top rather than the bottom like the original ".shadow-xl". */
-  .shadow-xl-reverse {
-    box-shadow: 0 -20px 25px -5px rgb(0 0 0 / 0.1),
-      0 -8px 10px -6px rgb(0 0 0 / 0.1);
   }
 
   /* Content text. */
@@ -196,6 +190,16 @@
 /* The grid's customised stacked header cell style. */
 .e-grid .e-stackedheadercelldiv {
   font-size: 14px !important;
+}
+
+/* The customised pager constant style. */
+.e-pager .e-pagerconstant {
+  @apply !m-0;
+}
+
+/* The customised pager parent message bar style. */
+.e-pager div.e-parentmsgbar {
+  @apply !pt-[6px];
 }
 
 /* Force the pop-up height and position to be fixed. */

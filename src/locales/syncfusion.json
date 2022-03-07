@@ -18,12 +18,9 @@
       "noRecordsTemplate": "未能匹配上市股票的代码"
     },
     "grid": {
-      "autoFit": "自动调整当前列宽",
-      "autoFitAll": "自动调整所有列宽",
       "CancelButton": "取消",
-      "ChooseColumns": "选择列",
       "ClearButton": "清除",
-      "Columnchooser": "选择列",
+
       "EmptyRecord": "没有可显示的数据",
       "EnterValue": "数值",
       "Equal": "等于",
@@ -38,13 +35,22 @@
       "NotEqual": "不等于",
       "OKButton": "确认",
       "Search": "搜索",
-      "SelectAll": "全选",
       "SortAscending": "升序",
       "SortDescending": "降序"
     },
     "numerictextbox": {
       "decrementTitle": "减少",
       "incrementTitle": "增加"
+    },
+    "pager": {
+      "currentPageInfo": "{0} / {1} 页",
+      "firstPageTooltip": "第一页",
+      "lastPageTooltip": "最后一页",
+      "nextPageTooltip": "下一页",
+      "pagerDropDown": "行/页",
+      "previousPageTooltip": "上一页",
+      "totalItemInfo": "（{0} 行）",
+      "totalItemsInfo": "（{0} 行）"
     },
     "tab": {
       "closeButtonTitle": "关闭标签页"

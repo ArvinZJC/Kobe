@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.3.20220221
+ * @Version: 1.0.4.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-21 13:48:28
+ * @LastEditTime: 2022-03-07 13:47:44
 -->
 
 <template>
@@ -30,11 +30,11 @@
 <script>
 import { L10n, loadCldr, setCulture } from "@syncfusion/ej2-base";
 import {
-  ColumnChooser,
   ColumnMenu,
   ExcelExport,
   Filter,
   Freeze,
+  Page,
   Resize,
   Search,
   Sort,
@@ -67,11 +67,11 @@ setCulture(global.common.SF_CULTURE);
 export default {
   provide: {
     grid: [
-      ColumnChooser,
       ColumnMenu,
       ExcelExport,
       Filter,
       Freeze,
+      Page,
       Resize,
       Search,
       Sort,

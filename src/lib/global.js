@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.13.20220306
+ * @Version: 1.0.13.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 20:48:01
+ * @LastEditTime: 2022-03-07 18:54:56
  */
 
 global.common = {
@@ -43,6 +43,7 @@ global.common = {
   DEFAULT_DAY_VOLUME_DECIMAL_POINTS: 2,
   DEFAULT_INCLUDE_HIDDEN_COLUMNS: false,
   DEFAULT_MAX_DATE_RANGE_SPAN: 10,
+  DEFAULT_PAGE_SIZE: 15,
   DEFAULT_RECEIVE_TEST_UPDATES: false,
   DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS: 4,
   DEV: "development",
@@ -106,6 +107,7 @@ global.common = {
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   ONLINE_SEARCH_KEY: "onlineSearch",
+  PAGE_SIZES: [5, 10, 15, 20, 25],
   PATCH_EXIT_FULL_SCREEN: "patchExitFullScreen",
   POP_UP_APP_MENU: "popUpAppMenu",
   RECEIVE_TEST_UPDATES_KEY: "receiveTestUpdates",
@@ -117,7 +119,6 @@ global.common = {
   RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
     "dialogueResetPreferencesConfirmation",
   RESTORE_WIN: "restoreWin", // TODO: titleBarOverlay temp workaround.
-  SEARCH_BAR_ID: "search-bar",
   SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
   SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",
@@ -145,6 +146,7 @@ global.common = {
   SF_AUTO_COMPLETE_POP_UP_CLASSES: "e-ddl e-popup e-popup-open",
   SF_AFTER: "After",
   SF_BOTH: "Both",
+  SF_CONTENT_CLASS: "e-content",
   SF_CULTURE: "zh-Hans",
   SF_DATE_RANGE_PICKER_POP_UP_CLASSES: "e-daterangepicker e-popup e-popup-open",
   SF_EASE: "ease",
@@ -152,9 +154,6 @@ global.common = {
   SF_EQUAL: "equal",
   SF_ERROR_CLASS: "e-error",
   SF_FADE_IN: "FadeIn",
-  SF_GRID_CONTENT_CLASS: "e-gridcontent",
-  SF_GRID_HEADER_CLASS: "e-gridheader",
-  SF_GRID_STACKED_HEADER_CLASSES: "e-gridheader e-stackedheader",
   SF_INDICATOR_CLASS: "e-indicator",
   SF_MENU: "Menu",
   SF_MOVABLE_CONTENT_CLASS: "e-movablecontent",
@@ -168,7 +167,6 @@ global.common = {
   SF_TABLE_CLASS: "e-table",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
-  SF_TOOLBAR_CLASSES: "e-control e-toolbar",
   SHARE_1: 1,
   SHOW_PREFERENCE_TAB_ITEM: "showPreferenceTabItem",
   SLIDER: "slider",

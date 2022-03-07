@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.2.0.20220306
+ * @Version: 1.2.0.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 14:30:45
+ * @LastEditTime: 2022-03-07 20:42:46
 -->
 
 <template>
@@ -12,8 +12,8 @@
     :class="[
       'w-full',
       hasBarLayout
-        ? 'flex space-x-4'
-        : 'max-w-xs sm:max-w-sm lg:max-w-lg space-y-8',
+        ? 'px-block fixed flex h-16 space-x-4 z-40'
+        : 'max-w-card space-y-8',
     ]"
   >
     <!-- The app logo. -->
@@ -73,7 +73,6 @@
               @focus="
                 removeErrorBorder(global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME)
               "
-              @open="patchAutoCompletePopUp"
               :autofill="true"
               :dataSource="stockList"
               :enabled="isEnabled"
@@ -94,7 +93,7 @@
             <ejs-daterangepicker
               @blur="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
               @focus="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
-              @open="handleDateRangePickerOpen"
+              @open="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
               @renderDayCell="disableWeekends"
               :dayHeaderFormat="global.common.SF_NARROW"
               :enabled="isEnabled"
@@ -160,7 +159,6 @@ import global from "../lib/global.js";
 import { toDateStr } from "../lib/utils";
 import * as zhCN from "../locales/zh-CN.json";
 
-const popUpBottom = "50px";
 const stockSymbolRegex = /^\s*([Bb][Jj]|[Ss][HhZz])\d{6}\s*$/;
 
 export default {
@@ -190,14 +188,6 @@ export default {
         this.$router.push({ name: global.common.HOME_VIEW });
       } // end if
     }, // end function goHome
-
-    /**
-     * Handle the event when the date range picker is opened.
-     */
-    handleDateRangePickerOpen() {
-      this.patchDateRangePickerPopUp();
-      this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
-    }, // end function handleDateRangePickerOpen
 
     /**
      * Handle the form submission.
@@ -292,49 +282,6 @@ export default {
         global.common.GET_STOCK_LIST
       );
     }, // end function invokeIpc
-
-    /**
-     * Patch the auto-complete component's pop-up if necessary to avoid strange appearance.
-     */
-    patchAutoCompletePopUp() {
-      if (this.hasBarLayout) {
-        setTimeout(
-          () =>
-            Array.prototype.forEach.call(
-              document.getElementsByClassName(
-                global.common.SF_AUTO_COMPLETE_POP_UP_CLASSES
-              ),
-              (element) => {
-                element.classList.add("e-popup-fixed");
-                element.style.bottom = popUpBottom;
-                element.style.top = null;
-              }
-            ),
-          50
-        );
-      } // end if
-    }, // end function patchAutoCompletePopUp
-
-    /**
-     * Patch the date range picker's pop-up if necessary to avoid stange appearance.
-     */
-    patchDateRangePickerPopUp() {
-      if (this.hasBarLayout) {
-        setTimeout(
-          () =>
-            Array.prototype.forEach.call(
-              document.getElementsByClassName(
-                global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
-              ),
-              (element) => {
-                element.style.bottom = popUpBottom;
-                element.style.top = null;
-              }
-            ),
-          50
-        );
-      } // end if
-    }, // end function patchDateRangePickerPopUp
 
     /**
      * Remove the form Syncfusion element's error border if applicable.
@@ -467,22 +414,6 @@ export default {
       });
       this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].hidePopup();
     });
-    window.addEventListener("scroll", () => {
-      this.patchAutoCompletePopUp();
-      this.patchDateRangePickerPopUp();
-    });
-
-    // Avoid the strange appearance of the auto-complete component's pop-up when the pop-up already shows.
-    if (this.hasBarLayout) {
-      const autoCompleteInputArray = document.getElementsByClassName(
-        global.common.SF_AUTO_COMPLETE_INPUT_CLASSES
-      );
-
-      Array.prototype.forEach.call(autoCompleteInputArray, (element) => {
-        element.addEventListener("input", this.patchAutoCompletePopUp);
-        element.addEventListener("keyup", this.patchAutoCompletePopUp);
-      });
-    } // end if
 
     const rules = {}; // The rules for the Syncfusion form validator.
 
