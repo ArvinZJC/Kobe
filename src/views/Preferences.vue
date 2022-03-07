@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 14:33:56
+ * @LastEditTime: 2022-03-07 21:19:13
 -->
 
 <template>
@@ -14,6 +14,7 @@
   >
     <!-- The preference tab component. -->
     <ejs-tab
+      @selecting="this.$refs[global.common.PREFERENCE_TABS_NAME].refresh()"
       :animation="{
         previous: {
           effect: global.common.SF_FADE_IN,
