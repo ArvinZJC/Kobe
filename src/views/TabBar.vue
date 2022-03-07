@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.3.20220306
+ * @Version: 1.1.4.20220307
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 18:56:10
+ * @LastEditTime: 2022-03-07 17:29:15
 -->
 
 <template>
@@ -59,7 +59,7 @@
         v-if="platform === global.common.WINDOWS"
         :id="global.common.APP_MENU_BUTTON_ID"
         :title="`${zhCN.default.open}${zhCN.default.appMenu}`"
-        class="btn-tab-bar-win e-icons e-menu"
+        class="btn-tab-bar-win e-icons e-more-vertical-1"
       />
     </div>
     <!-- The window control area on Windows. -->
