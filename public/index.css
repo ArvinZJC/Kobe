@@ -989,8 +989,8 @@ body::selection {
   padding-right: 0px !important;
 }
 
-.pb-4 {
-  padding-bottom: 1rem;
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .pt-16 {

@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 18:54:54
+ * @LastEditTime: 2022-03-07 22:21:55
 -->
 
 <template>
@@ -41,8 +41,10 @@
       <!-- The search result grid component. -->
       <ejs-grid
         v-if="isColumnsReady"
+        @columnMenuClick="handleColumnMenuClick"
         @created="searchGridImmediately"
         @dataBound="adjustGrid"
+        @excelQueryCellInfo="processExcelData"
         @load="buildGrid"
         @toolbarClick="handleToolbarClick"
         :allowExcelExport="true"
@@ -50,7 +52,12 @@
         :allowPaging="true"
         :allowSorting="true"
         :clipMode="global.common.SF_ELLIPSIS_WITH_TOOLTIP"
-        :columnMenuItems="['Filter', 'SortAscending', 'SortDescending']"
+        :columnMenuItems="[
+          'Filter',
+          'SortAscending',
+          'SortDescending',
+          { text: cancelSorting },
+        ]"
         :dataSource="searchResultData"
         :enableHeaderFocus="true"
         :filterSettings="{ type: global.common.SF_MENU }"
@@ -138,6 +145,16 @@ export default {
     }, // end function clickTrickInput
 
     /**
+     * Handle the click on the column menu.
+     * @param {object} args event arguments.
+     */
+    handleColumnMenuClick(args) {
+      if (args.item.text === this.cancelSorting) {
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].clearSorting();
+      } // end if
+    }, // end function handleColumnMenuClick
+
+    /**
      * Handle the click on the toolbar item.
      * @param {object} args event arguments.
      */
@@ -153,15 +170,15 @@ export default {
                 cells: [
                   {
                     colSpan:
-                      this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
-                        .ej2Instances.columns.length,
+                      this.$refs[
+                        global.common.SEARCH_RESULT_GRID_NAME
+                      ].getColumns().length,
                     index: 1,
-                    value: this.fileHeader,
                     style: {
                       bold: true,
                       fontSize: global.common.FILE_HEADER_FONT_SIZE,
-                      hAlign: global.common.SF_ALIGN_CENTRE,
                     },
+                    value: this.fileHeader,
                   },
                 ],
                 index: 1,
@@ -292,6 +309,16 @@ export default {
     }, // end function patchVScrollBar
 
     /**
+     * Process the data for exporting to Excel.
+     * @param {object} args event arguments.
+     */
+    processExcelData(args) {
+      if (isNaN(args.value)) {
+        args.value = null;
+      } // end if
+    }, // end function processExcelData
+
+    /**
      * Resize the grid height.
      */
     resizeGridHeight() {
@@ -400,6 +427,7 @@ export default {
   },
   data() {
     return {
+      cancelSorting: `${zhCN.default.cancel}${zhCN.default.sort}`,
       fileHeader: global.common.UNKNOWN,
       filename: global.common.UNKNOWN,
       global,

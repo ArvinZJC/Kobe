@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-27 20:38:08
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 15:29:26
+ * @LastEditTime: 2022-03-07 21:01:20
 -->
 
 <template>
@@ -16,7 +16,7 @@
       :startDate="startDate"
       :stockSymbol="stockSymbol"
     />
-    <div class="container-view px-block pb-4 pt-16">
+    <div class="container-view px-block pb-1 pt-16">
       <!-- The search result grid component. -->
       <SearchResultGrid
         :endDate="endDate"
