@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 18:54:56
+ * @LastEditTime: 2022-03-07 22:29:14
  */
 
 global.common = {
@@ -149,7 +149,6 @@ global.common = {
   SF_CONTENT_CLASS: "e-content",
   SF_CULTURE: "zh-Hans",
   SF_DATE_RANGE_PICKER_POP_UP_CLASSES: "e-daterangepicker e-popup e-popup-open",
-  SF_EASE: "ease",
   SF_ELLIPSIS_WITH_TOOLTIP: "EllipsisWithTooltip",
   SF_EQUAL: "equal",
   SF_ERROR_CLASS: "e-error",
@@ -163,14 +162,11 @@ global.common = {
   SF_SCROLL_BAR_CLASS: "e-scrollbar",
   SF_SCROLL_RIGHT_NAV_CLASS: "e-scroll-right-nav",
   SF_STYLES: "syncfusionStyles",
-  SF_TABLE_BORDER_CLASS: "e-tableborder",
-  SF_TABLE_CLASS: "e-table",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
   SHARE_1: 1,
   SHOW_PREFERENCE_TAB_ITEM: "showPreferenceTabItem",
   SLIDER: "slider",
-  SMOOTH_SCROLL: "smooth",
   STABLE: "latest",
   STABLE_MODE_ID: "stable",
   START_DATE_KEY: "startDate",
@@ -196,7 +192,6 @@ global.common = {
   TOTAL_VOLUME_DECIMAL_POINTS_KEY: "totalVolumeDecimalPoints",
   TOTAL_VOLUME_KEY: "totalVolume",
   TOTAL_VOLUME_UNIT_KEY: "totalVolumeUnit",
-  TRICK_CONTAINER_ID: "trick-container",
   TRICK_INPUT_ID: "trick-input",
   UNKNOWN: "Unknown",
   WIN_CONTROL_AREA_ID: "win-control-area",
