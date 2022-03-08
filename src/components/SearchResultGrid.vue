@@ -1,31 +1,22 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.1.6.20220304
+ * @Version: 1.2.0.20220308
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 11:32:23
+ * @LastEditTime: 2022-03-08 09:47:51
 -->
 
 <template>
-  <!-- The trick container. -->
-  <div
-    :id="global.common.TRICK_CONTAINER_ID"
-    class="h-screen hidden w-screen"
-  />
   <!-- The search result area. -->
-  <div
-    :id="global.common.SEARCH_RESULT_AREA_ID"
-    class="px-block h-screen pb-20 pt-4"
-  >
+  <div :id="global.common.SEARCH_RESULT_AREA_ID" class="h-full overflow-hidden">
     <!-- The search status area. -->
     <div
-      :class="[
-        shouldShowGrid ? 'hidden' : 'flex h-full items-center justify-center',
-      ]"
+      v-if="!shouldShowGrid"
+      class="flex h-full items-center justify-center"
       :id="global.common.SEARCH_STATUS_AREA_ID"
     >
-      <div class="flex flex-col justify-center max-w-sm text-center">
+      <div class="max-w-card flex flex-col justify-center text-center">
         <div class="flex items-center justify-center">
           <span
             v-if="hasSearchError"
@@ -49,30 +40,38 @@
     <div :class="[shouldShowGrid ? '' : 'h-0 invisible overflow-hidden']">
       <!-- The search result grid component. -->
       <ejs-grid
+        v-if="isColumnsReady"
+        @columnMenuClick="handleColumnMenuClick"
         @created="searchGridImmediately"
         @dataBound="adjustGrid"
+        @excelQueryCellInfo="processExcelData"
         @load="buildGrid"
         @toolbarClick="handleToolbarClick"
         :allowExcelExport="true"
         :allowFiltering="true"
-        :allowResizing="true"
+        :allowPaging="true"
         :allowSorting="true"
         :clipMode="global.common.SF_ELLIPSIS_WITH_TOOLTIP"
+        :columnMenuItems="[
+          'Filter',
+          'SortAscending',
+          'SortDescending',
+          { text: cancelSorting },
+        ]"
         :dataSource="searchResultData"
         :enableHeaderFocus="true"
-        :enableStickyHeader="true"
         :filterSettings="{ type: global.common.SF_MENU }"
         :frozenColumns="2"
         :gridLines="global.common.SF_BOTH"
+        :pageSettings="{
+          pageSize: global.common.DEFAULT_PAGE_SIZE,
+          pageSizes: global.common.PAGE_SIZES,
+        }"
         :ref="global.common.SEARCH_RESULT_GRID_NAME"
         :searchSettings="{ operator: global.common.SF_EQUAL }"
-        :selectionSettings="{
-          mode: global.common.SF_BOTH,
-          type: global.common.SF_MULTIPLE,
-        }"
-        :showColumnChooser="true"
+        :selectionSettings="{ type: global.common.SF_MULTIPLE }"
         :showColumnMenu="true"
-        :toolbar="searchResultGridToolbar"
+        :toolbar="['ExcelExport', 'Search']"
       />
     </div>
   </div>
@@ -83,7 +82,7 @@ import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
 import LoadingIcon from "./svg/LoadingIcon.vue";
 import global from "../lib/global.js";
-import { toDateStr, toVolumeUnitText } from "../lib/utils";
+import { toVolumeUnitText } from "../lib/utils.js";
 import * as syncfusion from "../locales/syncfusion.json";
 import * as zhCN from "../locales/zh-CN.json";
 
@@ -94,135 +93,63 @@ export default {
      * Adjust the grid when the data source is populated.
      */
     adjustGrid() {
-      var searchResultArea = document.getElementById(
+      const searchResultArea = document.getElementById(
         global.common.SEARCH_RESULT_AREA_ID
       );
 
-      if (searchResultArea == null) {
-        return;
+      if (searchResultArea != null) {
+        if (this.searchResultData == null) {
+          this.hasSearchError = false;
+          this.searchStatusMessage = zhCN.default.searchingHint;
+          this.searchStatusTitle = zhCN.default.searching;
+          this.shouldShowGrid = false;
+        } else if (
+          this.searchResultData.length === 1 &&
+          this.searchResultData[0][global.common.STRIKE_PRICE_KEY] ===
+            global.common.PROCESSOR_ERROR_KEY
+        ) {
+          this.hasSearchError = true;
+          this.searchStatusMessage =
+            this.searchResultData[0][global.common.TOTAL_VOLUME_KEY];
+          this.searchStatusTitle = zhCN.default.searchError;
+          this.shouldShowGrid = false;
+        } else {
+          this.patchVScrollBar();
+          this.resizeGridHeight();
+          this.shouldShowGrid = true;
+        } // end if...else
       } // end if
-
-      const heightScreenClass = "h-screen";
-      const minHeightScreenClass = "min-h-screen";
-
-      if (this.searchResultData == null) {
-        searchResultArea.classList.add(heightScreenClass);
-        searchResultArea.classList.remove(minHeightScreenClass);
-        this.hasSearchError = false;
-        this.searchStatusMessage = zhCN.default.searchingHint;
-        this.searchStatusTitle = zhCN.default.searching;
-        this.shouldShowGrid = false;
-      } else if (
-        this.searchResultData.length === 1 &&
-        this.searchResultData[0][global.common.STRIKE_PRICE_KEY] ===
-          global.common.PROCESSOR_ERROR_KEY
-      ) {
-        this.hasSearchError = true;
-        this.searchStatusMessage =
-          this.searchResultData[0][global.common.TOTAL_VOLUME_KEY];
-        this.searchStatusTitle = zhCN.default.searchError;
-        this.shouldShowGrid = false;
-      } else {
-        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]); // Auto-fit all columns to ensure that the grid's horizontal scroll bar can be added.
-        this.patchGridStackedHeaderAndToolbar();
-        this.patchHScrollBar();
-        searchResultArea.classList.add(minHeightScreenClass);
-        searchResultArea.classList.remove(heightScreenClass);
-        this.shouldShowGrid = true;
-      } // end if...else
-
-      setTimeout(() => this.styleSearchBarBg(), 50);
     }, // end function adjustGrid
 
     /**
      * Build the grid.
      */
     buildGrid() {
-      const dayVolumeColumns = [];
-
-      for (
-        var date = new Date(`${this.startDate}${global.common.DAY_TIME_START}`);
-        date <= new Date(`${this.endDate}${global.common.DAY_TIME_START}`);
-
-      ) {
-        const day = date.getDay();
-
-        if (day !== 0 && day !== 6) {
-          const dateStr = toDateStr(date);
-          var dayStr = "";
-
-          switch (day) {
-            case 1: {
-              dayStr = zhCN.default.monday;
-              break;
-            }
-            case 2: {
-              dayStr = zhCN.default.tuesday;
-              break;
-            }
-            case 3: {
-              dayStr = zhCN.default.wednesday;
-              break;
-            }
-            case 4: {
-              dayStr = zhCN.default.thursday;
-              break;
-            }
-            case 5: {
-              dayStr = zhCN.default.friday;
-              break;
-            }
-            default: {
-              dayStr = zhCN.default.unknown;
-            }
-          } // end switch-case
-
-          dayVolumeColumns.push({
-            field: dateStr,
-            format: `N${global.common.DEFAULT_DAY_VOLUME_DECIMAL_POINTS}`,
-            headerText: `${dateStr}（${dayStr}）`,
-            headerTextAlign: global.common.SF_ALIGN_LEFT,
-            minWidth: global.common.MIN_COLUMN_WIDTH,
-            textAlign: global.common.SF_ALIGN_RIGHT,
-            type: global.common.SF_NUM,
-          });
-        } // end if
-
-        date.setDate(date.getDate() + 1);
-      } // end for
-
-      const columns = [
-        {
-          field: global.common.STRIKE_PRICE_KEY,
-          format: "N2",
-          headerText: zhCN.default.strikePriceColumnHeader,
-          headerTextAlign: global.common.SF_ALIGN_LEFT,
-          minWidth: global.common.MIN_COLUMN_WIDTH,
-          textAlign: global.common.SF_ALIGN_RIGHT,
-          type: global.common.SF_NUM,
-        },
-        {
-          field: global.common.TOTAL_VOLUME_KEY,
-          format: `N${global.common.DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS}`,
-          headerText: zhCN.default.totalVolumeColumnHeader,
-          headerTextAlign: global.common.SF_ALIGN_LEFT,
-          minWidth: global.common.MIN_COLUMN_WIDTH,
-          textAlign: global.common.SF_ALIGN_RIGHT,
-          type: global.common.SF_NUM,
-        },
-        {
-          columns: dayVolumeColumns,
-          headerText: zhCN.default.dayVolumeStackedColumnHeader,
-          textAlign: global.common.SF_ALIGN_CENTRE,
-        },
-      ];
-
-      Array.prototype.forEach.call(columns, (element) =>
-        this.$refs[
-          global.common.SEARCH_RESULT_GRID_NAME
-        ].ej2Instances.columns.push(element)
-      );
+      this.$refs[
+        global.common.SEARCH_RESULT_GRID_NAME
+      ].ej2Instances.columns.push(...this.columns);
     }, // end function buildGrid
+
+    /**
+     * Click the trick input to close any pop-up to avoid strange appearance.
+     */
+    clickTrickInput() {
+      const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);
+
+      if (trickInput != null) {
+        trickInput.click();
+      } // end if
+    }, // end function clickTrickInput
+
+    /**
+     * Handle the click on the column menu.
+     * @param {object} args event arguments.
+     */
+    handleColumnMenuClick(args) {
+      if (args.item.text === this.cancelSorting) {
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].clearSorting();
+      } // end if
+    }, // end function handleColumnMenuClick
 
     /**
      * Handle the click on the toolbar item.
@@ -240,15 +167,15 @@ export default {
                 cells: [
                   {
                     colSpan:
-                      this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
-                        .ej2Instances.columns.length,
+                      this.$refs[
+                        global.common.SEARCH_RESULT_GRID_NAME
+                      ].getColumns().length,
                     index: 1,
-                    value: this.fileHeader,
                     style: {
                       bold: true,
                       fontSize: global.common.FILE_HEADER_FONT_SIZE,
-                      hAlign: global.common.SF_ALIGN_CENTRE,
                     },
+                    value: this.fileHeader,
                   },
                 ],
                 index: 1,
@@ -257,10 +184,6 @@ export default {
           },
           includeHiddenColumn: this.includeHiddenColumns,
         });
-      } // end if
-
-      if (args.item.text === zhCN.default.autoFitAllColumnsName) {
-        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
       } // end if
     }, // end function handleToolbarClick
 
@@ -344,6 +267,10 @@ export default {
                   global.common.STRIKE_PRICE_KEY
                 )))
           ) {
+            window[global.common.IPC_RENDERER_API_KEY].send(
+              global.common.IPC_SEND,
+              global.common.ENABLE_SEARCH_FORM
+            );
             this.searchResultData = data;
           } // end if
         }
@@ -363,53 +290,63 @@ export default {
     }, // end function invokeIpc
 
     /**
-     * Patch the grid component's border to avoid strange appearance.
+     * Patch the grid's vertical scroll bar to provide better appearance.
      */
-    patchGridBorder() {
-      for (const tableSection of document.getElementsByClassName(
-        global.common.SF_TABLE_CLASS
-      )) {
-        tableSection.classList.add(global.common.SF_TABLE_BORDER_CLASS);
-      } // end for
-    }, // end function patchGridBorder
-
-    /**
-     * Patch the grid component's stacked header and toolbar to avoid strange appearance.
-     */
-    patchGridStackedHeaderAndToolbar() {
-      Array.prototype.forEach.call(
-        Array.prototype.concat.call(
-          document.getElementsByClassName(
-            global.common.SF_GRID_STACKED_HEADER_CLASSES
-          )[0],
-          document.getElementsByClassName(global.common.SF_TOOLBAR_CLASSES)[0]
-        ),
-        (element) => element.classList.add("!w-auto")
-      );
-    }, // end function patchGridToolbarHeader
-
-    /**
-     * Patch the horizontal scroll bar to provide reasonable layout.
-     */
-    patchHScrollBar() {
-      for (const scrollBar of document.getElementsByClassName(
-        global.common.SF_SCROLL_BAR_CLASS
-      )) {
+    patchVScrollBar() {
+      for (const gridContentChild of this.$refs[
+        global.common.SEARCH_RESULT_GRID_NAME
+      ].getContent().children) {
         if (
-          scrollBar.parentElement.classList.contains(
-            global.common.SF_GRID_CONTENT_CLASS
-          )
+          gridContentChild.classList.contains(global.common.SF_CONTENT_CLASS)
         ) {
-          for (const gridHeader of document.getElementsByClassName(
-            global.common.SF_GRID_HEADER_CLASS
-          )) {
-            gridHeader.appendChild(scrollBar); // Use "Node.appendChild()" to move the horizontal scroll bar from its current position to the new position.
-          } // end for
+          gridContentChild.classList.add("!overflow-y-auto");
+          break;
         } // end if
       } // end for
+    }, // end function patchVScrollBar
 
-      this.showOrHideHScrollBar();
-    }, // end function patchHScrollBar
+    /**
+     * Process the data for exporting to Excel.
+     * @param {object} args event arguments.
+     */
+    processExcelData(args) {
+      if (isNaN(args.value)) {
+        args.value = null;
+      } // end if
+    }, // end function processExcelData
+
+    /**
+     * Resize the grid height.
+     */
+    resizeGridHeight() {
+      const gridToolbar = document.getElementById(
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].ej2Instances.element
+          .id + "_toolbarItems"
+      );
+      const scrollBar = document.getElementsByClassName(
+        global.common.SF_SCROLL_BAR_CLASS
+      );
+      const searchResultArea = document.getElementById(
+        global.common.SEARCH_RESULT_AREA_ID
+      );
+
+      if (
+        gridToolbar != null &&
+        scrollBar != null &&
+        scrollBar.length > 0 &&
+        searchResultArea != null
+      ) {
+        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].ej2Instances.height =
+          searchResultArea.clientHeight -
+          gridToolbar.clientHeight -
+          scrollBar[0].clientHeight -
+          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].getHeaderContent()
+            .clientHeight -
+          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].getPager()
+            .clientHeight;
+        this.showOrHideScrollBar();
+      } // end if
+    }, // end function resizeGridHeight
 
     /**
      * Search the grid.
@@ -438,76 +375,63 @@ export default {
     }, // end function searchGridImmediately
 
     /**
-     * Show or hide the horizontal scroll bar.
+     * Show or hide the grid's scroll bar as per the content.
      */
-    showOrHideHScrollBar() {
-      const movableContentAreas = document.getElementsByClassName(
+    showOrHideScrollBar() {
+      const content = document.getElementsByClassName(
+        global.common.SF_CONTENT_CLASS
+      );
+      const movableContent = document.getElementsByClassName(
         global.common.SF_MOVABLE_CONTENT_CLASS
       );
-
-      if (movableContentAreas != null && movableContentAreas.length > 0) {
-        for (const scrollBar of document.getElementsByClassName(
-          global.common.SF_SCROLL_BAR_CLASS
-        )) {
-          // Hide the horizontal scroll bar if the content is not overflown horizontally.
-          if (
-            movableContentAreas[0].clientWidth >=
-            movableContentAreas[0].scrollWidth
-          ) {
-            scrollBar.classList.add("!hidden");
-          } else {
-            scrollBar.classList.remove("!hidden");
-          } // end if...else
-        } // end for
-
-        this.patchGridBorder();
-      } // end if
-    }, // end function showOrHideHScrollBar
-
-    /**
-     * Apply the search bar's blur effect if applicable.
-     */
-    styleSearchBarBg() {
-      const searchBar = document.getElementById(global.common.SEARCH_BAR_ID);
-      const trickContainer = document.getElementById(
-        global.common.TRICK_CONTAINER_ID
+      const scrollBar = document.getElementsByClassName(
+        global.common.SF_SCROLL_BAR_CLASS
       );
 
-      if (searchBar != null && trickContainer != null) {
-        // Remove the search bar's blur effect if the view is not scrollable.
-        if (document.body.offsetHeight > trickContainer.offsetHeight) {
-          searchBar.classList.add("bg-blur", "shadow-xl-reverse");
-          searchBar.classList.remove("bg-opacity-0", "dark:bg-opacity-0");
+      setTimeout(() => {
+        if (content != null && content.length > 0) {
+          if (content[0].clientHeight >= content[0].scrollHeight) {
+            this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
+              .getHeaderContent()
+              .classList.add("!pr-0");
+          } else {
+            this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
+              .getHeaderContent()
+              .classList.remove("!pr-0");
+          } // end if...else
+        } // end if
+      }); // The function setTimeout() is necessary to ensure it works when the grid is set to be shown.
+
+      if (
+        movableContent != null &&
+        movableContent.length > 0 &&
+        scrollBar != null &&
+        scrollBar.length > 0
+      ) {
+        if (movableContent[0].clientWidth >= movableContent[0].scrollWidth) {
+          scrollBar[0].classList.add("!hidden");
         } else {
-          searchBar.classList.add("bg-opacity-0", "dark:bg-opacity-0");
-          searchBar.classList.remove("bg-blur", "shadow-xl-reverse");
+          scrollBar[0].classList.remove("!hidden");
         } // end if...else
       } // end if
-    }, // end function styleSearchBarBg
+    }, // end function showOrHideHScrollBar
   },
   props: {
     endDate: String,
     startDate: String,
+    stockName: String,
     stockSymbol: String,
   },
   data() {
     return {
+      cancelSorting: `${zhCN.default.cancel}${zhCN.default.sort}`,
       fileHeader: global.common.UNKNOWN,
       filename: global.common.UNKNOWN,
       global,
       hasSearchError: false,
       includeHiddenColumns: global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS,
+      isColumnsReady: false,
       searchResultData: null,
-      searchResultGridToolbar: [
-        "ColumnChooser",
-        "ExcelExport",
-        "Search",
-        {
-          prefixIcon: "e-auto-fit-content",
-          text: zhCN.default.autoFitAllColumnsName,
-          tooltipText: zhCN.default.autoFitAllColumnsTooltip,
-        },
-      ],
       searchStatusMessage: zhCN.default.searchingHint,
       searchStatusTitle: zhCN.default.searching,
       shouldShowGrid: false,
@@ -515,33 +439,37 @@ export default {
   },
   mounted() {
     const dateRange =
-      this.$route.query.startDate +
-      (this.$route.query.startDate === this.$route.query.endDate
-        ? ""
-        : ` - ${this.$route.query.endDate}`);
+      this.startDate +
+      (this.startDate === this.endDate ? "" : ` - ${this.endDate}`);
 
     this.filename = `${
-      this.$route.query.stockName === ""
-        ? this.$route.query.stockSymbol
-        : this.$route.query.stockName
+      this.stockName === "" ? this.stockSymbol : this.stockName
     }（${dateRange}）`;
     this.fileHeader = `${
-      this.$route.query.stockName === ""
-        ? this.$route.query.stockName
-        : this.$route.query.stockSymbol + " "
+      this.stockName === "" ? this.stockName : this.stockSymbol + " "
     }${this.filename}`;
-    this.invokeIpc();
-    window.addEventListener("resize", () => {
-      this.showOrHideHScrollBar();
-      this.styleSearchBarBg();
-    });
-    window.addEventListener("scroll", () => {
-      const trickInput = document.getElementById(global.common.TRICK_INPUT_ID);
 
-      // The trick input is used to close any grid pop-up to avoid strange appearance when scrolling.
-      if (trickInput != null) {
-        trickInput.click();
-      } // end if
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const worker = new Worker("/grid.js");
+
+        worker.addEventListener("message", (e) => {
+          this.columns = e.data.columns;
+          worker.terminate();
+          this.isColumnsReady = true;
+          this.invokeIpc();
+        });
+        worker.postMessage({
+          endDate: this.endDate,
+          global: global.common,
+          startDate: this.startDate,
+          zhCN,
+        });
+      }, 500); // Set relatively enough timeout to ensure that it can enter the search result view without too much delay.
+    });
+    window.addEventListener("resize", () => {
+      this.clickTrickInput();
+      this.resizeGridHeight();
     });
   },
 };

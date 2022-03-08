@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.11.20220304
+ * @Version: 1.1.12.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 17:22:01
+ * @LastEditTime: 2022-03-08 10:21:24
  */
 
 @tailwind base;
@@ -26,15 +26,6 @@
   .btn-action-left {
     @apply fixed left-4 sm:left-6 lg:left-8 z-30;
   }
-  /* Right floating action button. */
-  .btn-action-right {
-    @apply fixed right-4 sm:right-6 lg:right-8 z-30;
-  }
-
-  /* Round button. */
-  .btn-round {
-    @apply bg-indigo-600 hover:bg-indigo-700 dark:bg-cyan-400 dark:hover:bg-cyan-500 flex h-8 items-center justify-center focus:outline-none focus:ring-2 focus:ring-indigo-600 dark:focus:ring-cyan-400 focus:ring-offset-2 dark:focus:ring-offset-black rounded-full text-white dark:text-black w-8;
-  }
 
   /* The base style of a tab bar button. */
   .btn-tab-bar-base {
@@ -51,11 +42,6 @@
     @apply btn-tab-bar-base h-full w-[45.8px];
   }
 
-  /* Container for a bottom bar. */
-  .container-bbar {
-    @apply bottom-0 fixed w-full z-40;
-  }
-
   /* Container for the preference option area. */
   .container-preference-options {
     @apply col-span-2 flex items-end justify-end pb-1;
@@ -67,7 +53,7 @@
   }
   /* Container for the preferences. */
   .container-preferences {
-    @apply px-block py-4 gap-4 grid grid-cols-5 max-h-screen overflow-auto;
+    @apply px-block py-4 gap-4 grid grid-cols-5 max-w-[50rem];
   }
 
   /* Container for the root. */
@@ -84,24 +70,14 @@
 
   /* Container for a view. */
   .container-view {
-    @apply grow min-h-screen relative;
+    @apply grow h-screen relative;
   }
 }
 
 @layer utilities {
-  /* Backdrop blur filter. */
-  .bg-blur {
-    @apply backdrop-blur bg-opacity-30 dark:bg-opacity-30 bg-white dark:bg-black;
-  }
-
-  /* Endpoint of the float-down animation with Transform 1. */
-  .float-down-1 {
-    @apply opacity-0 translate-y-1;
-  }
-
-  /* Endpoint of the float-up animation. */
-  .float-up {
-    @apply opacity-100 translate-y-0;
+  /* Max width for a card or card-like block. */
+  .max-w-card {
+    @apply max-w-xs sm:max-w-sm lg:max-w-lg;
   }
 
   /* Non-draggable area in the frameless window's draggable area. */
@@ -117,12 +93,6 @@
   /* Vertical padding for a general block. */
   .py-block {
     @apply py-4 sm:py-6 lg:py-8;
-  }
-
-  /* Box shadow with the primary effect on the top rather than the bottom like the original ".shadow-xl". */
-  .shadow-xl-reverse {
-    box-shadow: 0 -20px 25px -5px rgb(0 0 0 / 0.1),
-      0 -8px 10px -6px rgb(0 0 0 / 0.1);
   }
 
   /* Content text. */
@@ -153,11 +123,6 @@
   /* Title text. */
   .text-title {
     @apply text-primary font-bold text-lg;
-  }
-
-  /* Transition for most properties within 300ms. */
-  .transition-300 {
-    @apply duration-300 transition;
   }
 
   /* Transition for some colour properties within 300ms. */
@@ -227,14 +192,19 @@
   font-size: 14px !important;
 }
 
+/* The customised pager constant style. */
+.e-pager .e-pagerconstant {
+  @apply !m-0;
+}
+
+/* The customised pager parent message bar style. */
+.e-pager div.e-parentmsgbar {
+  @apply !pt-[6px];
+}
+
 /* Force the pop-up height and position to be fixed. */
 .e-popup-fixed {
   @apply !fixed !max-h-fit;
-}
-
-/* The customised resize helper style. */
-.e-rhelper {
-  @apply !hidden;
 }
 
 /* The customised horizontal tab scroll bar navigation style. */

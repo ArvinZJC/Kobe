@@ -1,60 +1,62 @@
 <!--
  * @Description: the preferences' result display section component
- * @Version: 1.0.0.20220206
+ * @Version: 1.0.1.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-01-31 17:53:47
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-06 18:39:07
+ * @LastEditTime: 2022-03-08 10:22:50
 -->
 
 <template>
-  <div class="container-preferences">
-    <!-- Total volume. -->
-    <!-- Unit. -->
-    <Preference
-      :explanation="zhCN.default.totalVolumeUnitExplanation"
-      :options="options.totalVolumeUnit"
-      :subtitle="zhCN.default.unitTitle"
-      :title="zhCN.default.totalVolumeColumnHeader"
-      :type="global.common.DROP_DOWN_LIST"
-      :value="totalVolumeUnit"
-    />
-    <!-- The number of decimal points. -->
-    <Preference
-      :explanation="zhCN.default.totalVolumeDecimalPointsExplanation"
-      :options="options.totalVolumeDecimalPoints"
-      :subtitle="zhCN.default.decimalPointsTitle"
-      :type="global.common.SLIDER"
-      :value="totalVolumeDecimalPoints"
-    />
-    <!-- Day volume. -->
-    <!-- Unit. -->
-    <Preference
-      :explanation="zhCN.default.dayVolumeUnitExplanation"
-      :options="options.dayVolumeUnit"
-      :subtitle="zhCN.default.unitTitle"
-      :title="zhCN.default.dayVolumeStackedColumnHeader"
-      :type="global.common.DROP_DOWN_LIST"
-      :value="dayVolumeUnit"
-    />
-    <!-- The number of decimal points. -->
-    <Preference
-      :explanation="zhCN.default.dayVolumeDecimalPointsExplanation"
-      :options="options.dayVolumeDecimalPoints"
-      :subtitle="zhCN.default.decimalPointsTitle"
-      :type="global.common.SLIDER"
-      :value="dayVolumeDecimalPoints"
-    />
-    <!-- Excel export. -->
-    <!-- Include hidden columns. -->
-    <Preference
-      :explanation="zhCN.default.includeHiddenColumnsExplanation"
-      :options="options.includeHiddenColumns"
-      :subtitle="zhCN.default.includeHiddenColumnsTitle"
-      :title="syncfusion.default['zh-Hans'].grid.Excelexport"
-      :type="global.common.SWITCH"
-      :value="includeHiddenColumns"
-    />
+  <div class="container-view overflow-auto">
+    <div class="container-preferences">
+      <!-- Total volume. -->
+      <!-- Unit. -->
+      <Preference
+        :explanation="zhCN.default.totalVolumeUnitExplanation"
+        :options="options.totalVolumeUnit"
+        :subtitle="zhCN.default.unitTitle"
+        :title="zhCN.default.totalVolumeColumnHeader"
+        :type="global.common.DROP_DOWN_LIST"
+        :value="totalVolumeUnit"
+      />
+      <!-- The number of decimal points. -->
+      <Preference
+        :explanation="zhCN.default.totalVolumeDecimalPointsExplanation"
+        :options="options.totalVolumeDecimalPoints"
+        :subtitle="zhCN.default.decimalPointsTitle"
+        :type="global.common.SLIDER"
+        :value="totalVolumeDecimalPoints"
+      />
+      <!-- Day volume. -->
+      <!-- Unit. -->
+      <Preference
+        :explanation="zhCN.default.dayVolumeUnitExplanation"
+        :options="options.dayVolumeUnit"
+        :subtitle="zhCN.default.unitTitle"
+        :title="zhCN.default.dayVolumeStackedColumnHeader"
+        :type="global.common.DROP_DOWN_LIST"
+        :value="dayVolumeUnit"
+      />
+      <!-- The number of decimal points. -->
+      <Preference
+        :explanation="zhCN.default.dayVolumeDecimalPointsExplanation"
+        :options="options.dayVolumeDecimalPoints"
+        :subtitle="zhCN.default.decimalPointsTitle"
+        :type="global.common.SLIDER"
+        :value="dayVolumeDecimalPoints"
+      />
+      <!-- Excel export. -->
+      <!-- Include hidden columns. -->
+      <Preference
+        :explanation="zhCN.default.includeHiddenColumnsExplanation"
+        :options="options.includeHiddenColumns"
+        :subtitle="zhCN.default.includeHiddenColumnsTitle"
+        :title="syncfusion.default['zh-Hans'].grid.Excelexport"
+        :type="global.common.SWITCH"
+        :value="includeHiddenColumns"
+      />
+    </div>
   </div>
 </template>
 

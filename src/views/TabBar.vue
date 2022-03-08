@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.2.20220304
+ * @Version: 1.1.5.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 08:56:59
+ * @LastEditTime: 2022-03-08 10:06:57
 -->
 
 <template>
@@ -59,7 +59,7 @@
         v-if="platform === global.common.WINDOWS"
         :id="global.common.APP_MENU_BUTTON_ID"
         :title="`${zhCN.default.open}${zhCN.default.appMenu}`"
-        class="btn-tab-bar-win e-icons e-menu"
+        class="btn-tab-bar-win e-icons e-more-vertical-1"
       />
     </div>
     <!-- The window control area on Windows. -->
@@ -215,13 +215,11 @@ export default {
         cssClass += ` ${global.common.PREFERENCE_VIEW_ID}`;
       } // end if
 
-      this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.addTab(
+      this.$refs[global.common.TAB_BAR_TABS_NAME].addTab(
         [{ cssClass, header: { text: zhCN.default.newTabItem } }],
         newTabItemIndex
       );
-      this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(
-        newTabItemIndex
-      );
+      this.$refs[global.common.TAB_BAR_TABS_NAME].select(newTabItemIndex);
 
       const newTabItemId = {};
 
@@ -337,7 +335,7 @@ export default {
         if (tabItem.id === tabItemId) {
           if (tabItem.header.text !== title) {
             tabItem.header.text = title;
-            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.refresh();
+            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
           } // end if
 
           break;
@@ -374,8 +372,8 @@ export default {
             () =>
               window[global.common.IPC_RENDERER_API_KEY].send(
                 global.common.IPC_SEND,
-                global.common.PATCH_EXIT_FULL_SCREEN
-              ),
+                global.common.PATCH_BY_RESIZING
+              ), // Avoid possible strange tab appearance when exiting the full screen mode.
             50
           );
         } // end if
@@ -390,7 +388,7 @@ export default {
           this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
             data[global.common.NEW_TAB_ITEM_INDEX_KEY]
           ].id = data[global.common.GET_NEW_TAB_ITEM_ID];
-          this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.refresh();
+          this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
         } // end if
 
         if (
@@ -429,7 +427,7 @@ export default {
 
           preferenceTabItemIndex == null
             ? this.openNewTabItem(data[global.common.SHOW_PREFERENCE_TAB_ITEM])
-            : this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.select(
+            : this.$refs[global.common.TAB_BAR_TABS_NAME].select(
                 preferenceTabItemIndex
               );
         } // end if
@@ -489,7 +487,7 @@ export default {
                 global.common.TAB_BAR_TABS_NAME
               ].ej2Instances.selectedItem
             ].id = data[global.common.GET_START_TAB_ITEM_ID];
-            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.refresh();
+            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
           } // end if
         }
       );

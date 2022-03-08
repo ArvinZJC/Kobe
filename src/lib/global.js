@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.12.20220304
+ * @Version: 1.0.13.20220308
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 20:02:07
+ * @LastEditTime: 2022-03-08 10:07:34
  */
 
 global.common = {
@@ -42,11 +42,13 @@ global.common = {
   DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS: true,
   DEFAULT_DAY_VOLUME_DECIMAL_POINTS: 2,
   DEFAULT_INCLUDE_HIDDEN_COLUMNS: false,
-  DEFAULT_MAX_DATE_RANGE_SPAN: 4,
+  DEFAULT_MAX_DATE_RANGE_SPAN: 10,
+  DEFAULT_PAGE_SIZE: 15,
   DEFAULT_RECEIVE_TEST_UPDATES: false,
   DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS: 4,
   DEV: "development",
   DROP_DOWN_LIST: "dropDownList",
+  ENABLE_SEARCH_FORM: "enableSearchForm",
   END_DATE_KEY: "endDate",
   ENTER_FULL_SCREEN: "enterFullScreen",
   EXIT_FULL_SCREEN: "exitFullScreen",
@@ -86,9 +88,10 @@ global.common = {
   LIGHT_MODE_ID: "light",
   LIGHT_WIN_COLOUR: "#FFF",
   MACOS: "darwin",
+  MAX_COLUMN_WIDTH: 300,
   MAX_DATE_RANGE_SPAN_KEY: "maxDateRangeSpan",
   MAX_DECIMAL_POINTS: 6,
-  MAX_MAX_DATE_RANGE_SPAN: 8,
+  MAX_MAX_DATE_RANGE_SPAN: 10,
   MAX_PREFERENCE_OPTION_WIDTH: 215,
   MAXIMISE_OR_RESTORE_WIN: "maximiseOrRestoreWin",
   MAXIMISE_WIN: "maximiseWin", // TODO: titleBarOverlay temp workaround.
@@ -105,7 +108,8 @@ global.common = {
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   ONLINE_SEARCH_KEY: "onlineSearch",
-  PATCH_EXIT_FULL_SCREEN: "patchExitFullScreen",
+  PAGE_SIZES: [5, 10, 15, 20, 25],
+  PATCH_BY_RESIZING: "patchByResizing",
   POP_UP_APP_MENU: "popUpAppMenu",
   RECEIVE_TEST_UPDATES_KEY: "receiveTestUpdates",
   PREFERENCE_TABS_NAME: "preferenceTabs",
@@ -116,7 +120,6 @@ global.common = {
   RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
     "dialogueResetPreferencesConfirmation",
   RESTORE_WIN: "restoreWin", // TODO: titleBarOverlay temp workaround.
-  SEARCH_BAR_ID: "search-bar",
   SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
   SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",
@@ -144,16 +147,13 @@ global.common = {
   SF_AUTO_COMPLETE_POP_UP_CLASSES: "e-ddl e-popup e-popup-open",
   SF_AFTER: "After",
   SF_BOTH: "Both",
+  SF_CONTENT_CLASS: "e-content",
   SF_CULTURE: "zh-Hans",
   SF_DATE_RANGE_PICKER_POP_UP_CLASSES: "e-daterangepicker e-popup e-popup-open",
-  SF_EASE: "ease",
   SF_ELLIPSIS_WITH_TOOLTIP: "EllipsisWithTooltip",
   SF_EQUAL: "equal",
   SF_ERROR_CLASS: "e-error",
   SF_FADE_IN: "FadeIn",
-  SF_GRID_CONTENT_CLASS: "e-gridcontent",
-  SF_GRID_HEADER_CLASS: "e-gridheader",
-  SF_GRID_STACKED_HEADER_CLASSES: "e-gridheader e-stackedheader",
   SF_INDICATOR_CLASS: "e-indicator",
   SF_MENU: "Menu",
   SF_MOVABLE_CONTENT_CLASS: "e-movablecontent",
@@ -163,15 +163,11 @@ global.common = {
   SF_SCROLL_BAR_CLASS: "e-scrollbar",
   SF_SCROLL_RIGHT_NAV_CLASS: "e-scroll-right-nav",
   SF_STYLES: "syncfusionStyles",
-  SF_TABLE_BORDER_CLASS: "e-tableborder",
-  SF_TABLE_CLASS: "e-table",
   SF_TAILWIND: "tailwind",
   SF_TAILWIND_DARK: "tailwind-dark",
-  SF_TOOLBAR_CLASSES: "e-control e-toolbar",
   SHARE_1: 1,
   SHOW_PREFERENCE_TAB_ITEM: "showPreferenceTabItem",
   SLIDER: "slider",
-  SMOOTH_SCROLL: "smooth",
   STABLE: "latest",
   STABLE_MODE_ID: "stable",
   START_DATE_KEY: "startDate",
@@ -197,7 +193,6 @@ global.common = {
   TOTAL_VOLUME_DECIMAL_POINTS_KEY: "totalVolumeDecimalPoints",
   TOTAL_VOLUME_KEY: "totalVolume",
   TOTAL_VOLUME_UNIT_KEY: "totalVolumeUnit",
-  TRICK_CONTAINER_ID: "trick-container",
   TRICK_INPUT_ID: "trick-input",
   UNKNOWN: "Unknown",
   WIN_CONTROL_AREA_ID: "win-control-area",

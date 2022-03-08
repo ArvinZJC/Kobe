@@ -1,22 +1,27 @@
 <!--
  * @Description: the search form component
- * @Version: 1.0.7.20220302
+ * @Version: 1.2.0.20220307
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-02 22:54:39
+ * @LastEditTime: 2022-03-07 20:42:46
 -->
 
 <template>
   <div
-    :class="['w-full', hasBarLayout ? 'flex space-x-4' : 'max-w-md space-y-8']"
+    :class="[
+      'w-full',
+      hasBarLayout
+        ? 'px-block fixed flex h-16 space-x-4 z-40'
+        : 'max-w-card space-y-8',
+    ]"
   >
     <!-- The app logo. -->
     <div
       @click="goHome"
       :class="[
         'text-primary flex items-center',
-        hasBarLayout ? 'cursor-pointer' : 'justify-center',
+        hasBarLayout && isEnabled ? 'cursor-pointer' : 'justify-center',
       ]"
     >
       <div :class="[hasBarLayout ? 'w-7' : 'w-24 sm:w-32 lg:w-48']">
@@ -68,9 +73,9 @@
               @focus="
                 removeErrorBorder(global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME)
               "
-              @open="patchAutoCompletePopUp"
               :autofill="true"
               :dataSource="stockList"
+              :enabled="isEnabled"
               :fields="{ value: global.common.STOCK_SYMBOL_KEY }"
               :highlight="true"
               :itemTemplate="stockListItemTemplate"
@@ -88,12 +93,13 @@
             <ejs-daterangepicker
               @blur="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
               @focus="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
-              @open="handleDateRangePickerOpen"
+              @open="removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME)"
               @renderDayCell="disableWeekends"
               :dayHeaderFormat="global.common.SF_NARROW"
+              :enabled="isEnabled"
               :endDate="new Date(`${endDate}${global.common.DAY_TIME_START}`)"
               :max="new Date()"
-              :maxDays="7 * maxDateRangeSpan"
+              :maxDays="7 * 4 * maxDateRangeSpan"
               :min="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
               :name="global.common.DATE_RANGE_PICKER_NAME"
               :placeholder="zhCN.default.dateRangePlaceholder"
@@ -107,6 +113,7 @@
         <div v-if="hasBarLayout" :class="[hasBarLayout ? 'grow-0' : '']">
           <div class="block lg:hidden">
             <ejs-button
+              :disabled="!isEnabled"
               :title="zhCN.default.search"
               iconCss="e-icons e-search"
               isPrimary="true"
@@ -116,6 +123,7 @@
           <div class="lg:block hidden">
             <ejs-button
               :content="zhCN.default.search"
+              :disabled="!isEnabled"
               iconCss="e-icons e-search"
               isPrimary="true"
               type="submit"
@@ -125,6 +133,7 @@
         <div v-else>
           <ejs-button
             :content="zhCN.default.search"
+            :disabled="!isEnabled"
             cssClass="e-block"
             iconCss="e-icons e-search"
             isPrimary="true"
@@ -150,7 +159,6 @@ import global from "../lib/global.js";
 import { toDateStr } from "../lib/utils";
 import * as zhCN from "../locales/zh-CN.json";
 
-const popUpBottom = "50px";
 const stockSymbolRegex = /^\s*([Bb][Jj]|[Ss][HhZz])\d{6}\s*$/;
 
 export default {
@@ -176,16 +184,10 @@ export default {
      * Navigate to the home view.
      */
     goHome() {
-      this.$router.push({ name: global.common.HOME_VIEW });
+      if (this.isEnabled) {
+        this.$router.push({ name: global.common.HOME_VIEW });
+      } // end if
     }, // end function goHome
-
-    /**
-     * Handle the event when the date range picker is opened.
-     */
-    handleDateRangePickerOpen() {
-      this.patchDateRangePickerPopUp();
-      this.removeErrorBorder(global.common.DATE_RANGE_PICKER_NAME);
-    }, // end function handleDateRangePickerOpen
 
     /**
      * Handle the form submission.
@@ -217,55 +219,69 @@ export default {
           this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].ej2Instances
             .value;
 
-        // Ensure the tooltip pop-ups are closed before navigating to the search result view.
-        this.$refs[global.common.DATE_RANGE_PICKER_TOOLTIP_NAME].close();
-        this.$refs[global.common.STOCK_SYMBOL_TOOLTIP_NAME].close();
         this.submitSearchForm(endDate, startDate, stockSymbol);
       } // end if
     }, // end function handleSubmit
 
     /**
-     * Patch the auto-complete component's pop-up if necessary to avoid strange appearance.
+     * Use the IPC channel to exchange information.
      */
-    patchAutoCompletePopUp() {
-      if (this.hasBarLayout) {
-        setTimeout(
-          () =>
-            Array.prototype.forEach.call(
-              document.getElementsByClassName(
-                global.common.SF_AUTO_COMPLETE_POP_UP_CLASSES
-              ),
-              (element) => {
-                element.classList.add("e-popup-fixed");
-                element.style.bottom = popUpBottom;
-                element.style.top = null;
-              }
-            ),
-          50
-        );
-      } // end if
-    }, // end function patchAutoCompletePopUp
+    invokeIpc() {
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          if (data === global.common.ENABLE_SEARCH_FORM) {
+            this.isEnabled = true;
+          } // end if
 
-    /**
-     * Patch the date range picker's pop-up if necessary to avoid stange appearance.
-     */
-    patchDateRangePickerPopUp() {
-      if (this.hasBarLayout) {
-        setTimeout(
-          () =>
-            Array.prototype.forEach.call(
-              document.getElementsByClassName(
-                global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
-              ),
-              (element) => {
-                element.style.bottom = popUpBottom;
-                element.style.top = null;
-              }
-            ),
-          50
-        );
-      } // end if
-    }, // end function patchDateRangePickerPopUp
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.MAX_DATE_RANGE_SPAN_KEY
+            )
+          ) {
+            this.maxDateRangeSpan = data[global.common.MAX_DATE_RANGE_SPAN_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.MIN_DATE_KEY
+            )
+          ) {
+            this.minDate = data[global.common.MIN_DATE_KEY];
+          } // end if
+
+          if (
+            Array.isArray(data) &&
+            typeof data[0] == "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data[0],
+              global.common.STOCK_SYMBOL_KEY
+            )
+          ) {
+            this.stockList = data;
+            if (!this.hasBarLayout) {
+              this.isEnabled = true;
+            } // end if
+          } // end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_MAX_DATE_RANGE_SPAN
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_MIN_DATE
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_STOCK_LIST
+      );
+    }, // end function invokeIpc
 
     /**
      * Remove the form Syncfusion element's error border if applicable.
@@ -332,6 +348,14 @@ export default {
           } // end if
         } // end for
 
+        // Ensure the tooltip pop-ups are destroyed to avoid possible strange behaviour before navigating to the search result view.
+        this.$refs[
+          global.common.DATE_RANGE_PICKER_TOOLTIP_NAME
+        ].ej2Instances.destroy();
+        this.$refs[
+          global.common.STOCK_SYMBOL_TOOLTIP_NAME
+        ].ej2Instances.destroy();
+
         this.$router.push({
           name: global.common.SEARCH_RESULT_VIEW,
           query: { endDate, startDate, stockName, stockSymbol },
@@ -346,20 +370,16 @@ export default {
     stockSymbol: String,
   },
   created() {
-    // A workaround to force vue-router to perform navigation in the search result view.
     this.$watch(
       () => this.$route.query,
-      () => {
-        if (this.hasBarLayout) {
-          window.location.reload();
-        } // end if
-      }
-    );
+      () => window.location.reload()
+    ); // A workaround to force vue-router to perform navigation in the search result view.
   },
   data() {
     return {
       appImagePath: path.join(process.env.BASE_URL, "assets/app_icon.png"),
       global,
+      isEnabled: false,
       hasBarLayout: this.isBarLayout,
       maxDateRangeSpan: global.common.DEFAULT_MAX_DATE_RANGE_SPAN,
       minDate: global.common.MIN_MIN_DATE,
@@ -382,50 +402,7 @@ export default {
     };
   },
   mounted() {
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.MAX_DATE_RANGE_SPAN_KEY
-          )
-        ) {
-          this.maxDateRangeSpan = data[global.common.MAX_DATE_RANGE_SPAN_KEY];
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(data, global.common.MIN_DATE_KEY)
-        ) {
-          this.minDate = data[global.common.MIN_DATE_KEY];
-        } // end if
-
-        if (
-          Array.isArray(data) &&
-          typeof data[0] == "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data[0],
-            global.common.STOCK_SYMBOL_KEY
-          )
-        ) {
-          this.stockList = data;
-        } // end if
-      }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_MAX_DATE_RANGE_SPAN
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_MIN_DATE
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_STOCK_LIST
-    );
+    this.invokeIpc();
     window.addEventListener("resize", () => {
       const dateRangePickerPopUpArray = document.getElementsByClassName(
         global.common.SF_DATE_RANGE_PICKER_POP_UP_CLASSES
@@ -437,22 +414,6 @@ export default {
       });
       this.$refs[global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME].hidePopup();
     });
-    window.addEventListener("scroll", () => {
-      this.patchAutoCompletePopUp();
-      this.patchDateRangePickerPopUp();
-    });
-
-    // Avoid the strange appearance of the auto-complete component's pop-up when the pop-up already shows.
-    if (this.hasBarLayout) {
-      const autoCompleteInputArray = document.getElementsByClassName(
-        global.common.SF_AUTO_COMPLETE_INPUT_CLASSES
-      );
-
-      Array.prototype.forEach.call(autoCompleteInputArray, (element) => {
-        element.addEventListener("input", this.patchAutoCompletePopUp);
-        element.addEventListener("keyup", this.patchAutoCompletePopUp);
-      });
-    } // end if
 
     const rules = {}; // The rules for the Syncfusion form validator.
 

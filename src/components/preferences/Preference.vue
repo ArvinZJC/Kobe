@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference component
- * @Version: 1.0.0.20220207
+ * @Version: 1.0.1.20220306
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-24 14:48:23
+ * @LastEditTime: 2022-03-06 12:35:44
 -->
 
 <template>
@@ -158,7 +158,7 @@ export default {
     subtitle: String,
     title: String,
     type: String,
-    value: [Date, Number],
+    value: [Boolean, Date, Number],
   },
   data() {
     return { global, zhCN };

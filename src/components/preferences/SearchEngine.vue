@@ -1,38 +1,40 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.1.20220219
+ * @Version: 1.0.2.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-19 20:39:46
+ * @LastEditTime: 2022-03-08 10:19:40
 -->
 
 <template>
-  <div class="container-preferences">
-    <!-- Search engine mode. -->
-    <Preference
-      :explanation="zhCN.default.searchEngineModeExplanation"
-      :options="options.searchEngineMode"
-      :selectionChangedHandler="changeSearchEngineMode"
-      :title="zhCN.default.searchEngineModeTitle"
-      :type="global.common.BUTTON_GROUP"
-    />
-    <!-- Min date. -->
-    <Preference
-      :explanation="zhCN.default.minDateExplanation"
-      :options="options.minDate"
-      :title="zhCN.default.minDateTitle"
-      :type="global.common.DATE_PICKER"
-      :value="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
-    />
-    <!-- Max date range span. -->
-    <Preference
-      :explanation="zhCN.default.maxDateRangeSpanExplanation"
-      :options="options.maxDateRangeSpan"
-      :title="zhCN.default.maxDateRangeSpanTitle"
-      :type="global.common.SLIDER"
-      :value="maxDateRangeSpan"
-    />
+  <div class="container-view overflow-auto">
+    <div class="container-preferences">
+      <!-- Search engine mode. -->
+      <Preference
+        :explanation="zhCN.default.searchEngineModeExplanation"
+        :options="options.searchEngineMode"
+        :selectionChangedHandler="changeSearchEngineMode"
+        :title="zhCN.default.searchEngineModeTitle"
+        :type="global.common.BUTTON_GROUP"
+      />
+      <!-- Min date. -->
+      <Preference
+        :explanation="zhCN.default.minDateExplanation"
+        :options="options.minDate"
+        :title="zhCN.default.minDateTitle"
+        :type="global.common.DATE_PICKER"
+        :value="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
+      />
+      <!-- Max date range span. -->
+      <Preference
+        :explanation="zhCN.default.maxDateRangeSpanExplanation"
+        :options="options.maxDateRangeSpan"
+        :title="zhCN.default.maxDateRangeSpanTitle"
+        :type="global.common.SLIDER"
+        :value="maxDateRangeSpan"
+      />
+    </div>
   </div>
 </template>
 

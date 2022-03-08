@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.11.20220304
+ * @Version: 2.0.13.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 19:52:13
+ * @LastEditTime: 2022-03-08 10:06:46
  */
 
 import {
@@ -257,6 +257,13 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       );
       break;
     }
+    case global.common.ENABLE_SEARCH_FORM: {
+      viewContents.send(
+        global.common.IPC_RECEIVE,
+        global.common.ENABLE_SEARCH_FORM
+      );
+      break;
+    }
     case global.common.GET_APPEARANCE: {
       const appearance = await getPreference(global.common.APPEARANCE_KEY);
 
@@ -398,8 +405,8 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       tabbedWin.win.minimize();
       break;
     }
-    case global.common.PATCH_EXIT_FULL_SCREEN: {
-      // Programmatically emulate resizing and restoring the app window size to avoid possible strange tab appearance when exiting the full screen mode.
+    case global.common.PATCH_BY_RESIZING: {
+      // Programmatically emulate resizing and restoring the app window size to patch any strange appearance.
       const winSize = tabbedWin.win.getSize();
 
       tabbedWin.win.setSize(
