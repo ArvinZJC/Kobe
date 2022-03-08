@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.13.20220307
+ * @Version: 1.0.13.20220308
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 22:29:14
+ * @LastEditTime: 2022-03-08 09:39:56
  */
 
 global.common = {
@@ -88,6 +88,7 @@ global.common = {
   LIGHT_MODE_ID: "light",
   LIGHT_WIN_COLOUR: "#FFF",
   MACOS: "darwin",
+  MAX_COLUMN_WIDTH: 300,
   MAX_DATE_RANGE_SPAN_KEY: "maxDateRangeSpan",
   MAX_DECIMAL_POINTS: 6,
   MAX_MAX_DATE_RANGE_SPAN: 10,

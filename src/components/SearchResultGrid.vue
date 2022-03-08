@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 01:09:55
+ * @LastEditTime: 2022-03-08 09:47:51
 -->
 
 <template>
@@ -114,7 +114,6 @@ export default {
           this.searchStatusTitle = zhCN.default.searchError;
           this.shouldShowGrid = false;
         } else {
-          this.$refs[global.common.SEARCH_RESULT_GRID_NAME].autoFitColumns([]);
           this.patchVScrollBar();
           this.resizeGridHeight();
           this.shouldShowGrid = true;

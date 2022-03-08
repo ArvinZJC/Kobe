@@ -1,15 +1,24 @@
 /*
  * @Description: the grid extension
- * @Version: 1.0.0.20220307
+ * @Version: 1.0.0.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-03-06 19:55:23
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 13:37:21
+ * @LastEditTime: 2022-03-08 09:48:57
  */
 
 self.addEventListener(
   "message",
   (e) => {
+    const commonColumnOptions = {
+      autoFit: true,
+      headerTextAlign: e.data.global.SF_ALIGN_LEFT,
+      maxWidth: e.data.global.MAX_COLUMN_WIDTH,
+      minWidth: e.data.global.MIN_COLUMN_WIDTH,
+      textAlign: e.data.global.SF_ALIGN_RIGHT,
+      type: e.data.global.SF_NUM,
+      width: e.data.global.MIN_COLUMN_WIDTH,
+    };
     const dayVolumeColumns = [];
 
     for (
@@ -54,13 +63,10 @@ self.addEventListener(
         } // end switch-case
 
         dayVolumeColumns.push({
+          ...commonColumnOptions,
           field: dateStr,
           format: `N${e.data.global.DEFAULT_DAY_VOLUME_DECIMAL_POINTS}`,
           headerText: `${dateStr}（${dayStr}）`,
-          headerTextAlign: e.data.global.SF_ALIGN_LEFT,
-          textAlign: e.data.global.SF_ALIGN_RIGHT,
-          type: e.data.global.SF_NUM,
-          width: e.data.global.MIN_COLUMN_WIDTH,
         });
       } // end if
 
@@ -70,22 +76,16 @@ self.addEventListener(
     self.postMessage({
       columns: [
         {
+          ...commonColumnOptions,
           field: e.data.global.STRIKE_PRICE_KEY,
           format: "N2",
           headerText: e.data.zhCN.default.strikePriceColumnHeader,
-          headerTextAlign: e.data.global.SF_ALIGN_LEFT,
-          width: e.data.global.MIN_COLUMN_WIDTH,
-          textAlign: e.data.global.SF_ALIGN_RIGHT,
-          type: e.data.global.SF_NUM,
         },
         {
+          ...commonColumnOptions,
           field: e.data.global.TOTAL_VOLUME_KEY,
           format: `N${e.data.global.DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS}`,
           headerText: e.data.zhCN.default.totalVolumeColumnHeader,
-          headerTextAlign: e.data.global.SF_ALIGN_LEFT,
-          width: e.data.global.MIN_COLUMN_WIDTH,
-          textAlign: e.data.global.SF_ALIGN_RIGHT,
-          type: e.data.global.SF_NUM,
         },
         {
           columns: dayVolumeColumns,
