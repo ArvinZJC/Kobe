@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 09:39:56
+ * @LastEditTime: 2022-03-08 10:07:34
  */
 
 global.common = {
@@ -109,7 +109,7 @@ global.common = {
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   ONLINE_SEARCH_KEY: "onlineSearch",
   PAGE_SIZES: [5, 10, 15, 20, 25],
-  PATCH_EXIT_FULL_SCREEN: "patchExitFullScreen",
+  PATCH_BY_RESIZING: "patchByResizing",
   POP_UP_APP_MENU: "popUpAppMenu",
   RECEIVE_TEST_UPDATES_KEY: "receiveTestUpdates",
   PREFERENCE_TABS_NAME: "preferenceTabs",

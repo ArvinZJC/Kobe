@@ -1,20 +1,17 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.8.20220307
+ * @Version: 1.0.8.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 21:19:13
+ * @LastEditTime: 2022-03-08 10:13:09
 -->
 
 <template>
-  <main
-    :id="global.common.PREFERENCE_VIEW_ID"
-    class="container-view max-w-[60rem]"
-  >
+  <main :id="global.common.PREFERENCE_VIEW_ID" class="container-view">
     <!-- The preference tab component. -->
     <ejs-tab
-      @selecting="this.$refs[global.common.PREFERENCE_TABS_NAME].refresh()"
+      @selecting="patchSlider"
       :animation="{
         previous: {
           effect: global.common.SF_FADE_IN,
@@ -77,6 +74,16 @@ export default {
     "ejs-tab": TabComponent,
   },
   methods: {
+    /**
+     * Patch the slider to avoid its content's strange appearance in specific cases.
+     */
+    patchSlider() {
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.PATCH_BY_RESIZING
+      );
+    }, // end function patchSlider
+
     /**
      * Reset all preferences.
      */

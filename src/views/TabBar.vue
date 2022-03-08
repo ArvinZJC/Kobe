@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.4.20220307
+ * @Version: 1.1.5.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 17:29:15
+ * @LastEditTime: 2022-03-08 10:06:57
 -->
 
 <template>
@@ -372,8 +372,8 @@ export default {
             () =>
               window[global.common.IPC_RENDERER_API_KEY].send(
                 global.common.IPC_SEND,
-                global.common.PATCH_EXIT_FULL_SCREEN
-              ),
+                global.common.PATCH_BY_RESIZING
+              ), // Avoid possible strange tab appearance when exiting the full screen mode.
             50
           );
         } // end if
