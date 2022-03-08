@@ -18,7 +18,7 @@
   },
   "main": "background.js",
   "dependencies": {
-    "@heroicons/vue": "^1.0.5",
+    "@heroicons/vue": "^1.0.6",
     "@syncfusion/ej2-vue-buttons": "^19.4.53",
     "@syncfusion/ej2-vue-calendars": "^19.4.54",
     "@syncfusion/ej2-vue-dropdowns": "^19.4.54",
@@ -48,7 +48,7 @@
     "@vue/cli-service": "^4.5.15",
     "@vue/compiler-sfc": "^3.2.31",
     "babel-eslint": "^10.1.0",
-    "electron": "^17.1.0",
+    "electron": "^17.1.1",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^7.20.0",
