@@ -1,56 +1,58 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.7.20220304
+ * @Version: 1.0.8.20220308
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 19:41:19
+ * @LastEditTime: 2022-03-08 10:22:49
 -->
 
 <template>
-  <div class="container-preferences">
-    <!-- Appearance. -->
-    <Preference
-      :explanation="zhCN.default.appearanceExplanation"
-      :options="options.appearance"
-      :selectionChangedHandler="changeAppearance"
-      :title="zhCN.default.appearanceTitle"
-      :type="global.common.BUTTON_GROUP"
-    />
-    <!-- Online search. -->
-    <Preference
-      :explanation="zhCN.default.onlineSearchExplanation"
-      :options="options.onlineSearch"
-      :selectionChangedHandler="changeOnlineSearch"
-      :title="zhCN.default.onlineSearchTitle"
-      :type="global.common.BUTTON_GROUP"
-    />
-    <!-- Confirm closing multiple tabs. -->
-    <Preference
-      :explanation="zhCN.default.confirmClosingMultipleTabsExplanation"
-      :options="options.confirmClosingMultipleTabs"
-      :title="zhCN.default.confirmClosingMultipleTabsTitle"
-      :type="global.common.SWITCH"
-      :value="confirmClosingMultipleTabs"
-    />
-    <!-- Check for updates. -->
-    <!-- Update and download automatically. -->
-    <Preference
-      :explanation="zhCN.default.autoUpdateAndDownloadExplanation"
-      :options="options.autoUpdateAndDownload"
-      :subtitle="zhCN.default.autoUpdateAndDownloadTitle"
-      :title="zhCN.default.checkForUpdates"
-      :type="global.common.SWITCH"
-      :value="autoUpdateAndDownload"
-    />
-    <!-- Receive test version updates. -->
-    <Preference
-      :explanation="zhCN.default.receiveTestUpdatesExplanation"
-      :options="options.receiveTestUpdates"
-      :subtitle="zhCN.default.receiveTestUpdatesTitle"
-      :type="global.common.SWITCH"
-      :value="receiveTestUpdates"
-    />
+  <div class="container-view overflow-auto">
+    <div class="container-preferences">
+      <!-- Appearance. -->
+      <Preference
+        :explanation="zhCN.default.appearanceExplanation"
+        :options="options.appearance"
+        :selectionChangedHandler="changeAppearance"
+        :title="zhCN.default.appearanceTitle"
+        :type="global.common.BUTTON_GROUP"
+      />
+      <!-- Online search. -->
+      <Preference
+        :explanation="zhCN.default.onlineSearchExplanation"
+        :options="options.onlineSearch"
+        :selectionChangedHandler="changeOnlineSearch"
+        :title="zhCN.default.onlineSearchTitle"
+        :type="global.common.BUTTON_GROUP"
+      />
+      <!-- Confirm closing multiple tabs. -->
+      <Preference
+        :explanation="zhCN.default.confirmClosingMultipleTabsExplanation"
+        :options="options.confirmClosingMultipleTabs"
+        :title="zhCN.default.confirmClosingMultipleTabsTitle"
+        :type="global.common.SWITCH"
+        :value="confirmClosingMultipleTabs"
+      />
+      <!-- Check for updates. -->
+      <!-- Update and download automatically. -->
+      <Preference
+        :explanation="zhCN.default.autoUpdateAndDownloadExplanation"
+        :options="options.autoUpdateAndDownload"
+        :subtitle="zhCN.default.autoUpdateAndDownloadTitle"
+        :title="zhCN.default.checkForUpdates"
+        :type="global.common.SWITCH"
+        :value="autoUpdateAndDownload"
+      />
+      <!-- Receive test version updates. -->
+      <Preference
+        :explanation="zhCN.default.receiveTestUpdatesExplanation"
+        :options="options.receiveTestUpdates"
+        :subtitle="zhCN.default.receiveTestUpdatesTitle"
+        :type="global.common.SWITCH"
+        :value="receiveTestUpdates"
+      />
+    </div>
   </div>
 </template>
 

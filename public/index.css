@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 20:38:55
+ * @LastEditTime: 2022-03-08 10:21:24
  */
 
 /*
@@ -677,10 +677,9 @@ body::selection {
 
 .container-preferences {
   display: grid;
-  max-height: 100vh;
+  max-width: 50rem;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1rem;
-  overflow: auto;
   padding-top: 1rem;
   padding-bottom: 1rem;
   padding-left: 1rem !important;
@@ -855,10 +854,6 @@ body::selection {
   width: 1rem;
 }
 
-.max-w-\[60rem\] {
-  max-width: 60rem;
-}
-
 .flex-none {
   flex: none;
 }
@@ -951,6 +946,10 @@ body::selection {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .overflow-hidden {
