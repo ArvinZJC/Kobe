@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.1.3.20220303
+ * @Version: 1.1.5.20220309
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 21:02:45
+ * @LastEditTime: 2022-03-09 21:26:53
  */
 
 import { app, dialog, Notification } from "electron";
@@ -93,22 +93,31 @@ autoUpdater.on("update-not-available", () => {
 });
 
 /**
+ * Configure the updater.
+ * @param {boolean} autoDownload a flag indicating whether to automatically download an update when it is found.
+ */
+async function configUpdater(autoDownload) {
+  const receiveTestUpdates = await settings.get(
+    global.common.RECEIVE_TEST_UPDATES_KEY
+  );
+
+  autoUpdater.allowPrerelease = receiveTestUpdates; // Required for releasing using channels to support GitHub. Reference: https://github.com/electron-userland/electron-builder/pull/6505
+  autoUpdater.autoDownload = autoDownload;
+  autoUpdater.channel = receiveTestUpdates
+    ? global.common.BETA
+    : global.common.STABLE;
+  autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
+} // end function configUpdater
+
+/**
  * Check for updates and notify when an update is available.
  * Reference: https://github.com/electron-userland/electron-builder/blob/8bfeef83a9b1f75761596d33b9504c7dca1cac53/packages/electron-updater/src/AppUpdater.ts#L265
  *
  */
 export async function updateAutomatically() {
   if (process.env.WEBPACK_DEV_SERVER_URL == null) {
-    const receiveTestUpdates = await settings.get(
-      global.common.RECEIVE_TEST_UPDATES_KEY
-    );
-
     global.isAutoUpdateBusy = true;
-    autoUpdater.autoDownload = true;
-    autoUpdater.channel = receiveTestUpdates
-      ? global.common.BETA
-      : global.common.STABLE;
-    autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
+    await configUpdater(true);
     autoUpdater.checkForUpdates().then((it) => {
       if (it != null && it.downloadPromise != null) {
         it.downloadPromise.then(() => {
@@ -140,16 +149,8 @@ export async function updateManually(menuItem) {
     return;
   } // end if
 
-  const receiveTestUpdates = await settings.get(
-    global.common.RECEIVE_TEST_UPDATES_KEY
-  );
-
   menuItemCheckForUpdates = menuItem;
   menuItemCheckForUpdates.enabled = false;
-  autoUpdater.autoDownload = false;
-  autoUpdater.channel = receiveTestUpdates
-    ? global.common.BETA
-    : global.common.STABLE;
-  autoUpdater.allowDowngrade = false; // It is necessary to put after defining the channel. Reference: https://github.com/electron-userland/electron-builder/blob/e6312cb54e5d957289d5c07b506491fcaea9e334/packages/electron-updater/src/AppUpdater.ts#L83
+  await configUpdater(false);
   autoUpdater.checkForUpdates();
 } // end function checkForUpdates
