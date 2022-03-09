@@ -2658,6 +2658,7 @@ ejs-multiselect {
 .e-listbox-wrapper,
 .e-listbox-container {
   -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
   cursor: pointer;
   display: block;
   position: relative;
@@ -2703,11 +2704,6 @@ ejs-multiselect {
 .e-listbox-wrapper.e-filter-list,
 .e-listbox-container.e-filter-list {
   overflow: inherit;
-}
-
-.e-listbox-wrapper.e-filter-list .e-list-parent,
-.e-listbox-container.e-filter-list .e-list-parent {
-  overflow: auto;
 }
 
 .e-listbox-wrapper .e-list-parent,
@@ -2989,6 +2985,14 @@ ejs-listbox {
 }
 
 .e-listbox-wrapper:not(.e-listbox-container) {
+  overflow: auto;
+}
+
+.e-listbox-wrapper.e-filter-list {
+  overflow: inherit;
+}
+
+.e-listbox-wrapper.e-filter-list.e-list-parent {
   overflow: auto;
 }
 

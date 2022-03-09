@@ -2195,7 +2195,7 @@ ejs-calendar {
 
 .e-daterangepicker.e-popup .e-calendar .e-content .e-range-hover,
 .e-bigger.e-small .e-daterangepicker.e-popup .e-calendar .e-content .e-range-hover {
-  background-color: #f3f4f6;
+  background-color: #e5e7eb;
   color: #374151;
 }
 
@@ -2208,7 +2208,7 @@ ejs-calendar {
 
 .e-daterangepicker.e-popup .e-calendar .e-content .e-range-hover span,
 .e-bigger.e-small .e-daterangepicker.e-popup .e-calendar .e-content .e-range-hover span {
-  background: #f3f4f6;
+  background: #e5e7eb;
   border: none;
   color: #374151;
 }

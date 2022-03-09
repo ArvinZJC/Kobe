@@ -1,6 +1,6 @@
 {
   "name": "kobe",
-  "version": "1.2.0-beta.1",
+  "version": "1.2.0-beta.2",
   "private": true,
   "description": "神户座是一个用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量的桌面应用，可看作是对分价表的组合加工。",
   "author": {
@@ -19,12 +19,12 @@
   "main": "background.js",
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
-    "@syncfusion/ej2-vue-buttons": "^19.4.53",
-    "@syncfusion/ej2-vue-calendars": "^19.4.54",
-    "@syncfusion/ej2-vue-dropdowns": "^19.4.54",
-    "@syncfusion/ej2-vue-grids": "^19.4.54",
+    "@syncfusion/ej2-vue-buttons": "^19.4.55",
+    "@syncfusion/ej2-vue-calendars": "^19.4.55",
+    "@syncfusion/ej2-vue-dropdowns": "^19.4.55",
+    "@syncfusion/ej2-vue-grids": "^19.4.55",
     "@syncfusion/ej2-vue-inputs": "^19.4.52",
-    "@syncfusion/ej2-vue-navigations": "^19.4.53",
+    "@syncfusion/ej2-vue-navigations": "^19.4.55",
     "@syncfusion/ej2-vue-popups": "^19.4.53",
     "@syncfusion/ej2-vue-splitbuttons": "^19.4.52",
     "cldr-data": "^36.0.0",
