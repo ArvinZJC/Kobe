@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.0.2.20220308
+ * @Version: 1.1.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:19:40
+ * @LastEditTime: 2022-03-13 13:48:26
 -->
 
 <template>
@@ -15,14 +15,14 @@
         :explanation="zhCN.default.searchEngineModeExplanation"
         :options="options.searchEngineMode"
         :selectionChangedHandler="changeSearchEngineMode"
-        :title="zhCN.default.searchEngineModeTitle"
+        :subtitle="zhCN.default.searchEngineModeTitle"
         :type="global.common.BUTTON_GROUP"
       />
       <!-- Min date. -->
       <Preference
         :explanation="zhCN.default.minDateExplanation"
         :options="options.minDate"
-        :title="zhCN.default.minDateTitle"
+        :subtitle="zhCN.default.minDateTitle"
         :type="global.common.DATE_PICKER"
         :value="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
       />
@@ -30,7 +30,7 @@
       <Preference
         :explanation="zhCN.default.maxDateRangeSpanExplanation"
         :options="options.maxDateRangeSpan"
-        :title="zhCN.default.maxDateRangeSpanTitle"
+        :subtitle="zhCN.default.maxDateRangeSpanTitle"
         :type="global.common.SLIDER"
         :value="maxDateRangeSpan"
       />

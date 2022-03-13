@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.8.20220308
+ * @Version: 1.0.9.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:13:09
+ * @LastEditTime: 2022-03-13 12:27:48
 -->
 
 <template>
@@ -45,7 +45,7 @@
       :content="zhCN.default.reset"
       :target="global.common.PREFERENCE_VIEW_ID"
       :title="zhCN.default.resetPreferencesButtonTitle"
-      cssClass="btn-action-left !text-red-600 dark:!text-red-400 bottom-4"
+      cssClass="btn-action-left text-red-primary bottom-4"
       iconCss="e-icons e-refresh"
     />
   </main>

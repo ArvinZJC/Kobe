@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.12.20220309
+ * @Version: 1.2.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-09 20:12:59
+ * @LastEditTime: 2022-03-13 13:58:25
  */
 
 @tailwind base;
@@ -42,18 +42,9 @@
     @apply btn-tab-bar-base h-full w-[45.8px];
   }
 
-  /* Container for the preference option area. */
-  .container-preference-options {
-    @apply col-span-2 flex items-end justify-end pb-1;
-  }
-
-  /* Container for the preference header and explanation area. */
-  .container-preference-text {
-    @apply col-span-3 flex flex-col pr-2 space-y-1;
-  }
   /* Container for the preferences. */
   .container-preferences {
-    @apply px-block py-4 gap-4 grid grid-cols-5 max-w-[50rem];
+    @apply px-block py-4 gap-4 grid grid-cols-5 max-w-[50rem] min-w-[39rem];
   }
 
   /* Container for the root. */
@@ -97,32 +88,32 @@
 
   /* Content text. */
   .text-content {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-gray-500 dark:text-gray-400; /* The default font size is 14px (text-sm). */
+  }
+
+  /* Grey primary text colour. */
+  .text-grey-primary {
+    @apply text-gray-900 dark:text-gray-50;
+  }
+
+  /* Grey secondary text colour. */
+  .text-grey-secondary {
+    @apply text-gray-700 dark:text-gray-200;
   }
 
   /* Primary text. */
   .text-primary {
-    @apply text-gray-900 dark:text-gray-50;
+    @apply text-grey-primary font-semibold text-base;
   }
 
   /* Red primary text. */
   .text-primary-red {
-    @apply text-red-600 dark:text-red-400;
+    @apply text-primary text-red-primary;
   }
 
-  /* Secondary text. */
-  .text-secondary {
-    @apply text-gray-600 dark:text-gray-300;
-  }
-
-  /* Subtitle text. */
-  .text-subtitle {
-    @apply font-semibold text-gray-700 dark:text-gray-200 text-base;
-  }
-
-  /* Title text. */
-  .text-title {
-    @apply text-primary font-bold text-lg;
+  /* Red primary text colour. */
+  .text-red-primary {
+    @apply !text-red-600 dark:!text-red-400;
   }
 
   /* Transition for some colour properties within 300ms. */

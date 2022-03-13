@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.1.12.20220309
+ * @Version: 1.2.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-09 20:12:59
+ * @LastEditTime: 2022-03-13 13:58:25
  */
 
 /*
@@ -645,38 +645,11 @@ body::selection {
   width: 45.8px;
 }
 
-/* Container for the preference option area. */
-
-.container-preference-options {
-  grid-column: span 2 / span 2;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  padding-bottom: 0.25rem;
-}
-
-/* Container for the preference header and explanation area. */
-
-.container-preference-text {
-  grid-column: span 3 / span 3;
-  display: flex;
-  flex-direction: column;
-}
-
-.container-preference-text > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
-}
-
-.container-preference-text {
-  padding-right: 0.5rem;
-}
-
 /* Container for the preferences. */
 
 .container-preferences {
   display: grid;
+  min-width: 39rem;
   max-width: 50rem;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1rem;
@@ -748,6 +721,18 @@ body::selection {
 
 .z-40 {
   z-index: 40;
+}
+
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
+.col-span-2 {
+  grid-column: span 2 / span 2;
 }
 
 .ml-2 {
@@ -854,6 +839,10 @@ body::selection {
   width: 1rem;
 }
 
+.\!w-10 {
+  width: 2.5rem !important;
+}
+
 .flex-none {
   flex: none;
 }
@@ -918,6 +907,10 @@ body::selection {
   align-items: center;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }
@@ -946,6 +939,12 @@ body::selection {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
 .overflow-auto {
@@ -1000,6 +999,10 @@ body::selection {
   text-align: center;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1010,9 +1013,9 @@ body::selection {
   line-height: 1.75rem;
 }
 
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .font-medium {
@@ -1021,11 +1024,6 @@ body::selection {
 
 .leading-6 {
   line-height: 1.5rem;
-}
-
-.\!text-red-600 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(220 38 38 / var(--tw-text-opacity)) !important;
 }
 
 .opacity-0 {
@@ -1147,9 +1145,40 @@ body::selection {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+.text-content {
+  /* The default font size is 14px (text-sm). */
+}
+
+/* Grey primary text colour. */
+
+.text-grey-primary {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.dark .text-grey-primary {
+  --tw-text-opacity: 1;
+  color: rgb(249 250 251 / var(--tw-text-opacity));
+}
+
+/* Grey secondary text colour. */
+
+.text-grey-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.dark .text-grey-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
 /* Primary text. */
 
 .text-primary {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 600;
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
@@ -1162,45 +1191,38 @@ body::selection {
 /* Red primary text. */
 
 .text-primary-red {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
-.dark .text-primary-red {
-  --tw-text-opacity: 1;
-  color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
-/* Secondary text. */
-
-/* Subtitle text. */
-
-.text-subtitle {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 600;
   --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-.dark .text-subtitle {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity));
-}
-
-/* Title text. */
-
-.text-title {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 700;
-  --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
-.dark .text-title {
+.dark .text-primary-red {
   --tw-text-opacity: 1;
   color: rgb(249 250 251 / var(--tw-text-opacity));
+}
+
+.text-primary-red {
+  --tw-text-opacity: 1 !important;
+  color: rgb(220 38 38 / var(--tw-text-opacity)) !important;
+}
+
+.dark .text-primary-red {
+  --tw-text-opacity: 1 !important;
+  color: rgb(248 113 113 / var(--tw-text-opacity)) !important;
+}
+
+/* Red primary text colour. */
+
+.text-red-primary {
+  --tw-text-opacity: 1 !important;
+  color: rgb(220 38 38 / var(--tw-text-opacity)) !important;
+}
+
+.dark .text-red-primary {
+  --tw-text-opacity: 1 !important;
+  color: rgb(248 113 113 / var(--tw-text-opacity)) !important;
 }
 
 /* Transition for some colour properties within 300ms. */
@@ -1502,11 +1524,6 @@ body::selection {
   .motion-safe\:transition-opacity-300 {
     transition-duration: 300ms;
   }
-}
-
-.dark .dark\:\!text-red-400 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(248 113 113 / var(--tw-text-opacity)) !important;
 }
 
 @media (min-width: 640px) {

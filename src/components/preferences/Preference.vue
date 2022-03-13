@@ -1,25 +1,27 @@
 <!--
  * @Description: the preference component
- * @Version: 1.0.1.20220306
+ * @Version: 1.1.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 12:35:44
+ * @LastEditTime: 2022-03-13 14:19:51
 -->
 
 <template>
-  <div class="container-preference-text">
-    <h1 class="text-title">{{ title }}</h1>
-    <h2 class="text-subtitle">{{ subtitle }}</h2>
-    <p class="text-content text-sm">{{ explanation }}</p>
+  <p v-if="title != null" class="text-primary col-span-full">
+    {{ title }}
+  </p>
+  <div class="col-span-3 flex flex-col space-y-1">
+    <p class="text-grey-secondary font-medium">{{ subtitle }}</p>
+    <p class="text-content text-justify text-xs">{{ explanation }}</p>
   </div>
-  <div class="container-preference-options">
+  <div class="col-span-2 flex items-center justify-end">
     <!-- Button group preference options. -->
     <div v-if="type === global.common.BUTTON_GROUP" class="e-btn-group">
       <ButtonGroupMember
         v-for="option in options"
         @selectionChanged="selectionChangedHandler"
-        :group="title"
+        :group="subtitle"
         :icon="option.icon"
         :id="option.id"
         :key="option.id"
@@ -59,6 +61,7 @@
       @change="changeItemValue"
       :checked="value"
       :ref="options.id"
+      cssClass="!w-10"
     />
     <!-- Date picker preference options. -->
     <ejs-tooltip

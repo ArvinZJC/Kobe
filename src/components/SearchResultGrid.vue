@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.2.0.20220308
+ * @Version: 1.2.1.20220313
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 09:47:51
+ * @LastEditTime: 2022-03-13 12:39:52
 -->
 
 <template>
@@ -31,7 +31,7 @@
             >{{ searchStatusTitle }}</span
           >
         </div>
-        <p class="text-conent mt-2 text-sm">{{ searchStatusMessage }}</p>
+        <p class="text-conent mt-2">{{ searchStatusMessage }}</p>
       </div>
     </div>
     <!-- The trick input. -->

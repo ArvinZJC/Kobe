@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.0.8.20220308
+ * @Version: 1.1.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:22:49
+ * @LastEditTime: 2022-03-13 13:49:40
 -->
 
 <template>
@@ -15,7 +15,7 @@
         :explanation="zhCN.default.appearanceExplanation"
         :options="options.appearance"
         :selectionChangedHandler="changeAppearance"
-        :title="zhCN.default.appearanceTitle"
+        :subtitle="zhCN.default.appearanceTitle"
         :type="global.common.BUTTON_GROUP"
       />
       <!-- Online search. -->
@@ -23,17 +23,18 @@
         :explanation="zhCN.default.onlineSearchExplanation"
         :options="options.onlineSearch"
         :selectionChangedHandler="changeOnlineSearch"
-        :title="zhCN.default.onlineSearchTitle"
+        :subtitle="zhCN.default.onlineSearchTitle"
         :type="global.common.BUTTON_GROUP"
       />
       <!-- Confirm closing multiple tabs. -->
       <Preference
         :explanation="zhCN.default.confirmClosingMultipleTabsExplanation"
         :options="options.confirmClosingMultipleTabs"
-        :title="zhCN.default.confirmClosingMultipleTabsTitle"
+        :subtitle="zhCN.default.confirmClosingMultipleTabsTitle"
         :type="global.common.SWITCH"
         :value="confirmClosingMultipleTabs"
       />
+      <div class="col-span-full h-4" />
       <!-- Check for updates. -->
       <!-- Update and download automatically. -->
       <Preference

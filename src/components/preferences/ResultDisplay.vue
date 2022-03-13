@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' result display section component
- * @Version: 1.0.1.20220308
+ * @Version: 1.1.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-31 17:53:47
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:22:50
+ * @LastEditTime: 2022-03-13 13:49:33
 -->
 
 <template>
@@ -28,6 +28,7 @@
         :type="global.common.SLIDER"
         :value="totalVolumeDecimalPoints"
       />
+      <div class="col-span-full h-4" />
       <!-- Day volume. -->
       <!-- Unit. -->
       <Preference
@@ -46,6 +47,7 @@
         :type="global.common.SLIDER"
         :value="dayVolumeDecimalPoints"
       />
+      <div class="col-span-full h-4" />
       <!-- Excel export. -->
       <!-- Include hidden columns. -->
       <Preference

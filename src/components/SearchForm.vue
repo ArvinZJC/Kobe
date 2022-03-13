@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.2.0.20220307
+ * @Version: 1.2.1.20220313
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 20:42:46
+ * @LastEditTime: 2022-03-13 13:10:20
 -->
 
 <template>
@@ -389,7 +389,7 @@ export default {
           template: createApp().component("stockListItemTemplate", {
             template: `
               <div class="flex justify-between">
-                <span class="text-primary">{{ data[global.common.STOCK_SYMBOL_KEY] }}</span>
+                <span class="text-grey-primary">{{ data[global.common.STOCK_SYMBOL_KEY] }}</span>
                 <span class="text-content">{{ data[global.common.STOCK_NAME_KEY] }}</span>
               </div>`,
             data() {
