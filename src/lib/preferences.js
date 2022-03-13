@@ -1,10 +1,10 @@
 /*
  * @Description: the preference initialiser
- * @Version: 1.0.5.20220304
+ * @Version: 1.0.6.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-29 14:55:14
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 19:47:45
+ * @LastEditTime: 2022-03-13 19:53:01
  */
 
 import global from "./global.js";
@@ -131,6 +131,14 @@ export async function initialisePreferences() {
     await settings.set(
       global.common.DAY_VOLUME_UNIT_KEY,
       global.common.BOARD_LOT_1
+    );
+  } // end if
+
+  // Initialise the flag indicating whether to export current page while exporting to Excel to default if the user preference does not exist or is illegal.
+  if (typeof preferences[global.common.EXPORT_CURRENT_PAGE_KEY] !== "boolean") {
+    await settings.set(
+      global.common.EXPORT_CURRENT_PAGE_KEY,
+      global.common.DEFAULT_EXPORT_CURRENT_PAGE
     );
   } // end if
 

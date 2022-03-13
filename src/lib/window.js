@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.13.20220308
+ * @Version: 2.0.14.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:06:46
+ * @LastEditTime: 2022-03-13 19:54:15
  */
 
 import {
@@ -302,6 +302,28 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       viewContents.send(global.common.IPC_RECEIVE, dayVolumeUnit);
       break;
     }
+    case global.common.GET_EXCEL_EXPORT_PREFERENCES: {
+      const exportCurrentPage = await getPreference(
+        global.common.EXPORT_CURRENT_PAGE_KEY
+      );
+      const includeHiddenColumns = await getPreference(
+        global.common.INCLUDE_HIDDEN_COLUMNS_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, [
+        exportCurrentPage,
+        includeHiddenColumns,
+      ]);
+      break;
+    }
+    case global.common.GET_EXPORT_CURRENT_PAGE: {
+      const exportCurrentPage = await getPreference(
+        global.common.EXPORT_CURRENT_PAGE_KEY
+      );
+
+      viewContents.send(global.common.IPC_RECEIVE, exportCurrentPage);
+      break;
+    }
     case global.common.GET_INCLUDE_HIDDEN_COLUMNS: {
       const includeHiddenColumns = await getPreference(
         global.common.INCLUDE_HIDDEN_COLUMNS_KEY
@@ -514,6 +536,13 @@ async function reactToIpcObjectData(data, tabbedWin, viewContents) {
       await settings.set(
         global.common.DAY_VOLUME_UNIT_KEY,
         data[global.common.DAY_VOLUME_UNIT_KEY]
+      );
+      break;
+    }
+    case global.common.SET_EXPORT_CURRENT_PAGE: {
+      await settings.set(
+        global.common.EXPORT_CURRENT_PAGE_KEY,
+        data[global.common.EXPORT_CURRENT_PAGE_KEY]
       );
       break;
     }

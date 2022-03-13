@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 15:19:58
+ * @LastEditTime: 2022-03-13 20:02:02
  */
 
 global.common = {
@@ -41,6 +41,7 @@ global.common = {
   DEFAULT_AUTO_UPDATE_AND_DOWNLOAD: true,
   DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS: true,
   DEFAULT_DAY_VOLUME_DECIMAL_POINTS: 2,
+  DEFAULT_EXPORT_CURRENT_PAGE: false,
   DEFAULT_INCLUDE_HIDDEN_COLUMNS: false,
   DEFAULT_MAX_DATE_RANGE_SPAN: 10,
   DEFAULT_PAGE_SIZE: 15,
@@ -52,6 +53,7 @@ global.common = {
   END_DATE_KEY: "endDate",
   ENTER_FULL_SCREEN: "enterFullScreen",
   EXIT_FULL_SCREEN: "exitFullScreen",
+  EXPORT_CURRENT_PAGE_KEY: "exportCurrentPage",
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
   GENERAL_SECTION_ID: "general-section",
@@ -60,6 +62,8 @@ global.common = {
   GET_CONFIRM_CLOSING_MULTIPLE_TABS: "getConfirmClosingMultipleTabs",
   GET_DAY_VOLUME_DECIMAL_POINTS: "getDayVolumeDecimalPoints",
   GET_DAY_VOLUME_UNIT: "getDayVolumeUnit",
+  GET_EXCEL_EXPORT_PREFERENCES: "getExcelExportPreferences",
+  GET_EXPORT_CURRENT_PAGE: "getExportCurrentPage",
   GET_INCLUDE_HIDDEN_COLUMNS: "getIncludeHiddenColumns",
   GET_MAX_DATE_RANGE_SPAN: "getMaxDateRangeSpan",
   GET_MIN_DATE: "getMinDate",
@@ -135,6 +139,7 @@ global.common = {
   SET_CONFIRM_CLOSING_MULTIPLE_TABS: "setConfirmClosingMultipleTabs",
   SET_DAY_VOLUME_DECIMAL_POINTS: "setDayVolumeDecimalPoints",
   SET_DAY_VOLUME_UNIT: "setDayVolumeUnit",
+  SET_EXPORT_CURRENT_PAGE: "setExportCurrentPage",
   SET_INCLUDE_HIDDEN_COLUMNS: "setIncludeHiddenColumns",
   SET_MAX_DATE_RANGE_SPAN: "setMaxDateRangeSpan",
   SET_MIN_DATE: "setMinDate",
@@ -146,12 +151,14 @@ global.common = {
   SF_ALIGN_CENTRE: "Center",
   SF_ALIGN_LEFT: "Left",
   SF_ALIGN_RIGHT: "Right",
+  SF_ALL_PAGES: "AllPages",
   SF_AUTO_COMPLETE_INPUT_CLASSES: "e-autocomplete e-input",
   SF_AUTO_COMPLETE_POP_UP_CLASSES: "e-ddl e-popup e-popup-open",
   SF_AFTER: "After",
   SF_BOTH: "Both",
   SF_CONTENT_CLASS: "e-content",
   SF_CULTURE: "zh-Hans",
+  SF_CURRENT_PAGE: "CurrentPage",
   SF_DATE_RANGE_PICKER_POP_UP_CLASSES: "e-daterangepicker e-popup e-popup-open",
   SF_ELLIPSIS_WITH_TOOLTIP: "EllipsisWithTooltip",
   SF_EQUAL: "equal",

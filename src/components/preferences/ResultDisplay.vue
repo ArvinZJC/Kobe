@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-31 17:53:47
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 15:42:49
+ * @LastEditTime: 2022-03-13 19:38:10
 -->
 
 <template>
@@ -52,12 +52,20 @@
       />
       <div class="col-span-full h-4" />
       <!-- Excel export. -->
+      <!-- Export current page. -->
+      <Preference
+        :explanation="zhCN.default.exportCurrentPageExplanation"
+        :options="options.exportCurrentPage"
+        :subtitle="zhCN.default.exportCurrentPageTitle"
+        :title="syncfusion.default['zh-Hans'].grid.Excelexport"
+        :type="global.common.SWITCH"
+        :value="exportCurrentPage"
+      />
       <!-- Include hidden columns. -->
       <Preference
         :explanation="zhCN.default.includeHiddenColumnsExplanation"
         :options="options.includeHiddenColumns"
         :subtitle="zhCN.default.includeHiddenColumnsTitle"
-        :title="syncfusion.default['zh-Hans'].grid.Excelexport"
         :type="global.common.SWITCH"
         :value="includeHiddenColumns"
       />
@@ -111,6 +119,17 @@ export default {
             typeof data === "object" &&
             Object.prototype.hasOwnProperty.call(
               data,
+              global.common.EXPORT_CURRENT_PAGE_KEY
+            )
+          ) {
+            this.exportCurrentPage =
+              data[global.common.EXPORT_CURRENT_PAGE_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
               global.common.INCLUDE_HIDDEN_COLUMNS_KEY
             )
           ) {
@@ -150,6 +169,10 @@ export default {
       );
       window[global.common.IPC_RENDERER_API_KEY].send(
         global.common.IPC_SEND,
+        global.common.GET_EXPORT_CURRENT_PAGE
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
         global.common.GET_INCLUDE_HIDDEN_COLUMNS
       );
       window[global.common.IPC_RENDERER_API_KEY].send(
@@ -167,6 +190,7 @@ export default {
       data: {},
       dayVolumeDecimalPoints: null,
       dayVolumeUnit: global.common.BOARD_LOT_1,
+      exportCurrentPage: global.common.DEFAULT_EXPORT_CURRENT_PAGE,
       global,
       includeHiddenColumns: global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS,
       isScrollToTopDismissed: true,
@@ -178,6 +202,7 @@ export default {
     };
   },
   mounted() {
+    this.invokeIpc();
     this.scrollToTopTarget = document.getElementById(
       global.common.RESULT_DISPLAY_SECTION_ID
     );
@@ -194,8 +219,6 @@ export default {
         } // end if...else
       });
     } // end if
-
-    this.invokeIpc();
   },
   setup() {
     const volumeUnits = [
@@ -224,6 +247,10 @@ export default {
           data: volumeUnits,
           id: global.common.DAY_VOLUME_UNIT_KEY,
           value: global.common.SET_DAY_VOLUME_UNIT,
+        },
+        exportCurrentPage: {
+          id: global.common.EXPORT_CURRENT_PAGE_KEY,
+          value: global.common.SET_EXPORT_CURRENT_PAGE,
         },
         includeHiddenColumns: {
           id: global.common.INCLUDE_HIDDEN_COLUMNS_KEY,

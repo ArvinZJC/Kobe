@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 15:43:27
+ * @LastEditTime: 2022-03-13 19:32:45
 -->
 
 <template>
@@ -199,6 +199,7 @@ export default {
     };
   },
   mounted() {
+    this.invokeIpc();
     this.scrollToTopTarget = document.getElementById(
       global.common.GENERAL_SECTION_ID
     );
@@ -215,8 +216,6 @@ export default {
         } // end if...else
       });
     } // end if
-
-    this.invokeIpc();
   },
   setup() {
     return {
