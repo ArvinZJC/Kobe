@@ -4,11 +4,14 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 13:49:40
+ * @LastEditTime: 2022-03-13 15:43:27
 -->
 
 <template>
-  <div class="container-view overflow-auto">
+  <div
+    :id="global.common.GENERAL_SECTION_ID"
+    class="container-view overflow-auto"
+  >
     <div class="container-preferences">
       <!-- Appearance. -->
       <Preference
@@ -55,6 +58,10 @@
       />
     </div>
   </div>
+  <ScrollToTopButton
+    :isDismissed="isScrollToTopDismissed"
+    :target="scrollToTopTarget"
+  />
 </template>
 
 <script>
@@ -64,11 +71,12 @@ import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
 import * as zhCN from "../../locales/zh-CN.json";
+import ScrollToTopButton from "../ScrollToTopButton.vue";
 import BaiduIcon from "../svg/BaiduIcon.vue";
 import GoogleIcon from "../svg/GoogleIcon.vue";
 
 export default {
-  components: { Preference },
+  components: { Preference, ScrollToTopButton },
   methods: {
     /**
      * Change the appearance.
@@ -93,6 +101,89 @@ export default {
         global.common.SET_ONLINE_SEARCH
       );
     }, // end function changeOnlineSearch
+
+    /**
+     * Use the IPC channel to exchange information.
+     */
+    invokeIpc() {
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.APPEARANCE_KEY
+            )
+          ) {
+            checkOption(data[global.common.APPEARANCE_KEY]);
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
+            )
+          ) {
+            this.autoUpdateAndDownload =
+              data[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
+            )
+          ) {
+            this.confirmClosingMultipleTabs =
+              data[global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.ONLINE_SEARCH_KEY
+            )
+          ) {
+            checkOption(data[global.common.ONLINE_SEARCH_KEY]);
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.RECEIVE_TEST_UPDATES_KEY
+            )
+          ) {
+            this.receiveTestUpdates =
+              data[global.common.RECEIVE_TEST_UPDATES_KEY];
+          } // end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_APPEARANCE
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_AUTO_UPDATE_AND_DOWNLOAD
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_ONLINE_SEARCH
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_RECEIVE_TEST_UPDATES
+      );
+    }, // end function invokeIpc
   },
   data() {
     return {
@@ -101,88 +192,31 @@ export default {
         global.common.DEFAULT_CONFIRM_CLOSING_MULTIPLE_TABS,
       data: {},
       global,
+      isScrollToTopDismissed: true,
       receiveTestUpdates: global.common.DEFAULT_RECEIVE_TEST_UPDATES,
+      scrollToTopTarget: null,
       zhCN,
     };
   },
   mounted() {
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.APPEARANCE_KEY
-          )
-        ) {
-          checkOption(data[global.common.APPEARANCE_KEY]);
-        } // end if
+    this.scrollToTopTarget = document.getElementById(
+      global.common.GENERAL_SECTION_ID
+    );
 
+    if (this.scrollToTopTarget != null) {
+      this.scrollToTopTarget.addEventListener("scroll", () => {
         if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY
-          )
+          this.scrollToTopTarget.scrollTop <
+          this.scrollToTopTarget.offsetHeight / 3
         ) {
-          this.autoUpdateAndDownload =
-            data[global.common.AUTO_UPDATE_AND_DOWNLOAD_KEY];
-        } // end if
+          this.isScrollToTopDismissed = true;
+        } else {
+          this.isScrollToTopDismissed = false;
+        } // end if...else
+      });
+    } // end if
 
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY
-          )
-        ) {
-          this.confirmClosingMultipleTabs =
-            data[global.common.CONFIRM_CLOSING_MULTIPLE_TABS_KEY];
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.ONLINE_SEARCH_KEY
-          )
-        ) {
-          checkOption(data[global.common.ONLINE_SEARCH_KEY]);
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.RECEIVE_TEST_UPDATES_KEY
-          )
-        ) {
-          this.receiveTestUpdates =
-            data[global.common.RECEIVE_TEST_UPDATES_KEY];
-        } // end if
-      }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_APPEARANCE
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_AUTO_UPDATE_AND_DOWNLOAD
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_CONFIRM_CLOSING_MULTIPLE_TABS
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_ONLINE_SEARCH
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_RECEIVE_TEST_UPDATES
-    );
+    this.invokeIpc();
   },
   setup() {
     return {

@@ -4,11 +4,14 @@
  * @Author: Arvin Zhao
  * @Date: 2022-01-31 17:53:47
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 13:49:33
+ * @LastEditTime: 2022-03-13 15:42:49
 -->
 
 <template>
-  <div class="container-view overflow-auto">
+  <div
+    :id="global.common.RESULT_DISPLAY_SECTION_ID"
+    class="container-view overflow-auto"
+  >
     <div class="container-preferences">
       <!-- Total volume. -->
       <!-- Unit. -->
@@ -60,6 +63,10 @@
       />
     </div>
   </div>
+  <ScrollToTopButton
+    :isDismissed="isScrollToTopDismissed"
+    :target="scrollToTopTarget"
+  />
 </template>
 
 <script>
@@ -67,10 +74,93 @@ import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import * as syncfusion from "../../locales/syncfusion.json";
 import * as zhCN from "../../locales/zh-CN.json";
+import ScrollToTopButton from "../ScrollToTopButton.vue";
 
 export default {
-  components: {
-    Preference,
+  components: { Preference, ScrollToTopButton },
+  methods: {
+    /**
+     * Use the IPC channel to exchange information.
+     */
+    invokeIpc() {
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
+            )
+          ) {
+            this.dayVolumeDecimalPoints =
+              data[global.common.DAY_VOLUME_DECIMAL_POINTS_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.DAY_VOLUME_UNIT_KEY
+            )
+          ) {
+            this.dayVolumeUnit = data[global.common.DAY_VOLUME_UNIT_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.INCLUDE_HIDDEN_COLUMNS_KEY
+            )
+          ) {
+            this.includeHiddenColumns =
+              data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
+            )
+          ) {
+            this.totalVolumeDecimalPoints =
+              data[global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY];
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.TOTAL_VOLUME_UNIT_KEY
+            )
+          ) {
+            this.totalVolumeUnit = data[global.common.TOTAL_VOLUME_UNIT_KEY];
+          } // end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_DAY_VOLUME_DECIMAL_POINTS
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_DAY_VOLUME_UNIT
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_INCLUDE_HIDDEN_COLUMNS
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_TOTAL_VOLUME_DECIMAL_POINTS
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_TOTAL_VOLUME_UNIT
+      );
+    }, // end function invokeIpc
   },
   data() {
     return {
@@ -79,6 +169,8 @@ export default {
       dayVolumeUnit: global.common.BOARD_LOT_1,
       global,
       includeHiddenColumns: global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS,
+      isScrollToTopDismissed: true,
+      scrollToTopTarget: null,
       syncfusion,
       totalVolumeDecimalPoints: null,
       totalVolumeUnit: global.common.BOARD_LOT_100,
@@ -86,83 +178,24 @@ export default {
     };
   },
   mounted() {
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.DAY_VOLUME_DECIMAL_POINTS_KEY
-          )
-        ) {
-          this.dayVolumeDecimalPoints =
-            data[global.common.DAY_VOLUME_DECIMAL_POINTS_KEY];
-        } // end if
+    this.scrollToTopTarget = document.getElementById(
+      global.common.RESULT_DISPLAY_SECTION_ID
+    );
 
+    if (this.scrollToTopTarget != null) {
+      this.scrollToTopTarget.addEventListener("scroll", () => {
         if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.DAY_VOLUME_UNIT_KEY
-          )
+          this.scrollToTopTarget.scrollTop <
+          this.scrollToTopTarget.offsetHeight / 3
         ) {
-          this.dayVolumeUnit = data[global.common.DAY_VOLUME_UNIT_KEY];
-        } // end if
+          this.isScrollToTopDismissed = true;
+        } else {
+          this.isScrollToTopDismissed = false;
+        } // end if...else
+      });
+    } // end if
 
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.INCLUDE_HIDDEN_COLUMNS_KEY
-          )
-        ) {
-          this.includeHiddenColumns =
-            data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY];
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY
-          )
-        ) {
-          this.totalVolumeDecimalPoints =
-            data[global.common.TOTAL_VOLUME_DECIMAL_POINTS_KEY];
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.TOTAL_VOLUME_UNIT_KEY
-          )
-        ) {
-          this.totalVolumeUnit = data[global.common.TOTAL_VOLUME_UNIT_KEY];
-        } // end if
-      }
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_DAY_VOLUME_DECIMAL_POINTS
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_DAY_VOLUME_UNIT
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_INCLUDE_HIDDEN_COLUMNS
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_TOTAL_VOLUME_DECIMAL_POINTS
-    );
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_TOTAL_VOLUME_UNIT
-    );
+    this.invokeIpc();
   },
   setup() {
     const volumeUnits = [

@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.13.20220308
+ * @Version: 1.0.14.20220313
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:07:34
+ * @LastEditTime: 2022-03-13 15:19:58
  */
 
 global.common = {
@@ -54,6 +54,7 @@ global.common = {
   EXIT_FULL_SCREEN: "exitFullScreen",
   FAST_MODE_ID: "fast",
   FILE_HEADER_FONT_SIZE: 14,
+  GENERAL_SECTION_ID: "general-section",
   GET_APPEARANCE: "getAppearance",
   GET_AUTO_UPDATE_AND_DOWNLOAD: "getAutoUpdateAndDownload",
   GET_CONFIRM_CLOSING_MULTIPLE_TABS: "getConfirmClosingMultipleTabs",
@@ -111,16 +112,18 @@ global.common = {
   PAGE_SIZES: [5, 10, 15, 20, 25],
   PATCH_BY_RESIZING: "patchByResizing",
   POP_UP_APP_MENU: "popUpAppMenu",
-  RECEIVE_TEST_UPDATES_KEY: "receiveTestUpdates",
   PREFERENCE_TABS_NAME: "preferenceTabs",
   PREFERENCE_VIEW: "preferences",
   PREFERENCE_VIEW_ID: "preference-view",
   PROCESSOR_ERROR_KEY: "processorError",
+  RECEIVE_TEST_UPDATES_KEY: "receiveTestUpdates",
   RESET_PREFERENCES: "resetPreferences",
   RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
     "dialogueResetPreferencesConfirmation",
   RESTORE_WIN: "restoreWin", // TODO: titleBarOverlay temp workaround.
+  RESULT_DISPLAY_SECTION_ID: "result-display-section",
   SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
+  SEARCH_ENGINE_SECTION_ID: "search-engine-section",
   SEARCH_FORM_ID: "search-form",
   SEARCH_RESULT_AREA_ID: "search-result-area",
   SEARCH_RESULT_GRID_NAME: "gridSearchResults",
@@ -168,6 +171,7 @@ global.common = {
   SHARE_1: 1,
   SHOW_PREFERENCE_TAB_ITEM: "showPreferenceTabItem",
   SLIDER: "slider",
+  SMOOTH_SCROLL: "smooth",
   STABLE: "latest",
   STABLE_MODE_ID: "stable",
   START_DATE_KEY: "startDate",

@@ -89,6 +89,7 @@
   "responseNotOk": "从数据接口端查询数据时出错。若您确认网络配置无误，则请联系开发者检查数据接口端。",
   "restore": "还原",
   "resultDisplaySection": "结果展示",
+  "scrollToTopButtonTitle": "回到顶部",
   "search": "搜索",
   "searchEngineModeExplanation": "设定搜索引擎模式。受数据接口端限制，为避免过频繁的并发请求，推荐使用求稳模式。若您确认日常搜索的日期范围跨度较小且频率较低，则可考虑极速模式。注意：此设置的改动在下次搜索时生效。",
   "searchEngineModeTitle": "模式",
