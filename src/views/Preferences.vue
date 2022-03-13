@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference view
- * @Version: 1.0.9.20220313
+ * @Version: 1.1.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 12:27:48
+ * @LastEditTime: 2022-03-13 19:00:27
 -->
 
 <template>
@@ -75,6 +75,28 @@ export default {
   },
   methods: {
     /**
+     * Do necessary actions when the view finishes loading.
+     */
+    actWhenLoaded() {
+      // Set the styles of the first tab item's indicator after loading the view to avoid possible strange appearance.
+      for (const indicator of document.getElementsByClassName(
+        global.common.SF_INDICATOR_CLASS
+      )) {
+        const tabItemStyles = getComputedStyle(
+          this.$refs[global.common.PREFERENCE_TABS_NAME].ej2Instances.tbItem[0]
+        );
+
+        indicator.style.height = `${
+          parseInt(tabItemStyles.borderBottomWidth) +
+          parseInt(tabItemStyles.borderTopWidth) +
+          this.$refs[global.common.PREFERENCE_TABS_NAME].ej2Instances.tbItem[0]
+            .clientHeight
+        }px`;
+        indicator.style.top = 0;
+      } // end for
+    }, // end function actWhenLoaded
+
+    /**
      * Patch the slider to avoid its content's strange appearance in specific cases.
      */
     patchSlider() {
@@ -130,23 +152,12 @@ export default {
   },
   mounted() {
     document.title = zhCN.default.preferences;
-    window.addEventListener("load", () => {
-      for (const indicator of document.getElementsByClassName(
-        global.common.SF_INDICATOR_CLASS
-      )) {
-        const tabItemStyles = getComputedStyle(
-          this.$refs[global.common.PREFERENCE_TABS_NAME].ej2Instances.tbItem[0]
-        );
 
-        indicator.style.height = `${
-          parseInt(tabItemStyles.borderBottomWidth) +
-          parseInt(tabItemStyles.borderTopWidth) +
-          this.$refs[global.common.PREFERENCE_TABS_NAME].ej2Instances.tbItem[0]
-            .clientHeight
-        }px`;
-        indicator.style.top = 0;
-      } // end for
-    }); // Set the styles of the first tab item's indicator after loading the view to avoid possible strange appearance.
+    if (document.readyState === "complete") {
+      this.actWhenLoaded();
+    } else {
+      window.addEventListener("load", this.actWhenLoaded());
+    } // end if...else
   },
 };
 </script>

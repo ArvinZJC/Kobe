@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 12:39:52
+ * @LastEditTime: 2022-03-13 18:58:00
 -->
 
 <template>
@@ -89,6 +89,28 @@ import * as zhCN from "../locales/zh-CN.json";
 export default {
   components: { "ejs-grid": GridComponent, LoadingIcon },
   methods: {
+    /**
+     * Do necessary actions when the view containing the component finishes loading.
+     */
+    actWhenLoaded() {
+      setTimeout(() => {
+        const worker = new Worker("/grid.js");
+
+        worker.addEventListener("message", (e) => {
+          this.columns = e.data.columns;
+          worker.terminate();
+          this.isColumnsReady = true;
+          this.invokeIpc();
+        });
+        worker.postMessage({
+          endDate: this.endDate,
+          global: global.common,
+          startDate: this.startDate,
+          zhCN,
+        });
+      }, 500); // Set relatively enough timeout to ensure that it can enter the search result view without too much delay.
+    }, // end function actWhenLoaded
+
     /**
      * Adjust the grid when the data source is populated.
      */
@@ -449,24 +471,12 @@ export default {
       this.stockName === "" ? this.stockName : this.stockSymbol + " "
     }${this.filename}`;
 
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        const worker = new Worker("/grid.js");
+    if (document.readyState === "complete") {
+      this.actWhenLoaded();
+    } else {
+      window.addEventListener("load", this.actWhenLoaded());
+    } // end if...else
 
-        worker.addEventListener("message", (e) => {
-          this.columns = e.data.columns;
-          worker.terminate();
-          this.isColumnsReady = true;
-          this.invokeIpc();
-        });
-        worker.postMessage({
-          endDate: this.endDate,
-          global: global.common,
-          startDate: this.startDate,
-          zhCN,
-        });
-      }, 500); // Set relatively enough timeout to ensure that it can enter the search result view without too much delay.
-    });
     window.addEventListener("resize", () => {
       this.clickTrickInput();
       this.resizeGridHeight();

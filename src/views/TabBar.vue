@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.1.5.20220308
+ * @Version: 1.2.0.20220313
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 10:06:57
+ * @LastEditTime: 2022-03-13 19:18:41
 -->
 
 <template>
@@ -125,6 +125,38 @@ export default {
   },
   methods: {
     /**
+     * Do necessary actions when the view finishes loading.
+     */
+    actWhenLoaded() {
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.GET_START_TAB_ITEM_ID
+            )
+          ) {
+            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
+              this.$refs[
+                global.common.TAB_BAR_TABS_NAME
+              ].ej2Instances.selectedItem
+            ].id = data[global.common.GET_START_TAB_ITEM_ID];
+            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
+          } // end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.TAB_BAR_READY
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_START_TAB_ITEM_ID
+      );
+    }, // end function actWhenLoaded
+
+    /**
      * Close a tab item.
      * @param {object} args the remove event arguments.
      */
@@ -165,6 +197,115 @@ export default {
     dragTabItem(args) {
       this.switchTabItem(Number(args.draggedItem.dataset.id));
     }, // end function dragTabItem
+
+    /**
+     * Use the IPC channel to exchange information.
+     */
+    invokeIpc() {
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.IPC_RECEIVE,
+        (data) => {
+          this.reactToMaximiseOrRestore(data); // TODO: titleBarOverlay temp workaround.
+
+          if (data === global.common.ENTER_FULL_SCREEN) {
+            this.isFullScreen = true;
+          } // end if
+
+          if (data === global.common.EXIT_FULL_SCREEN) {
+            this.isFullScreen = false;
+            setTimeout(
+              () =>
+                window[global.common.IPC_RENDERER_API_KEY].send(
+                  global.common.IPC_SEND,
+                  global.common.PATCH_BY_RESIZING
+                ), // Avoid possible strange tab appearance when exiting the full screen mode.
+              50
+            );
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.GET_NEW_TAB_ITEM_ID
+            )
+          ) {
+            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
+              data[global.common.NEW_TAB_ITEM_INDEX_KEY]
+            ].id = data[global.common.GET_NEW_TAB_ITEM_ID];
+            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.GET_PLATFORM
+            )
+          ) {
+            this.platform = data[global.common.GET_PLATFORM];
+            this.updateTabBarTabWidth();
+          } // end if
+
+          if (
+            typeof data === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data,
+              global.common.SHOW_PREFERENCE_TAB_ITEM
+            )
+          ) {
+            var preferenceTabItemIndex = null;
+
+            for (
+              var i = 0;
+              i <
+              this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items
+                .length;
+              i++
+            ) {
+              if (
+                this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
+                  i
+                ].cssClass.includes(global.common.PREFERENCE_VIEW_ID)
+              ) {
+                preferenceTabItemIndex = i;
+                break;
+              } // end if
+            } // end for
+
+            preferenceTabItemIndex == null
+              ? this.openNewTabItem(
+                  data[global.common.SHOW_PREFERENCE_TAB_ITEM]
+                )
+              : this.$refs[global.common.TAB_BAR_TABS_NAME].select(
+                  preferenceTabItemIndex
+                );
+          } // end if
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].receive(
+        global.common.TAB_BAR_TABS_UPDATE,
+        (tabOptions) => {
+          Array.prototype.forEach.call(tabOptions.tabs, (element) => {
+            if (tabOptions.confs[element] != null) {
+              if (
+                tabOptions.confs[element].title !== "" &&
+                tabOptions.confs[element].title != null
+              ) {
+                this.updateTabItemTitle(
+                  element,
+                  tabOptions.confs[element].title
+                );
+              } // end if
+            } // end if
+          });
+        }
+      );
+      window[global.common.IPC_RENDERER_API_KEY].send(
+        global.common.IPC_SEND,
+        global.common.GET_PLATFORM
+      );
+    }, // end function invokeIpc
 
     /**
      * Maximise or restore the app window.
@@ -254,6 +395,34 @@ export default {
         );
       } // end if
     }, // end function popUpAppMenu
+
+    /**
+     * React to the behaviour of double clicking the window.
+     * @param {object} args the double click event arguments
+     */
+    reactToDoubleClick(args) {
+      if (this.platform === global.common.MACOS) {
+        var isNonDraggable = false;
+
+        for (const elementPath of args.path) {
+          if (
+            elementPath.classList != null &&
+            (elementPath.classList.contains("btn-tab-bar-mac") ||
+              elementPath.classList.contains("non-draggable-area"))
+          ) {
+            isNonDraggable = true;
+            break;
+          } // end if
+        } // end for
+
+        if (!isNonDraggable) {
+          window[global.common.IPC_RENDERER_API_KEY].send(
+            global.common.IPC_SEND,
+            global.common.MAXIMISE_OR_RESTORE_WIN
+          );
+        } // end if
+      } // end if
+    }, // end function reactToDoubleClick
 
     /**
      * React to the behaviour of maximising or restoring the window
@@ -357,153 +526,18 @@ export default {
     };
   },
   mounted() {
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.IPC_RECEIVE,
-      (data) => {
-        this.reactToMaximiseOrRestore(data); // TODO: titleBarOverlay temp workaround.
+    this.invokeIpc();
 
-        if (data === global.common.ENTER_FULL_SCREEN) {
-          this.isFullScreen = true;
-        } // end if
+    if (document.readyState === "complete") {
+      this.actWhenLoaded();
+    } else {
+      window.addEventListener("load", this.actWhenLoaded());
+    } // end if...else
 
-        if (data === global.common.EXIT_FULL_SCREEN) {
-          this.isFullScreen = false;
-          setTimeout(
-            () =>
-              window[global.common.IPC_RENDERER_API_KEY].send(
-                global.common.IPC_SEND,
-                global.common.PATCH_BY_RESIZING
-              ), // Avoid possible strange tab appearance when exiting the full screen mode.
-            50
-          );
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.GET_NEW_TAB_ITEM_ID
-          )
-        ) {
-          this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
-            data[global.common.NEW_TAB_ITEM_INDEX_KEY]
-          ].id = data[global.common.GET_NEW_TAB_ITEM_ID];
-          this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(data, global.common.GET_PLATFORM)
-        ) {
-          this.platform = data[global.common.GET_PLATFORM];
-          this.updateTabBarTabWidth();
-        } // end if
-
-        if (
-          typeof data === "object" &&
-          Object.prototype.hasOwnProperty.call(
-            data,
-            global.common.SHOW_PREFERENCE_TAB_ITEM
-          )
-        ) {
-          var preferenceTabItemIndex = null;
-
-          for (
-            var i = 0;
-            i <
-            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items
-              .length;
-            i++
-          ) {
-            if (
-              this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
-                i
-              ].cssClass.includes(global.common.PREFERENCE_VIEW_ID)
-            ) {
-              preferenceTabItemIndex = i;
-              break;
-            } // end if
-          } // end for
-
-          preferenceTabItemIndex == null
-            ? this.openNewTabItem(data[global.common.SHOW_PREFERENCE_TAB_ITEM])
-            : this.$refs[global.common.TAB_BAR_TABS_NAME].select(
-                preferenceTabItemIndex
-              );
-        } // end if
-      }
+    window.addEventListener("dblclick", (args) =>
+      this.reactToDoubleClick(args)
     );
-    window[global.common.IPC_RENDERER_API_KEY].receive(
-      global.common.TAB_BAR_TABS_UPDATE,
-      (tabOptions) => {
-        Array.prototype.forEach.call(tabOptions.tabs, (element) => {
-          if (tabOptions.confs[element] != null) {
-            if (
-              tabOptions.confs[element].title !== "" &&
-              tabOptions.confs[element].title != null
-            ) {
-              this.updateTabItemTitle(element, tabOptions.confs[element].title);
-            } // end if
-          } // end if
-        });
-      }
-    );
-    window.addEventListener("dblclick", (args) => {
-      if (this.platform === global.common.MACOS) {
-        var isNonDraggable = false;
-
-        for (const elementPath of args.path) {
-          if (
-            elementPath.classList != null &&
-            (elementPath.classList.contains("btn-tab-bar-mac") ||
-              elementPath.classList.contains("non-draggable-area"))
-          ) {
-            isNonDraggable = true;
-            break;
-          } // end if
-        } // end for
-
-        if (!isNonDraggable) {
-          window[global.common.IPC_RENDERER_API_KEY].send(
-            global.common.IPC_SEND,
-            global.common.MAXIMISE_OR_RESTORE_WIN
-          );
-        } // end if
-      } // end if
-    });
-    window.addEventListener("load", () => {
-      window[global.common.IPC_RENDERER_API_KEY].receive(
-        global.common.IPC_RECEIVE,
-        (data) => {
-          if (
-            typeof data === "object" &&
-            Object.prototype.hasOwnProperty.call(
-              data,
-              global.common.GET_START_TAB_ITEM_ID
-            )
-          ) {
-            this.$refs[global.common.TAB_BAR_TABS_NAME].ej2Instances.items[
-              this.$refs[
-                global.common.TAB_BAR_TABS_NAME
-              ].ej2Instances.selectedItem
-            ].id = data[global.common.GET_START_TAB_ITEM_ID];
-            this.$refs[global.common.TAB_BAR_TABS_NAME].refresh();
-          } // end if
-        }
-      );
-      window[global.common.IPC_RENDERER_API_KEY].send(
-        global.common.TAB_BAR_READY
-      );
-      window[global.common.IPC_RENDERER_API_KEY].send(
-        global.common.IPC_SEND,
-        global.common.GET_START_TAB_ITEM_ID
-      );
-    });
     window.addEventListener("resize", () => this.updateTabBarTabWidth());
-    window[global.common.IPC_RENDERER_API_KEY].send(
-      global.common.IPC_SEND,
-      global.common.GET_PLATFORM
-    );
   },
 };
 </script>
