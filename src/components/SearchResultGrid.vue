@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.2.1.20220313
+ * @Version: 1.2.3.20220313
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 18:58:00
+ * @LastEditTime: 2022-03-13 20:05:10
 -->
 
 <template>
@@ -179,33 +179,10 @@ export default {
      */
     handleToolbarClick(args) {
       if (args.item.text === syncfusion.default["zh-Hans"].grid.Excelexport) {
-        this.$refs[global.common.SEARCH_RESULT_GRID_NAME].excelExport({
-          enableFilter: true,
-          fileName: `${this.filename}.xlsx`,
-          header: {
-            headerRows: 1,
-            rows: [
-              {
-                cells: [
-                  {
-                    colSpan:
-                      this.$refs[
-                        global.common.SEARCH_RESULT_GRID_NAME
-                      ].getColumns().length,
-                    index: 1,
-                    style: {
-                      bold: true,
-                      fontSize: global.common.FILE_HEADER_FONT_SIZE,
-                    },
-                    value: this.fileHeader,
-                  },
-                ],
-                index: 1,
-              },
-            ],
-          },
-          includeHiddenColumn: this.includeHiddenColumns,
-        });
+        window[global.common.IPC_RENDERER_API_KEY].send(
+          global.common.IPC_SEND,
+          global.common.GET_EXCEL_EXPORT_PREFERENCES
+        );
       } // end if
     }, // end function handleToolbarClick
 
@@ -222,17 +199,6 @@ export default {
       window[global.common.IPC_RENDERER_API_KEY].receive(
         global.common.IPC_RECEIVE,
         (data) => {
-          if (
-            typeof data === "object" &&
-            Object.prototype.hasOwnProperty.call(
-              data,
-              global.common.INCLUDE_HIDDEN_COLUMNS_KEY
-            )
-          ) {
-            this.includeHiddenColumns =
-              data[global.common.INCLUDE_HIDDEN_COLUMNS_KEY];
-          } // end if
-
           const isArray = Array.isArray(data);
 
           if (
@@ -282,6 +248,47 @@ export default {
 
           if (
             isArray &&
+            typeof data[0] === "object" &&
+            Object.prototype.hasOwnProperty.call(
+              data[0],
+              global.common.EXPORT_CURRENT_PAGE_KEY
+            )
+          ) {
+            this.$refs[global.common.SEARCH_RESULT_GRID_NAME].excelExport({
+              enableFilter: true,
+              exportType: data[0][global.common.EXPORT_CURRENT_PAGE_KEY]
+                ? global.common.SF_CURRENT_PAGE
+                : global.common.SF_ALL_PAGES,
+              fileName: `${this.filename}.xlsx`,
+              header: {
+                headerRows: 1,
+                rows: [
+                  {
+                    cells: [
+                      {
+                        colSpan:
+                          this.$refs[
+                            global.common.SEARCH_RESULT_GRID_NAME
+                          ].getColumns().length,
+                        index: 1,
+                        style: {
+                          bold: true,
+                          fontSize: global.common.FILE_HEADER_FONT_SIZE,
+                        },
+                        value: this.fileHeader,
+                      },
+                    ],
+                    index: 1,
+                  },
+                ],
+              },
+              includeHiddenColumn:
+                data[1][global.common.INCLUDE_HIDDEN_COLUMNS_KEY],
+            });
+          } // end if
+
+          if (
+            isArray &&
             (data.length === 0 ||
               (typeof data[0] === "object" &&
                 Object.prototype.hasOwnProperty.call(
@@ -296,10 +303,6 @@ export default {
             this.searchResultData = data;
           } // end if
         }
-      );
-      window[global.common.IPC_RENDERER_API_KEY].send(
-        global.common.IPC_SEND,
-        global.common.GET_INCLUDE_HIDDEN_COLUMNS
       );
       window[global.common.IPC_RENDERER_API_KEY].send(
         global.common.IPC_SEND,
@@ -451,7 +454,6 @@ export default {
       filename: global.common.UNKNOWN,
       global,
       hasSearchError: false,
-      includeHiddenColumns: global.common.DEFAULT_INCLUDE_HIDDEN_COLUMNS,
       isColumnsReady: false,
       searchResultData: null,
       searchStatusMessage: zhCN.default.searchingHint,
