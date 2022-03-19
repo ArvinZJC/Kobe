@@ -1,16 +1,17 @@
 /*
  * @Description: Vue configuration
- * @Version: 1.0.8.20220304
+ * @Version: 1.0.9.20220318
  * @Author: Arvin Zhao
  * @Date: 2021-12-09 00:57:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-04 20:11:48
+ * @LastEditTime: 2022-03-18 14:52:33
  */
 
 module.exports = {
   configureWebpack: {
     devtool: "source-map",
   },
+  crossorigin: "anonymous",
   pluginOptions: {
     electronBuilder: {
       builderOptions: {
