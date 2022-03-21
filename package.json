@@ -20,11 +20,11 @@
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
     "@syncfusion/ej2-vue-buttons": "^19.4.55",
-    "@syncfusion/ej2-vue-calendars": "^19.4.55",
-    "@syncfusion/ej2-vue-dropdowns": "^19.4.55",
-    "@syncfusion/ej2-vue-grids": "^19.4.55",
+    "@syncfusion/ej2-vue-calendars": "^19.4.56",
+    "@syncfusion/ej2-vue-dropdowns": "^19.4.56",
+    "@syncfusion/ej2-vue-grids": "^19.4.56",
     "@syncfusion/ej2-vue-inputs": "^19.4.52",
-    "@syncfusion/ej2-vue-navigations": "^19.4.55",
+    "@syncfusion/ej2-vue-navigations": "^19.4.56",
     "@syncfusion/ej2-vue-popups": "^19.4.53",
     "@syncfusion/ej2-vue-splitbuttons": "^19.4.52",
     "cldr-data": "^36.0.0",
@@ -40,7 +40,7 @@
     "smoothscroll-polyfill": "^0.4.4",
     "vue": "^3.2.31",
     "vue-class-component": "^8.0.0-rc.1",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.14"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.15",
