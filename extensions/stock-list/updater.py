@@ -1,11 +1,11 @@
 """
 '''
 Description: a stock list data updater
-Version: 1.0.0.20220207
+Version: 1.0.1.20220323
 Author: Arvin Zhao
 Date: 2021-12-16 20:36:26
 Last Editors: Arvin Zhao
-LastEditTime: 2022-02-07 19:30:01
+LastEditTime: 2022-03-23 18:29:07
 '''
 """
 
@@ -24,16 +24,17 @@ def update():
         is_same = False  # A flag indicating if the data file pending comparison contains the latest data.
 
         if os.path.exists(data_filename):
-            data_new = json.loads(data.to_json(orient="records"))
-            data_old = json.load(open(data_filename))
-            is_same = sorted(data_new, key=lambda x: x["ts_code"]) == sorted(
-                data_old, key=lambda x: x["ts_code"]
-            )
+            with open(data_filename) as output:
+                data_new = json.loads(data.to_json(orient="records"))
+                data_old = json.load(output)
+                is_same = sorted(data_new, key=lambda x: x["ts_code"]) == sorted(
+                    data_old, key=lambda x: x["ts_code"]
+                )
 
         print("Same data?", is_same)
 
         if not is_same:
-            data.to_json("StockList.json", orient="records")
+            data.to_json(data_filename, orient="records")
 
 
 if __name__ == "__main__":
