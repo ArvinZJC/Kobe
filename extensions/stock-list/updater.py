@@ -1,14 +1,15 @@
 """
 '''
 Description: a stock list data updater
-Version: 1.0.1.20220323
+Version: 1.0.1.20220325
 Author: Arvin Zhao
 Date: 2021-12-16 20:36:26
 Last Editors: Arvin Zhao
-LastEditTime: 2022-03-23 18:29:07
+LastEditTime: 2022-03-25 15:47:09
 '''
 """
 
+from typing import List
 import json
 import os
 
@@ -25,8 +26,8 @@ def update():
 
         if os.path.exists(data_filename):
             with open(data_filename) as output:
-                data_new = json.loads(data.to_json(orient="records"))
-                data_old = json.load(output)
+                data_new: List = json.loads(data.to_json(orient="records"))
+                data_old: List = json.load(output)
                 is_same = sorted(data_new, key=lambda x: x["ts_code"]) == sorted(
                     data_old, key=lambda x: x["ts_code"]
                 )
