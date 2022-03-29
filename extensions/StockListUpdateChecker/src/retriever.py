@@ -1,18 +1,17 @@
 """
 '''
 Description: a stock list raw data retriever
-Version: 1.0.1.20220325
+Version: 1.0.2.20220329
 Author: Arvin Zhao
 Date: 2021-12-16 19:54:01
 Last Editors: Arvin Zhao
-LastEditTime: 2022-03-25 13:21:26
+LastEditTime: 2022-03-29 19:06:16
 '''
 """
 
 from typing import Optional
 import os
 
-from dotenv import load_dotenv
 import pandas as pd
 import tushare as ts
 
@@ -25,7 +24,7 @@ def retrieve() -> Optional[pd.DataFrame]:
     DataFrame / None
         The stock list raw data. Return null if Tushare Pro API token is not provided.
     """
-    load_dotenv()
+
     token = os.getenv("TUSHARE_PRO_TOKEN")  # Tushare Pro API token.
 
     if token is None:
@@ -40,4 +39,7 @@ def retrieve() -> Optional[pd.DataFrame]:
 
 # For simple tests only.
 if __name__ == "__main__":
+    from dotenv import load_dotenv
+
+    load_dotenv()
     print(retrieve())
