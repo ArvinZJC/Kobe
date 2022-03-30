@@ -8,13 +8,13 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 截至 2022 年 3 月 29 日，使用 Visual Studio Code（版本：1.65.2）和 Python 3.10.2 开发表现良好。此外，我要特别感谢 [TuShare Pro](https://tushare.pro/) 提供的宝贵数据。
+1. 截至 2022 年 3 月 30 日，使用 Visual Studio Code（版本：1.65.2）和 Python 3.6 开发表现良好。此外，我要特别感谢 [TuShare Pro](https://tushare.pro/) 提供的宝贵数据。
 2. 插件主要的包参见下面的表格。更多信息请参见 [`requirements.txt`](./requirements.txt)。
 
    | 名称          |  版本  |
    | :------------ | :----: |
    | onepush       | 1.1.1  |
-   | pandas        | 1.4.0  |
+   | pandas        | 1.1.5  |
    | python-dotenv | 0.19.2 |
    | tushare       | 1.2.83 |
 
