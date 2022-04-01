@@ -8,7 +8,7 @@ Stock List Update Checker is a Python script extension. This extension can retri
 
 > May I have your attention pls? 🔥
 
-1. By 31 March 2022, everything looks good with Visual Studio Code (Version: 1.66.0) + Python 3.6. Additionaly, I would like to thankfully acknowledge [TuShare Pro](https://tushare.pro/) for its valuabale data.
+1. By 1 April 2022, everything looks good with Visual Studio Code (Version: 1.66.0) + Python 3.6. Additionaly, I would like to thankfully acknowledge [Tushare Pro](https://tushare.pro/) for its valuabale data.
 2. The primary packages of the extension are listed in the following table. For more information, please refer to [`requirements.txt`](./requirements.txt).
 
    | Name          | Version |
@@ -25,14 +25,14 @@ Stock List Update Checker is a Python script extension. This extension can retri
    TG_BOT_TOKEN=<your Telegram bot token>
    TG_USER_ID=<your Telegram user ID>
 
-   TUSHARE_PRO_TOKEN=<your ThShare Pro token>  # Set this environment variable to allow retrieving data from TuShare Pro.
+   TUSHARE_PRO_TOKEN=<your Tushare Pro token>  # Set this environment variable to allow retrieving data from Tushare Pro.
    ```
 
    You may find the following links useful.
 
    - [How to create a Telegram bot?](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
    - [How to get the Telegram user ID?](https://bigone.zendesk.com/hc/en-us/articles/360008014894-How-to-get-the-Telegram-user-ID-)
-   - [How to get a TuShare Pro token?](https://tushare.pro/document/1?doc_id=39)
+   - [How to get a Tushare Pro token?](https://tushare.pro/document/1?doc_id=39)
 
    If all configurations are set properly, the script `updater.py` under the extension's `src` directory can be executed successfully to generate/update the JSON data file as per the search results.
 
@@ -48,7 +48,7 @@ Stock List Update Checker is a Python script extension. This extension can retri
       # variables:
          # TG_BOT_TOKEN: <your Telegram bot token>
          # TG_USER_ID: <your Telegram user ID>
-         # TUSHARE_PRO_TOKEN: <your TuShare Pro token>
+         # TUSHARE_PRO_TOKEN: <your Tushare Pro token>
    events:
       - timer:
          parameters:

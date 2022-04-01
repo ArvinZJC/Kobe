@@ -8,7 +8,7 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 截至 2022 年 3 月 31 日，使用 Visual Studio Code（版本：1.66.0）和 Python 3.6 开发表现良好。此外，我要特别感谢 [TuShare Pro](https://tushare.pro/) 提供的宝贵数据。
+1. 截至 2022 年 4 月 1 日，使用 Visual Studio Code（版本：1.66.0）和 Python 3.6 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
 2. 插件主要的包参见下面的表格。更多信息请参见 [`requirements.txt`](./requirements.txt)。
 
    | 名称          |  版本  |
@@ -25,14 +25,14 @@
    TG_BOT_TOKEN=<您的 Telegram 机器人 token 凭证>
    TG_USER_ID=<您的 Telegram 用户 ID>
 
-   TUSHARE_PRO_TOKEN=<您的 ThShare Pro 的 token 凭证>  # 设定此环境变量来允许从 TuShare Pro 上查询数据。
+   TUSHARE_PRO_TOKEN=<您的 Tushare Pro 的 token 凭证>  # 设定此环境变量来允许从 Tushare Pro 上查询数据。
    ```
 
    您也许会觉得下面的链接比较有用。
 
    - [如何创建一个 Telegram 机器人？](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
    - [如何获取 Telegram 用户 ID？](https://bigone.zendesk.com/hc/en-us/articles/360008014894-How-to-get-the-Telegram-user-ID-)
-   - [如何获取 TuShare Pro 的 token 凭证？](https://tushare.pro/document/1?doc_id=39)
+   - [如何获取 Tushare Pro 的 token 凭证？](https://tushare.pro/document/1?doc_id=39)
 
    若一切配置妥当，则应可成功执行在插件的 `src` 目录下的 `updater.py` 脚本来根据查询结果生成/更新 JSON 数据文件。
 
@@ -48,7 +48,7 @@
       # variables:
          # TG_BOT_TOKEN: <您的 Telegram 机器人 token 凭证>
          # TG_USER_ID: <您的 Telegram 用户 ID>
-         # TUSHARE_PRO_TOKEN: <您的 ThShare Pro 的 token 凭证>
+         # TUSHARE_PRO_TOKEN: <您的 Tushare Pro 的 token 凭证>
    events:
       - timer:
          parameters:
