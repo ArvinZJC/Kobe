@@ -1,12 +1,13 @@
 /*
  * @Description: the app initialiser
- * @Version: 1.0.3.20220306
+ * @Version: 1.1.0.20220404
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-06 13:13:57
+ * @LastEditTime: 2022-04-04 18:35:19
  */
 
+import { registerLicense } from "@syncfusion/ej2-base";
 import { createApp } from "vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import smoothscroll from "smoothscroll-polyfill";
@@ -14,6 +15,7 @@ import smoothscroll from "smoothscroll-polyfill";
 import App from "./App.vue";
 import global from "./lib/global.js";
 
+registerLicense(process.env.VUE_APP_SF_LICENSE);
 smoothscroll.polyfill();
 createApp(App)
   .use(

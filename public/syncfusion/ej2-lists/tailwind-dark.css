@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-.e-listview .e-icon-collapsible::before {
-  content: '\e7b7';
+.e-icon-collapsible::before {
+  content: '\e748';
 }
 
-.e-listview .e-icon-back::before {
-  content: '\e7a5';
-  font-size: 20px;
+.e-icon-back::before {
+  content: '\e773';
+  font-size: 16px;
 }
 
 .e-bigger .e-listview .e-list-item,
@@ -76,15 +76,15 @@
   font-size: 14px;
 }
 
-.e-bigger .e-listview .e-but-back,
-.e-listview.e-bigger .e-but-back {
-  margin-right: 12px;
+.e-bigger .e-listview .e-back-button,
+.e-listview.e-bigger .e-back-button {
+  margin-right: 5px;
 }
 
 .e-bigger .e-listview .e-list-icon,
 .e-listview.e-bigger .e-list-icon {
   height: 24px;
-  margin-right: 12px;
+  margin-right: 5px;
   width: 24px;
 }
 
@@ -115,8 +115,8 @@
   margin-left: 12px;
 }
 
-.e-bigger .e-listview.e-rtl .e-but-back,
-.e-listview.e-bigger.e-rtl .e-but-back {
+.e-bigger .e-listview.e-rtl .e-back-button,
+.e-listview.e-bigger.e-rtl .e-back-button {
   margin-left: 12px;
   margin-right: 0;
 }
@@ -198,6 +198,11 @@
   padding: 12px 0;
 }
 
+.e-bigger .e-listview .e-text-content.e-checkbox .e-list-text,
+.e-listview.e-bigger .e-text-content.e-checkbox .e-list-text {
+  width: calc(100% - 40px);
+}
+
 .e-listview {
   -webkit-overflow-scrolling: touch;
   border: 1px solid;
@@ -260,7 +265,7 @@
   top: 45px;
 }
 
-.e-listview .e-but-back {
+.e-listview .e-back-button {
   cursor: pointer;
   margin-right: 8px;
 }
@@ -282,6 +287,10 @@
 
 .e-listview .e-list-group-item .e-list-text {
   text-transform: uppercase;
+}
+
+.e-listview .e-list-group-item .e-list-text {
+  cursor: default;
 }
 
 .e-listview .e-icon-collapsible {
@@ -353,7 +362,7 @@
 }
 
 .e-listview .e-list-icon {
-  margin-right: 8px;
+  margin-right: 2px;
   height: 20px;
   width: 20px;
 }
@@ -363,8 +372,12 @@
   position: relative;
 }
 
-.e-listview .e-list-header .e-text {
+.e-listview .e-list-header.e-list-navigation .e-text {
   cursor: pointer;
+}
+
+.e-listview .e-list-header .e-text {
+  cursor: default;
   text-indent: 0;
 }
 
@@ -397,7 +410,7 @@
   cursor: pointer;
 }
 
-.e-listview.e-rtl .e-but-back {
+.e-listview.e-rtl .e-back-button {
   transform: rotate(180deg);
   margin-left: 8px;
   margin-right: 0;
@@ -428,7 +441,7 @@
   color: #d1d5db;
 }
 
-.e-listview .e-icons.e-but-back:hover, .e-listview .e-icons.e-icon-collapsible:hover {
+.e-listview .e-icons.e-back-button:hover, .e-listview .e-icons.e-icon-collapsible:hover {
   color: #f3f4f6;
 }
 
@@ -481,7 +494,7 @@
 }
 
 .e-listview.e-list-template .e-list-wrapper:not(.e-list-multi-line).e-list-badge:not(.e-list-avatar) {
-  padding: 0 10px 0 16px;
+  padding: 0 8px 0 12px;
 }
 
 .e-listview.e-list-template .e-list-wrapper.e-list-multi-line {
@@ -556,7 +569,7 @@
 .e-listview.e-list-template .e-list-wrapper.e-list-badge .e-badge {
   font-size: 10px;
   height: 18px;
-  line-height: 16px;
+  line-height: 18px;
   padding: 0;
   position: absolute;
   right: 12px;

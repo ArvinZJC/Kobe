@@ -4,7 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .e-dropdown-btn .e-caret::before,
 .e-dropdown-btn.e-btn .e-caret::before {
-  content: '\e706';
+  content: '\e70d';
 }
 
 /*! drop-down button layout */
@@ -107,7 +107,7 @@
   margin: 0;
   min-width: 120px;
   overflow: hidden;
-  padding: 6px 0;
+  padding: 4px 0;
   -webkit-user-select: none;
       -ms-user-select: none;
           user-select: none;
@@ -118,8 +118,8 @@
   cursor: pointer;
   display: -ms-flexbox;
   display: flex;
-  height: 28px;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
   padding: 0 12px;
 }
 
@@ -137,8 +137,8 @@
 .e-dropdown-popup ul .e-item .e-menu-icon {
   float: left;
   font-size: 18px;
-  line-height: 28px;
-  margin-right: 11px;
+  line-height: 30px;
+  margin-right: 12px;
   vertical-align: middle;
   width: 1em;
 }
@@ -173,7 +173,7 @@
 
 .e-rtl.e-dropdown-popup .e-item .e-menu-icon {
   float: right;
-  margin-left: 11px;
+  margin-left: 12px;
   margin-right: 0;
 }
 
@@ -187,7 +187,7 @@
   font-size: 16px;
   max-width: 202px;
   min-width: 112px;
-  padding: 8px 0;
+  padding: 4px 0;
   background-color: #374151;
   margin-top: 4px;
 }
@@ -310,8 +310,8 @@
 }
 
 .e-split-btn-wrapper .e-split-btn.e-icon-btn {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .e-split-btn-wrapper .e-split-btn.e-icon-btn .e-btn-icon {
@@ -322,8 +322,8 @@
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
   margin-left: -1px;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
   z-index: 1;
 }
 
@@ -387,8 +387,8 @@
 }
 
 .e-split-btn-wrapper.e-rtl .e-split-btn.e-icon-btn {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .e-split-btn-wrapper.e-rtl .e-split-btn.e-icon-btn .e-btn-icon {
@@ -418,8 +418,8 @@
   border-bottom-left-radius: 0;
   border-top-right-radius: 4px;
   line-height: 1;
-  padding-bottom: 4px;
-  padding-right: 10px;
+  padding-bottom: 8px;
+  padding-right: 8px;
 }
 
 .e-split-btn-wrapper.e-vertical .e-split-btn .e-icon-top {
@@ -525,7 +525,7 @@
 
 .e-bigger .e-split-btn-wrapper.e-vertical .e-split-btn,
 .e-bigger.e-split-btn-wrapper.e-vertical .e-split-btn {
-  padding-bottom: 6px;
+  padding-bottom: 12px;
   padding-right: 12px;
 }
 
@@ -1872,198 +1872,198 @@
   stroke-width: 3px;
 }
 
-.e-progress-btn.e-primary .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:focus .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-primary .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:focus .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-flat:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-flat:focus .e-spinner-pane .e-spinner-inner svg {
   fill: #000;
   stroke: #000;
 }
 
-.e-progress-btn.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(0, 0, 0, 0.2);
 }
 
-.e-progress-btn.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #000;
 }
 
-.e-progress-btn.e-primary.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-primary.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-primary.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
   fill: #22d3ee;
   stroke: #22d3ee;
 }
 
-.e-progress-btn.e-primary.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-primary.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-primary.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(255, 255, 255, 0.2);
 }
 
-.e-progress-btn.e-primary.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-primary.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-primary.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #fff;
 }
 
-.e-progress-btn.e-success .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:focus .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-success .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:focus .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-flat:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-flat:focus .e-spinner-pane .e-spinner-inner svg {
   fill: #000;
   stroke: #000;
 }
 
-.e-progress-btn.e-success .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-success .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(0, 0, 0, 0.2);
 }
 
-.e-progress-btn.e-success .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-success .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #000;
 }
 
-.e-progress-btn.e-success.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-success.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-success.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
   fill: #22c55e;
   stroke: #22c55e;
 }
 
-.e-progress-btn.e-success.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-success.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-success.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(255, 255, 255, 0.2);
 }
 
-.e-progress-btn.e-success.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-success.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-success.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #fff;
 }
 
-.e-progress-btn.e-info .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:focus .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-info .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:focus .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-flat:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-flat:focus .e-spinner-pane .e-spinner-inner svg {
   fill: #000;
   stroke: #000;
 }
 
-.e-progress-btn.e-info .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-info .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(0, 0, 0, 0.2);
 }
 
-.e-progress-btn.e-info .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-info .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #000;
 }
 
-.e-progress-btn.e-info.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-info.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-info.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
   fill: #0ea5e9;
   stroke: #0ea5e9;
 }
 
-.e-progress-btn.e-info.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-info.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-info.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(255, 255, 255, 0.2);
 }
 
-.e-progress-btn.e-info.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-info.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-info.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #fff;
 }
 
-.e-progress-btn.e-warning .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:focus .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-warning .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:focus .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-flat:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-flat:focus .e-spinner-pane .e-spinner-inner svg {
   fill: #000;
   stroke: #000;
 }
 
-.e-progress-btn.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(0, 0, 0, 0.2);
 }
 
-.e-progress-btn.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #000;
 }
 
-.e-progress-btn.e-warning.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-warning.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-warning.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
   fill: #ea580c;
   stroke: #ea580c;
 }
 
-.e-progress-btn.e-warning.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-warning.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-warning.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(255, 255, 255, 0.2);
 }
 
-.e-progress-btn.e-warning.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-warning.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-warning.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #fff;
 }
 
-.e-progress-btn.e-danger .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:focus .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-danger .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:focus .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-flat:hover .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-flat:focus .e-spinner-pane .e-spinner-inner svg {
   fill: #000;
   stroke: #000;
 }
 
-.e-progress-btn.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(0, 0, 0, 0.2);
 }
 
-.e-progress-btn.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-flat:hover .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-flat:focus .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #000;
 }
 
-.e-progress-btn.e-danger.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-danger.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-danger.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg {
   fill: #f87171;
   stroke: #f87171;
 }
 
-.e-progress-btn.e-danger.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-danger.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-danger.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(255, 255, 255, 0.2);
 }
 
-.e-progress-btn.e-danger.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-danger.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-outline:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-flat:hover.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-danger.e-flat:focus.e-flat .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #fff;
 }
 
-.e-progress-btn.e-outline.e-primary .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-outline.e-primary .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-flat.e-primary .e-spinner-pane .e-spinner-inner svg {
   fill: #22d3ee;
   stroke: #22d3ee;
 }
 
-.e-progress-btn.e-outline.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-outline.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-flat.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(34, 211, 238, 0.2);
 }
 
-.e-progress-btn.e-outline.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-outline.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-flat.e-primary .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #22d3ee;
 }
 
-.e-progress-btn.e-outline.e-success .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-outline.e-success .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-flat.e-success .e-spinner-pane .e-spinner-inner svg {
   fill: #22c55e;
   stroke: #22c55e;
 }
 
-.e-progress-btn.e-outline.e-success .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-outline.e-success .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-flat.e-success .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(34, 197, 94, 0.2);
 }
 
-.e-progress-btn.e-outline.e-success .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-outline.e-success .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-flat.e-success .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #22c55e;
 }
 
-.e-progress-btn.e-outline.e-info .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-outline.e-info .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-flat.e-info .e-spinner-pane .e-spinner-inner svg {
   fill: #0ea5e9;
   stroke: #0ea5e9;
 }
 
-.e-progress-btn.e-outline.e-info .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-outline.e-info .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-flat.e-info .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(14, 165, 233, 0.2);
 }
 
-.e-progress-btn.e-outline.e-info .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-outline.e-info .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-flat.e-info .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #0ea5e9;
 }
 
-.e-progress-btn.e-outline.e-warning .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-outline.e-warning .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-flat.e-warning .e-spinner-pane .e-spinner-inner svg {
   fill: #ea580c;
   stroke: #ea580c;
 }
 
-.e-progress-btn.e-outline.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-outline.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-flat.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(234, 88, 12, 0.2);
 }
 
-.e-progress-btn.e-outline.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-outline.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-flat.e-warning .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #ea580c;
 }
 
-.e-progress-btn.e-outline.e-danger .e-spinner-pane .e-spinner-inner svg {
+.e-progress-btn.e-outline.e-danger .e-spinner-pane .e-spinner-inner svg, .e-progress-btn.e-flat.e-danger .e-spinner-pane .e-spinner-inner svg {
   fill: #f87171;
   stroke: #f87171;
 }
 
-.e-progress-btn.e-outline.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-circle {
+.e-progress-btn.e-outline.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-circle, .e-progress-btn.e-flat.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-circle {
   stroke: rgba(248, 113, 113, 0.2);
 }
 
-.e-progress-btn.e-outline.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-arc {
+.e-progress-btn.e-outline.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-arc, .e-progress-btn.e-flat.e-danger .e-spinner-pane .e-spinner-inner svg .e-path-arc {
   stroke: #f87171;
 }
 
@@ -2096,23 +2096,23 @@
 }
 
 *.e-flat.e-primary .e-progress {
-  background-color: rgba(34, 211, 238, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 *.e-flat.e-success .e-progress {
-  background-color: rgba(34, 197, 94, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 *.e-flat.e-info .e-progress {
-  background-color: rgba(56, 189, 248, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 *.e-flat.e-warning .e-progress {
-  background-color: rgba(249, 115, 22, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 *.e-flat.e-danger .e-progress {
-  background-color: rgba(248, 113, 113, 0.2);
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 *.e-outline:not(:focus).e-primary .e-progress {
@@ -2132,5 +2132,25 @@
 }
 
 *.e-outline:not(:focus).e-danger .e-progress {
+  background-color: rgba(248, 113, 113, 0.2);
+}
+
+*.e-flat:not(:focus).e-primary .e-progress {
+  background-color: rgba(34, 211, 238, 0.2);
+}
+
+*.e-flat:not(:focus).e-success .e-progress {
+  background-color: rgba(34, 197, 94, 0.2);
+}
+
+*.e-flat:not(:focus).e-info .e-progress {
+  background-color: rgba(14, 165, 233, 0.2);
+}
+
+*.e-flat:not(:focus).e-warning .e-progress {
+  background-color: rgba(234, 88, 12, 0.2);
+}
+
+*.e-flat:not(:focus).e-danger .e-progress {
   background-color: rgba(248, 113, 113, 0.2);
 }

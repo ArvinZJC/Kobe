@@ -17,9 +17,9 @@
   font-weight: 500;
   -ms-flex-pack: center;
       justify-content: center;
-  line-height: 1.6em;
+  line-height: 1.429em;
   outline: none;
-  padding: 3px 11px;
+  padding: 4px 12px;
   text-align: center;
   text-decoration: none;
   text-transform: none;
@@ -51,7 +51,7 @@
 .e-css.e-btn .e-btn-icon {
   display: inline-block;
   font-size: 18px;
-  margin-top: 0;
+  margin-top: -2px;
   vertical-align: middle;
   width: 1em;
 }
@@ -136,7 +136,7 @@
 .e-css.e-btn.e-small {
   font-size: 12px;
   line-height: 1.5em;
-  padding: 3px 7px;
+  padding: 3px 8px;
 }
 
 .e-btn.e-small .e-btn-icon,
@@ -222,7 +222,7 @@
 .e-small.e-css.e-btn {
   font-size: 12px;
   line-height: 1.5em;
-  padding: 3px 7px;
+  padding: 3px 8px;
 }
 
 .e-small .e-btn .e-btn-icon,
@@ -325,8 +325,8 @@
 .e-bigger.e-small .e-css.e-btn,
 .e-bigger.e-small.e-css.e-btn {
   font-size: 14px;
-  line-height: 1.5em;
-  padding: 6px 13px;
+  line-height: 1.572em;
+  padding: 5px 14px;
   border-radius: 4px;
 }
 
@@ -394,10 +394,10 @@
 .e-bigger.e-small .e-btn.e-round,
 .e-bigger.e-small .e-css.e-btn.e-round,
 .e-bigger.e-small.e-css.e-btn.e-round {
-  height: 36px;
+  height: 34px;
   line-height: 1;
   padding: 0;
-  width: 36px;
+  width: 34px;
 }
 
 .e-bigger.e-small .e-btn.e-round .e-btn-icon,
@@ -430,9 +430,9 @@
 .e-bigger .e-css.e-btn,
 .e-bigger.e-css.e-btn {
   font-size: 16px;
-  line-height: 1.7em;
-  padding: 5px 15px;
-  border-radius: 6px;
+  line-height: 1.5em;
+  padding: 6px 16px;
+  border-radius: 4px;
 }
 
 .e-bigger .e-btn .e-btn-icon,
@@ -536,8 +536,8 @@
 .e-bigger .e-css.e-btn.e-small,
 .e-bigger.e-css.e-btn.e-small {
   font-size: 14px;
-  line-height: 1.5em;
-  padding: 6px 13px;
+  line-height: 1.572em;
+  padding: 5px 14px;
 }
 
 .e-bigger .e-btn.e-small .e-btn-icon,
@@ -604,10 +604,10 @@
 .e-bigger .e-btn.e-small.e-round,
 .e-bigger .e-css.e-btn.e-small.e-round,
 .e-bigger.e-css.e-btn.e-small.e-round {
-  height: 36px;
+  height: 34px;
   line-height: 1;
   padding: 0;
-  width: 36px;
+  width: 34px;
 }
 
 .e-bigger .e-btn.e-small.e-round .e-btn-icon,
@@ -1518,12 +1518,12 @@
 
 .e-checkbox-wrapper .e-check::before,
 .e-css.e-checkbox-wrapper .e-check::before {
-  content: '\e856';
+  content: '\e727';
 }
 
 .e-checkbox-wrapper .e-stop::before,
 .e-css.e-checkbox-wrapper .e-stop::before {
-  content: '\e85b';
+  content: '\e87f';
 }
 
 /*! checkbox layout */
@@ -1548,8 +1548,9 @@
   white-space: nowrap;
 }
 
-.e-checkbox-wrapper:focus .e-frame,
-.e-css.e-checkbox-wrapper:focus .e-frame {
+.e-checkbox-wrapper:focus .e-frame, .e-checkbox-wrapper.e-focus .e-frame,
+.e-css.e-checkbox-wrapper:focus .e-frame,
+.e-css.e-checkbox-wrapper.e-focus .e-frame {
   box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.95), 0 0 0 4px #22d3ee;
 }
 
@@ -1592,7 +1593,7 @@
 
 .e-checkbox-wrapper .e-checkbox + .e-label,
 .e-css.e-checkbox-wrapper .e-checkbox + .e-label {
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 .e-checkbox-wrapper .e-frame,
@@ -1613,7 +1614,7 @@
 
 .e-checkbox-wrapper .e-frame + .e-label,
 .e-css.e-checkbox-wrapper .e-frame + .e-label {
-  margin-left: 8px;
+  margin-left: 12px;
 }
 
 .e-checkbox-wrapper .e-frame + .e-ripple-container,
@@ -1658,6 +1659,12 @@
   margin: 0;
 }
 
+.e-checkbox-wrapper.e-rtl .e-frame:hover,
+.e-css.e-checkbox-wrapper.e-rtl .e-frame:hover {
+  background-color: #1f2937;
+  border-color: #6b7280;
+}
+
 .e-checkbox-wrapper.e-rtl .e-frame + .e-ripple-container,
 .e-css.e-checkbox-wrapper.e-rtl .e-frame + .e-ripple-container {
   left: -9px;
@@ -1667,7 +1674,7 @@
 .e-checkbox-wrapper.e-rtl .e-label,
 .e-css.e-checkbox-wrapper.e-rtl .e-label {
   margin-left: 0;
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 .e-checkbox-wrapper.e-rtl .e-label + .e-frame,
@@ -1677,7 +1684,7 @@
 
 .e-checkbox-wrapper.e-rtl .e-checkbox + .e-label,
 .e-css.e-checkbox-wrapper.e-rtl .e-checkbox + .e-label {
-  margin-left: 8px;
+  margin-left: 12px;
   margin-right: 0;
 }
 
@@ -1724,6 +1731,14 @@
   width: 14px;
 }
 
+.e-small .e-checkbox-wrapper .e-frame:hover,
+.e-small.e-checkbox-wrapper .e-frame:hover,
+.e-small .e-css.e-checkbox-wrapper .e-frame:hover,
+.e-small.e-css.e-checkbox-wrapper .e-frame:hover {
+  background-color: #1f2937;
+  border-color: #6b7280;
+}
+
 .e-small .e-checkbox-wrapper .e-check,
 .e-small.e-checkbox-wrapper .e-check,
 .e-small .e-css.e-checkbox-wrapper .e-check,
@@ -1766,6 +1781,14 @@
   height: 16px;
   line-height: 15px;
   width: 16px;
+}
+
+.e-bigger.e-small .e-checkbox-wrapper .e-frame:hover,
+.e-bigger.e-small.e-checkbox-wrapper .e-frame:hover,
+.e-bigger.e-small .e-css.e-checkbox-wrapper .e-frame:hover,
+.e-bigger.e-small.e-css.e-checkbox-wrapper .e-frame:hover {
+  background-color: #1f2937;
+  border-color: #6b7280;
 }
 
 .e-bigger.e-small .e-checkbox-wrapper .e-check,
@@ -1812,13 +1835,21 @@
   width: 18px;
 }
 
+.e-bigger .e-checkbox-wrapper .e-frame:hover,
+.e-bigger.e-checkbox-wrapper .e-frame:hover,
+.e-bigger .e-css.e-checkbox-wrapper .e-frame:hover,
+.e-bigger.e-css.e-checkbox-wrapper .e-frame:hover {
+  background-color: #1f2937;
+  border-color: #6b7280;
+}
+
 .e-bigger .e-checkbox-wrapper .e-frame + .e-label,
 .e-bigger.e-checkbox-wrapper .e-frame + .e-label,
 .e-bigger .e-css.e-checkbox-wrapper .e-frame + .e-label,
 .e-bigger.e-css.e-checkbox-wrapper .e-frame + .e-label {
   font-size: 16px;
   line-height: 18px;
-  margin-left: 10px;
+  margin-left: 16px;
 }
 
 .e-bigger .e-checkbox-wrapper .e-check,
@@ -1862,12 +1893,20 @@
   margin: 0;
 }
 
+.e-bigger .e-checkbox-wrapper.e-rtl .e-frame:hover,
+.e-bigger.e-checkbox-wrapper.e-rtl .e-frame:hover,
+.e-bigger .e-css.e-checkbox-wrapper.e-rtl .e-frame:hover,
+.e-bigger.e-css.e-checkbox-wrapper.e-rtl .e-frame:hover {
+  background-color: #1f2937;
+  border-color: #6b7280;
+}
+
 .e-bigger .e-checkbox-wrapper.e-rtl .e-frame + .e-label,
 .e-bigger.e-checkbox-wrapper.e-rtl .e-frame + .e-label,
 .e-bigger .e-css.e-checkbox-wrapper.e-rtl .e-frame + .e-label,
 .e-bigger.e-css.e-checkbox-wrapper.e-rtl .e-frame + .e-label {
   margin-left: 0;
-  margin-right: 10px;
+  margin-right: 16px;
 }
 
 .e-bigger .e-checkbox-wrapper.e-rtl .e-frame + .e-ripple-container,
@@ -2101,8 +2140,8 @@
   width: 1px;
 }
 
-.e-radio:not(:checked):hover + label.e-rtl::after,
-.e-radio:not(:checked):hover + label.e-right::after {
+.e-radio:not(:checked):not(:disabled):hover + label.e-rtl::after,
+.e-radio:not(:checked):not(:disabled):hover + label.e-right::after {
   left: auto;
 }
 
@@ -2396,6 +2435,11 @@
 .e-radio + label.e-bigger.e-small.e-right.e-rtl .e-ripple-container {
   left: -10px;
   right: auto;
+}
+
+.e-bigger .e-radio:not(:checked):hover + label.e-rtl::after,
+.e-bigger .e-radio:not(:checked):hover + label.e-right::after {
+  left: auto;
 }
 
 .e-bigger .e-radio + label .e-label,
@@ -3566,6 +3610,7 @@
 .e-css.e-switch-wrapper.e-rtl.e-focus .e-switch-inner.e-switch-active {
   background-color: #1f2937;
   border-color: #22d3ee;
+  color: #000;
   outline: none;
 }
 
@@ -3689,11 +3734,11 @@
 }
 
 .e-chip-list .e-chip-delete.e-dlt-btn::before {
-  content: '\e771';
+  content: '\e7e7';
 }
 
 .e-chip-list.e-multi-selection .e-chip::before {
-  content: '\e75d';
+  content: '\e774';
 }
 
 .e-chip-list {
@@ -3768,7 +3813,7 @@
   -ms-flex-pack: center;
       justify-content: center;
   line-height: 1;
-  margin: 0 4px 0 -4px;
+  margin: 0 4px 0 0;
   overflow: hidden;
   width: 16px;
 }
@@ -3789,13 +3834,13 @@
   display: -ms-flexbox;
   display: flex;
   font-size: 14px;
-  height: 16px;
+  height: 14px;
   -ms-flex-pack: center;
       justify-content: center;
   line-height: 1;
   margin: 0 -4px 0 4px;
   overflow: hidden;
-  width: 16px;
+  width: 14px;
 }
 
 .e-chip-list.e-chip .e-chip-delete.e-dlt-btn::before,
@@ -3816,7 +3861,7 @@
   -ms-flex-pack: center;
       justify-content: center;
   line-height: 1;
-  margin: 0 4px 0 -4px;
+  margin: 0 4px 0 0;
   overflow: hidden;
   width: 16px;
 }
@@ -3831,13 +3876,13 @@
   display: flex;
   font-family: 'e-icons';
   font-size: 14px;
-  height: 16px;
+  height: 14px;
   -ms-flex-pack: center;
       justify-content: center;
   line-height: 1;
   margin: 0 -4px 0 4px;
   overflow: hidden;
-  width: 16px;
+  width: 14px;
 }
 
 .e-chip-list:not(.e-chip) {
@@ -3898,7 +3943,7 @@
 
 .e-chip-list.e-rtl.e-chip .e-chip-icon,
 .e-chip-list.e-rtl .e-chip .e-chip-icon {
-  margin: 0 -4px 0 8px;
+  margin: 0 0 0 4px;
 }
 
 .e-chip-list.e-rtl.e-chip .e-chip-delete,
@@ -3918,7 +3963,7 @@
 }
 
 .e-chip-list.e-rtl.e-multi-selection .e-chip::before {
-  margin: 0 -4px 0 8px;
+  margin: 0 0 0 4px;
   margin-top: 0;
 }
 
@@ -3955,24 +4000,24 @@
 .e-bigger.e-chip-list .e-chip-icon {
   font-size: 16px;
   height: 20px;
-  margin: 0 4px 0 -4px;
+  margin: 0 8px 0 -4px;
   width: 20px;
 }
 
 .e-bigger .e-chip-list .e-chip-delete,
 .e-bigger.e-chip-list .e-chip-delete {
   font-size: 16px;
-  height: 24px;
+  height: 16px;
   margin: 0 -4px 0 8px;
-  width: 24px;
+  width: 16px;
 }
 
 .e-bigger .e-chip-list .trailing-icon-url,
 .e-bigger.e-chip-list .trailing-icon-url {
   font-size: 16px;
-  height: 24px;
+  height: 16px;
   margin: 0 -4px 0 8px;
-  width: 24px;
+  width: 16px;
 }
 
 .e-bigger .e-chip-list.e-multi-selection .e-chip::before,
@@ -4014,7 +4059,7 @@
 .e-bigger .e-chip-list.e-rtl .e-chip .e-chip-delete,
 .e-bigger.e-chip-list.e-rtl.e-chip .e-chip-delete,
 .e-bigger.e-chip-list.e-rtl .e-chip .e-chip-delete {
-  margin: 0 4px 0 -4px;
+  margin: 0 8px 0 -4px;
 }
 
 .e-bigger .e-chip-list.e-rtl.e-chip .e-chip-avatar-wrap, .e-bigger .e-chip-list.e-rtl.e-chip.e-chip-avatar-wrap,
@@ -4041,7 +4086,7 @@
 
 .e-bigger .e-chip-list.e-rtl .trailing-icon-url,
 .e-bigger.e-chip-list.e-rtl .trailing-icon-url {
-  margin: 0 4px 0 -4px;
+  margin: 0 8px 0 -4px;
 }
 
 .e-chip-list.e-chip,

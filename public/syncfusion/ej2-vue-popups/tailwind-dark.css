@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .e-dialog .e-icon-dlg-close::before {
-  content: '\e771';
+  content: '\e7e7';
   position: relative;
 }
 
@@ -23,7 +23,7 @@
 .e-dialog .e-south-west::before,
 .e-dialog .e-north-east::before,
 .e-dialog .e-north-west::before {
-  content: '\e715';
+  content: '\e761';
 }
 
 /*! dialog layout */
@@ -604,25 +604,27 @@
 }
 
 .e-tooltip-wrap .e-tooltip-close::before {
-  content: '\e91c';
-  font-size: 8px;
-  margin-left: 3px;
+  content: '\e7e7';
+  font-size: 10px;
+  left: calc(50% - 5px);
+  position: absolute;
+  top: calc(50% - 5px);
 }
 
 .e-tooltip-wrap .e-arrow-tip-inner.e-tip-right::before {
-  content: '\e7d5';
+  content: '\e87e';
 }
 
 .e-tooltip-wrap .e-arrow-tip-inner.e-tip-top::before {
-  content: '\e768';
+  content: '\e87a';
 }
 
 .e-tooltip-wrap .e-arrow-tip-inner.e-tip-bottom::before {
-  content: '\e732';
+  content: '\e70d';
 }
 
 .e-tooltip-wrap .e-arrow-tip-inner.e-tip-left::before {
-  content: '\e74b';
+  content: '\e87d';
 }
 
 /*! tooltip popup container layout */
@@ -728,7 +730,6 @@
 .e-bigger .e-tooltip-wrap .e-tooltip-close::before,
 .e-tooltip-wrap.e-bigger .e-tooltip-close::before {
   font-size: 10px;
-  margin-left: 4px;
   vertical-align: middle;
 }
 
@@ -799,6 +800,14 @@
   font-weight: normal;
   line-height: 1;
   text-transform: none;
+}
+
+.e-tooltip-wrap .e-arrow-tip-inner.e-tip-bottom, .e-tooltip-wrap .e-arrow-tip-inner.e-tip-top {
+  right: 16px;
+}
+
+.e-tooltip-wrap .e-arrow-tip-inner.e-tip-right, .e-tooltip-wrap .e-arrow-tip-inner.e-tip-left {
+  bottom: 16px;
 }
 
 .e-tooltip-wrap .e-tooltip-close {

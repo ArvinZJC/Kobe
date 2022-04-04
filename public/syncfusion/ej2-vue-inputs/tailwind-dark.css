@@ -18,13 +18,13 @@
 
 .e-float-input .e-clear-icon::before,
 .e-float-input.e-control-wrapper .e-clear-icon::before {
-  content: '\e771';
+  content: '\e7e7';
   font-family: 'e-icons';
 }
 
 .e-input-group .e-clear-icon::before,
 .e-input-group.e-control-wrapper .e-clear-icon::before {
-  content: '\e771';
+  content: '\e7e7';
   font-family: 'e-icons';
 }
 
@@ -131,7 +131,29 @@ input.e-input,
 
 .e-input.e-small,
 .e-input-group.e-small,
-.e-input-group.e-control-wrapper.e-small {
+.e-input-group.e-control-wrapper.e-small,
+.e-input-group.e-small .e-input,
+.e-input-group.e-small input,
+.e-input-group.e-control-wrapper.e-small .e-input,
+.e-input-group.e-control-wrapper.e-small input,
+.e-float-input.e-small input,
+.e-float-input.e-input-group.e-small input,
+.e-float-input.e-control-wrapper.e-small input,
+.e-float-input.e-control-wrapper.e-input-group.e-small input,
+.e-float-input.e-small,
+.e-float-input.e-control-wrapper.e-small,
+.e-small .e-input-group,
+.e-small .e-input-group.e-control-wrapper,
+.e-small .e-input-group .e-input,
+.e-small .e-input-group input,
+.e-small .e-input-group.e-control-wrapper .e-input,
+.e-small .e-input-group.e-control-wrapper input,
+.e-small .e-float-input input,
+.e-small .e-float-input.e-input-group input,
+.e-small .e-float-input.e-control-wrapper input,
+.e-small .e-float-input.e-control-wrapper.e-input-group input,
+.e-small .e-float-input,
+.e-small .e-float-input.e-control-wrapper {
   border-radius: 2px;
 }
 
@@ -176,13 +198,32 @@ textarea.e-input.e-bigger,
 .e-input-group.e-bigger,
 .e-bigger .e-input-group,
 .e-input-group.e-control-wrapper.e-bigger,
-.e-bigger .e-input-group.e-control-wrapper,
-.e-input-group.e-bigger.e-disabled,
-.e-bigger .e-input-group.e-disabled,
-.e-input-group.e-control-wrapper.e-bigger.e-disabled,
-.e-bigger .e-input-group.e-control-wrapper.e-disabled {
+.e-bigger .e-input-group.e-control-wrapper {
   border-radius: 6px;
   font-size: 16px;
+}
+
+.e-input-group.e-bigger .e-input,
+.e-input-group.e-bigger input,
+.e-input-group.e-control-wrapper.e-bigger .e-input,
+.e-input-group.e-control-wrapper.e-bigger input,
+.e-float-input.e-bigger input,
+.e-float-input.e-input-group.e-bigger input,
+.e-float-input.e-control-wrapper.e-bigger input,
+.e-float-input.e-control-wrapper.e-input-group.e-bigger input,
+.e-float-input.e-bigger,
+.e-float-input.e-control-wrapper.e-bigger,
+.e-bigger .e-input-group .e-input,
+.e-bigger .e-input-group input,
+.e-bigger .e-input-group.e-control-wrapper .e-input,
+.e-bigger .e-input-group.e-control-wrapper input,
+.e-bigger .e-float-input input,
+.e-bigger .e-float-input.e-input-group input,
+.e-bigger .e-float-input.e-control-wrapper input,
+.e-bigger .e-float-input.e-control-wrapper.e-input-group input,
+.e-bigger .e-float-input,
+.e-bigger .e-float-input.e-control-wrapper {
+  border-radius: 6px;
 }
 
 input.e-input.e-bigger.e-small,
@@ -191,12 +232,30 @@ textarea.e-input.e-bigger.e-small,
 .e-bigger.e-small textarea.e-input,
 .e-input-group.e-bigger.e-small,
 .e-bigger.e-small .e-input-group,
-.e-input-group.e-control-wrapper.e-biggere-small,
-.e-bigger.e-small .e-input-group.e-control-wrapper,
-.e-input-group.e-bigger.e-small.e-disabled,
-.e-bigger.e-small .e-input-group.e-disabled,
-.e-input-group.e-control-wrapper.e-bigger.e-small.e-disabled,
-.e-bigger.e-small .e-input-group.e-control-wrapper.e-disabled {
+.e-bigger.e-small .e-input-group.e-control-wrapper {
+  border-radius: 4px;
+}
+
+.e-input-group.e-bigger.e-small .e-input,
+.e-input-group.e-bigger.e-small input,
+.e-input-group.e-control-wrapper.e-bigger.e-small .e-input,
+.e-input-group.e-control-wrapper.e-bigger.e-small input,
+.e-float-input.e-bigger.e-small input,
+.e-float-input.e-input-group.e-bigger.e-small input,
+.e-float-input.e-control-wrapper.e-bigger.e-small input,
+.e-float-input.e-control-wrapper.e-input-group.e-bigger.e-small input,
+.e-float-input.e-bigger.e-small,
+.e-float-input.e-control-wrapper.e-bigger.e-small,
+.e-bigger.e-small .e-input-group .e-input,
+.e-bigger.e-small .e-input-group input,
+.e-bigger.e-small .e-input-group.e-control-wrapper .e-input,
+.e-bigger.e-small .e-input-group.e-control-wrapper input,
+.e-bigger.e-small .e-float-input input,
+.e-bigger.e-small .e-float-input.e-input-group input,
+.e-bigger.e-small .e-float-input.e-control-wrapper input,
+.e-bigger.e-small .e-float-input.e-control-wrapper.e-input-group input,
+.e-bigger.e-small .e-float-input,
+.e-bigger.e-small .e-float-input.e-control-wrapper {
   border-radius: 4px;
 }
 
@@ -247,7 +306,7 @@ textarea.e-input.e-bigger,
   line-height: 1;
   min-height: 18px;
   min-width: 20px;
-  padding: 5px 4px 5px 4px;
+  padding: 5px 8px 5px 4px;
   text-align: center;
 }
 
@@ -295,7 +354,7 @@ textarea.e-input.e-bigger,
 .e-input-group.e-control-wrapper .e-input-group-icon.e-bigger,
 .e-bigger .e-input-group.e-control-wrapper .e-input-group-icon {
   font-size: 22px;
-  padding: 7px 8px 7px 8px;
+  padding: 7px 12px 7px 6px;
 }
 
 .e-input[disabled],
@@ -532,21 +591,21 @@ textarea.e-input.e-small,
   font-size: 16px;
   min-height: 18px;
   min-width: 20px;
-  padding: 3px 1.5px 3px 1.5px;
+  padding: 3px 6px 3px 3px;
 }
 
 .e-input-group.e-small.e-bigger .e-input-group-icon,
 .e-input-group.e-small .e-input-group-icon.e-bigger,
 .e-input-group.e-control-wrapper.e-small.e-bigger .e-input-group-icon,
 .e-input-group.e-control-wrapper.e-small .e-input-group-icon.e-bigger,
-.e-small .e-bigger.e-input-group .e-input-group-icon,
-.e-small .e-bigger.e-input-group.e-control-wrapper .e-input-group-icon,
+.e-small.e-bigger .e-input-group .e-input-group-icon,
+.e-small.e-bigger .e-input-group.e-control-wrapper .e-input-group-icon,
 .e-bigger .e-input-group.e-small .e-input-group-icon,
 .e-bigger .e-input-group.e-control-wrapper.e-small .e-input-group-icon {
   font-size: 20px;
   min-height: 18px;
   min-width: 20px;
-  padding: 5px;
+  padding: 6px;
 }
 
 label.e-float-text,
@@ -1923,7 +1982,7 @@ input.e-input.e-small,
 .e-small .e-float-input.e-control-wrapper input,
 .e-small .e-float-input.e-control-wrapper input.e-input {
   box-sizing: border-box;
-  height: 26px;
+  height: 24px;
 }
 
 .e-float-input.e-small:not(.e-input-group) input,
@@ -2745,7 +2804,7 @@ textarea.e-input.e-bigger.e-small,
 .e-float-input.e-control-wrapper .e-clear-icon::before,
 .e-input-group .e-clear-icon::before,
 .e-input-group.e-control-wrapper .e-clear-icon::before {
-  font-size: 16px;
+  font-size: 18px;
   padding: 0;
   text-align: center;
   vertical-align: middle;
@@ -2785,7 +2844,7 @@ textarea.e-input.e-bigger.e-small,
 .e-small .e-float-input .e-clear-icon::before,
 .e-small .e-input-group .e-clear-icon::before,
 .e-small .e-input-group.e-control-wrapper .e-clear-icon::before {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .e-float-input.e-bigger .e-clear-icon::before,
@@ -2798,13 +2857,17 @@ textarea.e-input.e-bigger.e-small,
 .e-bigger .e-float-input .e-clear-icon::before,
 .e-bigger .e-input-group .e-clear-icon::before,
 .e-bigger .e-input-group.e-control-wrapper .e-clear-icon::before {
-  font-size: 18px;
+  font-size: 22px;
 }
 
 .e-float-input.e-small.e-bigger .e-clear-icon::before,
 .e-float-input.e-control-wrapper.e-small.e-bigger .e-clear-icon::before,
 .e-input-group.e-small.e-bigger .e-clear-icon::before,
 .e-input-group.e-control-wrapper.e-small.e-bigger .e-clear-icon::before,
+.e-small.e-bigger .e-float-input .e-clear-icon::before,
+.e-small.e-bigger .e-float-input.e-control-wrapper .e-clear-icon::before,
+.e-small.e-bigger .e-input-group .e-clear-icon::before,
+.e-small.e-bigger .e-input-group.e-control-wrapper .e-clear-icon::before,
 .e-small .e-input-group.e-bigger input:first-child ~ .e-clear-icon::before,
 .e-small .e-input-group.e-control-wrapper.e-bigger input:first-child ~ .e-clear-icon::before,
 .e-bigger .e-input-group.e-small input:first-child ~ .e-clear-icon::before,
@@ -2813,7 +2876,7 @@ textarea.e-input.e-bigger.e-small,
 .e-small .e-float-input.e-bigger input:first-child ~ .e-clear-icon::before,
 .e-bigger .e-float-input.e-control-wrapper.e-small input:first-child ~ .e-clear-icon::before,
 .e-bigger .e-float-input.e-small input:first-child ~ .e-clear-icon::before {
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .e-input:not(:valid):not(.e-control):first-child ~ .e-clear-icon,
@@ -2861,7 +2924,7 @@ textarea.e-input.e-bigger.e-small,
 .e-input-group .e-clear-icon,
 .e-input-group.e-control-wrapper .e-clear-icon {
   min-height: 0;
-  min-width: 28px;
+  min-width: 32px;
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
@@ -2871,7 +2934,7 @@ textarea.e-input.e-bigger.e-small,
 .e-float-input.e-input-group .e-clear-icon,
 .e-float-input.e-input-group.e-control-wrapper .e-clear-icon {
   padding-right: 0;
-  padding-top: 5px;
+  padding-top: 0;
 }
 
 .e-input-group.e-bigger .e-clear-icon,
@@ -2881,7 +2944,7 @@ textarea.e-input.e-bigger.e-small,
 .e-bigger .e-input-group .e-clear-icon,
 .e-bigger .e-input-group.e-control-wrapper .e-clear-icon {
   min-height: 0;
-  min-width: 34px;
+  min-width: 38px;
   padding-bottom: 0;
   padding-right: 0;
   padding-top: 0;
@@ -2932,8 +2995,8 @@ textarea.e-input.e-bigger.e-small,
 .e-input-group.e-control-wrapper.e-small .e-clear-icon,
 .e-input-group.e-control-wrapper .e-clear-icon.e-small,
 .e-small .e-input-group.e-control-wrapper .e-clear-icon {
-  min-height: 28px;
-  min-width: 28px;
+  min-height: 24px;
+  min-width: 24px;
   padding-bottom: 0;
   padding-right: 0;
   padding-top: 0;
@@ -3035,7 +3098,7 @@ textarea.e-input.e-bigger.e-small,
 .e-bigger .e-float-input.e-control-wrapper textarea:valid ~ label.e-float-text,
 .e-bigger .e-float-input.e-control-wrapper textarea ~ label.e-label-top.e-float-text {
   font-size: 14px;
-  top: 14px;
+  top: 12px;
 }
 
 .e-float-input.e-small textarea:focus ~ label.e-float-text,
@@ -3063,12 +3126,12 @@ textarea.e-input.e-bigger.e-small,
 .e-bigger .e-float-input.e-control-wrapper.e-small textarea:valid ~ label.e-float-text,
 .e-bigger .e-float-input.e-control-wrapper.e-small textarea ~ label.e-label-top.e-float-text {
   font-size: 12px;
-  top: 16px;
+  top: 15px;
 }
 
 .e-float-input textarea ~ .e-float-text,
 .e-float-input.e-control-wrapper textarea ~ .e-float-text {
-  top: 15px;
+  top: 13px;
 }
 
 .e-float-input.e-small textarea:not(:focus):valid ~ label.e-float-text.e-label-bottom,
@@ -3589,13 +3652,6 @@ textarea.e-input,
   line-height: 1.5;
   min-height: 32px;
   padding: 4px 8px 4px 14px;
-}
-
-.e-bigger input.e-input,
-.e-bigger textarea.e-input,
-input.e-input.e-bigger,
-textarea.e-input.e-bigger {
-  min-height: 36px;
 }
 
 .e-filled.e-input-group,
@@ -4528,12 +4584,12 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-input-group-icon.e-spin-up::before {
-  content: '\e752';
+  content: '\e776';
   font-family: 'e-icons';
 }
 
 .e-input-group-icon.e-spin-down::before {
-  content: '\e706';
+  content: '\e729';
   font-family: 'e-icons';
 }
 
@@ -4920,9 +4976,9 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-control-wrapper.e-slider-container.e-horizontal .e-first-button .e-button-icon::before {
-  content: '\e761';
   font-size: 17px;
   color: #d1d5db;
+  content: '\e765';
 }
 
 .e-control-wrapper.e-slider-container.e-horizontal .e-second-button {
@@ -4932,9 +4988,9 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-control-wrapper.e-slider-container.e-horizontal .e-second-button .e-button-icon::before {
-  content: '\e707';
   font-size: 18px;
   color: #d1d5db;
+  content: '\e748';
 }
 
 .e-control-wrapper.e-slider-container.e-horizontal.e-slider-btn {
@@ -5021,9 +5077,9 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-control-wrapper.e-slider-container.e-vertical .e-first-button .e-button-icon::before {
-  content: '\e7b3';
   font-size: 18px;
   color: #d1d5db;
+  content: '\e729';
 }
 
 .e-control-wrapper.e-slider-container.e-vertical .e-second-button {
@@ -5033,9 +5089,9 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-control-wrapper.e-slider-container.e-vertical .e-second-button .e-button-icon::before {
-  content: '\e7a0';
   font-size: 18px;
   color: #d1d5db;
+  content: '\e776';
 }
 
 .e-control-wrapper.e-slider-container.e-vertical.e-scale-both .e-slider .e-handle {
@@ -5054,7 +5110,7 @@ input.e-input::-webkit-input-placeholder {
 
 .e-control-wrapper.e-slider-container.e-vertical .e-slider .e-limits {
   background-color: rgba(107, 114, 128, 0.75);
-  left: calc(50% - 2px);
+  left: calc(50%);
   position: absolute;
   width: 4px;
 }
@@ -5197,6 +5253,10 @@ input.e-input::-webkit-input-placeholder {
       -ms-user-select: none;
           user-select: none;
   background-position: center center;
+}
+
+.e-control-wrapper.e-slider-container .e-scale .e-tick.e-large {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAQSURBVHgBAQUA+v8Aa3KA/wUGAl0jqQq1AAAAAElFTkSuQmCC");
 }
 
 .e-control-wrapper.e-slider-container .e-scale .e-tick .e-tick-value {
@@ -5384,27 +5444,27 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-upload .e-upload-files .e-file-remove-btn.e-icons::before {
-  content: '\e771';
+  content: '\e7e7';
 }
 
 .e-upload .e-upload-files .e-icons.e-file-pause-btn::before {
-  content: '\e788';
+  content: '\e77b';
 }
 
 .e-upload .e-upload-files .e-icons.e-file-reload-btn::before {
-  content: '\e711';
+  content: '\e706';
 }
 
 .e-upload .e-upload-files .e-icons.e-file-play-btn::before {
-  content: '\e725';
+  content: '\e70c';
 }
 
 .e-upload .e-upload-files .e-file-delete-btn.e-icons::before {
-  content: '\e78d';
+  content: '\e820';
 }
 
 .e-upload .e-upload-files .e-file-abort-btn.e-icons::before {
-  content: '\e769';
+  content: '\e81b';
 }
 
 .e-upload .e-upload-files .e-icons.e-msie::before {
@@ -5425,41 +5485,43 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-bigger .e-upload .e-file-select-wrap .e-file-drop {
-  font-size: 15px;
-  margin-left: 15px;
+  font-size: 16px;
+  margin-left: 16px;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list {
   font-size: 14px;
-  line-height: 22px;
-  min-height: 108px;
+  line-height: 24px;
+  min-height: 96px;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container {
-  margin-left: 15px;
+  margin-left: 12px;
   top: 0;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-name {
-  font-size: 15px;
-  padding-top: 15px;
+  font-size: 16px;
+  padding-top: 12px;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-size {
-  font-size: 12px;
-  padding: 10px 0;
+  font-size: 16px;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 2px 0;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-type {
-  font-size: 15px;
-  padding-top: 15px;
+  font-size: 16px;
+  padding-top: 12px;
   top: initial;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status,
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-information {
-  font-size: 12px;
-  padding-bottom: 15px;
+  font-size: 16px;
+  padding-bottom: 12px;
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-upload-progress-wrap {
@@ -5476,7 +5538,7 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-bigger .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-upload-progress-wrap .e-progress-bar-text {
-  font-size: 12px;
+  font-size: 14px;
   right: 16px;
   top: -36px;
 }
@@ -5490,7 +5552,7 @@ input.e-input::-webkit-input-placeholder {
   box-sizing: border-box;
   font-size: 22px;
   height: 24px;
-  margin: 15px;
+  margin: 16px;
   margin-top: -24px;
   padding: 24px;
   top: 50%;
@@ -5529,15 +5591,15 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-bigger .e-upload .e-upload-actions .e-btn {
-  margin-left: 15px;
+  margin-left: 12px;
 }
 
 .e-bigger .e-upload .e-upload-actions .e-file-upload-btn {
-  margin: 15px;
+  margin: 12px;
 }
 
 .e-bigger .e-upload .e-upload-actions .e-file-clear-btn {
-  margin: 15px;
+  margin: 12px;
 }
 
 .e-bigger .e-upload.e-rtl .e-file-select-wrap {
@@ -5549,7 +5611,7 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-bigger .e-upload.e-rtl .e-file-select-wrap .e-file-drop {
-  margin-right: 15px;
+  margin-right: 16px;
 }
 
 .e-bigger .e-upload.e-rtl .e-upload-files .e-upload-file-list .e-file-container {
@@ -5606,8 +5668,8 @@ input.e-input::-webkit-input-placeholder {
 
 .e-bigger .e-upload.e-form-upload .e-upload-files .e-upload-file-list {
   min-height: 35px;
-  padding-bottom: 15px;
-  padding-top: 11px;
+  padding-bottom: 12px;
+  padding-top: 8px;
 }
 
 .e-bigger .e-upload.e-form-upload .e-upload-files .e-upload-file-list .e-file-container {
@@ -5634,7 +5696,7 @@ input.e-input::-webkit-input-placeholder {
 .e-bigger .e-upload.e-form-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-information {
   color: #8b919e;
   display: block;
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1.5;
   padding-bottom: 0;
   padding-top: 4px;
@@ -5719,8 +5781,8 @@ input.e-input::-webkit-input-placeholder {
 .e-upload.e-form-upload .e-upload-files .e-upload-file-list,
 .e-bigger.e-small .e-upload.e-form-upload .e-upload-files .e-upload-file-list {
   min-height: 35px;
-  padding-bottom: 15px;
-  padding-top: 11px;
+  padding-bottom: 12px;
+  padding-top: 8px;
 }
 
 .e-upload.e-form-upload .e-upload-files .e-upload-file-list .e-file-container,
@@ -5756,7 +5818,7 @@ input.e-input::-webkit-input-placeholder {
 .e-bigger.e-small .e-upload.e-form-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-information {
   color: #8b919e;
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   padding-bottom: 0;
   padding-top: 4px;
@@ -5815,6 +5877,7 @@ input.e-input::-webkit-input-placeholder {
   font-family: inherit;
   font-size: 14px;
   height: 100%;
+  line-height: 24px;
   line-height: 22px;
   min-height: 82px;
   position: relative;
@@ -5838,7 +5901,7 @@ input.e-input::-webkit-input-placeholder {
   font-size: 14px;
   max-width: 75%;
   overflow: hidden;
-  padding-top: 12px;
+  padding-top: 8px;
   position: relative;
   text-overflow: ellipsis;
   top: 0;
@@ -5856,7 +5919,7 @@ input.e-input::-webkit-input-placeholder {
   display: block;
   font-family: inherit;
   font-size: 14px;
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-type.e-hidden,
@@ -5867,8 +5930,10 @@ input.e-input::-webkit-input-placeholder {
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-size,
 .e-bigger.e-small .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-size {
   display: block;
+  font-size: 14px;
+  padding: 2px 0;
   font-size: 12px;
-  padding: 4px 0;
+  line-height: 18px;
 }
 
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status,
@@ -5877,8 +5942,8 @@ input.e-input::-webkit-input-placeholder {
 .e-bigger.e-small .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-information {
   display: block;
   font-family: inherit;
-  font-size: 12px;
-  padding-bottom: 12px;
+  font-size: 14px;
+  padding-bottom: 8px;
 }
 
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status.e-upload-progress,
@@ -5917,7 +5982,7 @@ input.e-input::-webkit-input-placeholder {
 .e-bigger.e-small .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-upload-progress-wrap .e-progress-bar-text {
   float: right;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   position: relative;
   right: 0;
   top: -33px;
@@ -6305,7 +6370,7 @@ input.e-input::-webkit-input-placeholder {
 .e-small .e-upload.e-form-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-information {
   color: #8b919e;
   display: block;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   padding-bottom: 0;
   padding-top: 4px;
@@ -6347,6 +6412,7 @@ input.e-input::-webkit-input-placeholder {
 
 .e-upload .e-file-drop {
   color: #9ca3af;
+  vertical-align: middle;
 }
 
 .e-upload .e-upload-files {
@@ -6372,6 +6438,7 @@ input.e-input::-webkit-input-placeholder {
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status,
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-information {
   color: #fff;
+  color: #9ca3af;
 }
 
 .e-upload .e-upload-files .e-upload-file-list .e-file-container .e-file-status.e-upload-success {
@@ -6438,11 +6505,26 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-upload-drag-hover {
-  outline: 2px dashed #22d3ee;
+  border-color: transparent;
+}
+
+.e-upload .e-upload-actions .e-file-clear-btn.e-flat:not(:hover) {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #1f2937;
+  border-color: #6b7280;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  color: #fff;
+}
+
+.e-upload .e-upload-actions .e-file-upload-btn.e-flat.e-primary:not(:hover) {
+  -webkit-tap-highlight-color: transparent;
+  background-color: #22d3ee;
+  border-color: #22d3ee;
+  color: #000;
 }
 
 .e-container .e-value-switch-btn::before {
-  content: '\e7b7';
+  content: '\e748';
 }
 
 .e-colorpicker-wrapper,
@@ -6786,7 +6868,7 @@ body.e-colorpicker-overflow {
   position: relative;
   top: 0;
   width: 13.45%;
-  height: 38px;
+  height: 36px;
 }
 
 .e-container .e-slider-preview .e-preview-container .e-preview {
@@ -6811,7 +6893,7 @@ body.e-colorpicker-overflow {
       align-items: center;
   display: -ms-flexbox;
   display: flex;
-  padding: 0 8px 12px 9px;
+  padding: 0 8px 12px 8px;
   -webkit-user-select: none;
       -ms-user-select: none;
           user-select: none;
@@ -7058,6 +7140,10 @@ body.e-colorpicker-overflow {
   height: 38px;
 }
 
+.e-bigger .e-container.e-color-picker .e-switch-ctrl-btn {
+  padding: 12px 16px;
+}
+
 .e-bigger .e-container.e-color-picker .e-switch-ctrl-btn .e-mode-switch-btn {
   height: 38px;
 }
@@ -7104,9 +7190,9 @@ body.e-colorpicker-overflow {
 
 .e-bigger .e-container .e-slider-preview .e-colorpicker-slider .e-slider-container .e-handle {
   border-radius: 10px;
-  height: 13px;
-  top: calc(76% - 8px);
-  width: 13px;
+  height: 16px;
+  top: calc(77% - 10px);
+  width: 16px;
 }
 
 .e-bigger .e-container .e-slider-preview .e-switch-ctrl-btn .e-ctrl-btn {
