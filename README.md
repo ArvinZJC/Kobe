@@ -8,7 +8,7 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ArvinZJC/Kobe)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
-**简体中文** | [English](./README-en.md)
+**简体中文** | [English](./README_en.md)
 
 > Kobe /'kəubi/
 >

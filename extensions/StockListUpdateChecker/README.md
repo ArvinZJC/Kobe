@@ -1,6 +1,6 @@
 # [Kobe](../../../..)/[extensions](../../..)/Stock List Update Checker
 
-[简体中文](./README-zhCN.md) | **English**
+[简体中文](./README_zhCN.md) | **English**
 
 Stock List Update Checker is a Python script extension. This extension can retrieve and store a list of stocks' symbols and corresponding names in a JSON data file. The supported stock exchanges are Beijing Stock Exchange, Shanghai Stock Exchange, and Shenzhen Stock Exchange. The JSON file is essential and processed to provide the autocomplete functionality of Kobe's auto-complete component to input the stock symbol.
 
