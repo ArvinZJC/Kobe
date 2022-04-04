@@ -1,4 +1,4 @@
-# [Kobe](../../../..)/[extensions](../../..)/Stock List Update Checker
+# [Kobe](../../../..)/[extensions](../)/Stock List Update Checker
 
 [简体中文](./README_zhCN.md) | **English**
 
