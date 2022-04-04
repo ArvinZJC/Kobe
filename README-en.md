@@ -18,7 +18,7 @@ Kobe is a macOS/Windows desktop app that can search stocks' strike prices and vo
 
 Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announced to release its first alpha version in [a currently archived repository](https://github.com/ArvinZJC/ShSzStockHelper-Windows). It primarily uses Windows Presentation Foundation (WPF) with .NET Core 3.1, and largely satisfies my family's requirements. Although the old Kobe has done it right after several iterations, its defects become more and more annoying, including supporting Windows only, being extremely slow on the first start, a highly volatile search engine, and so on. Thus, this repository was created on 7 December 2021 to construct an exciting Kobe. Nowadays, the brand-new Kobe is more useful and stabler after refactoring it for some time.
 
-~~For more information, please refer to Kobe's official site and user manual.~~ (under construction)
+~~For more infor, please refer to Kobe's official site and user manual.~~ (under construction)
 
 ![screenshot.png](./img_README/screenshot.png)
 
@@ -26,9 +26,9 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 31 March 2022, everything looks good with Visual Studio Code (Version: 1.66.0) + Node.js 16.14.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 4 April 2022, everything looks good with Visual Studio Code (Version: 1.66.0) + Node.js 16.14.2 + Vue CLI 4.5.15. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
 2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). **It is awfully safe to permit the app behaviour for any system prompt regarding safety confirmation. The app is signed, is not malware, and will never ever collect and upload any user privacy.** Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
-3. The primary dependencies of the project are listed in the following table. For more information, please refer to [`package.json`](./package.json).
+3. The primary dependencies of the project are listed in the following table. For more info, please refer to [`package.json`](./package.json).
 
    | Name                             |  Version   |
    | :------------------------------- | :--------: |
