@@ -26,21 +26,21 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 4 月 4 日，使用 Visual Studio Code（版本：1.66.0）、Node.js 16.14.2 和 Vue CLI 4.5.15 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
+1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 4 月 4 日，使用 Visual Studio Code（版本：1.66.0）、Node.js 16.14.2 和 Vue CLI 4.5.17 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
 2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 macOS 10.11 及更高版本（arm64 和 x64），以及 Windows 7 及更高版本（arm64、x64 和 x86）。**在安装、使用和卸载此应用的过程中，任何来自系统的安全提示都可授权允许。此应用已签名，无恶意行为，亦不会收集并上传任何用户隐私。** 若遇问题，可移步 [issues](https://github.com/ArvinZJC/Kobe/issues)。
 3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
 
    | 名称                             |    版本    |
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.6    |
-   | @syncfusion/ej2-vue-buttons      |  19.4.55   |
-   | @syncfusion/ej2-vue-calendars    |  19.4.56   |
-   | @syncfusion/ej2-vue-dropdowns    |  19.4.56   |
-   | @syncfusion/ej2-vue-grids        |  19.4.56   |
-   | @syncfusion/ej2-vue-inputs       |  19.4.52   |
-   | @syncfusion/ej2-vue-navigations  |  19.4.56   |
-   | @syncfusion/ej2-vue-popups       |  19.4.53   |
-   | @syncfusion/ej2-vue-splitbuttons |  19.4.52   |
+   | @syncfusion/ej2-vue-buttons      |  20.1.47   |
+   | @syncfusion/ej2-vue-calendars    |  20.1.47   |
+   | @syncfusion/ej2-vue-dropdowns    |  20.1.47   |
+   | @syncfusion/ej2-vue-grids        |  20.1.47   |
+   | @syncfusion/ej2-vue-inputs       |  20.1.47   |
+   | @syncfusion/ej2-vue-navigations  |  20.1.47   |
+   | @syncfusion/ej2-vue-popups       |  20.1.47   |
+   | @syncfusion/ej2-vue-splitbuttons |  20.1.47   |
    | cldr-data                        |   36.0.0   |
    | electron                         |   17.1.2   |
    | electron-context-menu            |   3.1.2    |
@@ -59,7 +59,17 @@
    | vue-router                       |   4.0.14   |
 
 4. 此项目部分 SVG 图像资源来自 [Flaticon](https://www.flaticon.com/packs/font-awesome) 和 [Iconscout](https://iconscout.com/)。
-5. Vue CLI 是此项目的一个重要依赖。在项目根目录下，按如下步骤使用 npm 的命令可以在本地运行此项目，但[应用签名](https://www.electron.build/code-signing)和[自动更新](https://www.electron.build/auto-update)会需要自己额外配置。
+5. 您可以在项目根目录下手动创建名为 `.env` 或 `.env.local` 的文件，并包含如下内容。请注意这个操作 _可选_。**在没有这个文件的情况下，此项目应仍能良好运行，只是会有 Syncfusion 的许可证错误提示**。
+
+   ```sh
+   VUE_APP_SF_LICENSE=<您的 Syncfusion 许可证>
+   ```
+
+   您也许会觉得下面的链接比较有用。
+
+   - [如何生成一个 Syncfusion Vue 许可证？](https://ej2.syncfusion.com/vue/documentation/licensing/license-key-generation/)
+
+6. Vue CLI 是此项目的一个重要依赖。在项目根目录下，按如下步骤使用 npm 的命令可以在本地运行此项目，但[应用签名](https://www.electron.build/code-signing)和[自动更新](https://www.electron.build/auto-update)会需要自己额外配置。
 
    - 安装项目所需依赖。
 
@@ -191,7 +201,7 @@
        }
        ```
 
-6. 此项目使用 CircleCI 来帮助提高集成和发布效率，主要配置可参见 [`config.yml`](./.circleci/config.yml)。
+7. 此项目使用 CircleCI 来帮助提高集成和发布效率，主要配置可参见 [`config.yml`](./.circleci/config.yml)。
 
 好运哦! 💖
 
