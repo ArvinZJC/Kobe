@@ -8,7 +8,7 @@ Stock List Update Checker is a Python script extension. This extension can retri
 
 > May I have your attention pls? 🔥
 
-1. By 4 April 2022, everything looks good with Visual Studio Code (Version: 1.66.0) + Python 3.6. Additionaly, I would like to thankfully acknowledge [Tushare Pro](https://tushare.pro/) for its valuabale data.
+1. By 5 April 2022, everything looks good with Visual Studio Code (Version: 1.66.0) + Python 3.6. Additionaly, I would like to thankfully acknowledge [Tushare Pro](https://tushare.pro/) for its valuabale data.
 2. The primary packages of the extension are listed in the following table. For more info, please refer to [`requirements.txt` under the extension's `src` directory](./src/requirements.txt).
 
    | Name          | Version |
@@ -34,7 +34,7 @@ Stock List Update Checker is a Python script extension. This extension can retri
    - [How to get the Telegram user ID?](https://bigone.zendesk.com/hc/en-us/articles/360008014894-How-to-get-the-Telegram-user-ID-)
    - [How to get a Tushare Pro token?](https://tushare.pro/document/1?doc_id=39)
 
-   If all configurations are set properly, the script `updater.py` under the extension's `src` directory can be executed successfully to generate/update the JSON data file as per the search results.
+   If all configurations are in place, the script `updater.py` under the extension's `src` directory can be executed successfully to generate/update the JSON data file as per the search results.
 
 4. The extension is designed to deploy on [Tencent SCF](https://cloud.tencent.com/product/scf) to check if any update is available for the stock list. A configuration file template is provided as follows for deployment convenience. You may refer to [the relevant official documents of Tencent SCF](https://cloud.tencent.com/document/product/583/44751) to use it if you want.
 
