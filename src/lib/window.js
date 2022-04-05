@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.0.14.20220313
+ * @Version: 2.1.0.20220405
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 19:54:15
+ * @LastEditTime: 2022-04-05 09:24:39
  */
 
 import {
@@ -64,17 +64,13 @@ export async function createTabbedWin(stockList) {
     center: true,
     minHeight: global.common.MIN_WIN_HEIGHT,
     minWidth: global.common.MIN_WIN_WIDTH,
-    titleBarStyle: platform === global.common.MACOS ? "hiddenInset" : "hidden",
-  };
-
-  // TODO: titleBarOverlay temp workaround.
-  if (platform === global.common.MACOS) {
-    winOptions.titleBarOverlay = {
+    titleBarOverlay: {
       color: global.common.TITLE_BAR_OVERLAY_COLOUR,
       height: global.common.TAB_BAR_HEIGHT,
       symbolColor: global.common.LIGHT_WIN_COLOUR,
-    };
-  } // end if
+    },
+    titleBarStyle: platform === global.common.MACOS ? "hiddenInset" : "hidden",
+  };
 
   const winWidth = Math.round(width * 0.7);
   var tabbedWin = new TabbedWindow({
@@ -198,22 +194,8 @@ function initialiseIpcMainListener(stockList, tabbedWin) {
 /**
  * Maximise or restore the window.
  * @param {TabbedWindow} tabbedWin a tabbed window.
- * @param {Electron.WebContents} viewContents the tab item web contents.
  */
-function maximiseOrRestoreWin(tabbedWin, viewContents) {
-  // TODO: titleBarOverlay temp workaround.
-  if (platform === global.common.WINDOWS) {
-    if (tabbedWin.win.isMaximized()) {
-      tabbedWin.win.unmaximize();
-      viewContents.send(global.common.IPC_RECEIVE, global.common.RESTORE_WIN);
-    } else {
-      tabbedWin.win.maximize();
-      viewContents.send(global.common.IPC_RECEIVE, global.common.MAXIMISE_WIN);
-    } // end if...else
-
-    return;
-  } // end if
-
+function maximiseOrRestoreWin(tabbedWin) {
   // NOTE: react to this ID data on macOS only.
   // Reference: https://github.com/electron/electron/issues/16385#issuecomment-653952292
   switch (
@@ -419,12 +401,7 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
       break;
     }
     case global.common.MAXIMISE_OR_RESTORE_WIN: {
-      maximiseOrRestoreWin(tabbedWin, viewContents);
-      break;
-    }
-    case global.common.MINIMISE_WIN: {
-      // TODO: titleBarOverlay temp workaround.
-      tabbedWin.win.minimize();
+      maximiseOrRestoreWin(tabbedWin);
       break;
     }
     case global.common.PATCH_BY_RESIZING: {

@@ -1,10 +1,10 @@
 /*
  * @Description: the global variables for the scripts
- * @Version: 1.0.14.20220313
+ * @Version: 1.0.15.20220405
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 20:02:02
+ * @LastEditTime: 2022-04-05 09:19:03
  */
 
 global.common = {
@@ -99,7 +99,6 @@ global.common = {
   MAX_MAX_DATE_RANGE_SPAN: 10,
   MAX_PREFERENCE_OPTION_WIDTH: 215,
   MAXIMISE_OR_RESTORE_WIN: "maximiseOrRestoreWin",
-  MAXIMISE_WIN: "maximiseWin", // TODO: titleBarOverlay temp workaround.
   MIN_COLUMN_WIDTH: 50,
   MIN_DATE_KEY: "minDate",
   MIN_DATE_PICKER_TOOLTIP_NAME: "tooltipMinDate",
@@ -109,7 +108,6 @@ global.common = {
   MIN_MIN_DATE: "1990-12-03",
   MIN_WIN_HEIGHT: 600,
   MIN_WIN_WIDTH: 800,
-  MINIMISE_WIN: "minimiseWin", // TODO: titleBarOverlay temp workaround.
   NEW_TAB_ITEM: "new-tab",
   NEW_TAB_ITEM_INDEX_KEY: "newTabItemIndex",
   ONLINE_SEARCH_KEY: "onlineSearch",
@@ -124,7 +122,6 @@ global.common = {
   RESET_PREFERENCES: "resetPreferences",
   RESET_PREFERENCES_CONFIRMATION_DIALOGUE_NAME:
     "dialogueResetPreferencesConfirmation",
-  RESTORE_WIN: "restoreWin", // TODO: titleBarOverlay temp workaround.
   RESULT_DISPLAY_SECTION_ID: "result-display-section",
   SEARCH_ENGINE_MODE_KEY: "searchEngineMode",
   SEARCH_ENGINE_SECTION_ID: "search-engine-section",
