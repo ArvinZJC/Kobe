@@ -18,7 +18,7 @@ Stock List Update Checker is a Python script extension. This extension can retri
    | python-dotenv | 0.19.2  |
    | tushare       | 1.2.83  |
 
-3. You could manually create a file named `.env` or `.env.local` under the extension's `src` directory and contain the following content. Please note that it is _optional_, and that **the project should work well without it**.
+3. You could manually create a file named `.env` under the extension's `src` directory and contain the following content. Please note that it is _optional_, and that **the project should work well without it**.
 
    ```sh
    # Set the following environment variables to allow sending messages to your Telegram bot.
