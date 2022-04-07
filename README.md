@@ -132,7 +132,7 @@
            },
            {
              // Windows 下不可构建 macOS 桌面应用，所以 Windows 下不可配置此部分。
-             "name": "electron: macOS production",
+             "name": "electron: macOS build",
              "request": "launch",
              "runtimeArgs": ["run", "electron:build", "--", "-m"],
              "runtimeExecutable": "npm",
@@ -140,7 +140,7 @@
              "type": "node"
            },
            {
-             "name": "electron: Windows production",
+             "name": "electron: Windows build",
              "request": "launch",
              "runtimeArgs": [
                "run",

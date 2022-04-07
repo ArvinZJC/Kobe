@@ -132,7 +132,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
            },
            {
              // You should not add this part on Windows because you cannot build macOS desktop apps on Windows.
-             "name": "electron: macOS production",
+             "name": "electron: macOS build",
              "request": "launch",
              "runtimeArgs": ["run", "electron:build", "--", "-m"],
              "runtimeExecutable": "npm",
@@ -140,7 +140,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
              "type": "node"
            },
            {
-             "name": "electron: Windows production",
+             "name": "electron: Windows build",
              "request": "launch",
              "runtimeArgs": [
                "run",
