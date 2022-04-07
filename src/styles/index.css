@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.2.0.20220313
+ * @Version: 1.2.1.20220405
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 14:27:32
+ * @LastEditTime: 2022-04-05 11:10:38
  */
 
 @tailwind base;
@@ -160,6 +160,11 @@
 /* The grid's customised empty row style. */
 .e-grid .e-emptyrow td {
   @apply !p-[0.35rem];
+}
+
+/* The control's customised style. */
+.e-control {
+  @apply !font-sans;
 }
 
 /* The grid's customised frozen content style. */

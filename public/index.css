@@ -1,10 +1,10 @@
 /*
  * @Description: general styles
- * @Version: 1.2.0.20220313
+ * @Version: 1.2.1.20220405
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 22:03:43
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 14:27:32
+ * @LastEditTime: 2022-04-05 11:10:38
  */
 
 /*
@@ -1125,11 +1125,6 @@ body::selection {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.blur {
-  --tw-blur: blur(8px);
-  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-}
-
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1340,6 +1335,12 @@ body::selection {
 
 .e-grid .e-emptyrow td {
   padding: 0.35rem !important;
+}
+
+/* The control's customised style. */
+
+.e-control {
+  font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
 /* The grid's customised frozen content style. */
@@ -1603,16 +1604,6 @@ body::selection {
 .e-tab-clone-element:not(.e-separator) {
   padding-left: 0px !important;
   padding-right: 0.375rem !important;
-}
-
-.hover\:bg-\[\#e81123\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(232 17 35 / var(--tw-bg-opacity));
-}
-
-.focus\:bg-\[\#901326\]:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(144 19 38 / var(--tw-bg-opacity));
 }
 
 @media (prefers-reduced-motion: no-preference) {
