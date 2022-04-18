@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.12.20220307
+ * @Version: 2.0.13.20220418
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 14:18:34
+ * @LastEditTime: 2022-04-18 19:44:11
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -27,7 +27,7 @@ const menuItemAboutTemplate =
     : {
         click: () => {
           dialog.showMessageBox({
-            detail: `V${app.getVersion()}\n\n${
+            detail: `版本 ${app.getVersion()}\n\n${
               zhCN.default.appDescription
             }\n\nCopyright © ${new Date().getFullYear()} ${
               global.common.AUTHOR
