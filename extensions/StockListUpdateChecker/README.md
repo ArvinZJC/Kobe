@@ -14,7 +14,7 @@ Stock List Update Checker is a Python script extension. This extension can retri
    | Name          | Version |
    | :------------ | :-----: |
    | onepush       |  1.1.1  |
-   | pandas        |  1.3.5  |
+   | pandas        |  1.1.5  |
    | python-dotenv | 0.20.0  |
    | tushare       | 1.2.85  |
 
