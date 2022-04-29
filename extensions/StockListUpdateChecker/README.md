@@ -8,15 +8,15 @@ Stock List Update Checker is a Python script extension. This extension can retri
 
 > May I have your attention pls? 🔥
 
-1. By 28 April 2022, everything looks good with Visual Studio Code (Version: 1.66.2) + Python 3.6. Additionaly, I would like to thankfully acknowledge [Tushare Pro](https://tushare.pro/) for its valuabale data.
+1. By 29 April 2022, everything looks good with Visual Studio Code (Version: 1.66.2) + Python 3.6. Additionaly, I would like to thankfully acknowledge [Tushare Pro](https://tushare.pro/) for its valuabale data.
 2. The primary packages of the extension are listed in the following table. For more info, please refer to [`requirements.txt` under the extension's `src` directory](./src/requirements.txt).
 
    | Name          | Version |
    | :------------ | :-----: |
    | onepush       |  1.1.1  |
    | pandas        |  1.1.5  |
-   | python-dotenv | 0.19.2  |
-   | tushare       | 1.2.83  |
+   | python-dotenv | 0.20.0  |
+   | tushare       | 1.2.85  |
 
 3. You could manually create a file named `.env` under the extension's `src` directory and contain the following content. Please note that it is _optional_, and that **the project should work well without it**.
 
