@@ -2617,6 +2617,99 @@ li.e-separator.e-menu-item.e-excel-separator {
   margin-top: 0;
 }
 
+.e-bigger .e-grid .e-rowcell.e-frozen-right-border,
+.e-bigger .e-grid .e-headercell.e-frozen-right-border,
+.e-bigger .e-grid .e-filterbarcell.e-frozen-right-border,
+.e-grid.e-bigger .e-rowcell.e-frozen-right-border,
+.e-grid.e-bigger .e-headercell.e-frozen-right-border,
+.e-grid.e-bigger .e-filterbarcell.e-frozen-right-border {
+  border-right: 3px solid #818cf8;
+}
+
+.e-bigger .e-grid .e-rowcell.e-frozen-left-border,
+.e-bigger .e-grid .e-headercell.e-frozen-left-border,
+.e-bigger .e-grid .e-filterbarcell.e-frozen-left-border,
+.e-grid.e-bigger .e-rowcell.e-frozen-left-border,
+.e-grid.e-bigger .e-headercell.e-frozen-left-border,
+.e-grid.e-bigger .e-filterbarcell.e-frozen-left-border {
+  border-left: 3px solid #818cf8;
+}
+
+.e-bigger .e-grid .e-rowcell.e-freezeline,
+.e-bigger .e-grid .e-gridheader .e-filterbarcell.e-freezeline,
+.e-grid.e-bigger .e-rowcell.e-freezeline,
+.e-grid.e-bigger .e-gridheader .e-filterbarcell.e-freezeline {
+  position: relative;
+}
+
+.e-bigger .e-grid .e-rowcell .e-frozen-right-cursor,
+.e-bigger .e-grid .e-rowcell .e-frozen-left-cursor,
+.e-bigger .e-grid .e-gridheader .e-headercell .e-frozen-right-cursor,
+.e-bigger .e-grid .e-gridheader .e-headercell .e-frozen-left-cursor,
+.e-bigger .e-grid .e-gridheader .e-filterbarcell .e-frozen-right-cursor,
+.e-bigger .e-grid .e-gridheader .e-filterbarcell .e-frozen-left-cursor,
+.e-grid.e-bigger .e-rowcell .e-frozen-right-cursor,
+.e-grid.e-bigger .e-rowcell .e-frozen-left-cursor,
+.e-grid.e-bigger .e-gridheader .e-headercell .e-frozen-right-cursor,
+.e-grid.e-bigger .e-gridheader .e-headercell .e-frozen-left-cursor,
+.e-grid.e-bigger .e-gridheader .e-filterbarcell .e-frozen-right-cursor,
+.e-grid.e-bigger .e-gridheader .e-filterbarcell .e-frozen-left-cursor {
+  cursor: move;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 4px;
+}
+
+.e-bigger .e-grid .e-rowcell .e-frozen-left-cursor,
+.e-bigger .e-grid .e-gridheader .e-headercell .e-frozen-left-cursor,
+.e-bigger .e-grid .e-gridheader .e-filterbarcell .e-frozen-left-cursor,
+.e-grid.e-bigger .e-rowcell .e-frozen-left-cursor,
+.e-grid.e-bigger .e-gridheader .e-headercell .e-frozen-left-cursor,
+.e-grid.e-bigger .e-gridheader .e-filterbarcell .e-frozen-left-cursor {
+  right: 0;
+}
+
+.e-bigger .e-grid .e-rowcell .e-frozen-right-cursor,
+.e-bigger .e-grid .e-gridheader .e-headercell .e-frozen-right-cursor,
+.e-bigger .e-grid .e-gridheader .e-filterbarcell .e-frozen-right-cursor,
+.e-grid.e-bigger .e-rowcell .e-frozen-right-cursor,
+.e-grid.e-bigger .e-gridheader .e-headercell .e-frozen-right-cursor,
+.e-grid.e-bigger .e-gridheader .e-filterbarcell .e-frozen-right-cursor {
+  left: 0;
+}
+
+.e-bigger .e-grid .e-gridheader .e-headercell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-bigger .e-grid .e-gridheader .e-filterbarcell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-bigger .e-grid .e-rowcell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-grid.e-bigger .e-gridheader .e-headercell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-grid.e-bigger .e-gridheader .e-filterbarcell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-grid.e-bigger .e-rowcell .e-frozen-left-cursor.e-frozen-resize-cursor {
+  right: 3px;
+}
+
+.e-bigger .e-grid .e-gridheader .e-headercell .e-frozen-right-cursor.e-frozen-resize-cursor:not(.e-frozen-default-cursor),
+.e-bigger .e-grid .e-gridheader .e-filterbarcell .e-frozen-right-cursor.e-frozen-resize-cursor:not(.e-frozen-default-cursor),
+.e-grid.e-bigger .e-gridheader .e-headercell .e-frozen-right-cursor.e-frozen-resize-cursor:not(.e-frozen-default-cursor),
+.e-grid.e-bigger .e-gridheader .e-filterbarcell .e-frozen-right-cursor.e-frozen-resize-cursor:not(.e-frozen-default-cursor) {
+  left: 3px;
+}
+
+.e-bigger .e-grid .e-frozen-helper,
+.e-grid.e-bigger .e-frozen-helper {
+  border-left: 3px solid #818cf8;
+  cursor: move;
+  position: absolute;
+  z-index: 2;
+}
+
+.e-bigger .e-grid .e-content.e-freezeline-moving,
+.e-grid.e-bigger .e-content.e-freezeline-moving {
+  -webkit-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 .e-grid {
   border-radius: 4px;
   border-style: none solid solid;
@@ -3020,8 +3113,8 @@ li.e-separator.e-menu-item.e-excel-separator {
   width: 4px;
 }
 
-.e-grid .e-gridheader .e-frozenheader .e-headercell .e-rhandler:last-of-type,
-.e-grid .e-gridheader .e-frozenheader .e-headercell .e-rsuppress:last-of-type {
+.e-grid .e-gridheader .e-frozenheader .e-headercell:last-child .e-rhandler:last-of-type,
+.e-grid .e-gridheader .e-frozenheader .e-headercell:last-child .e-rsuppress:last-of-type {
   border-right: 0;
 }
 
@@ -3462,9 +3555,9 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid.e-default tr td:first-child,
-.e-grid.e-default tr th.e-headercell:first-child:not(.e-firstcell),
+.e-grid.e-default tr th.e-headercell:first-child:not(.e-firstcell):not(.e-headercell.e-frozen-left-border),
 .e-grid.e-default tr th.e-detailheadercell:first-child,
-.e-grid.e-default tr th.e-filterbarcell:first-child {
+.e-grid.e-default tr th.e-filterbarcell:first-child:not(.e-filterbarcell.e-frozen-left-border) {
   border-left-width: 0;
 }
 
@@ -4524,7 +4617,10 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid .e-frozenheader.e-frozen-right-header > .e-table,
-.e-grid .e-frozencontent.e-frozen-right-content > .e-table {
+.e-grid .e-frozencontent.e-frozen-right-content > .e-table,
+.e-grid .e-rowcell .e-frozen-default-cursor,
+.e-grid .e-gridheader .e-headercell .e-frozen-default-cursor,
+.e-grid .e-gridheader .e-filterbarcell .e-frozen-default-cursor {
   border-left: 3px solid;
   border-right: 0;
 }
@@ -5213,6 +5309,72 @@ li.e-separator.e-menu-item.e-excel-separator {
 
 .e-grid.sf-grid .e-table {
   border-spacing: .25px;
+}
+
+.e-grid.sf-grid .e-rowcell.e-frozen-right-border,
+.e-grid.sf-grid .e-headercell.e-frozen-right-border,
+.e-grid.sf-grid .e-filterbarcell.e-frozen-right-border {
+  border-right: 3px solid #818cf8;
+}
+
+.e-grid.sf-grid .e-rowcell.e-frozen-left-border,
+.e-grid.sf-grid .e-headercell.e-frozen-left-border,
+.e-grid.sf-grid .e-filterbarcell.e-frozen-left-border {
+  border-left: 3px solid #818cf8;
+}
+
+.e-grid.sf-grid .e-rowcell.e-freezeline,
+.e-grid.sf-grid .e-gridheader .e-filterbarcell.e-freezeline {
+  position: relative;
+}
+
+.e-grid.sf-grid .e-rowcell .e-frozen-right-cursor,
+.e-grid.sf-grid .e-rowcell .e-frozen-left-cursor,
+.e-grid.sf-grid .e-gridheader .e-headercell .e-frozen-right-cursor,
+.e-grid.sf-grid .e-gridheader .e-headercell .e-frozen-left-cursor,
+.e-grid.sf-grid .e-gridheader .e-filterbarcell .e-frozen-right-cursor,
+.e-grid.sf-grid .e-gridheader .e-filterbarcell .e-frozen-left-cursor {
+  cursor: move;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 4px;
+}
+
+.e-grid.sf-grid .e-rowcell .e-frozen-left-cursor,
+.e-grid.sf-grid .e-gridheader .e-headercell .e-frozen-left-cursor,
+.e-grid.sf-grid .e-gridheader .e-filterbarcell .e-frozen-left-cursor {
+  right: 0;
+}
+
+.e-grid.sf-grid .e-rowcell .e-frozen-right-cursor,
+.e-grid.sf-grid .e-gridheader .e-headercell .e-frozen-right-cursor,
+.e-grid.sf-grid .e-gridheader .e-filterbarcell .e-frozen-right-cursor {
+  left: 0;
+}
+
+.e-grid.sf-grid .e-gridheader .e-headercell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-grid.sf-grid .e-gridheader .e-filterbarcell .e-frozen-left-cursor.e-frozen-resize-cursor,
+.e-grid.sf-grid .e-rowcell .e-frozen-left-cursor.e-frozen-resize-cursor {
+  right: 3px;
+}
+
+.e-grid.sf-grid .e-gridheader .e-headercell .e-frozen-right-cursor.e-frozen-resize-cursor:not(.e-frozen-default-cursor),
+.e-grid.sf-grid .e-gridheader .e-filterbarcell .e-frozen-right-cursor.e-frozen-resize-cursor:not(.e-frozen-default-cursor) {
+  left: 3px;
+}
+
+.e-grid.sf-grid .e-frozen-helper {
+  border-left: 3px solid #818cf8;
+  cursor: move;
+  position: absolute;
+  z-index: 2;
+}
+
+.e-grid.sf-grid .e-content.e-freezeline-moving {
+  -webkit-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .e-grid.sf-grid .e-masked-cell.e-rowcell .e-virtualcell {
@@ -6160,9 +6322,24 @@ li.e-separator.e-menu-item.e-excel-separator {
   border-right-color: #e5e7eb;
 }
 
+.e-grid .e-frozenheader.e-frozenborderdisabled > .e-table,
+.e-grid .e-frozencontent.e-frozenborderdisabled > .e-table,
+.e-grid .e-frozencontent.e-frozenborderdisabled .e-virtualtable > .e-table,
+.e-grid .e-frozenheader.e-frozenborderdisabled .e-virtualtable > .e-table {
+  border-right-color: #fff;
+}
+
 .e-grid .e-frozenheader.e-frozen-right-header > .e-table,
-.e-grid .e-frozencontent.e-frozen-right-content > .e-table {
+.e-grid .e-frozencontent.e-frozen-right-content > .e-table,
+.e-grid .e-rowcell .e-frozen-default-cursor,
+.e-grid .e-gridheader .e-headercell .e-frozen-default-cursor,
+.e-grid .e-gridheader .e-filterbarcell .e-frozen-default-cursor {
   border-left-color: #e5e7eb;
+}
+
+.e-grid .e-frozenheader.e-frozen-right-header.e-frozenborderdisabled > .e-table,
+.e-grid .e-frozencontent.e-frozen-right-content.e-frozenborderdisabled > .e-table {
+  border-left-color: #fff;
 }
 
 .e-grid.e-rtl .e-frozenheader > .e-table,
