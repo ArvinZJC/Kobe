@@ -8,7 +8,7 @@
  */
 
 /*
- ! tailwindcss v3.0.23 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -663,10 +663,6 @@ body::selection {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  .btn-tab-bar-mac {
     transition-duration: 300ms;
   }
 }
@@ -701,10 +697,6 @@ body::selection {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  .btn-tab-bar-win {
     transition-duration: 300ms;
   }
 }
@@ -1612,20 +1604,12 @@ body::selection {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  .motion-safe\:transition-300 {
     transition-duration: 300ms;
   }
 
   .motion-safe\:transition-opacity-300 {
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-
-  .motion-safe\:transition-opacity-300 {
     transition-duration: 300ms;
   }
 }
