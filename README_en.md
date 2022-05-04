@@ -26,17 +26,17 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 2 May 2022, everything looks good with Visual Studio Code (Version: 1.66.2) + Node.js 16.14.2 + Vue CLI 4.5.17. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 5 May 2022, everything looks good with Visual Studio Code (Version: 1.66.2) + Node.js 16.14.2 + Vue CLI 4.5.17. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
 2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). **It is awfully safe to permit the app behaviour for any system prompt regarding safety confirmation. The app is signed, is not malware, and will never ever collect and upload any user privacy.** Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
 3. The primary dependencies of the project are listed in the following table. For more info, please refer to [`package.json`](./package.json).
 
    | Name                             |  Version   |
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.6    |
-   | @syncfusion/ej2-vue-buttons      |  20.1.50   |
-   | @syncfusion/ej2-vue-calendars    |  20.1.47   |
-   | @syncfusion/ej2-vue-dropdowns    |  20.1.51   |
-   | @syncfusion/ej2-vue-grids        |  20.1.51   |
+   | @syncfusion/ej2-vue-buttons      |  20.1.52   |
+   | @syncfusion/ej2-vue-calendars    |  20.1.52   |
+   | @syncfusion/ej2-vue-dropdowns    |  20.1.52   |
+   | @syncfusion/ej2-vue-grids        |  20.1.52   |
    | @syncfusion/ej2-vue-inputs       |  20.1.48   |
    | @syncfusion/ej2-vue-navigations  |  20.1.51   |
    | @syncfusion/ej2-vue-popups       |  20.1.47   |
@@ -56,7 +56,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    | vue                              |   3.2.33   |
    | vue-class-component              | 8.0.0-rc.1 |
    | vue-cli-plugin-electron-builder  |   2.1.1    |
-   | vue-router                       |   4.0.14   |
+   | vue-router                       |   4.0.15   |
 
 4. A part of SVG resources in this project are from [Flaticon](https://www.flaticon.com/) and [Iconscout](https://iconscout.com/).
 5. You could manually create a file named `.env` or `.env.local` under the project root directory and contain the following content. Please note that it is _optional_, and that **the project should work well without it**.
