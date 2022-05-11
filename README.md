@@ -42,7 +42,7 @@
    | @syncfusion/ej2-vue-popups       |  20.1.47   |
    | @syncfusion/ej2-vue-splitbuttons |  20.1.47   |
    | cldr-data                        |   36.0.1   |
-   | electron                         |   18.2.0   |
+   | electron                         |   18.2.2   |
    | electron-context-menu            |   3.1.2    |
    | electron-devtools-installer      |   3.2.0    |
    | electron-fetch                   |   1.7.4    |
