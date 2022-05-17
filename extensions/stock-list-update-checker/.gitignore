@@ -190,8 +190,3 @@ atlassian-ide-plugin.xml
 
 # Editor-based Rest Client
 .idea/httpRequests
-
-# Others.
-package.json
-package-lock.json
-serverless.yaml

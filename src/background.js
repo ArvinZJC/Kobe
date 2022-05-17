@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.1.2.20220329
+ * @Version: 1.1.3.20220517
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-29 18:26:02
+ * @LastEditTime: 2022-05-17 12:33:28
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -16,7 +16,7 @@ import { platform } from "process";
 import global from "./lib/global.js";
 import { createTabbedWin } from "./lib/window.js";
 import * as zhCN from "./locales/zh-CN.json";
-import * as stockList from "../extensions/StockListUpdateChecker/src/StockList.json";
+import * as stockList from "../extensions/stock-list-update-checker/stock-list.json";
 
 var tabbedWin;
 

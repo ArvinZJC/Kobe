@@ -1,11 +1,11 @@
 """
 '''
 Description: a stock list data updater
-Version: 1.1.1.20220401
+Version: 1.2.0.20220517
 Author: Arvin Zhao
 Date: 2021-12-16 20:36:26
 Last Editors: Arvin Zhao
-LastEditTime: 2022-04-01 09:09:45
+LastEditTime: 2022-05-17 12:34:09
 '''
 """
 
@@ -41,13 +41,13 @@ def notify_tg(is_same: bool) -> None:
     )
 
 
-def update(is_scf: bool = False) -> bool:
+def update(is_fc: bool = False) -> bool:
     """Update the stock list data if necessary.
 
     Parameters
     ----------
-    is_scf : bool, optional
-        A flag indicating if Tencent SCF is used. Default: `False`.
+    is_fc : bool, optional
+        A flag indicating if Aliyun FC is used. Default: `False`.
 
     Returns
     -------
@@ -57,7 +57,7 @@ def update(is_scf: bool = False) -> bool:
     data = retrieve()
 
     if data is not None:
-        data_filename = "StockList.json"
+        data_filename = "stock-list.json"
         is_same = False
 
         if os.path.exists(data_filename):
@@ -69,7 +69,7 @@ def update(is_scf: bool = False) -> bool:
                 data_old, key=lambda x: x["ts_code"]
             )
 
-        if not is_same and not is_scf:
+        if not is_same and not is_fc:
             data.to_json(data_filename, orient="records")
 
         return is_same
