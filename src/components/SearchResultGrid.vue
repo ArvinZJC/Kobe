@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.2.3.20220313
+ * @Version: 1.3.0.20220517
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 20:05:10
+ * @LastEditTime: 2022-05-17 15:01:57
 -->
 
 <template>
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+import { Workbook } from "@syncfusion/ej2-excel-export";
 import { GridComponent } from "@syncfusion/ej2-vue-grids";
 
 import LoadingIcon from "./svg/LoadingIcon.vue";
@@ -254,37 +255,46 @@ export default {
               global.common.EXPORT_CURRENT_PAGE_KEY
             )
           ) {
-            this.$refs[global.common.SEARCH_RESULT_GRID_NAME].excelExport({
-              enableFilter: true,
-              exportType: data[0][global.common.EXPORT_CURRENT_PAGE_KEY]
-                ? global.common.SF_CURRENT_PAGE
-                : global.common.SF_ALL_PAGES,
-              fileName: `${this.filename}.xlsx`,
-              header: {
-                headerRows: 1,
-                rows: [
-                  {
-                    cells: [
-                      {
-                        colSpan:
-                          this.$refs[
-                            global.common.SEARCH_RESULT_GRID_NAME
-                          ].getColumns().length,
-                        index: 1,
-                        style: {
-                          bold: true,
-                          fontSize: global.common.FILE_HEADER_FONT_SIZE,
+            this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
+              .excelExport({
+                enableFilter: true,
+                exportType: data[0][global.common.EXPORT_CURRENT_PAGE_KEY]
+                  ? global.common.SF_CURRENT_PAGE
+                  : global.common.SF_ALL_PAGES,
+                fileName: `${this.filename}.xlsx`,
+                header: {
+                  headerRows: 1,
+                  rows: [
+                    {
+                      cells: [
+                        {
+                          colSpan:
+                            this.$refs[
+                              global.common.SEARCH_RESULT_GRID_NAME
+                            ].getColumns().length,
+                          index: 1,
+                          style: {
+                            bold: true,
+                            fontSize: global.common.FILE_HEADER_FONT_SIZE,
+                          },
+                          value: this.fileHeader,
                         },
-                        value: this.fileHeader,
-                      },
-                    ],
-                    index: 1,
-                  },
-                ],
-              },
-              includeHiddenColumn:
-                data[1][global.common.INCLUDE_HIDDEN_COLUMNS_KEY],
-            });
+                      ],
+                      index: 1,
+                    },
+                  ],
+                },
+                includeHiddenColumn:
+                  data[1][global.common.INCLUDE_HIDDEN_COLUMNS_KEY],
+              })
+              .then((workbook) => {
+                var fileExt = "xlsx";
+
+                workbook.worksheets[0].freeze = { column: 2, row: 3 };
+                new Workbook(workbook, fileExt).save(
+                  `${this.filename}.${fileExt}`
+                );
+              });
           } // end if
 
           if (
