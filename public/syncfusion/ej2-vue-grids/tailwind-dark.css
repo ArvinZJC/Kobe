@@ -1700,6 +1700,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-bigger .e-grid .e-columnmenu,
 .e-grid.e-bigger .e-columnmenu {
   bottom: 23px;
+  top: 24px;
 }
 .e-bigger .e-grid.e-device.e-noselect,
 .e-grid.e-bigger.e-device.e-noselect {
