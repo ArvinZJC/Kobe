@@ -26,7 +26,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 1 June 2022, everything looks good with Visual Studio Code (Version: 1.67.2) + Node.js 16.15.0 + Vue CLI 4.5.17. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 3 June 2022, everything looks good with Visual Studio Code (Version: 1.67.2) + Node.js 16.15.0 + Vue CLI 4.5.17. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
 2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). **It is awfully safe to permit the app behaviour for any system prompt regarding safety confirmation. The app is signed, is not malware, and will never ever collect and upload any user privacy.** Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
 3. The primary dependencies of the project are listed in the following table. For more info, please refer to [`package.json`](./package.json).
 
@@ -42,7 +42,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
    | @syncfusion/ej2-vue-popups       |  20.1.58   |
    | @syncfusion/ej2-vue-splitbuttons |  20.1.57   |
    | cldr-data                        |   36.0.1   |
-   | electron                         |   19.0.1   |
+   | electron                         |   19.0.3   |
    | electron-context-menu            |   3.1.2    |
    | electron-devtools-installer      |   3.2.0    |
    | electron-fetch                   |   1.7.4    |
