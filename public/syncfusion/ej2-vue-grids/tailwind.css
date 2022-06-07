@@ -4270,6 +4270,12 @@ li.e-separator.e-menu-item.e-excel-separator {
       -ms-user-select: none;
           user-select: none;
 }
+.e-grid.sf-grid .e-gridheader .e-headercontent .e-reorderuparrow {
+  margin-top: -11px;
+}
+.e-grid.sf-grid .e-gridheader .e-headercontent .e-reorderdownarrow {
+  margin-top: 1px;
+}
 .e-grid.sf-grid .e-masked-cell.e-rowcell .e-virtualcell {
   background-color: rgba(0, 0, 0, 0.1);
   display: inline-block;
