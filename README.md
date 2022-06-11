@@ -1,6 +1,6 @@
 ![banner.png](./img_README/banner.png)
 
-# 神户座（Kobe）
+# Kobe
 
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ArvinZJC/Kobe?include_prereleases)](../../releases)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a280d86eb52342a0a141e3421f902428)](https://www.codacy.com/gh/ArvinZJC/Kobe/dashboard?utm_source=github.com&utm_medium=referral&utm_content=ArvinZJC/Kobe&utm_campaign=Badge_Grade)
@@ -8,29 +8,29 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ArvinZJC/Kobe)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
-**简体中文** | [English](./README_en.md)
+**English** | [简体中文](./README_zhHans.md)
 
 > Kobe /'kəubi/
 >
-> **_n._** 神户（日本的一个港口城市）; **Arvin 发现的神户座**<sup id="source1">[1](#footnote1)</sup> 😜
+> **_n._** a port city in Japan; **the "new" zodiac star sign discovered by Arvin**<sup id="source1">[1](#footnote1)</sup> 😜
 
-神户座是一个 macOS/Windows 桌面应用，它用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量，可看作是对分价表的组合加工。“神户”玩儿的是谐音梗，指代“沪深”。“沪深”的意思就不多说了，懂的都懂。这款应用程序实现的功能算不上太复杂，设计的目的主要是为了满足一些中国大陆用户的需求（包括家人），因而此应用程序支持的语言仅有简体中文。
+Kobe is a macOS/Windows desktop app that can search stocks' strike prices and volumes for users. The supported stock exchanges are Beijing Stock Exchange, Shanghai Stock Exchange, and Shenzhen Stock Exchange. The name Kobe is used because the app's Chinese name contains "神户". The app is primarily designed for a specified part of Chinese users, and contents are displayed in simplified Chinese.
 
-事实上，此仓库并不是神户座的诞生之地。在 2020 年 7 月 23 日，神户座宣布诞生于[一个旧有仓库](https://github.com/ArvinZJC/ShSzStockHelper-Windows)。它主要使用 Windows 呈现基础（WPF，.NET Core 3.1），基本实现了家人的需求。尽管它经过几次迭代使其功能逐渐成熟，但仅支持 Windows、首次启动速度慢、搜索引擎极不稳定等缺陷带来的影响日益显著。于是，此仓库在 2021 年 12 月 7 日建立，从而打造船新的神户座。经过一段时间的重构，如今的神户座更好用、更稳定，可以说是焕然一新。
+Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announced to release its first alpha version in [a currently archived repository](https://github.com/ArvinZJC/ShSzStockHelper-Windows). It primarily uses Windows Presentation Foundation (WPF) with .NET Core 3.1, and largely satisfies my family's requirements. Although the old Kobe has done it right after several iterations, its defects become more and more annoying, including supporting Windows only, being extremely slow on the first start, a highly volatile search engine, and so on. Thus, this repository was created on 7 December 2021 to construct an exciting Kobe. Nowadays, the brand-new Kobe is more useful and stabler after refactoring it for some time.
 
-~~更多信息可参考神户座官网和使用手册。~~（稍安勿躁，还在~~摸鱼~~打造中）
+~~For more infor, please refer to Kobe's official site and user manual.~~ (under construction)
 
 ![screenshot.png](./img_README/screenshot.png)
 
-## ❗ 注意
+## ❗ ATTENTION
 
-> 敲黑板了！敲黑板了！🔥
+> May I have your attention pls? 🔥
 
-1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 6 月 9 日，使用 Visual Studio Code（版本：1.67.2）、Node.js 16.15.0 和 Vue CLI 4.5.17 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
-2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 macOS 10.11 及更高版本（arm64 和 x64），以及 Windows 7 及更高版本（arm64、x64 和 x86）。**在安装、使用和卸载此应用的过程中，任何来自系统的安全提示都可授权允许。此应用已签名，无恶意行为，亦不会收集并上传任何用户隐私。** 若遇问题，可移步 [issues](https://github.com/ArvinZJC/Kobe/issues)。
-3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
+1. This project is licensed under [the GPL-3.0 License](./LICENSE). By 9 June 2022, everything looks good with Visual Studio Code (Version: 1.67.2) + Node.js 16.15.0 + Vue CLI 4.5.17. Additionaly, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). **It is awfully safe to permit the app behaviour for any system prompt regarding safety confirmation. The app is signed, is not malware, and will never ever collect and upload any user privacy.** Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
+3. The primary dependencies of the project are listed in the following table. For more info, please refer to [`package.json`](./package.json).
 
-   | 名称                             |    版本    |
+   | Name                             |  Version   |
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.6    |
    | @syncfusion/ej2-vue-buttons      |  20.1.55   |
@@ -58,45 +58,45 @@
    | vue-cli-plugin-electron-builder  |   2.1.1    |
    | vue-router                       |   4.0.15   |
 
-4. 此项目部分 SVG 图像资源来自 [Flaticon](https://www.flaticon.com/) 和 [Iconscout](https://iconscout.com/)。
-5. 您可以在项目根目录下手动创建名为 `.env` 或 `.env.local` 的文件，并包含如下内容。请注意这个操作 _可选_。**在没有这个文件的情况下，此项目应仍能良好运行，只是会有 Syncfusion 的许可证错误提示**。
+4. A part of SVG resources in this project are from [Flaticon](https://www.flaticon.com/) and [Iconscout](https://iconscout.com/).
+5. You could manually create a file named `.env` or `.env.local` under the project root directory and contain the following content. Please note that it is _optional_, and that **the project should work well without it**.
 
    ```sh
-   VUE_APP_SF_LICENSE=<您的 Syncfusion 许可证>
+   VUE_APP_SF_LICENSE=<your Syncfusion license>
    ```
 
-   您也许会觉得下面的链接比较有用。
+   You may find the following link useful.
 
-   - [如何生成一个 Syncfusion Vue 许可证？](https://ej2.syncfusion.com/vue/documentation/licensing/license-key-generation/)
+   - [How to generate a Syncfusion Vue License key?](https://ej2.syncfusion.com/vue/documentation/licensing/license-key-generation/)
 
-6. 在项目根目录下，按如下步骤使用 npm 的命令可以在本地运行此项目，但[应用签名](https://www.electron.build/code-signing)和[自动更新](https://www.electron.build/auto-update)会需要自己额外配置。
+6. Assuming the terminal is opened in the project's root directory, the project could be run locally following the steps below using npm. However, you are expected to do some extra work yourself to activate [code signing](https://www.electron.build/code-signing) and [auto update](https://www.electron.build/auto-update).
 
-   - 安装项目所需依赖。
+   - Install all the required dependencies.
 
      ```sh
-     npm install -g @vue/cli  # 可选。
+     npm install -g @vue/cli  # Optional.
      npm ci
      ```
 
-   - 调试与构建。
+   - Serve/Build the project.
 
-     - 若调试项目（开发环境），则：
+     - To serve it for development,
 
        ```sh
        npm run electron:serve
-       # 或
+       # OR
        npx vue-cli-service electron:serve
        ```
 
-     - 若构建项目（生产环境），则：
+     - To build it for production,
 
        ```sh
        npm run electron:build
-       # 或
+       # OR
        npx vue-cli-service electron:build
        ```
 
-     - _（推荐）_ 若使用 Visual Studio Code 的运行和调试面板, 则需要将下面内容添加至相应文件来配置此项目的调试与构建过程。
+     - _(Recommended)_ If you fancy using the Run and Debug view of Visual Studio Code, you could add the following to the corresponding files to configure the serving and building process.
 
        - `.vscode/launch.json`：
 
@@ -131,7 +131,7 @@
              }
            },
            {
-             // Windows 下不可构建 macOS 桌面应用，所以 Windows 下不可配置此部分。
+             // You should not add this part on Windows because you cannot build macOS desktop apps on Windows.
              "name": "electron: macOS build",
              "request": "launch",
              "runtimeArgs": ["run", "electron:build", "--", "-m"],
@@ -201,10 +201,10 @@
        }
        ```
 
-7. 此项目使用 CircleCI 来帮助提高集成和发布效率，主要配置可参见 [`config.yml`](./.circleci/config.yml)。
+7. CircleCI is used to help improve integration and release efficiency. Please refer to [`config.yml`](./.circleci/config.yml) for the primary configurations.
 
-好运哦! 💖
+Good luck! 💖
 
 ---
 
-<sub id="footnote1">[1.](#source1) 不传谣，不信谣，勿当真！👮‍♂️</sub>
+<sub id="footnote1">[1.](#source1) Just kidding. Don't take it so seriously! 👮‍♂️</sub>
