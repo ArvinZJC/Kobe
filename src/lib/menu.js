@@ -1,10 +1,10 @@
 /*
  * @Description: the app and context menu builder
- * @Version: 2.0.13.20220418
+ * @Version: 2.0.14.20220612
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-04-18 19:44:11
+ * @LastEditTime: 2022-06-12 17:39:27
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -16,19 +16,19 @@ import { platform } from "process";
 import global from "./global.js";
 import { updateManually } from "./updater.js";
 import { showPreferenceTabItem } from "./window.js";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 const menuItemAboutTemplate =
   platform === global.common.MACOS
     ? {
-        label: `${zhCN.default.about}${app.name}`,
+        label: `${zhHansCn.default.about}${app.name}`,
         role: "about",
       }
     : {
         click: () => {
           dialog.showMessageBox({
             detail: `版本 ${app.getVersion()}\n\n${
-              zhCN.default.appDescription
+              zhHansCn.default.appDescription
             }\n\nCopyright © ${new Date().getFullYear()} ${
               global.common.AUTHOR
             }`,
@@ -38,19 +38,19 @@ const menuItemAboutTemplate =
             title: app.name,
           });
         },
-        label: `${zhCN.default.about}${app.name}`,
+        label: `${zhHansCn.default.about}${app.name}`,
       };
 const menuItemCheckForUpdatesTemplate = {
   click: async (menuItem) => {
     await updateManually(menuItem);
   },
-  label: zhCN.default.checkForUpdates,
+  label: zhHansCn.default.checkForUpdates,
 };
 const menuItemCloseTemplate = {
   label:
     platform === global.common.MACOS
-      ? `${zhCN.default.close}${zhCN.default.win}`
-      : `${zhCN.default.close}${app.name}`,
+      ? `${zhHansCn.default.close}${zhHansCn.default.win}`
+      : `${zhHansCn.default.close}${app.name}`,
   role: "close",
 };
 const menuItemSeparatorTemplate = { type: global.common.SEPARATOR };
@@ -95,16 +95,16 @@ function getMenuAppTemplate(tabbedWin) {
             click: () => {
               showPreferenceTabItem(tabbedWin);
             },
-            label: zhCN.default.preferences,
+            label: zhHansCn.default.preferences,
           },
           menuItemSeparatorTemplate,
-          { label: zhCN.default.services, role: "services" },
+          { label: zhHansCn.default.services, role: "services" },
           menuItemSeparatorTemplate,
-          { label: `${zhCN.default.hide}${app.name}`, role: "hide" },
-          { label: zhCN.default.hideOthers, role: "hideOthers" },
-          { label: zhCN.default.showAll, role: "unhide" },
+          { label: `${zhHansCn.default.hide}${app.name}`, role: "hide" },
+          { label: zhHansCn.default.hideOthers, role: "hideOthers" },
+          { label: zhHansCn.default.showAll, role: "unhide" },
           menuItemSeparatorTemplate,
-          { label: `${zhCN.default.quit}${app.name}`, role: "quit" },
+          { label: `${zhHansCn.default.quit}${app.name}`, role: "quit" },
         ],
       },
     ];
@@ -123,17 +123,17 @@ function getMenuEditTemplate(tabbedWin) {
     click: () => {
       tabbedWin.currentWebContents.delete();
     },
-    label: zhCN.default.delete,
+    label: zhHansCn.default.delete,
   };
   const menuItemSelectAllTemplate = {
     accelerator: "CommandOrControl+A",
     click: () => {
       tabbedWin.currentWebContents.selectAll();
     },
-    label: zhCN.default.selectAll,
+    label: zhHansCn.default.selectAll,
   };
   const menuEditTemplate = {
-    label: zhCN.default.editMenu,
+    label: zhHansCn.default.editMenu,
     role: "editMenu",
     submenu: [
       {
@@ -141,7 +141,7 @@ function getMenuEditTemplate(tabbedWin) {
         click: () => {
           tabbedWin.currentWebContents.undo();
         },
-        label: zhCN.default.undo,
+        label: zhHansCn.default.undo,
       },
       {
         accelerator:
@@ -151,7 +151,7 @@ function getMenuEditTemplate(tabbedWin) {
         click: () => {
           tabbedWin.currentWebContents.redo();
         },
-        label: zhCN.default.redo,
+        label: zhHansCn.default.redo,
       },
       menuItemSeparatorTemplate,
       {
@@ -159,7 +159,7 @@ function getMenuEditTemplate(tabbedWin) {
         click: () => {
           tabbedWin.currentWebContents.cut();
         },
-        label: zhCN.default.cut,
+        label: zhHansCn.default.cut,
         registerAccelerator: false,
       },
       {
@@ -167,7 +167,7 @@ function getMenuEditTemplate(tabbedWin) {
         click: () => {
           tabbedWin.currentWebContents.copy();
         },
-        label: zhCN.default.copy,
+        label: zhHansCn.default.copy,
         registerAccelerator: false,
       },
       {
@@ -175,7 +175,7 @@ function getMenuEditTemplate(tabbedWin) {
         click: () => {
           tabbedWin.currentWebContents.paste();
         },
-        label: zhCN.default.paste,
+        label: zhHansCn.default.paste,
         registerAccelerator: false,
       },
       ...(platform === global.common.MACOS
@@ -185,17 +185,20 @@ function getMenuEditTemplate(tabbedWin) {
               click: () => {
                 tabbedWin.currentWebContents.pasteAndMatchStyle();
               },
-              label: zhCN.default.pasteAndMatchStyle,
+              label: zhHansCn.default.pasteAndMatchStyle,
               registerAccelerator: false,
             },
             menuItemDeleteTemplate,
             menuItemSelectAllTemplate,
             menuItemSeparatorTemplate,
             {
-              label: zhCN.default.speech,
+              label: zhHansCn.default.speech,
               submenu: [
-                { label: zhCN.default.startSpeaking, role: "startSpeaking" },
-                { label: zhCN.default.stopSpeaking, role: "stopSpeaking" },
+                {
+                  label: zhHansCn.default.startSpeaking,
+                  role: "startSpeaking",
+                },
+                { label: zhHansCn.default.stopSpeaking, role: "stopSpeaking" },
               ],
             },
           ]
@@ -223,7 +226,7 @@ function getMenuFileTemplate() {
   if (platform === global.common.MACOS) {
     return [
       {
-        label: zhCN.default.fileMenu,
+        label: zhHansCn.default.fileMenu,
         role: "fileMenu",
         submenu: [menuItemCloseTemplate],
       },
@@ -240,48 +243,48 @@ function getMenuFileTemplate() {
  */
 function getMenuHelpTemplate(tabbedWin) {
   const menuHelpTemplate = {
-    label: zhCN.default.help,
+    label: zhHansCn.default.help,
     role: "help",
     submenu: [
       {
         enabled: false,
-        label: `${app.name}${zhCN.default.website}`,
+        label: `${app.name}${zhHansCn.default.website}`,
       },
       {
         enabled: false,
-        label: zhCN.default.userManual,
+        label: zhHansCn.default.userManual,
       },
       menuItemSeparatorTemplate,
       {
         click: () => {
           shell.openExternal(global.common.GITHUB_KOBE);
         },
-        label: `GitHub ${zhCN.default.repo}`,
+        label: `GitHub ${zhHansCn.default.repo}`,
       },
       {
         click: () => {
           shell.openExternal(global.common.GITEE_KOBE);
         },
-        label: `Gitee ${zhCN.default.repo}（${zhCN.default.backup}）`,
+        label: `Gitee ${zhHansCn.default.repo}（${zhHansCn.default.backup}）`,
       },
       {
         click: () => {
           shell.openExternal(global.common.GITHUB_KOBE_ISSUES);
         },
-        label: zhCN.default.viewIssues,
+        label: zhHansCn.default.viewIssues,
       },
       {
         click: () => {
           shell.openExternal(global.common.GITHUB_KOBE_RELEASES);
         },
-        label: zhCN.default.releaseNotes,
+        label: zhHansCn.default.releaseNotes,
       },
       menuItemSeparatorTemplate,
       {
         click: () => {
           shell.openPath(app.getPath("logs"));
         },
-        label: `${zhCN.default.open}${zhCN.default.logDir}`,
+        label: `${zhHansCn.default.open}${zhHansCn.default.logDir}`,
       },
       menuItemSeparatorTemplate,
       ...(platform === global.common.WINDOWS
@@ -335,7 +338,7 @@ function getMenuHelpTemplate(tabbedWin) {
       click: () => {
         showPreferenceTabItem(tabbedWin);
       },
-      label: zhCN.default.preferences,
+      label: zhHansCn.default.preferences,
     },
     menuHelpTemplate,
     menuItemSeparatorTemplate,
@@ -355,7 +358,7 @@ function getMenuViewTemplate(tabbedWin) {
       click: () => {
         tabbedWin.currentWebContents.reload();
       },
-      label: zhCN.default.reload,
+      label: zhHansCn.default.reload,
       nonNativeMacOSRole: true,
     },
     {
@@ -363,7 +366,7 @@ function getMenuViewTemplate(tabbedWin) {
       click: () => {
         tabbedWin.currentWebContents.reloadIgnoringCache();
       },
-      label: zhCN.default.forceReload,
+      label: zhHansCn.default.forceReload,
       nonNativeMacOSRole: true,
     },
     menuItemSeparatorTemplate,
@@ -373,7 +376,7 @@ function getMenuViewTemplate(tabbedWin) {
       click: () => {
         tabbedWin.win.setFullScreen(!tabbedWin.win.isFullScreen());
       },
-      label: `${zhCN.default.enter}${zhCN.default.fullScreen}`,
+      label: `${zhHansCn.default.enter}${zhHansCn.default.fullScreen}`,
     },
     menuItemSeparatorTemplate, // Required for Windows.
   ];
@@ -381,7 +384,7 @@ function getMenuViewTemplate(tabbedWin) {
   if (platform === global.common.MACOS) {
     return [
       {
-        label: zhCN.default.viewMenu,
+        label: zhHansCn.default.viewMenu,
         role: "viewMenu",
         submenu: menuViewSubmenuTemplate,
       },
@@ -400,17 +403,17 @@ function getMenuWindowTemplate() {
   if (platform === global.common.MACOS) {
     return [
       {
-        label: zhCN.default.win,
+        label: zhHansCn.default.win,
         role: "windowMenu",
         submenu: [
           {
             accelerator: "CommandOrControl+M",
-            label: zhCN.default.minimise,
+            label: zhHansCn.default.minimise,
             role: "minimize",
           },
-          { label: zhCN.default.zoom, role: "zoom" },
+          { label: zhHansCn.default.zoom, role: "zoom" },
           menuItemSeparatorTemplate,
-          { label: zhCN.default.bringAllToFront, role: "front" },
+          { label: zhHansCn.default.bringAllToFront, role: "front" },
         ],
       },
     ];
@@ -464,7 +467,7 @@ export async function setContextMenu(view) {
           );
           shell.openExternal(onlineSearchUrl.toString());
         },
-        label: `${zhCN.default.onlineSearchTitle}“{selection}”`,
+        label: `${zhHansCn.default.onlineSearchTitle}“{selection}”`,
         visible: params.selectionText.trim().length > 0,
       },
       actions.separator(),
@@ -473,7 +476,7 @@ export async function setContextMenu(view) {
         click: () => view.webContents.undo(),
         enabled: params.editFlags.canUndo,
         visible: params.isEditable,
-        label: zhCN.default.undo,
+        label: zhHansCn.default.undo,
       },
       {
         accelerator:
@@ -483,7 +486,7 @@ export async function setContextMenu(view) {
         click: () => view.webContents.redo(),
         enabled: params.editFlags.canRedo,
         visible: params.isEditable,
-        label: zhCN.default.redo,
+        label: zhHansCn.default.redo,
       },
       actions.separator(),
       actions.copyLink(),
@@ -494,7 +497,7 @@ export async function setContextMenu(view) {
         enabled: params.editFlags.canCut,
         registerAccelerator: false,
         visible: params.isEditable,
-        label: zhCN.default.cut,
+        label: zhHansCn.default.cut,
       },
       {
         accelerator: "CommandOrControl+C",
@@ -502,7 +505,7 @@ export async function setContextMenu(view) {
         enabled: params.editFlags.canCopy,
         registerAccelerator: false,
         visible: params.isEditable || params.selectionText.length > 0,
-        label: zhCN.default.copy,
+        label: zhHansCn.default.copy,
       },
       {
         accelerator: "CommandOrControl+V",
@@ -510,7 +513,7 @@ export async function setContextMenu(view) {
         enabled: params.editFlags.canPaste,
         registerAccelerator: false,
         visible: params.isEditable,
-        label: zhCN.default.paste,
+        label: zhHansCn.default.paste,
       },
       platform === global.common.MACOS && {
         accelerator: "Cmd+Option+Shift+V",
@@ -518,31 +521,31 @@ export async function setContextMenu(view) {
         enabled: params.editFlags.canPaste,
         registerAccelerator: false,
         visible: params.isEditable,
-        label: zhCN.default.pasteAndMatchStyle,
+        label: zhHansCn.default.pasteAndMatchStyle,
       },
       {
         click: () => view.webContents.delete(),
         enabled: params.editFlags.canDelete,
         visible: params.isEditable,
-        label: zhCN.default.delete,
+        label: zhHansCn.default.delete,
       },
       {
         accelerator: "CommandOrControl+A",
         click: () => view.webContents.selectAll(),
         enabled: params.editFlags.canSelectAll,
         visible: params.isEditable || params.selectionText.length > 0,
-        label: zhCN.default.selectAll,
+        label: zhHansCn.default.selectAll,
       },
       actions.separator(),
       {
         accelerator: "CmdOrCtrl+R",
         click: () => view.webContents.reload(),
-        label: zhCN.default.reload,
+        label: zhHansCn.default.reload,
       },
       {
         accelerator: "Shift+CmdOrCtrl+R",
         click: () => view.webContents.reloadIgnoringCache(),
-        label: zhCN.default.forceReload,
+        label: zhHansCn.default.forceReload,
       },
       ...(process.env.NODE_ENV === global.common.DEV
         ? [
@@ -561,13 +564,13 @@ export async function setContextMenu(view) {
         : []),
     ],
     labels: {
-      copy: zhCN.default.copy,
-      copyLink: `${zhCN.default.copy}${zhCN.default.link}`,
-      cut: zhCN.default.cut,
-      learnSpelling: zhCN.default.learnSpelling,
-      lookUpSelection: `${zhCN.default.lookUp}“{selection}”`,
-      paste: zhCN.default.paste,
-      searchWithGoogle: `${zhCN.default.use}${zhCN.default.google}${zhCN.default.search}“{selection}”`,
+      copy: zhHansCn.default.copy,
+      copyLink: `${zhHansCn.default.copy}${zhHansCn.default.link}`,
+      cut: zhHansCn.default.cut,
+      learnSpelling: zhHansCn.default.learnSpelling,
+      lookUpSelection: `${zhHansCn.default.lookUp}“{selection}”`,
+      paste: zhHansCn.default.paste,
+      searchWithGoogle: `${zhHansCn.default.use}${zhHansCn.default.google}${zhHansCn.default.search}“{selection}”`,
     },
     window: view,
   });

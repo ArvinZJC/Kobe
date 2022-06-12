@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.1.0.20220313
+ * @Version: 1.1.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 19:32:56
+ * @LastEditTime: 2022-06-12 17:39:19
 -->
 
 <template>
@@ -15,25 +15,25 @@
     <div class="container-preferences">
       <!-- Search engine mode. -->
       <Preference
-        :explanation="zhCN.default.searchEngineModeExplanation"
+        :explanation="zhHansCn.default.searchEngineModeExplanation"
         :options="options.searchEngineMode"
         :selectionChangedHandler="changeSearchEngineMode"
-        :subtitle="zhCN.default.searchEngineModeTitle"
+        :subtitle="zhHansCn.default.searchEngineModeTitle"
         :type="global.common.BUTTON_GROUP"
       />
       <!-- Min date. -->
       <Preference
-        :explanation="zhCN.default.minDateExplanation"
+        :explanation="zhHansCn.default.minDateExplanation"
         :options="options.minDate"
-        :subtitle="zhCN.default.minDateTitle"
+        :subtitle="zhHansCn.default.minDateTitle"
         :type="global.common.DATE_PICKER"
         :value="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
       />
       <!-- Max date range span. -->
       <Preference
-        :explanation="zhCN.default.maxDateRangeSpanExplanation"
+        :explanation="zhHansCn.default.maxDateRangeSpanExplanation"
         :options="options.maxDateRangeSpan"
-        :subtitle="zhCN.default.maxDateRangeSpanTitle"
+        :subtitle="zhHansCn.default.maxDateRangeSpanTitle"
         :type="global.common.SLIDER"
         :value="maxDateRangeSpan"
       />
@@ -51,7 +51,7 @@ import { LightningBoltIcon } from "@heroicons/vue/outline";
 import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
-import * as zhCN from "../../locales/zh-CN.json";
+import * as zhHansCn from "../../locales/zh-Hans-CN.json";
 import ScrollToTopButton from "../ScrollToTopButton.vue";
 import TurtleIcon from "../svg/TurtleIcon.vue";
 
@@ -130,7 +130,7 @@ export default {
       maxDateRangeSpan: null,
       minDate: global.common.MIN_MIN_DATE,
       scrollToTopTarget: null,
-      zhCN,
+      zhHansCn,
     };
   },
   mounted() {
@@ -171,12 +171,12 @@ export default {
           {
             icon: TurtleIcon,
             id: global.common.STABLE_MODE_ID,
-            value: zhCN.default.stableMode,
+            value: zhHansCn.default.stableMode,
           }, // Stable mode.
           {
             icon: LightningBoltIcon,
             id: global.common.FAST_MODE_ID,
-            value: zhCN.default.fastMode,
+            value: zhHansCn.default.fastMode,
           }, // Fast mode.
         ],
       },

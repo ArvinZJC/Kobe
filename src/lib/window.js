@@ -1,10 +1,10 @@
 /*
  * @Description: the app window manager
- * @Version: 2.1.0.20220405
+ * @Version: 2.1.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 06:39:55
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-04-05 09:24:39
+ * @LastEditTime: 2022-06-12 17:40:39
  */
 
 import {
@@ -23,7 +23,7 @@ import settings from "electron-settings";
 import { platform } from "process";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 import global from "./global.js";
 import { getInitialAppMenuTemplate, setAppMenu } from "./menu.js";
 import {
@@ -75,7 +75,7 @@ export async function createTabbedWin(stockList) {
   const winWidth = Math.round(width * 0.7);
   var tabbedWin = new TabbedWindow({
     blankPage: baseUrl,
-    blankTitle: zhCN.default.newTabItem,
+    blankTitle: zhHansCn.default.newTabItem,
     controlHeight: global.common.TAB_BAR_HEIGHT,
     controlPanel: `${baseUrl}/#/${global.common.TAB_BAR_VIEW}`,
     debug: process.env.NODE_ENV === global.common.DEV,
@@ -136,10 +136,10 @@ function initialiseCustomisedWinListener(tabbedWin) {
     } // end if
 
     const buttonIndex = dialog.showMessageBoxSync(tabbedWin.win, {
-      buttons: [zhCN.default.confirm, zhCN.default.cancel],
+      buttons: [zhHansCn.default.confirm, zhHansCn.default.cancel],
       cancelId: 1,
-      detail: zhCN.default.closingMultipleTabsConfirmationDetail,
-      message: zhCN.default.closingMultipleTabsConfirmationMessage,
+      detail: zhHansCn.default.closingMultipleTabsConfirmationDetail,
+      message: zhHansCn.default.closingMultipleTabsConfirmationMessage,
       noLink: true,
       title: app.name,
       type: "info",
@@ -153,9 +153,9 @@ function initialiseCustomisedWinListener(tabbedWin) {
     const appMenuTemplate = getInitialAppMenuTemplate(tabbedWin);
 
     if (platform === global.common.MACOS) {
-      appMenuTemplate[3].submenu[3].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
+      appMenuTemplate[3].submenu[3].label = `${zhHansCn.default.exit}${zhHansCn.default.fullScreen}`;
     } else {
-      appMenuTemplate[5].label = `${zhCN.default.exit}${zhCN.default.fullScreen}`;
+      appMenuTemplate[5].label = `${zhHansCn.default.exit}${zhHansCn.default.fullScreen}`;
     } // end if...else
 
     Menu.setApplicationMenu(Menu.buildFromTemplate(appMenuTemplate));
@@ -421,10 +421,10 @@ async function reactToIpcIdData(data, stockList, tabbedWin, viewContents) {
     case global.common.RESET_PREFERENCES: {
       dialog
         .showMessageBox(tabbedWin.win, {
-          buttons: [zhCN.default.confirm, zhCN.default.cancel],
+          buttons: [zhHansCn.default.confirm, zhHansCn.default.cancel],
           cancelId: 1,
-          detail: zhCN.default.resetPreferencesConfirmationDetail,
-          message: zhCN.default.resetPreferencesConfirmationMessage,
+          detail: zhHansCn.default.resetPreferencesConfirmationDetail,
+          message: zhHansCn.default.resetPreferencesConfirmationMessage,
           noLink: true,
           title: app.name,
           type: "warning",

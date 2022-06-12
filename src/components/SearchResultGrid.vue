@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.3.0.20220517
+ * @Version: 1.3.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-05-17 15:01:57
+ * @LastEditTime: 2022-06-12 17:34:58
 -->
 
 <template>
@@ -85,7 +85,7 @@ import LoadingIcon from "./svg/LoadingIcon.vue";
 import global from "../lib/global.js";
 import { toVolumeUnitText } from "../lib/utils.js";
 import * as syncfusion from "../locales/syncfusion.json";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 export default {
   components: { "ejs-grid": GridComponent, LoadingIcon },
@@ -107,7 +107,7 @@ export default {
           endDate: this.endDate,
           global: global.common,
           startDate: this.startDate,
-          zhCN,
+          zhHansCn,
         });
       }, 500); // Set relatively enough timeout to ensure that it can enter the search result view without too much delay.
     }, // end function actWhenLoaded
@@ -123,8 +123,8 @@ export default {
       if (searchResultArea != null) {
         if (this.searchResultData == null) {
           this.hasSearchError = false;
-          this.searchStatusMessage = zhCN.default.searchingHint;
-          this.searchStatusTitle = zhCN.default.searching;
+          this.searchStatusMessage = zhHansCn.default.searchingHint;
+          this.searchStatusTitle = zhHansCn.default.searching;
           this.shouldShowGrid = false;
         } else if (
           this.searchResultData.length === 1 &&
@@ -134,7 +134,7 @@ export default {
           this.hasSearchError = true;
           this.searchStatusMessage =
             this.searchResultData[0][global.common.TOTAL_VOLUME_KEY];
-          this.searchStatusTitle = zhCN.default.searchError;
+          this.searchStatusTitle = zhHansCn.default.searchError;
           this.shouldShowGrid = false;
         } else {
           this.patchVScrollBar();
@@ -218,7 +218,7 @@ export default {
             this.$refs[
               global.common.SEARCH_RESULT_GRID_NAME
             ].ej2Instances.columns[1].headerText = `${
-              zhCN.default.totalVolumeColumnHeader
+              zhHansCn.default.totalVolumeColumnHeader
             }（${toVolumeUnitText(
               data[3][global.common.TOTAL_VOLUME_UNIT_KEY]
             )}）`;
@@ -234,7 +234,7 @@ export default {
             this.$refs[
               global.common.SEARCH_RESULT_GRID_NAME
             ].ej2Instances.columns[2].headerText = `${
-              zhCN.default.dayVolumeStackedColumnHeader
+              zhHansCn.default.dayVolumeStackedColumnHeader
             }（${toVolumeUnitText(
               data[1][global.common.DAY_VOLUME_UNIT_KEY]
             )}）`;
@@ -459,15 +459,15 @@ export default {
   },
   data() {
     return {
-      cancelSorting: `${zhCN.default.cancel}${zhCN.default.sort}`,
+      cancelSorting: `${zhHansCn.default.cancel}${zhHansCn.default.sort}`,
       fileHeader: global.common.UNKNOWN,
       filename: global.common.UNKNOWN,
       global,
       hasSearchError: false,
       isColumnsReady: false,
       searchResultData: null,
-      searchStatusMessage: zhCN.default.searchingHint,
-      searchStatusTitle: zhCN.default.searching,
+      searchStatusMessage: zhHansCn.default.searchingHint,
+      searchStatusTitle: zhHansCn.default.searching,
       shouldShowGrid: false,
     };
   },

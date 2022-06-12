@@ -1,10 +1,10 @@
 <!--
  * @Description: the home view
- * @Version: 1.0.3.20220307
+ * @Version: 1.0.4.20220612
  * @Author: Arvin Zhao
  * @Date: 2021-12-11 18:56:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 14:33:26
+ * @LastEditTime: 2022-06-12 17:41:03
 -->
 
 <template>
@@ -17,12 +17,12 @@
 
 <script>
 import SearchForm from "../components/SearchForm.vue";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 export default {
   components: { SearchForm },
   mounted() {
-    document.title = zhCN.default.home;
+    document.title = zhHansCn.default.home;
   },
 };
 </script>

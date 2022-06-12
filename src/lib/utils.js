@@ -1,14 +1,14 @@
 /*
  * @Description: the utility script
- * @Version: 1.0.0.20220205
+ * @Version: 1.0.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-02-05 20:46:04
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-02-05 21:02:50
+ * @LastEditTime: 2022-06-12 17:40:18
  */
 
 import global from "./global.js";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 /**
  * Convert a date object to a date string in the format "yyyy-M-d".
@@ -27,25 +27,25 @@ export function toDateStr(date) {
 export function toVolumeUnitText(volumeUnitValue) {
   switch (volumeUnitValue) {
     case global.common.BOARD_LOT_1: {
-      return zhCN.default.boardLot1;
+      return zhHansCn.default.boardLot1;
     }
     case global.common.BOARD_LOT_10: {
-      return zhCN.default.boardLot10;
+      return zhHansCn.default.boardLot10;
     }
     case global.common.BOARD_LOT_100: {
-      return zhCN.default.boardLot100;
+      return zhHansCn.default.boardLot100;
     }
     case global.common.BOARD_LOT_1000: {
-      return zhCN.default.boardLot1000;
+      return zhHansCn.default.boardLot1000;
     }
     case global.common.BOARD_LOT_10000: {
-      return zhCN.default.boardLot10000;
+      return zhHansCn.default.boardLot10000;
     }
     case global.common.SHARE_1: {
-      return zhCN.default.share1;
+      return zhHansCn.default.share1;
     }
     default: {
-      return zhCN.default.unknown;
+      return zhHansCn.default.unknown;
     }
   } // end switch-case
 } // end function toVolumeUnitText

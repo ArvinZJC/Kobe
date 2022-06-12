@@ -1,10 +1,10 @@
 /*
  * @Description: the grid extension
- * @Version: 1.0.0.20220308
+ * @Version: 1.0.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-03-06 19:55:23
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-08 09:48:57
+ * @LastEditTime: 2022-06-12 17:32:36
  */
 
 self.addEventListener(
@@ -38,27 +38,27 @@ self.addEventListener(
 
         switch (day) {
           case 1: {
-            dayStr = e.data.zhCN.default.monday;
+            dayStr = e.data.zhHansCn.default.monday;
             break;
           }
           case 2: {
-            dayStr = e.data.zhCN.default.tuesday;
+            dayStr = e.data.zhHansCn.default.tuesday;
             break;
           }
           case 3: {
-            dayStr = e.data.zhCN.default.wednesday;
+            dayStr = e.data.zhHansCn.default.wednesday;
             break;
           }
           case 4: {
-            dayStr = e.data.zhCN.default.thursday;
+            dayStr = e.data.zhHansCn.default.thursday;
             break;
           }
           case 5: {
-            dayStr = e.data.zhCN.default.friday;
+            dayStr = e.data.zhHansCn.default.friday;
             break;
           }
           default: {
-            dayStr = e.data.zhCN.default.unknown;
+            dayStr = e.data.zhHansCn.default.unknown;
           }
         } // end switch-case
 
@@ -79,17 +79,17 @@ self.addEventListener(
           ...commonColumnOptions,
           field: e.data.global.STRIKE_PRICE_KEY,
           format: "N2",
-          headerText: e.data.zhCN.default.strikePriceColumnHeader,
+          headerText: e.data.zhHansCn.default.strikePriceColumnHeader,
         },
         {
           ...commonColumnOptions,
           field: e.data.global.TOTAL_VOLUME_KEY,
           format: `N${e.data.global.DEFAULT_TOTAL_VOLUME_DECIMAL_POINTS}`,
-          headerText: e.data.zhCN.default.totalVolumeColumnHeader,
+          headerText: e.data.zhHansCn.default.totalVolumeColumnHeader,
         },
         {
           columns: dayVolumeColumns,
-          headerText: e.data.zhCN.default.dayVolumeStackedColumnHeader,
+          headerText: e.data.zhHansCn.default.dayVolumeStackedColumnHeader,
           textAlign: e.data.global.SF_ALIGN_CENTRE,
         },
       ],

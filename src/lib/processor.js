@@ -1,10 +1,10 @@
 /*
  * @Description: the search result data processor to manage the stock's strike prices and volumes
- * @Version: 1.0.5.20220303
+ * @Version: 1.0.6.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-01-05 21:24:48
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-03 14:35:15
+ * @LastEditTime: 2022-06-12 17:39:43
  */
 
 import fetch, { FetchError } from "electron-fetch";
@@ -15,7 +15,7 @@ import iconv from "iconv-lite";
 
 import global from "./global.js";
 import { toDateStr } from "./utils.js";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 log.transports.file.level = global.common.MIN_LOG_LEVEL;
 
@@ -111,7 +111,7 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
     } // end if
 
     log.warn(`Processor: ${response.status} ${response.statusText}`);
-    volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
+    volumes[global.common.PROCESSOR_ERROR_KEY] = zhHansCn.default.responseNotOk;
   } catch (e) {
     log.error(
       "Failed to fetch from the specific API:",
@@ -121,14 +121,16 @@ async function fetchFromApi(endDate, startDate, stockSymbol) {
     // Reference: https://github.com/arantes555/electron-fetch/blob/master/ERROR-HANDLING.md
     if (e instanceof FetchError && e.type === "system") {
       if (e.code === "ERR_CONNECTION_RESET") {
-        volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.responseNotOk;
+        volumes[global.common.PROCESSOR_ERROR_KEY] =
+          zhHansCn.default.responseNotOk;
       } // end if
 
       if (e.code === "ERR_INTERNET_DISCONNECTED") {
-        volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.poorNet;
+        volumes[global.common.PROCESSOR_ERROR_KEY] = zhHansCn.default.poorNet;
       } // end if
     } else {
-      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.processError;
+      volumes[global.common.PROCESSOR_ERROR_KEY] =
+        zhHansCn.default.processError;
     } // end if...else
   } // end try...catch
 
@@ -235,7 +237,8 @@ function parseDom(dom) {
     const pageTitle = DomUtils.innerText(title.children);
 
     if (pageTitle === global.common.API_ACCESS_DENIED_PAGE_TITLE) {
-      volumes[global.common.PROCESSOR_ERROR_KEY] = zhCN.default.accessDenied;
+      volumes[global.common.PROCESSOR_ERROR_KEY] =
+        zhHansCn.default.accessDenied;
     } // end if
   } else {
     const trArray = DomUtils.getElementsByTagName("tr", tbody.children);

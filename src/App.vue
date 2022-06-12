@@ -1,10 +1,10 @@
 <!--
  * @Description: the root component
- * @Version: 1.0.4.20220307
+ * @Version: 1.0.5.20220612
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:52:09
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-07 13:47:44
+ * @LastEditTime: 2022-06-12 17:33:07
 -->
 
 <template>
@@ -50,9 +50,9 @@ import { applyAppearance } from "./lib/appearance.js";
 import global from "./lib/global.js";
 import * as syncfusionLocale from "./locales/syncfusion.json";
 
-const syncfusionZhCN = {};
+const syncfusionzhHansCn = {};
 
-syncfusionZhCN[global.common.SF_CULTURE] =
+syncfusionzhHansCn[global.common.SF_CULTURE] =
   syncfusionLocale.default[global.common.SF_CULTURE];
 loadCldr(
   caGregorian.default,
@@ -61,7 +61,7 @@ loadCldr(
   timeZoneNames.default,
   weekData.default
 );
-L10n.load(syncfusionZhCN);
+L10n.load(syncfusionzhHansCn);
 setCulture(global.common.SF_CULTURE);
 
 export default {

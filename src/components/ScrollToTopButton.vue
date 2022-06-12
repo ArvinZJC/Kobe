@@ -1,10 +1,10 @@
 <!--
  * @Description: the button component for scrolling to the top
- * @Version: 1.0.0.20220313
+ * @Version: 1.0.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-03-13 14:23:07
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 15:15:02
+ * @LastEditTime: 2022-06-12 17:33:55
 -->
 
 <template>
@@ -19,7 +19,7 @@
     <button
       v-if="!isDismissed"
       @click="scrollToTop"
-      :title="zhCN.default.scrollToTopButtonTitle"
+      :title="zhHansCn.default.scrollToTopButtonTitle"
       class="btn-action-right btn-round bottom-20 bg-opacity-90 dark:bg-opacity-90 shadow-xl"
       id="scroll-to-top"
       type="button"
@@ -31,7 +31,7 @@
 
 <script>
 import global from "../lib/global.js";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 export default {
   methods: {
@@ -53,7 +53,7 @@ export default {
     target: Element,
   },
   data() {
-    return { zhCN };
+    return { zhHansCn };
   },
 };
 </script>

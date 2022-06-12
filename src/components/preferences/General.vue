@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.1.0.20220313
+ * @Version: 1.1.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 19:32:45
+ * @LastEditTime: 2022-06-12 17:35:39
 -->
 
 <template>
@@ -15,25 +15,25 @@
     <div class="container-preferences">
       <!-- Appearance. -->
       <Preference
-        :explanation="zhCN.default.appearanceExplanation"
+        :explanation="zhHansCn.default.appearanceExplanation"
         :options="options.appearance"
         :selectionChangedHandler="changeAppearance"
-        :subtitle="zhCN.default.appearanceTitle"
+        :subtitle="zhHansCn.default.appearanceTitle"
         :type="global.common.BUTTON_GROUP"
       />
       <!-- Online search. -->
       <Preference
-        :explanation="zhCN.default.onlineSearchExplanation"
+        :explanation="zhHansCn.default.onlineSearchExplanation"
         :options="options.onlineSearch"
         :selectionChangedHandler="changeOnlineSearch"
-        :subtitle="zhCN.default.onlineSearchTitle"
+        :subtitle="zhHansCn.default.onlineSearchTitle"
         :type="global.common.BUTTON_GROUP"
       />
       <!-- Confirm closing multiple tabs. -->
       <Preference
-        :explanation="zhCN.default.confirmClosingMultipleTabsExplanation"
+        :explanation="zhHansCn.default.confirmClosingMultipleTabsExplanation"
         :options="options.confirmClosingMultipleTabs"
-        :subtitle="zhCN.default.confirmClosingMultipleTabsTitle"
+        :subtitle="zhHansCn.default.confirmClosingMultipleTabsTitle"
         :type="global.common.SWITCH"
         :value="confirmClosingMultipleTabs"
       />
@@ -41,18 +41,18 @@
       <!-- Check for updates. -->
       <!-- Update and download automatically. -->
       <Preference
-        :explanation="zhCN.default.autoUpdateAndDownloadExplanation"
+        :explanation="zhHansCn.default.autoUpdateAndDownloadExplanation"
         :options="options.autoUpdateAndDownload"
-        :subtitle="zhCN.default.autoUpdateAndDownloadTitle"
-        :title="zhCN.default.checkForUpdates"
+        :subtitle="zhHansCn.default.autoUpdateAndDownloadTitle"
+        :title="zhHansCn.default.checkForUpdates"
         :type="global.common.SWITCH"
         :value="autoUpdateAndDownload"
       />
       <!-- Receive test version updates. -->
       <Preference
-        :explanation="zhCN.default.receiveTestUpdatesExplanation"
+        :explanation="zhHansCn.default.receiveTestUpdatesExplanation"
         :options="options.receiveTestUpdates"
-        :subtitle="zhCN.default.receiveTestUpdatesTitle"
+        :subtitle="zhHansCn.default.receiveTestUpdatesTitle"
         :type="global.common.SWITCH"
         :value="receiveTestUpdates"
       />
@@ -70,7 +70,7 @@ import { DesktopComputerIcon, MoonIcon, SunIcon } from "@heroicons/vue/outline";
 import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import { changePreference, checkOption } from "../../lib/preferences.js";
-import * as zhCN from "../../locales/zh-CN.json";
+import * as zhHansCn from "../../locales/zh-Hans-CN.json";
 import ScrollToTopButton from "../ScrollToTopButton.vue";
 import BaiduIcon from "../svg/BaiduIcon.vue";
 import GoogleIcon from "../svg/GoogleIcon.vue";
@@ -195,7 +195,7 @@ export default {
       isScrollToTopDismissed: true,
       receiveTestUpdates: global.common.DEFAULT_RECEIVE_TEST_UPDATES,
       scrollToTopTarget: null,
-      zhCN,
+      zhHansCn,
     };
   },
   mounted() {
@@ -224,17 +224,17 @@ export default {
           {
             icon: DesktopComputerIcon,
             id: global.common.SYSTEM_DEFAULT_MODE_ID,
-            value: zhCN.default.systemDefault,
+            value: zhHansCn.default.systemDefault,
           }, // System default.
           {
             icon: SunIcon,
             id: global.common.LIGHT_MODE_ID,
-            value: zhCN.default.light,
+            value: zhHansCn.default.light,
           }, // Light.
           {
             icon: MoonIcon,
             id: global.common.DARK_MODE_ID,
-            value: zhCN.default.dark,
+            value: zhHansCn.default.dark,
           }, // Dark.
         ],
         autoUpdateAndDownload: {
@@ -249,12 +249,12 @@ export default {
           {
             icon: BaiduIcon,
             id: global.common.BAIDU_ID,
-            value: zhCN.default.baidu,
+            value: zhHansCn.default.baidu,
           }, // Baidu.
           {
             icon: GoogleIcon,
             id: global.common.GOOGLE_ID,
-            value: zhCN.default.google,
+            value: zhHansCn.default.google,
           }, // Google.
         ],
         receiveTestUpdates: {

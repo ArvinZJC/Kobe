@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference component
- * @Version: 1.1.0.20220313
+ * @Version: 1.1.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-02-01 15:19:10
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 14:19:51
+ * @LastEditTime: 2022-06-12 17:36:53
 -->
 
 <template>
@@ -66,7 +66,7 @@
     <!-- Date picker preference options. -->
     <ejs-tooltip
       v-if="type === global.common.DATE_PICKER"
-      :content="`${zhCN.default.dateFormatTooltip}，${zhCN.default.minDateTooltip}`"
+      :content="`${zhHansCn.default.dateFormatTooltip}，${zhHansCn.default.minDateTooltip}`"
     >
       <ejs-datepicker
         @change="changeDate"
@@ -99,7 +99,7 @@ import ButtonGroupMember from "./ButtonGroupMember.vue";
 import global from "../../lib/global.js";
 import { toDateStr } from "../../lib/utils";
 import { changePreference } from "../../lib/preferences.js";
-import * as zhCN from "../../locales/zh-CN.json";
+import * as zhHansCn from "../../locales/zh-Hans-CN.json";
 
 export default {
   components: {
@@ -164,7 +164,7 @@ export default {
     value: [Boolean, Date, Number],
   },
   data() {
-    return { global, zhCN };
+    return { global, zhHansCn };
   },
 };
 </script>

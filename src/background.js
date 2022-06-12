@@ -1,10 +1,10 @@
 /*
  * @Description: the app's entry point
- * @Version: 1.1.3.20220517
+ * @Version: 1.1.4.20220612
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 21:58:44
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-05-17 12:33:28
+ * @LastEditTime: 2022-06-12 17:31:27
  */
 
 import { app, BrowserWindow, protocol } from "electron";
@@ -15,7 +15,7 @@ import { platform } from "process";
 
 import global from "./lib/global.js";
 import { createTabbedWin } from "./lib/window.js";
-import * as zhCN from "./locales/zh-CN.json";
+import * as zhHansCn from "./locales/zh-Hans-CN.json";
 import * as stockList from "../extensions/stock-list-update-checker/stock-list.json";
 
 var tabbedWin;
@@ -31,7 +31,7 @@ if (app.requestSingleInstanceLock()) {
   ]); // Scheme must be registered before the app is ready.
   electronDl({
     openFolderWhenDone: true,
-    errorMessage: `{filename} ${zhCN.default.downloadErrorMessage}`,
+    errorMessage: `{filename} ${zhHansCn.default.downloadErrorMessage}`,
     errorTitle: app.name,
   }); // Configure file downloads.
 
@@ -55,7 +55,7 @@ if (app.requestSingleInstanceLock()) {
       app.quit(); // Quit the app, except on macOS where the user quits the app explicitly with command + Q.
     } // end if
   });
-  app.setAboutPanelOptions({ credits: zhCN.default.appDescription });
+  app.setAboutPanelOptions({ credits: zhHansCn.default.appDescription });
   app.whenReady().then(async () => {
     log.info(`Starting ${app.name} V${app.getVersion()}`);
     if (process.env.NODE_ENV === global.common.DEV && !process.env.IS_TEST) {

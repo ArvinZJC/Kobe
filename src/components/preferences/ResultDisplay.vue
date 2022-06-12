@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' result display section component
- * @Version: 1.1.0.20220313
+ * @Version: 1.1.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-01-31 17:53:47
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 19:38:10
+ * @LastEditTime: 2022-06-12 17:37:29
 -->
 
 <template>
@@ -16,18 +16,18 @@
       <!-- Total volume. -->
       <!-- Unit. -->
       <Preference
-        :explanation="zhCN.default.totalVolumeUnitExplanation"
+        :explanation="zhHansCn.default.totalVolumeUnitExplanation"
         :options="options.totalVolumeUnit"
-        :subtitle="zhCN.default.unitTitle"
-        :title="zhCN.default.totalVolumeColumnHeader"
+        :subtitle="zhHansCn.default.unitTitle"
+        :title="zhHansCn.default.totalVolumeColumnHeader"
         :type="global.common.DROP_DOWN_LIST"
         :value="totalVolumeUnit"
       />
       <!-- The number of decimal points. -->
       <Preference
-        :explanation="zhCN.default.totalVolumeDecimalPointsExplanation"
+        :explanation="zhHansCn.default.totalVolumeDecimalPointsExplanation"
         :options="options.totalVolumeDecimalPoints"
-        :subtitle="zhCN.default.decimalPointsTitle"
+        :subtitle="zhHansCn.default.decimalPointsTitle"
         :type="global.common.SLIDER"
         :value="totalVolumeDecimalPoints"
       />
@@ -35,18 +35,18 @@
       <!-- Day volume. -->
       <!-- Unit. -->
       <Preference
-        :explanation="zhCN.default.dayVolumeUnitExplanation"
+        :explanation="zhHansCn.default.dayVolumeUnitExplanation"
         :options="options.dayVolumeUnit"
-        :subtitle="zhCN.default.unitTitle"
-        :title="zhCN.default.dayVolumeStackedColumnHeader"
+        :subtitle="zhHansCn.default.unitTitle"
+        :title="zhHansCn.default.dayVolumeStackedColumnHeader"
         :type="global.common.DROP_DOWN_LIST"
         :value="dayVolumeUnit"
       />
       <!-- The number of decimal points. -->
       <Preference
-        :explanation="zhCN.default.dayVolumeDecimalPointsExplanation"
+        :explanation="zhHansCn.default.dayVolumeDecimalPointsExplanation"
         :options="options.dayVolumeDecimalPoints"
-        :subtitle="zhCN.default.decimalPointsTitle"
+        :subtitle="zhHansCn.default.decimalPointsTitle"
         :type="global.common.SLIDER"
         :value="dayVolumeDecimalPoints"
       />
@@ -54,18 +54,18 @@
       <!-- Excel export. -->
       <!-- Export current page. -->
       <Preference
-        :explanation="zhCN.default.exportCurrentPageExplanation"
+        :explanation="zhHansCn.default.exportCurrentPageExplanation"
         :options="options.exportCurrentPage"
-        :subtitle="zhCN.default.exportCurrentPageTitle"
+        :subtitle="zhHansCn.default.exportCurrentPageTitle"
         :title="syncfusion.default['zh-Hans'].grid.Excelexport"
         :type="global.common.SWITCH"
         :value="exportCurrentPage"
       />
       <!-- Include hidden columns. -->
       <Preference
-        :explanation="zhCN.default.includeHiddenColumnsExplanation"
+        :explanation="zhHansCn.default.includeHiddenColumnsExplanation"
         :options="options.includeHiddenColumns"
-        :subtitle="zhCN.default.includeHiddenColumnsTitle"
+        :subtitle="zhHansCn.default.includeHiddenColumnsTitle"
         :type="global.common.SWITCH"
         :value="includeHiddenColumns"
       />
@@ -81,7 +81,7 @@
 import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
 import * as syncfusion from "../../locales/syncfusion.json";
-import * as zhCN from "../../locales/zh-CN.json";
+import * as zhHansCn from "../../locales/zh-Hans-CN.json";
 import ScrollToTopButton from "../ScrollToTopButton.vue";
 
 export default {
@@ -198,7 +198,7 @@ export default {
       syncfusion,
       totalVolumeDecimalPoints: null,
       totalVolumeUnit: global.common.BOARD_LOT_100,
-      zhCN,
+      zhHansCn,
     };
   },
   mounted() {
@@ -222,13 +222,19 @@ export default {
   },
   setup() {
     const volumeUnits = [
-      { text: zhCN.default.share1, value: global.common.SHARE_1 },
-      { text: zhCN.default.boardLot1, value: global.common.BOARD_LOT_1 },
-      { text: zhCN.default.boardLot10, value: global.common.BOARD_LOT_10 },
-      { text: zhCN.default.boardLot100, value: global.common.BOARD_LOT_100 },
-      { text: zhCN.default.boardLot1000, value: global.common.BOARD_LOT_1000 },
+      { text: zhHansCn.default.share1, value: global.common.SHARE_1 },
+      { text: zhHansCn.default.boardLot1, value: global.common.BOARD_LOT_1 },
+      { text: zhHansCn.default.boardLot10, value: global.common.BOARD_LOT_10 },
       {
-        text: zhCN.default.boardLot10000,
+        text: zhHansCn.default.boardLot100,
+        value: global.common.BOARD_LOT_100,
+      },
+      {
+        text: zhHansCn.default.boardLot1000,
+        value: global.common.BOARD_LOT_1000,
+      },
+      {
+        text: zhHansCn.default.boardLot10000,
         value: global.common.BOARD_LOT_10000,
       },
     ];

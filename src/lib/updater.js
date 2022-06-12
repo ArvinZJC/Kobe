@@ -1,10 +1,10 @@
 /*
  * @Description: the app updater
- * @Version: 1.1.5.20220309
+ * @Version: 1.1.6.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-02-26 21:40:41
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-09 21:26:53
+ * @LastEditTime: 2022-06-12 17:40:02
  */
 
 import { app, dialog, Notification } from "electron";
@@ -13,7 +13,7 @@ import settings from "electron-settings";
 import { autoUpdater } from "electron-updater";
 import path from "path";
 
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 var menuItemCheckForUpdates;
 
@@ -30,7 +30,7 @@ autoUpdater.on("error", (e) => {
   } // end if
 
   dialog.showMessageBox({
-    message: zhCN.default.updateErrorMessage,
+    message: zhHansCn.default.updateErrorMessage,
     title: app.name,
     type: "error",
   });
@@ -41,10 +41,10 @@ autoUpdater.on("update-available", (updateInfo) => {
   if (!autoUpdater.autoDownload) {
     dialog
       .showMessageBox({
-        buttons: [zhCN.default.confirm, zhCN.default.cancel],
+        buttons: [zhHansCn.default.confirm, zhHansCn.default.cancel],
         cancelId: 1,
         detail: `V${app.getVersion()} → V${updateInfo.version}`,
-        message: zhCN.default.updateAvailableMessage,
+        message: zhHansCn.default.updateAvailableMessage,
         noLink: true,
         title: app.name,
         type: "info",
@@ -68,7 +68,7 @@ autoUpdater.on("update-downloaded", (updateInfo) => {
   dialog
     .showMessageBox({
       detail: `V${app.getVersion()} → V${updateInfo.version}`,
-      message: zhCN.default.updateDownloadedMessage,
+      message: zhHansCn.default.updateDownloadedMessage,
       title: app.name,
       type: "info",
     })
@@ -84,7 +84,7 @@ autoUpdater.on("update-not-available", () => {
 
   dialog.showMessageBox({
     detail: `V${app.getVersion()}`,
-    message: zhCN.default.noUpdatesMessage,
+    message: zhHansCn.default.noUpdatesMessage,
     title: app.name,
     type: "info",
   });
@@ -122,12 +122,12 @@ export async function updateAutomatically() {
       if (it != null && it.downloadPromise != null) {
         it.downloadPromise.then(() => {
           new Notification({
-            body: `${zhCN.default.updateReadyBody}（V${app.getVersion()} → V${
-              it.updateInfo.version
-            }）`,
+            body: `${
+              zhHansCn.default.updateReadyBody
+            }（V${app.getVersion()} → V${it.updateInfo.version}）`,
             // eslint-disable-next-line no-undef
             icon: path.join(__static, "assets/app_icon.png"),
-            title: zhCN.default.updateReadyTitle,
+            title: zhHansCn.default.updateReadyTitle,
           }).show();
         });
       }
@@ -142,7 +142,7 @@ export async function updateAutomatically() {
 export async function updateManually(menuItem) {
   if (global.isAutoUpdateBusy) {
     dialog.showMessageBox({
-      message: zhCN.default.autoUpdateBusyMessage,
+      message: zhHansCn.default.autoUpdateBusyMessage,
       title: app.name,
       type: "info",
     });

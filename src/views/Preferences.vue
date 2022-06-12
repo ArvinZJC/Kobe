@@ -1,10 +1,10 @@
 <!--
  * @Description: the preference view
- * @Version: 1.1.0.20220313
+ * @Version: 1.1.1.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-01-16 12:59:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 19:00:27
+ * @LastEditTime: 2022-06-12 17:41:15
 -->
 
 <template>
@@ -42,9 +42,9 @@
     <!-- The button component for resetting all preferences. -->
     <ejs-button
       @click="resetPreferences"
-      :content="zhCN.default.reset"
+      :content="zhHansCn.default.reset"
       :target="global.common.PREFERENCE_VIEW_ID"
-      :title="zhCN.default.resetPreferencesButtonTitle"
+      :title="zhHansCn.default.resetPreferencesButtonTitle"
       cssClass="btn-action-left text-red-primary bottom-4"
       iconCss="e-icons e-refresh"
     />
@@ -64,7 +64,7 @@ import General from "../components/preferences/General.vue";
 import ResultDisplay from "../components/preferences/ResultDisplay.vue";
 import SearchEngine from "../components/preferences/SearchEngine.vue";
 import global from "../lib/global.js";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 export default {
   components: {
@@ -137,21 +137,21 @@ export default {
       global,
       headerGeneral: {
         iconCss: "e-settings",
-        text: zhCN.default.generalSection,
+        text: zhHansCn.default.generalSection,
       },
       headerResultDisplay: {
         iconCss: "e-table",
-        text: zhCN.default.resultDisplaySection,
+        text: zhHansCn.default.resultDisplaySection,
       },
       headerSearchEngine: {
         iconCss: "e-eye",
-        text: zhCN.default.searchEngineSection,
+        text: zhHansCn.default.searchEngineSection,
       },
-      zhCN,
+      zhHansCn,
     };
   },
   mounted() {
-    document.title = zhCN.default.preferences;
+    document.title = zhHansCn.default.preferences;
 
     if (document.readyState === "complete") {
       this.actWhenLoaded();

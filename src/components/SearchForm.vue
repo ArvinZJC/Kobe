@@ -1,10 +1,10 @@
 <!--
  * @Description: the search form component
- * @Version: 1.2.1.20220313
+ * @Version: 1.2.2.20220612
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:44:32
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-03-13 13:10:20
+ * @LastEditTime: 2022-06-12 17:34:20
 -->
 
 <template>
@@ -59,7 +59,7 @@
           :class="[hasBarLayout ? 'gap-4 grid grid-cols-2 grow' : 'space-y-6']"
         >
           <ejs-tooltip
-            :content="zhCN.default.stockSymbolTooltip"
+            :content="zhHansCn.default.stockSymbolTooltip"
             :ref="global.common.STOCK_SYMBOL_TOOLTIP_NAME"
           >
             <!-- The stock symbol auto-complete component. -->
@@ -80,13 +80,13 @@
               :highlight="true"
               :itemTemplate="stockListItemTemplate"
               :name="global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME"
-              :placeholder="zhCN.default.stockSymbolPlaceholder"
+              :placeholder="zhHansCn.default.stockSymbolPlaceholder"
               :ref="global.common.STOCK_SYMBOL_AUTO_COMPLETE_NAME"
               :value="stockSymbol"
             />
           </ejs-tooltip>
           <ejs-tooltip
-            :content="`${zhCN.default.dateFormatTooltip}，${zhCN.default.dateRangeTooltip}`"
+            :content="`${zhHansCn.default.dateFormatTooltip}，${zhHansCn.default.dateRangeTooltip}`"
             :ref="global.common.DATE_RANGE_PICKER_TOOLTIP_NAME"
           >
             <!-- The date range picker. -->
@@ -102,7 +102,7 @@
               :maxDays="7 * 4 * maxDateRangeSpan"
               :min="new Date(`${minDate}${global.common.DAY_TIME_START}`)"
               :name="global.common.DATE_RANGE_PICKER_NAME"
-              :placeholder="zhCN.default.dateRangePlaceholder"
+              :placeholder="zhHansCn.default.dateRangePlaceholder"
               :ref="global.common.DATE_RANGE_PICKER_NAME"
               :startDate="
                 new Date(`${startDate}${global.common.DAY_TIME_START}`)
@@ -114,7 +114,7 @@
           <div class="block lg:hidden">
             <ejs-button
               :disabled="!isEnabled"
-              :title="zhCN.default.search"
+              :title="zhHansCn.default.search"
               iconCss="e-icons e-search"
               isPrimary="true"
               type="submit"
@@ -122,7 +122,7 @@
           </div>
           <div class="lg:block hidden">
             <ejs-button
-              :content="zhCN.default.search"
+              :content="zhHansCn.default.search"
               :disabled="!isEnabled"
               iconCss="e-icons e-search"
               isPrimary="true"
@@ -132,7 +132,7 @@
         </div>
         <div v-else>
           <ejs-button
-            :content="zhCN.default.search"
+            :content="zhHansCn.default.search"
             :disabled="!isEnabled"
             cssClass="e-block"
             iconCss="e-icons e-search"
@@ -157,7 +157,7 @@ import { createApp } from "vue";
 import AppTextLogo from "./svg/AppTextLogo.vue";
 import global from "../lib/global.js";
 import { toDateStr } from "../lib/utils";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 const stockSymbolRegex = /^\s*([Bb][Jj]|[Ss][HhZz])\d{6}\s*$/;
 
@@ -398,7 +398,7 @@ export default {
           }),
         };
       },
-      zhCN,
+      zhHansCn,
     };
   },
   mounted() {

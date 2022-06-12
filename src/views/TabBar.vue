@@ -1,10 +1,10 @@
 <!--
  * @Description: the tab bar view
- * @Version: 1.2.2.20220405
+ * @Version: 1.2.3.20220612
  * @Author: Arvin Zhao
  * @Date: 2022-02-19 14:17:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-04-05 09:25:26
+ * @LastEditTime: 2022-06-12 17:49:59
 -->
 
 <template>
@@ -31,7 +31,7 @@
         <e-tabitems>
           <e-tabitem
             :cssClass="newTabItemCssClass"
-            :header="{ text: zhCN.default.newTabItem }"
+            :header="{ text: zhHansCn.default.newTabItem }"
             :id="startTabItemId"
           />
         </e-tabitems>
@@ -51,14 +51,14 @@
             ? 'btn-tab-bar-mac mr-1 rounded'
             : 'btn-tab-bar-win',
         ]"
-        :title="`${zhCN.default.open}${zhCN.default.newTabItem}`"
+        :title="`${zhHansCn.default.open}${zhHansCn.default.newTabItem}`"
       />
       <!-- The button for opening the app menu. -->
       <button
         @click="popUpAppMenu"
         v-if="platform === global.common.WINDOWS"
         :id="global.common.APP_MENU_BUTTON_ID"
-        :title="`${zhCN.default.open}${zhCN.default.appMenu}`"
+        :title="`${zhHansCn.default.open}${zhHansCn.default.appMenu}`"
         class="btn-tab-bar-win e-icons e-more-vertical-1"
       />
     </div>
@@ -79,7 +79,7 @@ import {
 } from "@syncfusion/ej2-vue-navigations";
 
 import global from "../lib/global.js";
-import * as zhCN from "../locales/zh-CN.json";
+import * as zhHansCn from "../locales/zh-Hans-CN.json";
 
 export default {
   components: {
@@ -275,7 +275,7 @@ export default {
       } // end if
 
       this.$refs[global.common.TAB_BAR_TABS_NAME].addTab(
-        [{ cssClass, header: { text: zhCN.default.newTabItem } }],
+        [{ cssClass, header: { text: zhHansCn.default.newTabItem } }],
         newTabItemIndex
       );
       this.$refs[global.common.TAB_BAR_TABS_NAME].select(newTabItemIndex);
@@ -421,7 +421,7 @@ export default {
       platform: global.common.UNKNOWN,
       startTabItemId: null,
       tabBarTabWidth: "100%",
-      zhCN,
+      zhHansCn,
     };
   },
   mounted() {
