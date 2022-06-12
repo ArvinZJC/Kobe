@@ -8,13 +8,13 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ArvinZJC/Kobe)
 ![GitHub](https://img.shields.io/github/license/ArvinZJC/Kobe)
 
-[English](./README.md) | **简体中文**
+[English (United Kingdom)](./README.md) | **中文（简体，中国）**
 
 > Kobe /'kəubi/
 >
 > **_n._** 神户（日本的一个港口城市）; **Arvin 发现的神户座**<sup id="source1">[1](#footnote1)</sup> 😜
 
-神户座是一个 macOS/Windows 桌面应用，它用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量，可看作是对分价表的组合加工。“神户”玩儿的是谐音梗，指代“沪深”。“沪深”的意思就不多说了，懂的都懂。这款应用程序实现的功能算不上太复杂，设计的目的主要是为了满足一些中国大陆用户的需求（包括家人），因而此应用程序支持的语言仅有简体中文。
+神户座是一个 macOS/Windows 桌面应用，它用来帮助用户搜索北交所、上交所和深交所股票成交价和成交量，可看作是对分价表的组合加工。“神户”玩儿的是谐音梗，指代“沪深”。“沪深”的意思就不多说了，懂的都懂。这款应用程序实现的功能算不上太复杂，设计的目的主要是为了满足一些中国大陆用户的需求（包括家人），支持的语言仅有中文（简体，中国）。
 
 事实上，此仓库并不是神户座的诞生之地。在 2020 年 7 月 23 日，神户座宣布诞生于[一个旧有仓库](https://github.com/ArvinZJC/ShSzStockHelper-Windows)。它主要使用 Windows 呈现基础（WPF，.NET Core 3.1），基本实现了家人的需求。尽管它经过几次迭代使其功能逐渐成熟，但仅支持 Windows、首次启动速度慢、搜索引擎极不稳定等缺陷带来的影响日益显著。于是，此仓库在 2021 年 12 月 7 日建立，从而打造船新的神户座。经过一段时间的重构，如今的神户座更好用、更稳定，可以说是焕然一新。
 
@@ -26,7 +26,7 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 此项目使用 [GPL-3.0 协议](./LICENSE)。截至 2022 年 6 月 9 日，使用 Visual Studio Code（版本：1.67.2）、Node.js 16.15.0 和 Vue CLI 4.5.17 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
+1. 此项目使用 [GPL-3.0 协议](./LICENCE)。截至 2022 年 6 月 12 日，使用 Visual Studio Code（版本：1.68.0）、Node.js 16.15.0 和 Vue CLI 4.5.17 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
 2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 macOS 10.11 及更高版本（arm64 和 x64），以及 Windows 7 及更高版本（arm64、x64 和 x86）。**在安装、使用和卸载此应用的过程中，任何来自系统的安全提示都可授权允许。此应用已签名，无恶意行为，亦不会收集并上传任何用户隐私。** 若遇问题，可移步 [issues](https://github.com/ArvinZJC/Kobe/issues)。
 3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
 

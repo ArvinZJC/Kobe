@@ -1,6 +1,6 @@
 # [Kobe](../../../..)/[extensions](../)/股票列表更新检查器
 
-[English](./README.md) | **简体中文**
+[English (United Kingdom)](./README.md) | **中文（简体，中国）**
 
 股票列表是一个 Python 脚本插件。此插件用于查询北交所、上交所和深交所上市的股票代码和相应的股票名称，并将它们保存在一个 JSON 数据文件中。这个数据文件是神户座的股票代码输入框的自动补全功能必不可少的数据来源。
 
@@ -8,7 +8,7 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 截至 2022 年 6 月 9 日，使用 Visual Studio Code（版本：1.67.2）和 Python 3.9 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
+1. 截至 2022 年 6 月 12 日，使用 Visual Studio Code（版本：1.68.0）和 Python 3.9 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
 2. 插件主要的包参见下面的表格。更多信息请参见[`requirements.txt`](./requirements.txt)。
 
    | 名称          |  版本  |
