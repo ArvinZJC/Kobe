@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-06-12 17:39:27
+ * @LastEditTime: 2022-06-13 12:38:20
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -248,7 +248,7 @@ function getMenuHelpTemplate(tabbedWin) {
     submenu: [
       {
         enabled: false,
-        label: `${app.name}${zhHansCn.default.website}`,
+        label: `${app.name}${zhHansCn.default.site}`,
       },
       {
         enabled: false,
