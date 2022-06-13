@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-13 19:19:29
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-04-05 09:19:03
+ * @LastEditTime: 2022-06-13 13:55:03
  */
 
 global.common = {
@@ -81,7 +81,7 @@ global.common = {
   GITEE_KOBE: "https://gitee.com/ArvinZJC/Kobe",
   GITHUB_KOBE: "https://github.com/ArvinZJC/Kobe",
   GITHUB_KOBE_ISSUES: "https://github.com/ArvinZJC/Kobe/issues",
-  GITHUB_KOBE_RELEASES: "https://github.com/ArvinZJC/Kobe/releases",
+  GITHUB_KOBE_RELEASE_BASE: "https://github.com/ArvinZJC/Kobe/releases/tag/v",
   GOOGLE_ID: "google",
   GOOGLE_SEARCH_KEY: "q",
   GOOGLE_SEARCH_URL: "https://www.google.com/search",

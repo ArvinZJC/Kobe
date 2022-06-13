@@ -4,7 +4,7 @@
  * @Author: Arvin Zhao
  * @Date: 2021-12-06 16:14:49
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-06-13 12:38:20
+ * @LastEditTime: 2022-06-13 13:55:23
  */
 
 import { app, dialog, Menu, shell } from "electron";
@@ -263,21 +263,24 @@ function getMenuHelpTemplate(tabbedWin) {
       },
       {
         click: () => {
+          shell.openExternal(global.common.GITHUB_KOBE_ISSUES);
+        },
+        label: zhHansCn.default.issues,
+      },
+      {
+        click: () => {
+          shell.openExternal(
+            `${global.common.GITHUB_KOBE_RELEASE_BASE}${app.getVersion()}`
+          );
+        },
+        label: zhHansCn.default.releaseNotes,
+      },
+      menuItemSeparatorTemplate,
+      {
+        click: () => {
           shell.openExternal(global.common.GITEE_KOBE);
         },
         label: `Gitee ${zhHansCn.default.repo}（${zhHansCn.default.backup}）`,
-      },
-      {
-        click: () => {
-          shell.openExternal(global.common.GITHUB_KOBE_ISSUES);
-        },
-        label: zhHansCn.default.viewIssues,
-      },
-      {
-        click: () => {
-          shell.openExternal(global.common.GITHUB_KOBE_RELEASES);
-        },
-        label: zhHansCn.default.releaseNotes,
       },
       menuItemSeparatorTemplate,
       {
@@ -440,7 +443,7 @@ export function setAppMenu(tabbedWin) {
  */
 export async function setContextMenu(view) {
   contextMenu({
-    menu: (actions, params, currentWin, dictionarySuggestions) => [
+    menu: (actions, params, _currentWin, dictionarySuggestions) => [
       dictionarySuggestions.length > 0 && actions.separator(),
       ...dictionarySuggestions,
       actions.separator(),
