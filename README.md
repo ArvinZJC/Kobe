@@ -18,8 +18,6 @@ Kobe is a macOS/Windows desktop app that can search stocks' strike prices and vo
 
 Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announced to release its first alpha version in [a currently archived repository](https://github.com/ArvinZJC/ShSzStockHelper-Windows). It primarily uses Windows Presentation Foundation (WPF) with .NET Core 3.1, and largely satisfies my family's requirements. Although the old Kobe has done it right after several iterations, its defects become more and more annoying, including supporting Windows only, being extremely slow on the first start, a highly volatile search engine, and so on. Thus, this repository was created on 7 December 2021 to construct an exciting Kobe. Nowadays, the brand-new Kobe is more useful and stabler after refactoring it for some time.
 
-~~For more infor, please refer to Kobe's official site and user manual.~~ (under construction)
-
 ![screenshot.png](./img_README/screenshot.png)
 
 ## ❗ ATTENTION
