@@ -8,7 +8,7 @@
  */
 
 /*
- ! tailwindcss v3.0.24 | MIT License | https://tailwindcss.com
+ ! tailwindcss v3.1.4 | MIT License | https://tailwindcss.com
  */
 
 /*
@@ -195,6 +195,8 @@ textarea {
   font-family: inherit;
   /* 1 */
   font-size: 100%;
+  /* 1 */
+  font-weight: inherit;
   /* 1 */
   line-height: inherit;
   /* 1 */
@@ -424,14 +426,6 @@ video {
   height: auto;
 }
 
-/*
-Ensure the default browser behavior of the `hidden` attribute.
-*/
-
-[hidden] {
-  display: none;
-}
-
 :root {
   --tab-bar-height: 40px;
   /* This should be the same as "global.common.TAB_BAR_HEIGHT". */
@@ -503,6 +497,102 @@ body::selection {
 }
 
 *, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+}
+
+::-webkit-backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
   --tw-translate-y: 0;
   --tw-rotate: 0;
@@ -1117,6 +1207,11 @@ body::selection {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
 .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1402,64 +1497,81 @@ body::selection {
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav
-  .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
+  .e-nav-arrow, 
+.e-tab .e-tab-header .e-scroll-nav .e-nav-arrow {
   --tw-text-opacity: 1 !important;
   color: rgb(156 163 175 / var(--tw-text-opacity)) !important;
 }
 
 /* The customised horizontal tab scroll bar style on hover and focus.  */
 
-.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .e-tab
+.e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav:focus
-  .e-nav-arrow, .e-tab
+  .e-nav-arrow, 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav:focus
-  .e-nav-arrow:hover, .e-tab
+  .e-nav-arrow:hover, 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover, .e-tab
+  .e-nav-arrow:hover, 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav
-  .e-nav-arrow:hover, .e-tab
+  .e-nav-arrow:hover, 
+.e-tab
   .e-tab-header
   .e-scroll-nav
   .e-nav-arrow:hover
   .e-tab
   .e-tab-header
-  .e-scroll-nav:focus, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
+  .e-scroll-nav:focus, 
+.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, 
+.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, 
+.e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
   background-color: transparent !important;
   --tw-text-opacity: 1 !important;
   color: rgb(79 70 229 / var(--tw-text-opacity)) !important;
 }
 
-.dark .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .dark .e-tab
+.dark .e-tab .e-tab-header .e-hscroll:not(.e-scroll-device) .e-scroll-nav:focus, .dark 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav:focus
-  .e-nav-arrow, .dark .e-tab
+  .e-nav-arrow, .dark 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav:focus
-  .e-nav-arrow:hover, .dark .e-tab
+  .e-nav-arrow:hover, .dark 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav.e-overlay
-  .e-nav-arrow:hover, .dark .e-tab
+  .e-nav-arrow:hover, .dark 
+.e-tab
   .e-tab-header
   .e-hscroll:not(.e-scroll-device)
   .e-scroll-nav
-  .e-nav-arrow:hover, .dark .e-tab
+  .e-nav-arrow:hover, .dark 
+.e-tab
   .e-tab-header
   .e-scroll-nav
   .e-nav-arrow:hover
   .e-tab
   .e-tab-header
-  .e-scroll-nav:focus, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .dark .e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .dark .e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
+  .e-scroll-nav:focus, .dark 
+.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow, .dark 
+.e-tab .e-tab-header .e-scroll-nav:focus .e-nav-arrow:hover, .dark 
+.e-tab .e-tab-header .e-scroll-nav.e-overlay .e-nav-arrow:hover {
   --tw-text-opacity: 1 !important;
   color: rgb(34 211 238 / var(--tw-text-opacity)) !important;
 }
@@ -1584,7 +1696,8 @@ body::selection {
 
 /* The customised draggable tab item wrap style. */
 
-.e-tab-clone-element .e-tab-wrap, .e-tab-clone-element .e-tab-wrap .e-tab-icon {
+.e-tab-clone-element .e-tab-wrap, 
+.e-tab-clone-element .e-tab-wrap .e-tab-icon {
   padding-left: 1.25rem !important;
   padding-right: 0.75rem !important;
   --tw-text-opacity: 1 !important;

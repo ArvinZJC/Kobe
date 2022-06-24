@@ -2000,8 +2000,7 @@
   width: 100%;
 }
 .e-carousel .e-carousel-items:not(.e-carousel-custom-animation) .e-carousel-item {
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
   display: none;
   float: left;
   height: 100%;
