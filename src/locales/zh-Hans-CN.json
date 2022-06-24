@@ -37,6 +37,8 @@
   "delete": "删除",
   "downloadErrorMessage": "下载过程中出错。请稍后再试。若问题依旧，则可联系开发者。",
   "editMenu": "编辑",
+  "empty": "空空如也",
+  "emptySearchResultData": "没有可显示的数据",
   "enter": "进入",
   "exit": "退出",
   "exportCurrentPageExplanation": "设定是否仅导出当前页。若否，则导出所有页。",

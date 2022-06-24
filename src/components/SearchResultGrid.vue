@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.3.1.20220612
+ * @Version: 1.3.3.20220624
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-06-12 17:34:58
+ * @LastEditTime: 2022-06-24 19:16:27
 -->
 
 <template>
@@ -125,6 +125,11 @@ export default {
           this.hasSearchError = false;
           this.searchStatusMessage = zhHansCn.default.searchingHint;
           this.searchStatusTitle = zhHansCn.default.searching;
+          this.shouldShowGrid = false;
+        } else if (this.searchResultData.length === 0) {
+          this.hasSearchError = true;
+          this.searchStatusMessage = zhHansCn.default.emptySearchResultData;
+          this.searchStatusTitle = zhHansCn.default.empty;
           this.shouldShowGrid = false;
         } else if (
           this.searchResultData.length === 1 &&

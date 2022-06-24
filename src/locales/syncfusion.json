@@ -20,8 +20,6 @@
     "grid": {
       "CancelButton": "取消",
       "ClearButton": "清除",
-
-      "EmptyRecord": "没有可显示的数据",
       "EnterValue": "数值",
       "Equal": "等于",
       "Excelexport": "导出成 Excel",
