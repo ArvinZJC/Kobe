@@ -1,10 +1,10 @@
 <!--
  * @Description: the search result grid component with a search status area
- * @Version: 1.3.3.20220624
+ * @Version: 1.3.5.20220627
  * @Author: Arvin Zhao
  * @Date: 2021-12-12 05:41:38
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-06-24 19:16:27
+ * @LastEditTime: 2022-06-27 21:07:44
 -->
 
 <template>
@@ -261,37 +261,39 @@ export default {
             )
           ) {
             this.$refs[global.common.SEARCH_RESULT_GRID_NAME]
-              .excelExport({
-                enableFilter: true,
-                exportType: data[0][global.common.EXPORT_CURRENT_PAGE_KEY]
-                  ? global.common.SF_CURRENT_PAGE
-                  : global.common.SF_ALL_PAGES,
-                fileName: `${this.filename}.xlsx`,
-                header: {
-                  headerRows: 1,
-                  rows: [
-                    {
-                      cells: [
-                        {
-                          colSpan:
-                            this.$refs[
-                              global.common.SEARCH_RESULT_GRID_NAME
-                            ].getColumns().length,
-                          index: 1,
-                          style: {
-                            bold: true,
-                            fontSize: global.common.FILE_HEADER_FONT_SIZE,
+              .excelExport(
+                {
+                  enableFilter: true,
+                  exportType: data[0][global.common.EXPORT_CURRENT_PAGE_KEY]
+                    ? global.common.SF_CURRENT_PAGE
+                    : global.common.SF_ALL_PAGES,
+                  header: {
+                    headerRows: 1,
+                    rows: [
+                      {
+                        cells: [
+                          {
+                            colSpan:
+                              this.$refs[
+                                global.common.SEARCH_RESULT_GRID_NAME
+                              ].getColumns().length,
+                            index: 1,
+                            style: {
+                              bold: true,
+                              fontSize: global.common.FILE_HEADER_FONT_SIZE,
+                            },
+                            value: this.fileHeader,
                           },
-                          value: this.fileHeader,
-                        },
-                      ],
-                      index: 1,
-                    },
-                  ],
+                        ],
+                        index: 1,
+                      },
+                    ],
+                  },
+                  includeHiddenColumn:
+                    data[1][global.common.INCLUDE_HIDDEN_COLUMNS_KEY],
                 },
-                includeHiddenColumn:
-                  data[1][global.common.INCLUDE_HIDDEN_COLUMNS_KEY],
-              })
+                true
+              )
               .then((workbook) => {
                 var fileExt = "xlsx";
 
