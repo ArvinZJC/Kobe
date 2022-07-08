@@ -78,6 +78,7 @@
 
 .e-dropdown-popup {
   position: absolute;
+  border-radius: 4px;
   margin-top: 4px;
 }
 .e-dropdown-popup ul {
@@ -157,6 +158,7 @@
 
 *.e-bigger .e-dropdown-popup {
   background-color: transparent;
+  border-radius: 4px;
 }
 
 *.e-bigger .e-dropdown-popup ul,
@@ -549,6 +551,14 @@
       flex-direction: row;
   position: relative;
 }
+*.e-btn-group input:focus + label.e-btn,
+*.e-btn-group .e-btn:focus,
+*.e-btn-group .e-btn:hover,
+*.e-css.e-btn-group input:focus + label.e-btn,
+*.e-css.e-btn-group .e-btn:focus,
+*.e-css.e-btn-group .e-btn:hover {
+  z-index: 2;
+}
 *.e-btn-group input + label.e-btn,
 *.e-css.e-btn-group input + label.e-btn {
   margin-bottom: 0;
@@ -794,7 +804,6 @@
   outline: #fff 0 solid;
   outline-offset: 0;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
   outline-color: inherit;
 }
 .e-btn-group .e-btn:focus.e-primary,
@@ -806,7 +815,6 @@
   color: #fff;
   outline: #fff 0 solid;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
   outline-color: inherit;
 }
 .e-btn-group .e-btn:focus.e-success,
@@ -817,7 +825,6 @@
   border-color: #15803d;
   color: #fff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
   outline-color: inherit;
 }
 .e-btn-group .e-btn:focus.e-info,
@@ -828,7 +835,6 @@
   border-color: #0e7490;
   color: #fff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
   outline-color: inherit;
 }
 .e-btn-group .e-btn:focus.e-warning,
@@ -839,7 +845,6 @@
   border-color: #c2410c;
   color: #fff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
   outline-color: inherit;
 }
 .e-btn-group .e-btn:focus.e-danger,
@@ -850,7 +855,6 @@
   border-color: #dc2626;
   color: #fff;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
   outline-color: inherit;
 }
 .e-btn-group .e-btn:focus.e-link,
@@ -870,42 +874,36 @@
 .e-css.e-btn-group .e-btn:focus.e-outline,
 .e-css.e-btn-group input:focus + label.e-btn.e-outline {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
 }
 .e-btn-group .e-btn:focus.e-outline.e-primary,
 .e-btn-group input:focus + label.e-btn.e-outline.e-primary,
 .e-css.e-btn-group .e-btn:focus.e-outline.e-primary,
 .e-css.e-btn-group input:focus + label.e-btn.e-outline.e-primary {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
 }
 .e-btn-group .e-btn:focus.e-outline.e-success,
 .e-btn-group input:focus + label.e-btn.e-outline.e-success,
 .e-css.e-btn-group .e-btn:focus.e-outline.e-success,
 .e-css.e-btn-group input:focus + label.e-btn.e-outline.e-success {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
 }
 .e-btn-group .e-btn:focus.e-outline.e-info,
 .e-btn-group input:focus + label.e-btn.e-outline.e-info,
 .e-css.e-btn-group .e-btn:focus.e-outline.e-info,
 .e-css.e-btn-group input:focus + label.e-btn.e-outline.e-info {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
 }
 .e-btn-group .e-btn:focus.e-outline.e-warning,
 .e-btn-group input:focus + label.e-btn.e-outline.e-warning,
 .e-css.e-btn-group .e-btn:focus.e-outline.e-warning,
 .e-css.e-btn-group input:focus + label.e-btn.e-outline.e-warning {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
 }
 .e-btn-group .e-btn:focus.e-outline.e-danger,
 .e-btn-group input:focus + label.e-btn.e-outline.e-danger,
 .e-css.e-btn-group .e-btn:focus.e-outline.e-danger,
 .e-css.e-btn-group input:focus + label.e-btn.e-outline.e-danger {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
-  box-shadow: none;
 }
 .e-btn-group .e-btn:active,
 .e-btn-group input:active + label.e-btn,

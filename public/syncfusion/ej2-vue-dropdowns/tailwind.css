@@ -2546,6 +2546,10 @@ ejs-multiselect {
 .e-listbox-container * {
   box-sizing: border-box;
 }
+.e-listbox-wrapper.e-listboxtool-container .e-list-wrap,
+.e-listbox-container.e-listboxtool-container .e-list-wrap {
+  width: 84% !important;
+}
 .e-listbox-wrapper:focus,
 .e-listbox-container:focus {
   outline: none;
@@ -2776,8 +2780,8 @@ ejs-multiselect {
   text-indent: 0;
   vertical-align: middle;
 }
-.e-listbox-wrapper.e-right .e-checkbox-wrapper,
-.e-listbox-container.e-right .e-checkbox-wrapper {
+.e-listbox-wrapper.e-checkbox-right .e-checkbox-wrapper,
+.e-listbox-container.e-checkbox-right .e-checkbox-wrapper {
   position: absolute;
   right: 0;
   top: 30%;
@@ -2896,6 +2900,12 @@ ejs-listbox {
   list-style-type: none;
   margin-bottom: 10px;
 }
+.e-listboxtool-wrapper.e-checkbox-right .e-checkbox-wrapper,
+.e-listboxtool-container.e-checkbox-right .e-checkbox-wrapper {
+  position: absolute;
+  right: 0;
+  top: 30%;
+}
 
 .e-rtl.e-listboxtool-wrapper.e-right .e-listbox-tool,
 .e-rtl.e-listboxtool-container.e-right .e-listbox-tool {
@@ -2906,6 +2916,12 @@ ejs-listbox {
   margin-left: 15px;
 }
 
+.e-bigger .e-listbox-wrapper.e-listboxtool-container .e-list-wrap,
+.e-listbox-wrapper.e-bigger.e-listboxtool-container .e-list-wrap,
+.e-bigger .e-listbox-container.e-listboxtool-container .e-list-wrap,
+.e-listbox-container.e-bigger.e-listboxtool-container .e-list-wrap {
+  width: 80% !important;
+}
 .e-bigger .e-listbox-wrapper .e-list-item,
 .e-listbox-wrapper.e-bigger .e-list-item,
 .e-bigger .e-listbox-container .e-list-item,
@@ -3003,6 +3019,16 @@ ejs-listbox {
   height: calc(100% - 55px);
 }
 
+.e-bigger .e-listbox-wrapper.e-filter-list .e-selectall-parent + .e-list-parent,
+.e-bigger .e-listbox-container.e-filter-list .e-selectall-parent + .e-list-parent {
+  height: calc(100% - 94px);
+}
+
+.e-bigger .e-listbox-wrapper .e-selectall-parent + .e-list-parent,
+.e-bigger .e-listbox-container .e-selectall-parent + .e-list-parent {
+  height: calc(100% - 48px);
+}
+
 .e-small.e-bigger .e-listbox-wrapper.e-filter-list .e-list-parent,
 .e-small.e-bigger .e-listbox-container.e-filter-list .e-list-parent {
   height: calc(100% - 45px);
@@ -3040,6 +3066,16 @@ ejs-listbox {
 .e-listbox-wrapper.e-filter-list .e-list-parent,
 .e-listbox-container.e-filter-list .e-list-parent {
   height: calc(100% - 47px);
+}
+
+.e-listbox-wrapper.e-filter-list .e-selectall-parent + .e-list-parent,
+.e-listbox-container.e-filter-list .e-selectall-parent + .e-list-parent {
+  height: calc(100% - 76px);
+}
+
+.e-listbox-wrapper .e-selectall-parent + .e-list-parent,
+.e-listbox-container .e-selectall-parent + .e-list-parent {
+  height: calc(100% - 38px);
 }
 
 .e-listbox-wrapper .e-icons,

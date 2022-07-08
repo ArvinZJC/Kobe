@@ -6542,7 +6542,8 @@ body.e-colorpicker-overflow {
 }
 
 .sf-colorpicker.e-container .e-input-container .e-float-input {
-  margin-right: calc(2.75% - 2.28px);
+  float: left;
+  margin-left: -1px;
 }
 
 .e-hide-opacity .e-container .e-slider-preview .e-colorpicker-slider {
@@ -6622,7 +6623,8 @@ body.e-colorpicker-overflow {
   margin-right: 3.62%;
 }
 .e-rtl .e-container.sf-colorpicker .e-selected-value .e-input-container .e-float-input {
-  margin-right: calc(2.75% - 2.28px);
+  float: right;
+  margin-right: -1px;
 }
 .e-rtl.e-hide-valueswitcher .e-container .e-float-input:last-child {
   margin-left: 0;

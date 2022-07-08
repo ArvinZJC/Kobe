@@ -688,7 +688,6 @@
 .e-css.e-btn.e-round.e-danger:focus {
   outline: #fff 0 solid;
 }
-
 .e-btn.e-primary,
 .e-css.e-btn.e-primary {
   background-color: #22d3ee;
@@ -1341,6 +1340,10 @@
   text-decoration: underline;
   color: #67e8f9;
 }
+.e-btn.e-link:focus:not(:focus-visible),
+.e-css.e-btn.e-link:focus:not(:focus-visible) {
+  outline: none !important;
+}
 .e-btn.e-link:disabled,
 .e-css.e-btn.e-link:disabled {
   color: #6b7280;
@@ -1948,7 +1951,7 @@
   height: 16px;
   left: 0;
   position: absolute;
-  top: 0;
+  left: 0;
   width: 16px;
 }
 .e-radio + label:focus::before {
@@ -2172,7 +2175,6 @@
 .e-bigger .e-radio:not(:checked):hover + label.e-right::after {
   left: auto;
 }
-
 .e-bigger .e-radio + label .e-label,
 .e-radio + label.e-bigger .e-label {
   font-size: 16px;
