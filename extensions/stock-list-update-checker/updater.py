@@ -1,11 +1,11 @@
 """
 '''
 Description: a stock list data updater
-Version: 1.2.1.20220524
+Version: 1.2.2.20220721
 Author: Arvin Zhao
 Date: 2021-12-16 20:36:26
 Last Editors: Arvin Zhao
-LastEditTime: 2022-05-24 13:29:31
+LastEditTime: 2022-07-21 22:29:39
 '''
 """
 
@@ -27,7 +27,7 @@ def notify_tg(is_same: bool) -> None:
     tg_bot_token = os.getenv("TG_BOT_TOKEN")
     tg_user_id = os.getenv("TG_USER_ID")
 
-    if tg_bot_token == None or tg_user_id == None:
+    if tg_bot_token is None or tg_user_id is None:
         print("No Telegram bot token or user ID found.")
         return
 
