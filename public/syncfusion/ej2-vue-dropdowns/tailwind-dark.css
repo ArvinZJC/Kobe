@@ -2907,6 +2907,16 @@ ejs-listbox {
   top: 30%;
 }
 
+.e-listboxtool-container .e-left {
+  -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+}
+
+.e-listboxtool-wrapper .e-left {
+  -ms-flex-direction: column-reverse;
+      flex-direction: column-reverse;
+}
+
 .e-rtl.e-listboxtool-wrapper.e-right .e-listbox-tool,
 .e-rtl.e-listboxtool-container.e-right .e-listbox-tool {
   margin-right: 15px;
@@ -3009,14 +3019,28 @@ ejs-listbox {
 .e-listbox-container.e-bigger .e-list-header .e-text {
   font-size: 14px;
 }
-.e-small .e-listbox-wrapper.e-filter-list .e-list-parent,
-.e-small .e-listbox-container.e-filter-list .e-list-parent {
+.e-listbox-wrapper.e-filter-list .e-list-parent {
+  height: calc(100% - 38px);
+}
+
+.e-listbox-container.e-filter-list .e-list-wrap {
+  height: calc(100% - 38px) !important;
+}
+
+.e-small .e-listbox-wrapper.e-filter-list .e-list-parent {
   height: calc(100% - 45px);
 }
 
-.e-bigger .e-listbox-wrapper.e-filter-list .e-list-parent,
-.e-bigger .e-listbox-container.e-filter-list .e-list-parent {
-  height: calc(100% - 55px);
+.e-small .e-listbox-container.e-filter-list .e-list-wrap {
+  height: calc(100% - 45px) !important;
+}
+
+.e-bigger .e-listbox-wrapper.e-filter-list .e-list-parent {
+  height: calc(100% - 46px);
+}
+
+.e-bigger .e-listbox-container.e-filter-list .e-list-wrap {
+  height: calc(100% - 46px) !important;
 }
 
 .e-bigger .e-listbox-wrapper.e-filter-list .e-selectall-parent + .e-list-parent,
@@ -3029,9 +3053,12 @@ ejs-listbox {
   height: calc(100% - 48px);
 }
 
-.e-small.e-bigger .e-listbox-wrapper.e-filter-list .e-list-parent,
-.e-small.e-bigger .e-listbox-container.e-filter-list .e-list-parent {
+.e-small.e-bigger .e-listbox-wrapper.e-filter-list .e-list-parent {
   height: calc(100% - 45px);
+}
+
+.e-small.e-bigger .e-listbox-container.e-filter-list .e-list-wrap {
+  height: calc(100% - 45px) !important;
 }
 
 .e-listbox-wrapper,
@@ -3061,11 +3088,6 @@ ejs-listbox {
   border-color: rgba(0, 0, 0, 0.12);
   color: #9ca3af;
   font-size: 12px;
-}
-
-.e-listbox-wrapper.e-filter-list .e-list-parent,
-.e-listbox-container.e-filter-list .e-list-parent {
-  height: calc(100% - 47px);
 }
 
 .e-listbox-wrapper.e-filter-list .e-selectall-parent + .e-list-parent,
