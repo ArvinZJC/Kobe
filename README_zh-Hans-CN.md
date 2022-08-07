@@ -24,7 +24,7 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 此截至 2022 年 7 月 31 日，使用 Visual Studio Code（版本：1.69.2）、Node.js 16.15.0 和 Vue CLI 4.5.19 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
+1. 此截至 2022 年 8 月 7 日，使用 Visual Studio Code（版本：1.70.0）、Node.js 16.15.0 和 Vue CLI 4.5.19 开发表现良好。此外，我要特别感谢 Syncfusion 提供的[强大的 Vue.js 的 UI 组件库](https://www.syncfusion.com/vue-ui-components)，以及 Tailwind 提供的[丰富、可扩展的 CSS 框架和资源](https://tailwindcss.com/resources)，这节省了许多开发时间。
 2. 受 [Electron 的影响](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms)，神户座应能支持 macOS 10.11 及更高版本（arm64 和 x64），以及 Windows 7 及更高版本（arm64、x64 和 x86）。**在安装、使用和卸载此应用的过程中，任何来自系统的安全提示都可授权允许。此应用已签名，无恶意行为，亦不会收集并上传任何用户隐私。** 若遇问题，可移步[议题](https://github.com/ArvinZJC/Kobe/issues)。
 3. 项目主要依赖参见下面的表格。更多信息请参见 [`package.json`](./package.json)。
 
@@ -40,7 +40,7 @@
    | @syncfusion/ej2-vue-popups       |  20.2.40   |
    | @syncfusion/ej2-vue-splitbuttons |  20.2.38   |
    | cldr-data                        |   36.0.1   |
-   | electron                         |  19.0.10   |
+   | electron                         |   20.0.1   |
    | electron-context-menu            |   3.3.0    |
    | electron-devtools-installer      |   3.2.0    |
    | electron-fetch                   |   1.7.4    |
@@ -50,7 +50,7 @@
    | htmlparser2                      |   7.2.0    |
    | iconv-lite                       |   0.6.3    |
    | smoothscroll-polyfill            |   0.4.4    |
-   | tailwindcss                      |   3.1.7    |
+   | tailwindcss                      |   3.1.8    |
    | vue                              |   3.2.37   |
    | vue-class-component              | 8.0.0-rc.1 |
    | vue-cli-plugin-electron-builder  |   2.1.1    |
