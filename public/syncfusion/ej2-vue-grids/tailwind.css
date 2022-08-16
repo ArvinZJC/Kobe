@@ -3421,20 +3421,17 @@ li.e-separator.e-menu-item.e-excel-separator {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.e-grid .e-stackedheader .e-columnheader.e-wrap .e-headercelldiv, .e-grid .e-stackedheader .e-columnheader.e-wrap .e-stackedheadercelldiv {
-  max-height: 36px;
-}
 .e-grid .e-columnheader.e-wrap .e-sortfilterdiv, .e-grid.e-wrap .e-columnheader .e-sortfilterdiv {
-  margin: -30px 10px;
+  margin: -21px 5px;
 }
 .e-grid .e-columnheader.e-wrap .e-rightalign .e-sortfilterdiv, .e-grid.e-wrap .e-columnheader .e-rightalign .e-sortfilterdiv {
-  margin: -30px -5px;
+  margin: -21px -5px;
 }
 .e-grid .e-columnheader.e-wrap .e-fltr-icon .e-sortfilterdiv, .e-grid.e-wrap .e-columnheader .e-fltr-icon .e-sortfilterdiv {
-  margin: -27px 20px -29px 0;
+  margin: -14px 20px -29px 0;
 }
 .e-grid .e-columnheader.e-wrap .e-fltr-icon.e-rightalign .e-sortfilterdiv, .e-grid.e-wrap .e-columnheader .e-fltr-icon.e-rightalign .e-sortfilterdiv {
-  margin: -28px 0;
+  margin: -14px 0;
 }
 .e-grid .e-columnheader.e-wrap .e-icon-group::before, .e-grid.e-wrap .e-columnheader .e-icon-group::before {
   display: inline-block;
@@ -4337,6 +4334,9 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid.e-gridhover tr[role=row]:not(.e-editedrow):not(.e-detailrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-gridhover tr[role=row]:not(.e-detailrow):hover .e-detailrowcollapse:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-gridhover tr[role=row]:hover .e-rowdragdrop:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-rtl .e-gridhover tr[role=row]:hover .e-rowdragdrop:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-gridhover tr[role=row]:not(.e-detailrow):hover .e-detailrowexpand:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell) {
   background-color: #f3f4f6;
   color: #111827;
+}
+.e-grid.e-disable-gridhover tr[role=row]:not(.e-editedrow):not(.e-detailrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-disable-gridhover tr[role=row]:not(.e-detailrow):hover .e-detailrowcollapse:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-disable-gridhover tr[role=row]:hover .e-rowdragdrop:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-rtl .e-disable-gridhover tr[role=row]:hover .e-rowdragdrop:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell), .e-grid.e-disable-gridhover tr[role=row]:not(.e-detailrow):hover .e-detailrowexpand:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell) {
+  background-color: transparent;
 }
 .e-grid tr[role=row]:hover .e-rowdragdrop {
   cursor: move;

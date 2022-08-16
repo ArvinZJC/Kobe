@@ -24,23 +24,23 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
 
 > May I have your attention pls? 🔥
 
-1. By 8 August 2022, everything looks good with Visual Studio Code (Version: 1.70.0) + Node.js 16.15.0 + Vue CLI 4.5.19. Additionally, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
+1. By 16 August 2022, everything looks good with Visual Studio Code (Version: 1.70.1) + Node.js 16.16.0 + Vue CLI 4.5.19. Additionally, I would like to thankfully acknowledge Syncfusion for [its powerful Vue.js UI components library](https://www.syncfusion.com/vue-ui-components) and Tailwind for [its rich and extensible CSS framework and resources](https://tailwindcss.com/resources), which save much development time.
 2. Due to [the use of Electron](https://www.electronjs.org/docs/latest/tutorial/support#supported-platforms), Kobe is expected to work well on macOS 10.11 and later (arm64 and x64), and Windows 7 and later (arm64, x64, and x86). **It is awfully safe to permit the app behaviour for any system prompt regarding safety confirmation. The app is signed, is not malware, and will never ever collect and upload any user privacy.** Should you report a problem encountered, you may find [issues](https://github.com/ArvinZJC/Kobe/issues) useful.
 3. The primary dependencies of the project are listed in the following table. For more info, please refer to [`package.json`](./package.json).
 
    | Name                             |  Version   |
    | :------------------------------- | :--------: |
    | @heroicons/vue                   |   1.0.6    |
-   | @syncfusion/ej2-vue-buttons      |  20.2.38   |
-   | @syncfusion/ej2-vue-calendars    |  20.2.40   |
-   | @syncfusion/ej2-vue-dropdowns    |  20.2.40   |
-   | @syncfusion/ej2-vue-grids        |  20.2.40   |
-   | @syncfusion/ej2-vue-inputs       |  20.2.38   |
-   | @syncfusion/ej2-vue-navigations  |  20.2.39   |
-   | @syncfusion/ej2-vue-popups       |  20.2.40   |
-   | @syncfusion/ej2-vue-splitbuttons |  20.2.38   |
+   | @syncfusion/ej2-vue-buttons      |  20.2.43   |
+   | @syncfusion/ej2-vue-calendars    |  20.2.43   |
+   | @syncfusion/ej2-vue-dropdowns    |  20.2.43   |
+   | @syncfusion/ej2-vue-grids        |  20.2.43   |
+   | @syncfusion/ej2-vue-inputs       |  20.2.43   |
+   | @syncfusion/ej2-vue-navigations  |  20.2.43   |
+   | @syncfusion/ej2-vue-popups       |  20.2.43   |
+   | @syncfusion/ej2-vue-splitbuttons |  20.2.43   |
    | cldr-data                        |   36.0.1   |
-   | electron                         |   20.0.1   |
+   | electron                         |   20.0.2   |
    | electron-context-menu            |   3.3.0    |
    | electron-devtools-installer      |   3.2.0    |
    | electron-fetch                   |   1.7.4    |
@@ -117,7 +117,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
            },
            {
              "args": ["--remote-debugging-port=9223", "./dist_electron"],
-             "name": "electron: main",
+             "name": "Main",
              "outFiles": ["${workspaceFolder}/dist_electron/**/*.js"],
              "preLaunchTask": "electron-debug",
              "request": "launch",
@@ -145,7 +145,7 @@ Actually, Kobe was not born in this repository. On 23 July 2020, Kobe was announ
                "--",
                "-w",
                "--arm64",
-               "--x64"
+               "--x64",
                "--ia32"
              ],
              "runtimeExecutable": "npm",
