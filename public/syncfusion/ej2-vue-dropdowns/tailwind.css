@@ -1426,6 +1426,7 @@ ejs-dropdownlist {
   -ms-flex-direction: row;
       flex-direction: row;
   margin-top: -2em;
+  margin-top: -1.45em;
   outline: 0;
   padding: 0;
   position: absolute;
@@ -1606,6 +1607,7 @@ ejs-dropdownlist {
 .e-bigger .e-multiselect.e-control-container .e-multi-select-wrapper .e-clear-icon {
   margin-top: -1.62em;
   height: 36px;
+  margin-top: -2em;
   width: 40px;
 }
 

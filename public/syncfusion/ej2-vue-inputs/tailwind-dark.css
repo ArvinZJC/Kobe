@@ -5797,7 +5797,7 @@ input.e-input::-webkit-input-placeholder {
 .e-bigger.e-small .e-upload .e-upload-files .e-file-reload-btn.e-icons:hover,
 .e-bigger.e-small .e-upload .e-upload-files .e-file-abort-btn.e-icons:not(.e-disabled):hover,
 .e-bigger.e-small .e-upload .e-upload-files .e-clear-icon-focus {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.12);
   border-color: transparent;
   border-radius: 50%;
   box-shadow: 0 0 0 transparent;
@@ -6098,7 +6098,7 @@ input.e-input::-webkit-input-placeholder {
   color: #f3f4f6;
 }
 .e-upload .e-upload-files .e-file-remove-btn.e-icons:not(.e-upload-progress):focus, .e-upload .e-upload-files .e-file-delete-btn.e-icons:not(.e-upload-progress):focus, .e-upload .e-upload-files .e-file-pause-btn.e-icons:not(.e-upload-progress):focus, .e-upload .e-upload-files .e-file-play-btn.e-icons:not(.e-upload-progress):focus, .e-upload .e-upload-files .e-file-reload-btn.e-icons:focus, .e-upload .e-upload-files .e-file-abort-btn.e-icons:not(.e-disabled):focus, .e-upload .e-upload-files .e-clear-icon-focus {
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.12);
   border-color: transparent;
   box-shadow: 0 0 0 transparent;
 }
