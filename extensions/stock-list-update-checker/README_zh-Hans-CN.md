@@ -8,14 +8,14 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 截至 2022 年 9 月 3 日，使用 Visual Studio Code（版本：1.71.0）和 Python 3.9 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
+1. 截至 2022 年 9 月 4 日，使用 Visual Studio Code（版本：1.71.0）和 Python 3.9 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
 2. 插件主要的包参见下面的表格。更多信息请参见[`requirements.txt`](./requirements.txt)。
 
    | 名称          |  版本  |
    | :------------ | :----: |
    | onepush       | 1.1.1  |
    | pandas        | 1.4.2  |
-   | python-dotenv | 0.20.0 |
+   | python-dotenv | 0.21.0 |
    | tushare       | 1.2.85 |
 
 3. 您可以在插件的根目录下手动创建名为 `.env` 的文件，并包含如下内容。请注意这个操作 _可选_。**在没有这个文件的情况下，此插件应仍能良好运行。**
