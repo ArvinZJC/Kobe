@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.1.1.20220612
+ * @Version: 1.1.2.20220912
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-06-12 17:35:39
+ * @LastEditTime: 2022-09-12 14:32:59
 -->
 
 <template>
@@ -65,7 +65,11 @@
 </template>
 
 <script>
-import { DesktopComputerIcon, MoonIcon, SunIcon } from "@heroicons/vue/outline";
+import {
+  DesktopComputerIcon,
+  MoonIcon,
+  SunIcon,
+} from "@heroicons/vue/24/outline";
 
 import Preference from "./Preference.vue";
 import global from "../../lib/global.js";

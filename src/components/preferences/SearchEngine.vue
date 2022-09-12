@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.1.1.20220612
+ * @Version: 1.1.2.20220912
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-06-12 17:39:19
+ * @LastEditTime: 2022-09-12 14:33:15
 -->
 
 <template>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { LightningBoltIcon } from "@heroicons/vue/outline";
+import { LightningBoltIcon } from "@heroicons/vue/24/outline";
 
 import Preference from "./Preference.vue";
 import global from "../../lib/global.js";

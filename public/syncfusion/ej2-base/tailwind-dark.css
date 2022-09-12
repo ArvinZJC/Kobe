@@ -1325,6 +1325,18 @@
       touch-action: pinch-zoom;
 }
 
+.e-license {
+  color: rgb(255, 255, 0);
+  text-decoration: none;
+}
+
+.e-license-banner {
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 27%;
+}
+
 /*! animation keyframes */
 @keyframes SlideLeftOut {
   from {
