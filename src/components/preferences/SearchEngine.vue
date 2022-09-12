@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' search engine section component
- * @Version: 1.1.2.20220912
+ * @Version: 1.1.3.20220913
  * @Author: Arvin Zhao
  * @Date: 2022-01-21 11:18:56
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-09-12 14:33:15
+ * @LastEditTime: 2022-09-13 01:49:03
 -->
 
 <template>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { LightningBoltIcon } from "@heroicons/vue/24/outline";
+import { BoltIcon } from "@heroicons/vue/24/outline";
 
 import Preference from "./Preference.vue";
 import global from "../../lib/global.js";
@@ -174,7 +174,7 @@ export default {
             value: zhHansCn.default.stableMode,
           }, // Stable mode.
           {
-            icon: LightningBoltIcon,
+            icon: BoltIcon,
             id: global.common.FAST_MODE_ID,
             value: zhHansCn.default.fastMode,
           }, // Fast mode.

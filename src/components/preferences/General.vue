@@ -1,10 +1,10 @@
 <!--
  * @Description: the preferences' general section component
- * @Version: 1.1.2.20220912
+ * @Version: 1.1.3.20220913
  * @Author: Arvin Zhao
  * @Date: 2022-01-19 15:33:02
  * @Last Editors: Arvin Zhao
- * @LastEditTime: 2022-09-12 14:32:59
+ * @LastEditTime: 2022-09-13 01:42:32
 -->
 
 <template>
@@ -66,7 +66,7 @@
 
 <script>
 import {
-  DesktopComputerIcon,
+  ComputerDesktopIcon,
   MoonIcon,
   SunIcon,
 } from "@heroicons/vue/24/outline";
@@ -226,7 +226,7 @@ export default {
       options: {
         appearance: [
           {
-            icon: DesktopComputerIcon,
+            icon: ComputerDesktopIcon,
             id: global.common.SYSTEM_DEFAULT_MODE_ID,
             value: zhHansCn.default.systemDefault,
           }, // System default.
