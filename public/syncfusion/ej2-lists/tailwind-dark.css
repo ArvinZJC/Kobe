@@ -9,6 +9,7 @@
   font-size: 16px;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 .e-bigger .e-listview .e-list-item,
 .e-listview.e-bigger .e-list-item {
   border-bottom: 0 solid transparent;
@@ -576,6 +577,7 @@
   padding-right: 16px;
 }
 
+/* stylelint-disable-line no-empty-source */
 .e-sortable {
   outline: none;
   position: relative;
@@ -596,6 +598,9 @@
   outline: none;
 }
 
+/* stylelint-disable */
 .e-sortableclone {
   position: fixed !important;
 }
+
+/* stylelint-enable */

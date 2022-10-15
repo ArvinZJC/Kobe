@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* stylelint-disable property-no-vendor-prefix */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .e-ddl.e-control-wrapper .e-ddl-icon::before {
   transform: rotate(0deg);
@@ -94,6 +95,7 @@
   padding: 4px 8px;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 @keyframes material-spinner-rotate {
   0% {
     transform: rotate(0);
@@ -363,7 +365,7 @@
   word-break: normal;
 }
 .e-excelfilter .e-chk-hidden {
-  -moz-appearance: none;
+  -moz-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
   height: 1px;
   opacity: 0;
   width: 1px;
@@ -507,6 +509,8 @@ li.e-separator.e-menu-item.e-excel-separator {
   border-color: #22d3ee;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
+/* stylelint-disable property-no-vendor-prefix */
 @keyframes material-spinner-rotate {
   0% {
     transform: rotate(0);
@@ -767,6 +771,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-bigger .e-grid,
 .e-grid.e-bigger {
   font-size: 16px;
+  /* stylelint-disable */
 }
 .e-bigger .e-grid .e-gridheader thead .e-icons:not(.e-check):not(.e-stop),
 .e-grid.e-bigger .e-gridheader thead .e-icons:not(.e-check):not(.e-stop) {
@@ -1473,6 +1478,9 @@ li.e-separator.e-menu-item.e-excel-separator {
   font-size: 14px;
   height: auto;
   position: relative;
+  /* stylelint-enable */
+  /* stylelint-disable */
+  /* stylelint-enable */
 }
 .e-grid .e-gridheader {
   -webkit-user-select: none;
@@ -2402,7 +2410,7 @@ li.e-separator.e-menu-item.e-excel-separator {
   padding-left: 8px;
 }
 .e-grid .e-chk-hidden {
-  -moz-appearance: none;
+  -moz-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
   height: 1px;
   opacity: 0;
   width: 1px;
@@ -2416,7 +2424,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 .e-grid .e-rowcell .e-checkbox-wrapper,
 .e-grid .e-rowcell .e-css.e-checkbox-wrapper {
-  -webkit-user-select: auto;
+  -webkit-user-select: auto; /* stylelint-disable-line property-no-vendor-prefix */
   height: 20px;
   line-height: 20px;
   position: relative;
@@ -2613,7 +2621,7 @@ li.e-separator.e-menu-item.e-excel-separator {
   padding: 2px;
 }
 .e-grid .e-content {
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; /* stylelint-disable-line property-no-vendor-prefix */
   overflow-x: auto;
   overflow-y: scroll;
   position: relative;
@@ -2749,6 +2757,9 @@ li.e-separator.e-menu-item.e-excel-separator {
   border-style: solid;
   border-width: 1px 0 0;
   cursor: pointer;
+}
+.e-grid .e-disablepointer {
+  cursor: default;
 }
 .e-grid .e-groupcaption {
   border-style: solid;
@@ -2971,6 +2982,8 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid .e-checkboxfiltertext {
   width: 150px;
   word-break: normal;
+  /* stylelint-disable */
+  /* stylelint-enable */
 }
 .e-grid .e-frozenhdrcont .e-headercontent > .e-table,
 .e-grid .e-frozenhdrcont .e-frozenheader > .e-table,
@@ -3030,10 +3043,10 @@ li.e-separator.e-menu-item.e-excel-separator {
   overflow: hidden;
 }
 .e-grid .e-frozenhdrcont {
-  -ms-touch-action: none;
+  -ms-touch-action: none; /* stylelint-disable-line property-no-vendor-prefix */
 }
 .e-grid .e-frozencontent {
-  -ms-touch-action: none;
+  -ms-touch-action: none; /* stylelint-disable-line property-no-vendor-prefix */
   border-bottom-width: 1px;
   float: left;
   width: min-content;
@@ -3042,19 +3055,19 @@ li.e-separator.e-menu-item.e-excel-separator {
   float: right;
 }
 .e-grid .e-movablecontent {
-  -ms-overflow-style: none;
+  -ms-overflow-style: none; /* stylelint-disable-line property-no-vendor-prefix */
   -ms-flex: 1;
       flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
 }
-.e-grid:not(.sf-grid) .e-movablecontent::-webkit-scrollbar {
+.e-grid:not(.sf-grid) .e-movablecontent::-webkit-scrollbar { /* stylelint-disable-line property-no-vendor-prefix */
   display: none;
 }
-.e-grid .e-content.e-mac-safari::-webkit-scrollbar {
+.e-grid .e-content.e-mac-safari::-webkit-scrollbar { /* stylelint-disable-line property-no-vendor-prefix */
   width: 7px;
 }
-.e-grid .e-content.e-mac-safari::-webkit-scrollbar-thumb {
+.e-grid .e-content.e-mac-safari::-webkit-scrollbar-thumb { /* stylelint-disable-line property-no-vendor-prefix */
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 4px;
 }
@@ -3466,8 +3479,38 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-grid.e-resize-lines.e-rtl.e-default table th[rowspan] {
   border-right: 0;
 }
+.e-grid .e-mask {
+  display: inline-block;
+  height: 10px;
+  width: 80%;
+}
+.e-grid .e-mask.e-mask-group-intent {
+  margin-left: 7px;
+  width: 16px;
+}
+.e-grid .e-mask.e-mask-detail-intent {
+  width: 16px;
+}
+.e-grid .e-mask.e-mask-checkbox-intent {
+  margin-left: 3px;
+  margin-right: 16px;
+  width: 20px;
+}
+.e-grid .e-mask.e-mask-checkbox-filter-intent {
+  width: 13px;
+}
+.e-grid .e-mask.e-mask-checkbox-filter-span-intent {
+  margin-left: 8px;
+}
+.e-grid .e-mask.e-mask-drag-intent {
+  margin-left: 12px;
+  width: 12px;
+}
 .e-grid.sf-grid .e-table {
   border-spacing: 0.25px;
+}
+.e-grid.sf-grid span.e-ungroupbutton.e-icons {
+  margin-left: -9px;
 }
 .e-grid.sf-grid .e-rowcell.e-frozen-right-border,
 .e-grid.sf-grid .e-headercell.e-frozen-right-border,
@@ -3598,7 +3641,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 
 .e-grid-min-height .e-rowcell {
-  line-height: 0;
+  line-height: normal;
   padding-bottom: 0;
   padding-top: 0;
 }
@@ -3671,7 +3714,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 .e-bigger .e-grid.e-grid-min-height .e-rowcell,
 .e-bigger .e-grid.e-grid-min-height .e-rowcell:first-child,
 .e-bigger .e-grid.e-grid-min-height .e-rowcell:last-child {
-  line-height: 0;
+  line-height: normal;
   padding-bottom: 0;
   padding-top: 0;
 }
@@ -4058,7 +4101,7 @@ li.e-separator.e-menu-item.e-excel-separator {
 }
 .e-bigger .e-responsive-dialog .e-dlg-content .e-mainfilterdiv .e-dialog .e-searchcontainer .e-spinner .e-chk-hidden,
 .e-bigger.e-responsive-dialog .e-dlg-content .e-mainfilterdiv .e-dialog .e-searchcontainer .e-spinner .e-chk-hidden {
-  -moz-appearance: none;
+  -moz-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
   height: 1px;
   opacity: 0;
   width: 1px;

@@ -4,8 +4,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 .e-btn,
 .e-css.e-btn {
+  /* stylelint-disable property-no-vendor-prefix */
   -webkit-font-smoothing: antialiased;
   border: 1px solid;
   border-radius: 4px;
@@ -573,6 +576,7 @@
 }
 
 /*! button theme */
+/* stylelint-disable property-no-vendor-prefix */
 .e-btn,
 .e-css.e-btn {
   -webkit-tap-highlight-color: transparent;
@@ -1342,7 +1346,7 @@
 }
 .e-btn.e-link:focus:not(:focus-visible),
 .e-css.e-btn.e-link:focus:not(:focus-visible) {
-  outline: none !important;
+  outline: none !important; /* stylelint-disable-line declaration-no-important */
 }
 .e-btn.e-link:disabled,
 .e-css.e-btn.e-link:disabled {
@@ -1350,6 +1354,33 @@
   background-color: transparent;
   box-shadow: none;
   text-decoration: none;
+}
+
+.e-btn.e-inherit,
+.e-css.e-btn.e-inherit {
+  color: inherit;
+  background: inherit;
+  border-color: transparent;
+  box-shadow: none;
+}
+.e-btn.e-inherit:hover, .e-btn.e-inherit:focus, .e-btn.e-inherit:active, .e-btn.e-inherit.e-active,
+.e-css.e-btn.e-inherit:hover,
+.e-css.e-btn.e-inherit:focus,
+.e-css.e-btn.e-inherit:active,
+.e-css.e-btn.e-inherit.e-active {
+  background: rgba(0, 0, 0, 0.056);
+  border-color: transparent;
+  box-shadow: none;
+  color: inherit;
+  outline: none;
+}
+.e-btn.e-inherit:disabled,
+.e-css.e-btn.e-inherit:disabled {
+  background: inherit;
+  color: inherit;
+  border-color: transparent;
+  box-shadow: none;
+  opacity: 0.5;
 }
 
 .e-checkbox-wrapper .e-check::before,
@@ -1758,6 +1789,7 @@
 /*! checkbox theme */
 .e-checkbox-wrapper,
 .e-css.e-checkbox-wrapper {
+  /* stylelint-disable property-no-vendor-prefix */
   -webkit-tap-highlight-color: transparent;
 }
 .e-checkbox-wrapper .e-frame,
@@ -1910,6 +1942,7 @@
   position: relative;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 .e-radio {
   -webkit-appearance: none;
   height: 1px;
@@ -2397,6 +2430,7 @@
 }
 .e-switch-wrapper .e-switch,
 .e-css.e-switch-wrapper .e-switch {
+  /* stylelint-disable property-no-vendor-prefix */
   -moz-appearance: none;
   height: 1px;
   opacity: 0;
@@ -3012,6 +3046,7 @@
 /*! switch theme */
 .e-switch-wrapper,
 .e-css.e-switch-wrapper {
+  /* stylelint-disable property-no-vendor-prefix */
   -webkit-tap-highlight-color: transparent;
 }
 .e-switch-wrapper .e-switch-off,
@@ -3297,6 +3332,7 @@
   content: "\e774";
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 .e-chip-list {
   display: -ms-flexbox;
   display: flex;
@@ -4990,4 +5026,510 @@
 .e-chip-list.e-chip.e-danger.e-outline.e-disabled .e-chip-avatar, .e-chip-list .e-chip.e-danger.e-outline.e-disabled .e-chip-avatar {
   background-color: transparent;
   color: #9ca3af;
+}
+
+.e-fab.e-btn {
+  -ms-flex-align: center;
+      align-items: center;
+  border-radius: 9999px;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0 15px;
+  position: absolute;
+  z-index: 100000;
+}
+.e-fab.e-btn .e-btn-icon {
+  margin-top: 0;
+  font-size: 14px;
+}
+.e-fab.e-btn.e-icon-btn {
+  padding: 0;
+}
+.e-fab.e-btn.e-fab-fixed {
+  position: fixed;
+}
+.e-fab.e-btn.e-fab-top {
+  top: 16px;
+}
+.e-fab.e-btn.e-fab-top.e-fab-middle {
+  top: var(--fabVertDist);
+}
+.e-fab.e-btn.e-fab-bottom {
+  bottom: 16px;
+}
+.e-fab.e-btn.e-fab-bottom.e-fab-middle {
+  bottom: var(--fabVertDist);
+}
+.e-fab.e-btn.e-fab-left {
+  left: 16px;
+}
+.e-fab.e-btn.e-fab-left.e-fab-center {
+  left: var(--fabHorzDist);
+}
+.e-fab.e-btn.e-fab-right {
+  right: 16px;
+}
+.e-fab.e-btn.e-fab-right.e-fab-center {
+  right: var(--fabHorzDist);
+}
+
+.e-fab-hidden {
+  visibility: hidden;
+}
+
+.e-small.e-fab.e-btn,
+.e-small .e-fab.e-btn {
+  border-radius: 9999px;
+  min-height: 32px;
+  min-width: 32px;
+  padding: 0 11px;
+}
+.e-small.e-fab.e-btn.e-icon-btn,
+.e-small .e-fab.e-btn.e-icon-btn {
+  padding: 0;
+}
+.e-small.e-fab.e-btn .e-btn-icon,
+.e-small .e-fab.e-btn .e-btn-icon {
+  font-size: 12px;
+}
+
+.e-bigger.e-fab.e-btn,
+.e-bigger .e-fab.e-btn {
+  border-radius: 9999px;
+  min-height: 52px;
+  min-width: 52px;
+  padding: 0 21px;
+}
+.e-bigger.e-fab.e-btn.e-icon-btn,
+.e-bigger .e-fab.e-btn.e-icon-btn {
+  padding: 0;
+}
+.e-bigger.e-fab.e-btn .e-btn-icon,
+.e-bigger .e-fab.e-btn .e-btn-icon {
+  font-size: 16px;
+}
+
+.e-bigger.e-small.e-fab.e-btn,
+.e-bigger.e-small .e-fab.e-btn,
+.e-bigger .e-small.e-fab.e-btn,
+.e-small .e-bigger.e-fab.e-btn {
+  border-radius: 9999px;
+  min-height: 46px;
+  min-width: 46px;
+  padding: 0 17px;
+}
+.e-bigger.e-small.e-fab.e-btn.e-icon-btn,
+.e-bigger.e-small .e-fab.e-btn.e-icon-btn,
+.e-bigger .e-small.e-fab.e-btn.e-icon-btn,
+.e-small .e-bigger.e-fab.e-btn.e-icon-btn {
+  padding: 0;
+}
+.e-bigger.e-small.e-fab.e-btn .e-btn-icon,
+.e-bigger.e-small .e-fab.e-btn .e-btn-icon,
+.e-bigger .e-small.e-fab.e-btn .e-btn-icon,
+.e-small .e-bigger.e-fab.e-btn .e-btn-icon {
+  font-size: 14px;
+}
+
+.e-fab.e-btn {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 -2px 15px -3px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.14);
+}
+.e-fab.e-btn:hover, .e-fab.e-btn:focus, .e-fab.e-btn:active, .e-fab.e-btn.e-active, .e-fab.e-btn:disabled {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 -2px 15px -3px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0, 0, 0, 0.14);
+}
+
+.e-speeddial-popup {
+  pointer-events: none;
+  position: absolute;
+  /* OVERFLOW CSS */
+}
+.e-speeddial-popup.e-speeddial-top {
+  top: 16px;
+}
+.e-speeddial-popup.e-speeddial-top.e-speeddial-radial .e-speeddial-li {
+  top: 0;
+}
+.e-speeddial-popup.e-speeddial-top.e-speeddial-radial.e-speeddial-middle .e-speeddial-li {
+  top: calc(0.5 * var(--speeddialRadialMinWidth) + var(--speeddialRadialOffset));
+}
+.e-speeddial-popup.e-speeddial-top.e-speeddial-middle, .e-speeddial-popup.e-speeddial-top.e-speeddial-linear {
+  top: var(--speeddialVertDist);
+}
+.e-speeddial-popup.e-speeddial-bottom {
+  bottom: 16px;
+}
+.e-speeddial-popup.e-speeddial-bottom.e-speeddial-radial .e-speeddial-li {
+  bottom: 0;
+}
+.e-speeddial-popup.e-speeddial-bottom.e-speeddial-radial.e-speeddial-middle .e-speeddial-li {
+  bottom: calc(0.5 * var(--speeddialRadialMinWidth) + var(--speeddialRadialOffset));
+}
+.e-speeddial-popup.e-speeddial-bottom.e-speeddial-middle, .e-speeddial-popup.e-speeddial-bottom.e-speeddial-linear {
+  bottom: var(--speeddialVertDist);
+}
+.e-speeddial-popup.e-speeddial-left {
+  left: 16px;
+}
+.e-speeddial-popup.e-speeddial-left.e-speeddial-radial .e-speeddial-li {
+  left: 0;
+}
+.e-speeddial-popup.e-speeddial-left.e-speeddial-radial.e-speeddial-center .e-speeddial-li {
+  left: calc(0.5 * var(--speeddialRadialMinWidth) + var(--speeddialRadialOffset));
+}
+.e-speeddial-popup.e-speeddial-left.e-speeddial-center, .e-speeddial-popup.e-speeddial-left.e-speeddial-linear {
+  left: var(--speeddialHorzDist);
+}
+.e-speeddial-popup.e-speeddial-right {
+  right: 16px;
+}
+.e-speeddial-popup.e-speeddial-right.e-speeddial-radial .e-speeddial-li {
+  right: 0;
+}
+.e-speeddial-popup.e-speeddial-right.e-speeddial-radial.e-speeddial-center .e-speeddial-li {
+  right: calc(0.5 * var(--speeddialRadialMinWidth) + var(--speeddialRadialOffset));
+}
+.e-speeddial-popup.e-speeddial-right.e-speeddial-center, .e-speeddial-popup.e-speeddial-right.e-speeddial-linear {
+  right: var(--speeddialHorzDist);
+}
+.e-speeddial-popup.e-speeddial-template {
+  outline: none;
+  pointer-events: auto;
+  z-index: 100001;
+}
+.e-speeddial-popup.e-speeddial-linear .e-speeddial-li {
+  margin: 5px 0;
+}
+.e-speeddial-popup .e-speeddial-ul {
+  box-sizing: border-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  list-style-type: none;
+  margin: 0;
+  padding: 5px 4px;
+}
+.e-speeddial-popup .e-speeddial-li {
+  -ms-flex-align: center;
+      align-items: center;
+  cursor: pointer;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  pointer-events: auto;
+  position: relative;
+  z-index: 100001;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text {
+  margin: 0 8px;
+}
+.e-speeddial-popup .e-speeddial-li-text {
+  border-radius: 2px;
+  border: 1px solid;
+  padding: 0 5px;
+  white-space: nowrap;
+  height: 26px;
+  line-height: 26px;
+}
+.e-speeddial-popup .e-speeddial-li-icon {
+  border-radius: 99999px;
+  border: 1px solid;
+  height: 30px;
+  width: 30px;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+.e-speeddial-popup.e-speeddial-fixed {
+  position: fixed;
+}
+.e-speeddial-popup.e-speeddial-vert-right .e-speeddial-li {
+  -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+}
+.e-speeddial-popup.e-speeddial-vert-bottom .e-speeddial-ul {
+  -ms-flex-direction: column-reverse;
+      flex-direction: column-reverse;
+}
+.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul {
+  -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+}
+.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul.e-speeddial-horz-top {
+  -ms-flex-direction: row;
+      flex-direction: row;
+}
+.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul {
+  -ms-flex-direction: row;
+      flex-direction: row;
+}
+.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul.e-speeddial-horz-top {
+  -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+}
+.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul, .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul {
+  padding: 4px 5px;
+}
+.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li, .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li {
+  margin: 0 5px;
+}
+.e-speeddial-popup.e-speeddial-overflow .e-speeddial-ul {
+  overflow: auto;
+  scroll-behavior: smooth;
+  /* Hide scrollbar for IE and Edge */
+  -ms-overflow-style: none;
+  /* Hide scrollbar for Firefox */
+  scrollbar-width: none;
+}
+.e-speeddial-popup.e-speeddial-overflow .e-speeddial-ul::-webkit-scrollbar {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  display: none;
+}
+.e-speeddial-popup.e-speeddial-overflow.e-speeddial-vert-overflow .e-speeddial-ul {
+  max-height: var(--speeddialOverflowLimit);
+}
+.e-speeddial-popup.e-speeddial-overflow.e-speeddial-horz-overflow .e-speeddial-ul {
+  max-width: var(--speeddialOverflowLimit);
+}
+.e-speeddial-popup.e-speeddial-radial {
+  height: calc(var(--speeddialRadialOffset) + 2 * var(--speeddialRadialMinHeight));
+  width: calc(var(--speeddialRadialOffset) + 2 * var(--speeddialRadialMinWidth));
+}
+.e-speeddial-popup.e-speeddial-radial.e-speeddial-middle {
+  height: calc(2 * var(--speeddialRadialOffset) + 2 * var(--speeddialRadialMinHeight));
+}
+.e-speeddial-popup.e-speeddial-radial.e-speeddial-center {
+  width: calc(2 * var(--speeddialRadialOffset) + 2 * var(--speeddialRadialMinWidth));
+}
+.e-speeddial-popup.e-speeddial-radial.e-speeddial-top-left {
+  border-bottom-right-radius: 100%;
+}
+.e-speeddial-popup.e-speeddial-radial.e-speeddial-top-right {
+  border-bottom-left-radius: 100%;
+}
+.e-speeddial-popup.e-speeddial-radial.e-speeddial-bottom-left {
+  border-top-right-radius: 100%;
+}
+.e-speeddial-popup.e-speeddial-radial.e-speeddial-bottom-right {
+  border-top-left-radius: 100%;
+}
+.e-speeddial-popup.e-speeddial-radial .e-speeddial-ul {
+  border-radius: inherit;
+  height: inherit;
+  width: inherit;
+  padding: 0;
+  position: relative;
+}
+.e-speeddial-popup.e-speeddial-radial .e-speeddial-li {
+  position: absolute;
+  transform: rotate(var(--speeddialRadialAngle)) translate(var(--speeddialRadialOffset)) rotate(calc(-1 * var(--speeddialRadialAngle)));
+}
+.e-speeddial-popup.e-speeddial-radial .e-speeddial-li-text, .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li-text, .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li-text {
+  position: absolute;
+  visibility: hidden;
+}
+
+.e-small.e-speeddial-popup .e-speeddial-ul,
+.e-small .e-speeddial-popup .e-speeddial-ul {
+  padding: 4px 2px;
+}
+.e-small.e-speeddial-popup.e-speeddial-linear .e-speeddial-li,
+.e-small .e-speeddial-popup.e-speeddial-linear .e-speeddial-li {
+  margin: 4px 0;
+}
+.e-small.e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text,
+.e-small .e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text {
+  margin: 0 8px;
+}
+.e-small.e-speeddial-popup .e-speeddial-li-text,
+.e-small .e-speeddial-popup .e-speeddial-li-text {
+  height: 24px;
+  line-height: 24px;
+}
+.e-small.e-speeddial-popup .e-speeddial-li-icon,
+.e-small .e-speeddial-popup .e-speeddial-li-icon {
+  height: 26px;
+  width: 26px;
+}
+.e-small.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul, .e-small.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul,
+.e-small .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul,
+.e-small .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul {
+  padding: 2px 4px;
+}
+.e-small.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li, .e-small.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li,
+.e-small .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li,
+.e-small .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li {
+  margin: 0 4px;
+}
+
+.e-bigger.e-speeddial-popup .e-speeddial-ul,
+.e-bigger .e-speeddial-popup .e-speeddial-ul {
+  padding: 10px 6px;
+}
+.e-bigger.e-speeddial-popup.e-speeddial-linear .e-speeddial-li,
+.e-bigger .e-speeddial-popup.e-speeddial-linear .e-speeddial-li {
+  margin: 6px 0;
+}
+.e-bigger.e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text,
+.e-bigger .e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text {
+  margin: 0 12px;
+}
+.e-bigger.e-speeddial-popup .e-speeddial-li-text,
+.e-bigger .e-speeddial-popup .e-speeddial-li-text {
+  height: 32px;
+  line-height: 32px;
+}
+.e-bigger.e-speeddial-popup .e-speeddial-li-icon,
+.e-bigger .e-speeddial-popup .e-speeddial-li-icon {
+  height: 38px;
+  width: 38px;
+}
+.e-bigger.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul, .e-bigger.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul,
+.e-bigger .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul,
+.e-bigger .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul {
+  padding: 6px 10px;
+}
+.e-bigger.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li, .e-bigger.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li,
+.e-bigger .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li,
+.e-bigger .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li {
+  margin: 0 6px;
+}
+
+.e-bigger.e-small.e-speeddial-popup .e-speeddial-ul,
+.e-bigger.e-small .e-speeddial-popup .e-speeddial-ul,
+.e-bigger .e-small.e-speeddial-popup .e-speeddial-ul,
+.e-small .e-bigger.e-speeddial-popup .e-speeddial-ul {
+  padding: 5px 5px;
+}
+.e-bigger.e-small.e-speeddial-popup.e-speeddial-linear .e-speeddial-li,
+.e-bigger.e-small .e-speeddial-popup.e-speeddial-linear .e-speeddial-li,
+.e-bigger .e-small.e-speeddial-popup.e-speeddial-linear .e-speeddial-li,
+.e-small .e-bigger.e-speeddial-popup.e-speeddial-linear .e-speeddial-li {
+  margin: 5px 0;
+}
+.e-bigger.e-small.e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text,
+.e-bigger.e-small .e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text,
+.e-bigger .e-small.e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text,
+.e-small .e-bigger.e-speeddial-popup .e-speeddial-li:not(.e-speeddial-text-li) .e-speeddial-li-text {
+  margin: 0 12px;
+}
+.e-bigger.e-small.e-speeddial-popup .e-speeddial-li-text,
+.e-bigger.e-small .e-speeddial-popup .e-speeddial-li-text,
+.e-bigger .e-small.e-speeddial-popup .e-speeddial-li-text,
+.e-small .e-bigger.e-speeddial-popup .e-speeddial-li-text {
+  height: 30px;
+  line-height: 30px;
+}
+.e-bigger.e-small.e-speeddial-popup .e-speeddial-li-icon,
+.e-bigger.e-small .e-speeddial-popup .e-speeddial-li-icon,
+.e-bigger .e-small.e-speeddial-popup .e-speeddial-li-icon,
+.e-small .e-bigger.e-speeddial-popup .e-speeddial-li-icon {
+  height: 34px;
+  width: 34px;
+}
+.e-bigger.e-small.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul, .e-bigger.e-small.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul,
+.e-bigger.e-small .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul,
+.e-bigger.e-small .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul,
+.e-bigger .e-small.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul,
+.e-bigger .e-small.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul,
+.e-small .e-bigger.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-ul,
+.e-small .e-bigger.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-ul {
+  padding: 5px 5px;
+}
+.e-bigger.e-small.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li, .e-bigger.e-small.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li,
+.e-bigger.e-small .e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li,
+.e-bigger.e-small .e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li,
+.e-bigger .e-small.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li,
+.e-bigger .e-small.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li,
+.e-small .e-bigger.e-speeddial-popup.e-speeddial-horz-right .e-speeddial-li,
+.e-small .e-bigger.e-speeddial-popup.e-speeddial-horz-left .e-speeddial-li {
+  margin: 0 5px;
+}
+
+.e-speeddial-overlay {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99998;
+}
+.e-speeddial-overlay.e-speeddial-fixed {
+  height: 100vh;
+  position: fixed;
+  width: 100vw;
+}
+
+.e-speeddial-hidden {
+  visibility: hidden;
+}
+
+.e-speeddial-overlay {
+  background-color: rgba(107, 114, 128, 0.75);
+}
+
+.e-speeddial-popup .e-speeddial-li {
+  color: #374151;
+}
+.e-speeddial-popup .e-speeddial-li .e-speeddial-li-text {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-color: #d1d5db;
+}
+.e-speeddial-popup .e-speeddial-li .e-speeddial-li-icon {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-color: #d1d5db;
+}
+.e-speeddial-popup .e-speeddial-li.e-disabled {
+  color: #9ca3af;
+}
+.e-speeddial-popup .e-speeddial-li.e-disabled .e-speeddial-li-text {
+  background-color: #fff;
+  border-color: #e5e7eb;
+}
+.e-speeddial-popup .e-speeddial-li.e-disabled .e-speeddial-li-icon {
+  background-color: #fff;
+  border-color: #e5e7eb;
+}
+.e-speeddial-popup .e-speeddial-li.e-speeddial-li-active:not(.e-disabled),
+.e-speeddial-popup .e-speeddial-li:focus:not(.e-disabled) {
+  color: #374151;
+}
+.e-speeddial-popup .e-speeddial-li.e-speeddial-li-active:not(.e-disabled) .e-speeddial-li-text,
+.e-speeddial-popup .e-speeddial-li:focus:not(.e-disabled) .e-speeddial-li-text {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1) 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px #4f46e5;
+}
+.e-speeddial-popup .e-speeddial-li.e-speeddial-li-active:not(.e-disabled) .e-speeddial-li-icon,
+.e-speeddial-popup .e-speeddial-li:focus:not(.e-disabled) .e-speeddial-li-icon {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-disabled):hover {
+  color: #374151;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-disabled):hover .e-speeddial-li-text {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-disabled):hover .e-speeddial-li-icon {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-disabled):active {
+  color: #374151;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-disabled):active .e-speeddial-li-text {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+.e-speeddial-popup .e-speeddial-li:not(.e-disabled):active .e-speeddial-li-icon {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
 }

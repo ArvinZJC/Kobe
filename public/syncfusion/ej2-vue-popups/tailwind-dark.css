@@ -23,12 +23,15 @@
 }
 
 /*! dialog layout */
+/* stylelint-disable property-no-vendor-prefix */
 .e-dialog {
   border: 1px solid #4b5563;
   border-radius: 6px;
   -ms-flex-direction: column;
       flex-direction: column;
   width: 100%;
+  /* stylelint-disable declaration-no-important */
+  /* stylelint-enable declaration-no-important */
 }
 .e-dialog.e-popup {
   width: 100%;
@@ -95,6 +98,9 @@
 }
 .e-dialog .e-footer-content.e-hide {
   display: none;
+}
+.e-dialog .e-alert-dialog .e-footer-content {
+  border-top: none;
 }
 .e-dialog .e-footer-content {
   text-align: right;
@@ -261,10 +267,12 @@
   transform: rotate(90deg);
 }
 
+/* stylelint-disable declaration-no-important */
 .e-dlg-target.e-scroll-disabled {
   overflow: hidden !important;
 }
 
+/* stylelint-enable declaration-no-important */
 .e-dlg-overlay {
   height: 100%;
   left: 0;
@@ -282,12 +290,14 @@
   overflow: auto;
 }
 
+/* stylelint-disable declaration-no-important */
 .e-dlg-fullscreen {
   height: 100% !important;
   left: 0 !important;
   width: 100% !important;
 }
 
+/* stylelint-enable declaration-no-important */
 .e-popup.e-popup-open.e-dialog {
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -446,7 +456,7 @@
 }
 
 .e-dialog {
-  background-color: #1f2937;
+  background-color: #232e3e;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
@@ -494,7 +504,7 @@
 }
 
 .e-dlg-content {
-  background-color: #1f2937;
+  background-color: #232e3e;
 }
 
 .e-icon-dlg-close {
@@ -552,6 +562,7 @@
   overflow: visible;
 }
 
+/* stylelint-disable-line no-empty-source */
 /*! popup layout */
 .e-popup {
   height: auto;
@@ -775,6 +786,7 @@
   font-size: 14px;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 @keyframes material-spinner-rotate {
   0% {
     transform: rotate(0);
@@ -791,6 +803,7 @@
     transform: rotate(360deg);
   }
 }
+/* stylelint-disable-line no-empty-source */
 .e-spinner-pane {
   -ms-flex-align: center;
       align-items: center;
@@ -813,6 +826,9 @@
 .e-spinner-pane::after {
   content: "Tailwind";
   display: none;
+}
+.e-spinner-pane.e-spin-left {
+  /* stylelint-disable property-no-vendor-prefix */
 }
 .e-spinner-pane.e-spin-left .e-spinner-inner {
   -webkit-transform: translateX(0%) translateY(-50%);

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* stylelint-disable-line no-empty-source */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
@@ -225,6 +226,25 @@
   border-bottom-color: #4b5563;
 }
 
+.e-dropdown-btn.e-inherit,
+.e-dropdown-btn.e-btn.e-inherit {
+  background: inherit;
+  border-color: transparent;
+  box-shadow: none;
+  color: inherit;
+}
+.e-dropdown-btn.e-inherit:hover, .e-dropdown-btn.e-inherit:focus, .e-dropdown-btn.e-inherit:active, .e-dropdown-btn.e-inherit.e-active,
+.e-dropdown-btn.e-btn.e-inherit:hover,
+.e-dropdown-btn.e-btn.e-inherit:focus,
+.e-dropdown-btn.e-btn.e-inherit:active,
+.e-dropdown-btn.e-btn.e-inherit.e-active {
+  background-color: rgba(0, 0, 0, 0.056);
+  border-color: transparent;
+  box-shadow: none;
+  color: inherit;
+}
+
+/* stylelint-disable-line no-empty-source */
 /*! splitbutton layout */
 .e-split-btn-wrapper {
   display: -ms-inline-flexbox;
@@ -542,6 +562,7 @@
   border-left-color: #6b7280;
 }
 
+/* stylelint-disable */
 *.e-btn-group,
 *.e-css.e-btn-group {
   display: -ms-inline-flexbox;
@@ -786,6 +807,7 @@
   font-size: 22px;
 }
 
+/* stylelint-disable */
 .e-btn-group:not(.e-outline),
 .e-css.e-btn-group:not(.e-outline) {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -1279,6 +1301,7 @@
   border-color: #f87171;
   outline-color: inherit;
 }
+/* stylelint-disable property-no-vendor-prefix */
 @keyframes material-spinner-rotate {
   0% {
     transform: rotate(0);

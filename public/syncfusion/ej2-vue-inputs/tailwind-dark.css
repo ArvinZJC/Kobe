@@ -16,6 +16,7 @@
   border-color: #4b5563;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 .e-float-input .e-clear-icon::before,
 .e-float-input.e-control-wrapper .e-clear-icon::before {
   content: "\e7e7";
@@ -60,14 +61,14 @@ textarea.e-input,
 .e-input-group.e-control-wrapper {
   font-family: "Inter";
   font-size: 14px;
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .e-input-group.e-disabled,
 .e-input-group.e-control-wrapper.e-disabled {
   font-family: "Inter";
   font-size: 14px;
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .e-input-group input.e-input,
@@ -310,6 +311,7 @@ textarea.e-input.e-bigger,
   text-align: center;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 .e-input-group .e-input-group-icon:first-child,
 .e-input-group.e-control-wrapper .e-input-group-icon:first-child {
   border-left-width: 0;
@@ -615,7 +617,7 @@ label.e-float-text,
 .e-float-input.e-control-wrapper:not(.e-input-focus) input:not(:focus):valid ~ label.e-float-text.e-label-bottom {
   font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   left: 0;
   overflow: hidden;
   padding-left: 10px;
@@ -1031,7 +1033,7 @@ label.e-float-text,
 .e-float-input.e-input-group.e-control-wrapper.e-disabled {
   font-family: "Inter";
   font-size: 14px;
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .e-float-input input,
@@ -1228,7 +1230,7 @@ label.e-float-text,
 .e-small .e-float-input.e-control-wrapper:not(.e-error):not(.e-input-focus) input:not(:focus):valid ~ label.e-float-text.e-label-bottom,
 .e-float-input.e-control-wrapper.e-small.e-bigger:not(.e-error):not(.e-input-focus) input:not(:focus):valid ~ label.e-float-text.e-label-bottom,
 .e-bigger .e-float-input.e-control-wrapper.e-small:not(.e-error):not(.e-input-focus) input:not(:focus):valid ~ label.e-float-text.e-label-bottom {
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .e-float-input:not(.e-error) textarea:not(:focus):valid ~ label.e-float-text.e-label-bottom,
@@ -1247,7 +1249,7 @@ label.e-float-text,
 .e-small .e-float-input.e-control-wrapper:not(.e-error) textarea:not(:focus):valid ~ label.e-float-text.e-label-bottom,
 .e-float-input.e-control-wrapper.e-small.e-bigger:not(.e-error) textarea:not(:focus):valid ~ label.e-float-text.e-label-bottom,
 .e-bigger .e-float-input.e-control-wrapper.e-small:not(.e-error) textarea:not(:focus):valid ~ label.e-float-text.e-label-bottom {
-  font-weight: 400;
+  font-weight: normal;
 }
 
 .e-float-input:not(.e-input-group) .e-float-line::before,
@@ -1317,6 +1319,7 @@ label.e-float-text,
   transform-origin: right top;
 }
 
+/* stylelint-disable selector-max-empty-lines */
 .e-float-input.e-rtl:not(.e-input-focus) label.e-float-text.e-label-bottom,
 .e-rtl .e-float-input:not(.e-input-focus) label.e-float-text.e-label-bottom,
 .e-float-input.e-rtl.e-control-wrapper:not(.e-input-focus) label.e-float-text.e-label-bottom,
@@ -1413,6 +1416,7 @@ label.e-float-text,
   padding-right: 10px;
 }
 
+/* stylelint-enable selector-max-empty-lines */
 .e-input-group.e-corner.e-rtl .e-input:first-child,
 .e-input-group.e-corner.e-rtl .e-input-group-icon:first-child,
 .e-input-group.e-control-wrapper.e-corner.e-rtl .e-input:first-child,
@@ -1846,22 +1850,22 @@ textarea.e-input:-moz-placeholder {
   user-select: none;
 }
 
-.e-input-group input.e-input:-moz-placeholder {
+.e-input-group input.e-input:-moz-placeholder { /* stylelint-disable-line selector-no-vendor-prefix */
   font-style: normal;
   user-select: none;
 }
 
-.e-input-group textarea.e-input:-moz-placeholder {
+.e-input-group textarea.e-input:-moz-placeholder { /* stylelint-disable-line selector-no-vendor-prefix */
   font-style: normal;
   user-select: none;
 }
 
-.e-input-group.e-control-wrapper input.e-input:-moz-placeholder {
+.e-input-group.e-control-wrapper input.e-input:-moz-placeholder { /* stylelint-disable-line selector-no-vendor-prefix */
   font-style: normal;
   user-select: none;
 }
 
-.e-input-group.e-control-wrapper textarea.e-input:-moz-placeholder {
+.e-input-group.e-control-wrapper textarea.e-input:-moz-placeholder { /* stylelint-disable-line selector-no-vendor-prefix */
   font-style: normal;
   user-select: none;
 }
@@ -1871,12 +1875,12 @@ input.e-input:-moz-placeholder {
   user-select: none;
 }
 
-.e-input-group input.e-input:-moz-placeholder {
+.e-input-group input.e-input:-moz-placeholder { /* stylelint-disable-line selector-no-vendor-prefix */
   font-style: normal;
   user-select: none;
 }
 
-.e-input-group.e-control-wrapper input.e-input:-moz-placeholder {
+.e-input-group.e-control-wrapper input.e-input:-moz-placeholder { /* stylelint-disable-line selector-no-vendor-prefix */
   font-style: normal;
   user-select: none;
 }
@@ -3249,7 +3253,7 @@ textarea.e-input.e-bigger.e-small,
 .e-float-input.e-control-wrapper textarea:not(:focus):valid ~ label.e-float-text.e-label-bottom {
   font-size: 14px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: normal;
   left: 0;
   overflow: hidden;
   padding-left: 10px;
@@ -3718,6 +3722,8 @@ textarea.e-input,
   color: #6b7280;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
+/* stylelint-disable selector-no-vendor-prefix */
 .e-input[disabled],
 .e-input-group .e-input[disabled],
 .e-input-group.e-control-wrapper .e-input[disabled],
@@ -4582,6 +4588,8 @@ input.e-input::-webkit-input-placeholder {
   color: #6b7280;
 }
 
+/* stylelint-disable-line no-empty-source */
+/* stylelint-disable property-no-vendor-prefix */
 .e-input-group-icon.e-spin-up::before {
   content: "\e776";
   font-family: "e-icons";
@@ -4630,6 +4638,7 @@ input.e-input::-webkit-input-placeholder {
   font-size: 22px;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 /*! maskedtextbox layout */
 .e-control-wrapper.e-mask .e-maskedtextbox {
   font-family: "Inter";
@@ -4664,6 +4673,8 @@ input.e-input::-webkit-input-placeholder {
   color: #f87171;
 }
 
+/* stylelint-disable-line no-empty-source */ /* stylelint-disable-line no-empty-source */
+/* stylelint-disable property-no-vendor-prefix */
 .e-control-wrapper.e-slider-container.e-material-slider .e-slider .e-handle.e-material-handle {
   cursor: default;
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -5072,9 +5083,11 @@ input.e-input::-webkit-input-placeholder {
   z-index: 10;
 }
 .e-control-wrapper.e-slider-container .e-slider .e-handle.e-tab-handle {
+  /* stylelint-disable */
   background-color: #06b6d4;
   border: 1px solid #fff;
   box-shadow: 0 0 0 2px rgba(31, 41, 55, 0.95), 0 0 0 4px #22d3ee;
+  /* stylelint-enable */
 }
 .e-control-wrapper.e-slider-container .e-tick-before.e-scale.e-h-scale .e-tick {
   height: 6px;
@@ -5289,6 +5302,9 @@ input.e-input::-webkit-input-placeholder {
   border-color: #4b5563;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
+/* stylelint-disable-line no-empty-source */ /* stylelint-disable-line no-empty-source */
+/* stylelint-disable property-no-vendor-prefix */
 @keyframes material-spinner-rotate {
   0% {
     transform: rotate(0);
@@ -6108,6 +6124,7 @@ input.e-input::-webkit-input-placeholder {
 }
 
 .e-upload .e-upload-actions .e-file-clear-btn.e-flat:not(:hover) {
+  /* stylelint-disable property-no-vendor-prefix */
   -webkit-tap-highlight-color: transparent;
   background-color: #1f2937;
   border-color: #6b7280;
@@ -6122,6 +6139,8 @@ input.e-input::-webkit-input-placeholder {
   color: #000;
 }
 
+/* stylelint-disable-line no-empty-source */
+/* stylelint-disable property-no-vendor-prefix */
 .e-container .e-value-switch-btn::before {
   content: "\e748";
 }
@@ -6200,6 +6219,7 @@ input.e-input::-webkit-input-placeholder {
   line-height: 0;
 }
 
+/* stylelint-disable property-no-vendor-prefix */
 .e-colorpicker.e-modal, .e-colorpicker.e-hsv-model {
   -webkit-overflow-scrolling: touch;
   height: 100%;
