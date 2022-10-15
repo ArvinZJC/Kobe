@@ -8,7 +8,7 @@
 
 > 敲黑板了！敲黑板了！🔥
 
-1. 截至 2022 年 10 月 2 日，使用 Visual Studio Code（版本：1.71.2）和 Python 3.9 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
+1. 截至 2022 年 10 月 15 日，使用 Visual Studio Code（版本：1.72.2）和 Python 3.9 开发表现良好。此外，我要特别感谢 [Tushare Pro](https://tushare.pro/) 提供的宝贵数据。
 2. 插件主要的包参见下面的表格。更多信息请参见[`requirements.txt`](./requirements.txt)。
 
    | 名称          |  版本  |
