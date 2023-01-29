@@ -1,4 +1,4 @@
 onepush==1.2.0
-pandas==1.5.1
-python-dotenv==0.21.0
+pandas==1.5.3
+python-dotenv==0.21.1
 tushare==1.2.89
