@@ -8,6 +8,8 @@ Explore the [WinUI Gallery](https://www.microsoft.com/store/productId/9P3JFPWWDZ
 
 Relaunch Template Studio to modify the project by right-clicking on the project in `View -> Solution Explorer` then selecting `Add -> New Item (Template Studio)`.
 
+The Core project contains code that can be [reused across multiple application projects](https://docs.microsoft.com/dotnet/standard/net-standard#net-5-and-net-standard).
+
 ## Publishing
 
 For projects with MSIX packaging, right-click on the application project and select `Package and Publish -> Create App Packages...` to create an MSIX package.
