@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "Kobe (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "Kobe (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
